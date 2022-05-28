@@ -6,7 +6,7 @@ const client = new Client({
 
 client.on('ready', () => {
   console.log(`${client.user.tag}にログインしました！`)
-  console.log(client)
+  console.log(client.user)
 })
 
 client.on('message', message => {

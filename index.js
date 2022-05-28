@@ -4,6 +4,7 @@ const { Client, Intents } = require("discord.js");
 
 http
   .createServer((request, response) => {
+    console.log("★RECEIVED.")
     response.writeHead(200, { "Content-Type": "text/plain" });
     response.end("Discord bot is active now \n");
   })

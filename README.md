@@ -1,4 +1,4 @@
-# Discord sample bot working on glitch.com
+# Discord Bot
 
 ## How to launch bot
 

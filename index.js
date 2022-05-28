@@ -9,6 +9,7 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", (message) => {
+  console.log(`▶ [${message.author.tag}] ${message.content}`);
   if (message.mentions.users.has(client.user.id)) {
     message.reply("Hi!");
     return;

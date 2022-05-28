@@ -1,7 +1,7 @@
 {
   "name": "glitch-discord-bot",
   "version": "0.0.0",
-  "description": "discord bot sample on Glitch",
+  "description": "Discord Bot sample on Glitch",
   "main": "index.js",
   "dependencies": {
     "discord.js": "^13.7.0"
@@ -12,5 +12,9 @@
   },
   "engines": {
     "node": "16.x"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   }
 }

@@ -5,11 +5,10 @@ const client = new Client({
 });
 
 client.on('ready', () => {
-  console.log(`${client.user.tag}にログインしました！`)
-  console.log(client.user)
+  console.log(`${client.user.tag}でログインしました！`)
 })
 
-client.on('message', message => {
+client.on('messageCreate', message => {
   if (message.mentions.users.has(client.user.id)) {
     message.reply('呼びましたか？')
     return

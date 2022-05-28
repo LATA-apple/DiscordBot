@@ -1,21 +1,19 @@
-// Response for Uptime Robot
 const http = require("http");
 const { Client, Intents } = require("discord.js");
 
-http
-  .createServer((request, response) => {
-    console.log("★RECEIVED.")
-    response.writeHead(200, { "Content-Type": "text/plain" });
-    response.end("Discord bot is active now \n");
-  })
-  .listen(3000);
+const server = http.createServer();
+server.on("request", (req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Bot available.");
+});
+server.listen(process.env.PORT); //=> mapped to 80
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 
 client.on("ready", () => {
-  console.log(`${client.user.tag}でログインしました！`);
+  console.log(`==== Logged in: ${client.user.tag} ====`);
 });
 
 client.on("messageCreate", (message) => {

@@ -8,43 +8,7 @@ client.on("ready", () => {
   console.log(`==== Logged in: ${client.user.tag} ====`);
 });
 
-client.on('interactionCreate', async interaction => { //メッセージを受け取ったら
-    if (!interaction.isCommand()) return; //コマンド以外は無視
-
-    const { commandName } = interaction;
-  console.log(`==== command: ${commandName} ====`);
-  console.log(`==== options: ${interaction.options.getString('character')} ====`);
-  const character = interaction.slice(0, -8).trim();
-  console.log(`==== options: ${character} ====`);
-  
-    if (commandName === '炎キャラのステータス') {
-      if (interaction.options.getString('character') === "リネ ステータス") {
-        await interaction.reply('@');
-      }
-    } else if (commandName === '岩キャラのステータス') {
-        await interaction.reply('');
-    } else if (commandName === '水キャラのステータス') {
-        await interaction.reply('');
-    } else if (commandName === '草キャラのステータス') {
-        await interaction.reply('');
-    } else if (commandName === '氷キャラのステータス') {
-        await interaction.reply('');
-    } else if (commandName === '風キャラのステータス') {
-        await interaction.reply('');
-    } else if (commandName === '雷キャラのステータス') {
-        await interaction.reply('');
-    }
-});
-
-
-client.on("messageCreate", (message) => {
-  console.log(`▶ [${message.author.tag}] ${message.content}`);
-  if (message.mentions.users.has(client.user.id)) {
-    message.reply("Hi!");
-    return;
-  }
-  
-  const messageReplies = {
+const messageReplies = {
     //星5
     "ナヴィア": "\n【メインステータス】\n時の砂：攻撃力\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心ダメージ/会心率/攻撃力\n普：元素チャージ効率",
     "荒瀧一斗": "\n【メインステータス】\n時の：防御力\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心ダメージ/会心率/防御力\n普：元素チャージ効率/攻撃力",
@@ -129,6 +93,51 @@ client.on("messageCreate", (message) => {
     "リネット":"\n【メインステータス】\n時の砂：元素チャージ効率\n空の杯：風ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：元素チャージ効率/会心率/会心ダメ/攻撃力\n普：元素熟知",
     "早柚":"\n【メインステータス】\n時の砂：元素熟知/攻撃力/元素チャージ効率\n空の杯：元素熟知/攻撃力\n理の冠：元素熟知/治療効果\n【サブステータス】\n良：元素熟知/攻撃力\n普：元素チャージ効率/会心率/会心ダメ"
 };
+
+client.on('interactionCreate', async interaction => { //メッセージを受け取ったら
+    if (!interaction.isCommand()) return; //コマンド以外は無視
+
+    const { commandName } = interaction;
+  console.log(`==== command: ${commandName} ====`);
+  const characterstatus = interaction.options.getString('character');
+  const characterName = characterstatus.replace(" ステータス", "");
+  console.log(`==== options: ${characterName} ====`);
+  
+    if (commandName === '炎キャラのステータス') {
+      if (characterName === "リネ") {
+        if (messageReplies.hasOwnProperty(characterName)) {
+        const characterStats = messageReplies[characterName];
+          console.log(characterStats);
+          await interaction.reply(characterStats);
+        } else {
+          console.log(`${characterName}のステータスは登録されていません。`);
+          await interaction.reply('${characterName}のステータスは登録されていません。');
+        }
+      }
+    } else if (commandName === '岩キャラのステータス') {
+        await interaction.reply('');
+    } else if (commandName === '水キャラのステータス') {
+        await interaction.reply('');
+    } else if (commandName === '草キャラのステータス') {
+        await interaction.reply('');
+    } else if (commandName === '氷キャラのステータス') {
+        await interaction.reply('');
+    } else if (commandName === '風キャラのステータス') {
+        await interaction.reply('');
+    } else if (commandName === '雷キャラのステータス') {
+        await interaction.reply('');
+    }
+});
+
+
+client.on("messageCreate", (message) => {
+  console.log(`▶ [${message.author.tag}] ${message.content}`);
+  if (message.mentions.users.has(client.user.id)) {
+    message.reply("Hi!");
+    return;
+  }
+  
+  
   /////
   client.on('interactionCreate', async interaction => {
   if (!interaction.isCommand()) return;

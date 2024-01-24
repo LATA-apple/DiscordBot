@@ -98,34 +98,88 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     if (!interaction.isCommand()) return; //コマンド以外は無視
 
     const { commandName } = interaction;
-  console.log(`==== command: ${commandName} ====`);
-  const characterstatus = interaction.options.getString('character');
-  const characterName = characterstatus.replace(" ステータス", "");
-  console.log(`==== options: ${characterName} ====`);
-  
-    if (commandName === '炎キャラのステータス') {
-      if (characterName === "リネ") {
+    console.log(`==== command: ${commandName} ====`);
+    const characterstatus = interaction.options.getString('character');
+    const characterName = characterstatus.replace(" ステータス", "");
+    console.log(`==== options: ${characterName} ====`);
+    
+    if (commandName === `炎キャラのステータス`) {
+      if (characterName in messageReplies) {
         if (messageReplies.hasOwnProperty(characterName)) {
         const characterStats = messageReplies[characterName];
           console.log(characterStats);
-          await interaction.reply(characterStats);
+          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
         } else {
           console.log(`${characterName}のステータスは登録されていません。`);
-          await interaction.reply('${characterName}のステータスは登録されていません。');
+          await interaction.reply(`${characterName}のステータスは登録されていません。`);
         }
       }
     } else if (commandName === '岩キャラのステータス') {
-        await interaction.reply('');
+        if (characterName in messageReplies) {
+        if (messageReplies.hasOwnProperty(characterName)) {
+        const characterStats = messageReplies[characterName];
+          console.log(characterStats);
+          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+        } else {
+          console.log(`${characterName}のステータスは登録されていません。`);
+          await interaction.reply(`${characterName}のステータスは登録されていません。`);
+        }
+      }
     } else if (commandName === '水キャラのステータス') {
-        await interaction.reply('');
+        if (characterName in messageReplies) {
+        if (messageReplies.hasOwnProperty(characterName)) {
+        const characterStats = messageReplies[characterName];
+          console.log(characterStats);
+          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+        } else {
+          console.log(`${characterName}のステータスは登録されていません。`);
+          await interaction.reply(`${characterName}のステータスは登録されていません。`);
+        }
+      }
     } else if (commandName === '草キャラのステータス') {
-        await interaction.reply('');
+        if (characterName in messageReplies) {
+        if (messageReplies.hasOwnProperty(characterName)) {
+        const characterStats = messageReplies[characterName];
+          console.log(characterStats);
+          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+        } else {
+          console.log(`${characterName}のステータスは登録されていません。`);
+          await interaction.reply(`${characterName}のステータスは登録されていません。`);
+        }
+      }
     } else if (commandName === '氷キャラのステータス') {
-        await interaction.reply('');
+        if (characterName in messageReplies) {
+        if (messageReplies.hasOwnProperty(characterName)) {
+        const characterStats = messageReplies[characterName];
+          console.log(characterStats);
+          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+        } else {
+          console.log(`${characterName}のステータスは登録されていません。`);
+          await interaction.reply(`${characterName}のステータスは登録されていません。`);
+        }
+      }
     } else if (commandName === '風キャラのステータス') {
-        await interaction.reply('');
+        if (characterName in messageReplies) {
+        if (messageReplies.hasOwnProperty(characterName)) {
+        const characterStats = messageReplies[characterName];
+          console.log(characterStats);
+          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+        } else {
+          console.log(`${characterName}のステータスは登録されていません。`);
+          await interaction.reply(`${characterName}のステータスは登録されていません。`);
+        }
+      }
     } else if (commandName === '雷キャラのステータス') {
-        await interaction.reply('');
+        if (characterName in messageReplies) {
+        if (messageReplies.hasOwnProperty(characterName)) {
+        const characterStats = messageReplies[characterName];
+          console.log(characterStats);
+          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+        } else {
+          console.log(`${characterName}のステータスは登録されていません。`);
+          await interaction.reply(`${characterName}のステータスは登録されていません。`);
+        }
+      }
     }
 });
 
@@ -136,27 +190,6 @@ client.on("messageCreate", (message) => {
     message.reply("Hi!");
     return;
   }
-  
-  
-  /////
-  client.on('interactionCreate', async interaction => {
-  if (!interaction.isCommand()) return;
-
-  const { commandName, options } = interaction;
-  console.log(`==== command: ${commandName} ====`);
-
-  if (commandName === '炎キャラのステータス') {
-    const characterName = options.getString('${interaction.options}'); // 'name' はスラッシュコマンドのオプションの名前に合わせて変更する
-    const replyMessage = messageReplies[characterName];
-
-    if (replyMessage) {
-      await interaction.reply(replyMessage);
-    } else {
-      await interaction.reply('該当するキャラクターの情報が見つかりませんでした。');
-    }
-  }
-});
-/////
   
 const content = message.content;
 const statusKeywords = [" ステータス", "　ステータス", "のステータス"]; // 半角スペースと全角スペース

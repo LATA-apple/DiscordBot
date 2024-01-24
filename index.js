@@ -15,13 +15,8 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
   console.log(`==== command: ${commandName} ====`);
   
     if (commandName === '炎キャラのステータス') {
-      const optionValue = interaction.options.getString("リネ");
-      if (optionValue === "リネ") {
-        const characterName = "リネ";  // 例として「リネ」を設定
-      if (messageReplies.hasOwnProperty(characterName)) {
-        const replyText = messageReplies[characterName];
-        await interaction.reply(replyText);
-      }
+      if ((interaction.options) = "リネ") {
+        await interaction.reply('@');
       }
         await interaction.reply('1');
     } else if (commandName === '岩キャラのステータス') {

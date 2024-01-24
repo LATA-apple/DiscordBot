@@ -12,13 +12,18 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     if (!interaction.isCommand()) return; //コマンド以外は無視
 
     const { commandName } = interaction;
+  console.log(`==== command: ${commandName} ====`);
 
     if (commandName === '炎キャラのステータス') {
         await interaction.reply('1');
     } else if (commandName === '岩キャラのステータス') {
-        await interaction.reply('2');
+        await interaction.reply('');
     } else if (commandName === '水キャラのステータス') {
-        await interaction.reply('3');
+        await interaction.reply('');
+    } else if (commandName === '岩キャラのステータス') {
+        await interaction.reply('');
+    } else if (commandName === '水キャラのステータス') {
+        await interaction.reply('');
     }
 });
 

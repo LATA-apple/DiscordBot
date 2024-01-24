@@ -15,7 +15,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
   console.log(`==== command: ${commandName} ====`);
   
     if (commandName === '炎キャラのステータス') {
-      if ((interaction.options) = "リネ") {
+      if ((interaction.options) === "リネ") {
         await interaction.reply('@');
       }
         await interaction.reply('1');
@@ -127,7 +127,26 @@ client.on("messageCreate", (message) => {
     "リネット":"\n【メインステータス】\n時の砂：元素チャージ効率\n空の杯：風ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：元素チャージ効率/会心率/会心ダメ/攻撃力\n普：元素熟知",
     "早柚":"\n【メインステータス】\n時の砂：元素熟知/攻撃力/元素チャージ効率\n空の杯：元素熟知/攻撃力\n理の冠：元素熟知/治療効果\n【サブステータス】\n良：元素熟知/攻撃力\n普：元素チャージ効率/会心率/会心ダメ"
 };
+  /////
+  client.on('interactionCreate', async interaction => {
+  if (!interaction.isCommand()) return;
 
+  const { commandName, options } = interaction;
+  console.log(`==== command: ${commandName} ====`);
+
+  if (commandName === '炎キャラのステータス') {
+    const characterName = options.getString('${interaction.options}'); // 'name' はスラッシュコマンドのオプションの名前に合わせて変更する
+    const replyMessage = messageReplies[characterName];
+
+    if (replyMessage) {
+      await interaction.reply(replyMessage);
+    } else {
+      await interaction.reply('該当するキャラクターの情報が見つかりませんでした。');
+    }
+  }
+});
+/////
+  
 const content = message.content;
 const statusKeywords = [" ステータス", "　ステータス", "のステータス"]; // 半角スペースと全角スペース
 

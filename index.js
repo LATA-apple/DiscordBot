@@ -6,6 +6,7 @@ const client = new Client({
 
 client.on("ready", () => {
   console.log(`==== Logged in: ${client.user.tag} ====`);
+  client.user.setPresence({ activity: { name: "げーむ" } });
 });
 
 const messageReplies = {
@@ -185,13 +186,12 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
 
     const { commandName } = interaction;
     console.log(`==== command: ${commandName} ====`);
+  
+  if (/ステータス/.test(commandName)) {
+    // "ステータス" を含む処理
     const characterstatus = interaction.options.getString('character');
     const characterName = characterstatus.replace(" ステータス", "");
     console.log(`==== ステータスキャラ: ${characterName} ====`);
-  　const armsstatus = interaction.options.getString('arms');
-    const armsName = armsstatus.replace(" 武器", "");
-    console.log(`==== 武器キャラ: ${armsName} ====`);
-  
     
     if (commandName === `炎キャラのステータス`) {
       if (characterName in messageReplies) {
@@ -256,7 +256,15 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
           await interaction.reply(`${characterName}のステータスは登録されていません。`);
         }
       }
-    } else if (commandName === `炎キャラの武器`) {
+    }
+    
+} else if (/武器/.test(commandName)) {
+    // "武器" を含む処理
+    const armsstatus = interaction.options.getString('arms');
+    const armsName = armsstatus.replace(" 武器", "");
+    console.log(`==== 武器キャラ: ${armsName} ====`);
+    
+    if (commandName === `炎キャラの武器`) {
       if (armsName in messageReplies) {
         if (messageReplies.hasOwnProperty(armsName)) {
         const characterStats = messageReplies[armsName];
@@ -320,6 +328,13 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
         }
       }
     }
+    
+} else {
+    // 上記以外のコマンド名の処理
+    await interaction.reply("予期せぬ不具合が発生しました。");
+}
+    
+    
 });
 
 //Botメンション

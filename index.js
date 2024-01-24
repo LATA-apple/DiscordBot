@@ -11,11 +11,12 @@ client.on("ready", () => {
 client.on('interactionCreate', async interaction => { //メッセージを受け取ったら
     if (!interaction.isCommand()) return; //コマンド以外は無視
 
-    const { commandName } = interaction;
+    const { commandName, option } = interaction;
   console.log(`==== command: ${commandName} ====`);
+  console.log(`==== options: ${option} ====`);
   
     if (commandName === '炎キャラのステータス') {
-      if ((interaction.options) === "リネ") {
+      if (interaction.getSubcommand() === "リネ") {
         await interaction.reply('@');
       }
         await interaction.reply('1');

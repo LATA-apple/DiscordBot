@@ -15,6 +15,9 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
   console.log(`==== command: ${commandName} ====`);
   
     if (commandName === '炎キャラのステータス') {
+      if ((interaction.options) = "リネ") {
+        await interaction.reply('@');
+      }
         await interaction.reply('1');
     } else if (commandName === '岩キャラのステータス') {
         await interaction.reply('');

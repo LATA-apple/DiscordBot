@@ -11,15 +11,16 @@ client.on("ready", () => {
 client.on('interactionCreate', async interaction => { //メッセージを受け取ったら
     if (!interaction.isCommand()) return; //コマンド以外は無視
 
-    const { commandName, option } = interaction;
+    const { commandName } = interaction;
   console.log(`==== command: ${commandName} ====`);
-  console.log(`==== options: ${option} ====`);
+  console.log(`==== options: ${interaction.options.getString('character')} ====`);
+  const originalString = interaction.options.getString('character');
+  const modifiedString = originalString.endsWith(' ステータス') ? originalString.slice(0, -8) : originalString;
   
     if (commandName === '炎キャラのステータス') {
-      if (interaction.getSubcommand() === "リネ") {
+      if (modifiedString === "リネ") {
         await interaction.reply('@');
       }
-        await interaction.reply('1');
     } else if (commandName === '岩キャラのステータス') {
         await interaction.reply('');
     } else if (commandName === '水キャラのステータス') {

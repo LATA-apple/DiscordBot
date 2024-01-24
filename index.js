@@ -256,6 +256,69 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
           await interaction.reply(`${characterName}のステータスは登録されていません。`);
         }
       }
+    } else if (commandName === `炎キャラの武器`) {
+      if (armsName in messageReplies) {
+        if (messageReplies.hasOwnProperty(armsName)) {
+        const characterStats = messageReplies[armsName];
+          await interaction.reply(`${armsName}の武器\n${characterStats}`);
+        } else {
+          await interaction.reply(`${armsName}の武器は登録されていません。`);
+        }
+      }
+    } else if (commandName === '岩キャラの武器') {
+        if (armsName in messageReplies) {
+        if (messageReplies.hasOwnProperty(armsName)) {
+        const characterStats = messageReplies[armsName];
+          await interaction.reply(`${armsName}の武器\n${characterStats}`);
+        } else {
+          await interaction.reply(`${armsName}の武器は登録されていません。`);
+        }
+      }
+    } else if (commandName === '水キャラの武器') {
+        if (armsName in messageReplies) {
+        if (messageReplies.hasOwnProperty(armsName)) {
+        const characterStats = messageReplies[armsName];
+          await interaction.reply(`${armsName}の武器\n${characterStats}`);
+        } else {
+          await interaction.reply(`${armsName}の武器は登録されていません。`);
+        }
+      }
+    } else if (commandName === '草キャラの武器') {
+        if (armsName in messageReplies) {
+        if (messageReplies.hasOwnProperty(armsName)) {
+        const characterStats = messageReplies[armsName];
+          await interaction.reply(`${armsName}の武器\n${characterStats}`);
+        } else {
+          await interaction.reply(`${armsName}の武器は登録されていません。`);
+        }
+      }
+    } else if (commandName === '氷キャラの武器') {
+        if (armsName in messageReplies) {
+        if (messageReplies.hasOwnProperty(armsName)) {
+        const characterStats = messageReplies[armsName];
+          await interaction.reply(`${armsName}の武器\n${characterStats}`);
+        } else {
+          await interaction.reply(`${armsName}の武器は登録されていません。`);
+        }
+      }
+    } else if (commandName === '風キャラの武器') {
+        if (armsName in messageReplies) {
+        if (messageReplies.hasOwnProperty(armsName)) {
+        const characterStats = messageReplies[armsName];
+          await interaction.reply(`${armsName}の武器\n${characterStats}`);
+        } else {
+          await interaction.reply(`${armsName}の武器は登録されていません。`);
+        }
+      }
+    } else if (commandName === '雷キャラの武器') {
+        if (armsName in messageReplies) {
+        if (messageReplies.hasOwnProperty(armsName)) {
+        const characterStats = messageReplies[armsName];
+          await interaction.reply(`${armsName}の武器\n${characterStats}`);
+        } else {
+          await interaction.reply(`${armsName}の武器は登録されていません。`);
+        }
+      }
     }
 });
 

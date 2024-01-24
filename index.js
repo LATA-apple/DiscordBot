@@ -38,6 +38,7 @@ const messageReplies = {
     "ディシア":"\n【メインステータス】\n時の砂：攻撃力/HP\n空の杯：炎ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力/HP\n普：元素チャージ効率/元素熟知",
     "ディルック":"\n【メインステータス】\n時の砂：攻撃力\n空の杯：炎ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力\n普：元素チャージ効率/元素熟知",
     "宵宮":"\n【メインステータス】\n時の砂：攻撃力\n空の杯：炎ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力\n普：元素熟知",
+    //"閑雲":"",
     "アルハイゼン":"\n【メインステータス】\n時の砂：攻撃力/元素熟知\n空の杯：草ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：元素熟知/会心率/会心ダメ/攻撃力\n普：元素チャージ効率",
     "ナヒーダ":"\n【メインステータス】\n時の砂：元素熟知\n空の杯：草ダメ/元素熟知\n理の冠：会心率/元素熟知\n【サブステータス】\n良：元素熟知/会心率/会心ダメ\n普：攻撃力/元素チャージ効率",
     "ティナリ":"\n【メインステータス】\n時の砂：元素熟知\n空の杯：草ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力/元素熟知\n普：元素チャージ効率",
@@ -77,6 +78,7 @@ const messageReplies = {
     "アンバー":"\n【メインステータス】\n時の砂：攻撃力\n空の杯：炎ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力/元素チャージ効率\n普：元素熟知",
     "煙緋":"\n【メインステータス】\n時の砂：攻撃力\n空の杯：炎ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力\n普：元素チャージ効率/元素熟知",
     "ベネット":"\n【メインステータス】\n時の砂：元素チャージ効率\n空の杯：HP\n理の冠：HP/治療効果\n【サブステータス】\n良：HP/元素チャージ効率\n普：会心率/会心ダメ/元素熟知",
+    //"嘉明":"",
     "綺良々":"\n【メインステータス】\n時の砂：HP\n空の杯：HP\n理の冠：HP\n【サブステータス】\n良：HP/攻撃力/会心率/会心ダメ\n普：元素チャージ効率/元素熟知",
     "ヨォーヨ":"\n【メインステータス】\n時の砂：HP/元素チャージ効率\n空の杯：HP\n理の冠：治療効果/HP\n【サブステータス】\n良：HP/元素チャージ効率\n普：元素熟知/会心率/会心ダメ/攻撃力",
     "カーヴェ":"\n【メインステータス】\n時の砂：元素チャージ効率/元素熟知\n空の杯：元素熟知\n理の冠：元素熟知\n【サブステータス】\n良：元素チャージ効率/元素熟知\n普：攻撃力/会心率/会心ダメ/HP",
@@ -124,6 +126,7 @@ const messageReplies1 = {
     "ディシア":"\n🟠葦海の標\n🟠狼の末路\n🟠赤角石塵滅砕\n🟣螭龍の剣\n🟣携帯型チェーンソー\n🟣鉄彩の花\n🟣雨裁\n🟣マカイラの水色\n🟣西風大剣\n🟣桂木斬長正\n🟣タイダル・シャドー\n🟣鐘の剣",
     "ディルック":"\n🟠葦海の標\n🟠狼の末路\n🟠赤角石塵滅砕\n🟣螭龍の剣\n🟣タイダル・シャドー\n🟣鉄彩の花\n🟣マカイラの水色\n🟣雨裁\n🟣祭礼の大剣",
     "宵宮":"\n🟠飛雷の鳴弦\n🟠若水\n🟠天空の翼\n🟠アモスの弓\n🟣弓蔵\n🟣破魔の弓",
+    //"閑雲":"",
     "アルハイゼン":"\n🟠萃光の裁葉\n🟠磐岩結緑\n🟠霧切の廻光\n🟠波乱月白経津\n🟣黒剣\n🟣狼牙\n🔵黎明の神剣\n🟣鉄蜂の刺し\n🟣サイフォスの月明かり\n🟣東花坊時雨",
     "ナヒーダ":"\n🟠千夜に浮かぶ夢\n🟠神楽の真意\n🔵魔導緒論\n🟣彷徨える星\n🟣祭礼の断片\n🟣金珀・試作",
     "ティナリ":"\n🟠狩人の道\n🟠アモスの弓\n🟠始まりの大魔術\n🟠冬極の白星\n🟣烈日の後嗣\n🟣破魔の弓",
@@ -163,6 +166,7 @@ const messageReplies1 = {
     "アンバー":"\n🟠冬極の白星\n🟠天空の翼\n🔵弾弓\n🔵シャープシューターの誓い",
     "煙緋":"\n🟠四風原典\n🟣流浪楽章\n🟠浮世の錠\n🟠天空の巻\n🟣ドドコの物語\n🟣黒岩の緋玉",
     "ベネット":"\n🟠霧切の廻光\n🟠風鷹剣\n🟠天空の刃\n🟣ダークアレイの閃光\n🟣西風剣\n🟣原木刀",
+    //"嘉明":"",
     "綺良々":"\n🟠聖顕の鍵\n🟠磐岩結緑\n🟣船渠剣\n🟣西風剣\n🟣祭礼の剣",
     "ヨォーヨ":"\n🟣西風長槍\n🟣正義の報酬\n🔵黒纓槍\n🟣喜多院十文字槍\n🟣ムーンピアサー",
     "カーヴェ":"\n🟣マカイラの水色\n🟣西風大剣\n🟣祭礼の大剣\n🟣鉄彩の花\n🟣森林のレガリア\n🟣雨裁",
@@ -196,65 +200,79 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     if (commandName === `炎キャラのステータス`) {
       if (characterName in messageReplies) {
         if (messageReplies.hasOwnProperty(characterName)) {
-        const characterStats = messageReplies[characterName];
-          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
-        } else {
-          await interaction.reply(`${characterName}のステータスは登録されていません。`);
-        }
+          const characterStats = messageReplies[characterName];
+            await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+          } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
       }
     } else if (commandName === '岩キャラのステータス') {
         if (characterName in messageReplies) {
-        if (messageReplies.hasOwnProperty(characterName)) {
-        const characterStats = messageReplies[characterName];
-          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
-        } else {
-          await interaction.reply(`${characterName}のステータスは登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(characterName)) {
+          const characterStats = messageReplies[characterName];
+            await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+          } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
       }
     } else if (commandName === '水キャラのステータス') {
         if (characterName in messageReplies) {
-        if (messageReplies.hasOwnProperty(characterName)) {
-        const characterStats = messageReplies[characterName];
-          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
-        } else {
-          await interaction.reply(`${characterName}のステータスは登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(characterName)) {
+          const characterStats = messageReplies[characterName];
+            await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+          } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
       }
     } else if (commandName === '草キャラのステータス') {
         if (characterName in messageReplies) {
-        if (messageReplies.hasOwnProperty(characterName)) {
-        const characterStats = messageReplies[characterName];
-          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
-        } else {
-          await interaction.reply(`${characterName}のステータスは登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(characterName)) {
+          const characterStats = messageReplies[characterName];
+            await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+          } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
       }
     } else if (commandName === '氷キャラのステータス') {
         if (characterName in messageReplies) {
-        if (messageReplies.hasOwnProperty(characterName)) {
-        const characterStats = messageReplies[characterName];
-          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
-        } else {
-          await interaction.reply(`${characterName}のステータスは登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(characterName)) {
+          const characterStats = messageReplies[characterName];
+            await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+          } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
       }
     } else if (commandName === '風キャラのステータス') {
         if (characterName in messageReplies) {
-        if (messageReplies.hasOwnProperty(characterName)) {
-        const characterStats = messageReplies[characterName];
-          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
-        } else {
-          await interaction.reply(`${characterName}のステータスは登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(characterName)) {
+          const characterStats = messageReplies[characterName];
+            await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+          } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
       }
     } else if (commandName === '雷キャラのステータス') {
         if (characterName in messageReplies) {
-        if (messageReplies.hasOwnProperty(characterName)) {
-        const characterStats = messageReplies[characterName];
-          await interaction.reply(`${characterName}のステータス\n${characterStats}`);
-        } else {
-          await interaction.reply(`${characterName}のステータスは登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(characterName)) {
+          const characterStats = messageReplies[characterName];
+            await interaction.reply(`${characterName}のステータス\n${characterStats}`);
+          } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${characterName}のステータスは登録されていません。`);
       }
     }
     
@@ -272,60 +290,74 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
         } else {
           await interaction.reply(`${armsName}の武器は登録されていません。`);
         }
+      } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
       }
     } else if (commandName === '岩キャラの武器') {
         if (armsName in messageReplies) {
-        if (messageReplies.hasOwnProperty(armsName)) {
-        const characterStats = messageReplies[armsName];
-          await interaction.reply(`${armsName}の武器\n${characterStats}`);
-        } else {
-          await interaction.reply(`${armsName}の武器は登録されていません。`);
+          if (messageReplies.hasOwnProperty(armsName)) {
+          const characterStats = messageReplies[armsName];
+            await interaction.reply(`${armsName}の武器\n${characterStats}`);
+          } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
         }
+      } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
       }
     } else if (commandName === '水キャラの武器') {
         if (armsName in messageReplies) {
-        if (messageReplies.hasOwnProperty(armsName)) {
-        const characterStats = messageReplies[armsName];
-          await interaction.reply(`${armsName}の武器\n${characterStats}`);
-        } else {
-          await interaction.reply(`${armsName}の武器は登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(armsName)) {
+          const characterStats = messageReplies[armsName];
+            await interaction.reply(`${armsName}の武器\n${characterStats}`);
+          } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
       }
     } else if (commandName === '草キャラの武器') {
         if (armsName in messageReplies) {
-        if (messageReplies.hasOwnProperty(armsName)) {
-        const characterStats = messageReplies[armsName];
-          await interaction.reply(`${armsName}の武器\n${characterStats}`);
-        } else {
-          await interaction.reply(`${armsName}の武器は登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(armsName)) {
+          const characterStats = messageReplies[armsName];
+            await interaction.reply(`${armsName}の武器\n${characterStats}`);
+          } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
       }
     } else if (commandName === '氷キャラの武器') {
         if (armsName in messageReplies) {
-        if (messageReplies.hasOwnProperty(armsName)) {
-        const characterStats = messageReplies[armsName];
-          await interaction.reply(`${armsName}の武器\n${characterStats}`);
-        } else {
-          await interaction.reply(`${armsName}の武器は登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(armsName)) {
+          const characterStats = messageReplies[armsName];
+            await interaction.reply(`${armsName}の武器\n${characterStats}`);
+          } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
       }
     } else if (commandName === '風キャラの武器') {
         if (armsName in messageReplies) {
-        if (messageReplies.hasOwnProperty(armsName)) {
-        const characterStats = messageReplies[armsName];
-          await interaction.reply(`${armsName}の武器\n${characterStats}`);
-        } else {
-          await interaction.reply(`${armsName}の武器は登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(armsName)) {
+          const characterStats = messageReplies[armsName];
+            await interaction.reply(`${armsName}の武器\n${characterStats}`);
+          } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
       }
     } else if (commandName === '雷キャラの武器') {
         if (armsName in messageReplies) {
-        if (messageReplies.hasOwnProperty(armsName)) {
-        const characterStats = messageReplies[armsName];
-          await interaction.reply(`${armsName}の武器\n${characterStats}`);
-        } else {
-          await interaction.reply(`${armsName}の武器は登録されていません。`);
-        }
+          if (messageReplies.hasOwnProperty(armsName)) {
+          const characterStats = messageReplies[armsName];
+            await interaction.reply(`${armsName}の武器\n${characterStats}`);
+          } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
+          }
+      } else {
+            await interaction.reply(`${armsName}の武器は登録されていません。`);
       }
     }
     

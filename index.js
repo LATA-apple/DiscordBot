@@ -8,6 +8,21 @@ client.on("ready", () => {
   console.log(`==== Logged in: ${client.user.tag} ====`);
 });
 
+client.on('interactionCreate', async interaction => { //メッセージを受け取ったら
+    if (!interaction.isCommand()) return; //コマンド以外は無視
+
+    const { commandName } = interaction;
+
+    if (commandName === '炎キャラのステータス') {
+        await interaction.reply('1');
+    } else if (commandName === '岩キャラのステータス') {
+        await interaction.reply('2');
+    } else if (commandName === '水キャラのステータス') {
+        await interaction.reply('3');
+    }
+});
+
+
 client.on("messageCreate", (message) => {
   console.log(`▶ [${message.author.tag}] ${message.content}`);
   if (message.mentions.users.has(client.user.id)) {

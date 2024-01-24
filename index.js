@@ -14,11 +14,11 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     const { commandName } = interaction;
   console.log(`==== command: ${commandName} ====`);
   console.log(`==== options: ${interaction.options.getString('character')} ====`);
-  const originalString = interaction.options.getString('character');
-  const modifiedString = originalString.endsWith(' ステータス') ? originalString.slice(0, -8) : originalString;
+  const character = interaction.slice(0, -8).trim();
+  console.log(`==== options: ${character} ====`);
   
     if (commandName === '炎キャラのステータス') {
-      if (modifiedString === "リネ") {
+      if (interaction.options.getString('character') === "リネ ステータス") {
         await interaction.reply('@');
       }
     } else if (commandName === '岩キャラのステータス') {

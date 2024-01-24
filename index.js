@@ -13,16 +13,20 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
 
     const { commandName } = interaction;
   console.log(`==== command: ${commandName} ====`);
-
+  
     if (commandName === '炎キャラのステータス') {
         await interaction.reply('1');
     } else if (commandName === '岩キャラのステータス') {
         await interaction.reply('');
     } else if (commandName === '水キャラのステータス') {
         await interaction.reply('');
-    } else if (commandName === '岩キャラのステータス') {
+    } else if (commandName === '草キャラのステータス') {
         await interaction.reply('');
-    } else if (commandName === '水キャラのステータス') {
+    } else if (commandName === '氷キャラのステータス') {
+        await interaction.reply('');
+    } else if (commandName === '風キャラのステータス') {
+        await interaction.reply('');
+    } else if (commandName === '雷キャラのステータス') {
         await interaction.reply('');
     }
 });

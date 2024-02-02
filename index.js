@@ -11,11 +11,11 @@ client.on("ready", () => {
 
 const messageReplies = {
     //星5
-    "ナヴィア": "\n【メインステータス】\n時の砂：攻撃力\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心ダメージ/会心率/攻撃力\n普：元素チャージ効率",
-    "荒瀧一斗": "\n【メインステータス】\n時の：防御力\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心ダメージ/会心率/防御力\n普：元素チャージ効率/攻撃力",
-    "主人公(岩)": "\n【メインステータス】\n時の砂：攻撃%\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：元素チャージ効率/会心ダメージ/会心率\n普：攻撃力",
-    "アルベド": "\n【メインステータス】\n時の砂：防御力\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ/防御力\n【サブステータス】\n良：会心ダメージ/会心率/防御力\n普：攻撃力",
-    "鍾離": "\n【メインステータス】\n時の砂：攻撃力%/チャージ/HP%\n空の杯：会心率/会心ダメ\n理の冠：会心率/会心ダメ/防御力\n【サブステータス】\n良：会心ダメージ/会心率/元素チャージ効率\n普：攻撃力/HP",
+    "ナヴィア":"\n【メインステータス】\n時の砂：攻撃力\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心ダメージ/会心率/攻撃力\n普：元素チャージ効率",
+    "荒瀧一斗":"\n【メインステータス】\n時の：防御力\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心ダメージ/会心率/防御力\n普：元素チャージ効率/攻撃力",
+    "主人公(岩)":"\n【メインステータス】\n時の砂：攻撃%\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：元素チャージ効率/会心ダメージ/会心率\n普：攻撃力",
+    "アルベド":"\n【メインステータス】\n時の砂：防御力\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ/防御力\n【サブステータス】\n良：会心ダメージ/会心率/防御力\n普：攻撃力",
+    "鍾離":"\n【メインステータス】\n時の砂：攻撃力%/チャージ/HP%\n空の杯：会心率/会心ダメ\n理の冠：会心率/会心ダメ/防御力\n【サブステータス】\n良：会心ダメージ/会心率/元素チャージ効率\n普：攻撃力/HP",
     "珊瑚宮心海":"\n【メインステータス】\n時の砂：HP/元素熟知\n空の杯：HP/水ダメ\n理の冠：治癒効果\n【サブステータス】\n良：HP/元素熟知\n普：攻撃力/元素チャージ効率",
     "主人公(水)":"\n【メインステータス】\n時の砂：HP\n空の杯：水ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：HP/会心率/会心ダメ/攻撃力\n普：元素チャージ効率/元素熟知",
     "フリーナ":"\n【メインステータス】\n時の砂：HP/元素チャージ効率\n空の杯：HP/水ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/HP\n普：元素チャージ効率/元素熟知",
@@ -38,7 +38,6 @@ const messageReplies = {
     "ディシア":"\n【メインステータス】\n時の砂：攻撃力/HP\n空の杯：炎ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力/HP\n普：元素チャージ効率/元素熟知",
     "ディルック":"\n【メインステータス】\n時の砂：攻撃力\n空の杯：炎ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力\n普：元素チャージ効率/元素熟知",
     "宵宮":"\n【メインステータス】\n時の砂：攻撃力\n空の杯：炎ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力\n普：元素熟知",
-    "閑雲":"\n【メインステータス】\n時の砂：攻撃力/元素チャージ効率\n空の杯：攻撃力\n理の冠：攻撃力\n【サブステータス】\n良：攻撃力/元素チャージ効率\n普：会心率/会心ダメ",
     "アルハイゼン":"\n【メインステータス】\n時の砂：攻撃力/元素熟知\n空の杯：草ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：元素熟知/会心率/会心ダメ/攻撃力\n普：元素チャージ効率",
     "ナヒーダ":"\n【メインステータス】\n時の砂：元素熟知\n空の杯：草ダメ/元素熟知\n理の冠：会心率/元素熟知\n【サブステータス】\n良：元素熟知/会心率/会心ダメ\n普：攻撃力/元素チャージ効率",
     "ティナリ":"\n【メインステータス】\n時の砂：元素熟知\n空の杯：草ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力/元素熟知\n普：元素チャージ効率",
@@ -55,6 +54,7 @@ const messageReplies = {
     "ウェンティ":"\n【メインステータス】\n時の砂：攻撃力/元素熟知\n空の杯：風ダメ/元素熟知\n理の冠：会心率/会心ダメ/元素熟知\n【サブステータス】\n良：元素熟知/攻撃力\n普：会心率/会心ダメ/元素チャージ効率",
     "楓原万葉":"\n【メインステータス】\n時の砂：元素熟知\n空の杯：元素熟知\n理の冠：元素熟知\n【サブステータス】\n良：元素熟知/元素チャージ効率\n普：会心率/会心ダメ/攻撃力",
     "魈":"\n【メインステータス】\n時の砂：攻撃力\n空の杯：風ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力\n普：元素チャージ効率",
+    "閑雲":"\n【メインステータス】\n時の砂：攻撃力/元素チャージ効率\n空の杯：攻撃力\n理の冠：攻撃力\n【サブステータス】\n良：攻撃力/元素チャージ効率\n普：会心率/会心ダメ",
     //星4
     "凝光":"\n【メインステータス】\n時の砂：攻撃力\n空の杯：岩ダメ\n理の冠：会心率/会心ダメ\n【サブステータス】\n良：会心率/会心ダメ/攻撃力\n普：元素チャージ効率",
     "ゴロー":"\n【メインステータス】\n時の砂：防御力/元素チャージ効率\n空の杯：防御力/岩ダメ\n理の冠：会心率/防御力\n【サブステータス】\n良：元素チャージ効率/防御力\n普：会心率/会心ダメ",
@@ -99,11 +99,11 @@ const messageReplies = {
 
 const messageReplies1 = {
     //星5
-    "ナヴィア": "\n🟠裁断\n🟠葦海の標\n🟠狼の末路\n🟣無工の剣\n🟣螭龍の剣\n🟣祭礼の大剣\n🟣タイダル・シャドー",
-    "荒瀧一斗": "\n🟠赤角石塵滅砕\n🟣白影の剣\n🟠天空の傲\n🟣螭龍の剣\n🔵鉄影段平",
-    "主人公(岩)": "\n🟠天空の刃\n🟣祭礼の剣\n🟠磐岩結緑\n🟣西風剣\n🟣腐植の剣\n🟠霧切の廻光\n🟣サーンドルの渡し守",
-    "アルベド": "\n🟣シナバースピンドル\n🔵黎明の神剣\n🟣狼牙\n🟠磐岩結緑",
-    "鍾離": "\n🟣西風長槍\n🔵黒纓槍\n🟣正義の報酬",
+    "ナヴィア":"\n🟠裁断\n🟠葦海の標\n🟠狼の末路\n🟣無工の剣\n🟣螭龍の剣\n🟣祭礼の大剣\n🟣タイダル・シャドー",
+    "荒瀧一斗":"\n🟠赤角石塵滅砕\n🟣白影の剣\n🟠天空の傲\n🟣螭龍の剣\n🔵鉄影段平",
+    "主人公(岩)":"\n🟠天空の刃\n🟣祭礼の剣\n🟠磐岩結緑\n🟣西風剣\n🟣腐植の剣\n🟠霧切の廻光\n🟣サーンドルの渡し守",
+    "アルベド":"\n🟣シナバースピンドル\n🔵黎明の神剣\n🟣狼牙\n🟠磐岩結緑",
+    "鍾離":"\n🟣西風長槍\n🔵黒纓槍\n🟣正義の報酬",
     "珊瑚宮心海":"\n🔵龍殺しの英傑譚\n🟣祭礼の断片\n🟠千夜に浮かぶ夢\n🟠不滅の月華\n🟣金珀・試作",
     "主人公(水)":"\n🟠磐岩結緑\n🟣腐植の剣\n🟣サーンドルの渡し守\n🟣海淵のフィナーレ\n🟣狼牙\n🟣祭礼の剣",
     "フリーナ":"\n🟠静水流転の輝き\n🟠磐岩結緑\n🟣腐植の剣\n🟠聖顕の鍵\n🟣サーンドルの渡し守\n🟣西風剣",
@@ -126,7 +126,6 @@ const messageReplies1 = {
     "ディシア":"\n🟠葦海の標\n🟠狼の末路\n🟠赤角石塵滅砕\n🟣螭龍の剣\n🟣携帯型チェーンソー\n🟣鉄彩の花\n🟣雨裁\n🟣マカイラの水色\n🟣西風大剣\n🟣桂木斬長正\n🟣タイダル・シャドー\n🟣鐘の剣",
     "ディルック":"\n🟠葦海の標\n🟠狼の末路\n🟠赤角石塵滅砕\n🟣螭龍の剣\n🟣タイダル・シャドー\n🟣鉄彩の花\n🟣マカイラの水色\n🟣雨裁\n🟣祭礼の大剣",
     "宵宮":"\n🟠飛雷の鳴弦\n🟠若水\n🟠天空の翼\n🟠アモスの弓\n🟣弓蔵\n🟣破魔の弓",
-    "閑雲":"\n🟠鶴鳴の余韻\n🟠天空の巻\n🟣誓いの明瞳\n🟠赤角石塵滅砕\n🟣金珀・試作\n🟣西風秘典\n🔵龍殺しの英傑譚\n🟣螭龍の剣\n🟣純水流華",
     "アルハイゼン":"\n🟠萃光の裁葉\n🟠磐岩結緑\n🟠霧切の廻光\n🟠波乱月白経津\n🟣黒剣\n🟣狼牙\n🔵黎明の神剣\n🟣鉄蜂の刺し\n🟣サイフォスの月明かり\n🟣東花坊時雨",
     "ナヒーダ":"\n🟠千夜に浮かぶ夢\n🟠神楽の真意\n🔵魔導緒論\n🟣彷徨える星\n🟣祭礼の断片\n🟣金珀・試作",
     "ティナリ":"\n🟠狩人の道\n🟠アモスの弓\n🟠始まりの大魔術\n🟠冬極の白星\n🟣烈日の後嗣\n🟣破魔の弓",
@@ -143,6 +142,7 @@ const messageReplies1 = {
     "ウェンティ":"\n🟠終焉を嘆く詩\n🟠冬極の白星\n🟠若水\n🟠天空の翼\n🟣西風猟弓\n🟣ダークアレイの狩人\n🟣曚雲の月\n🟣絶弦",
     "楓原万葉":"\n🟠蒼古なる自由への誓い\n🟣サイフォスの月明かり\n🟣鉄蜂の刺し\n🟣祭礼の剣\n🟣西風剣",
     "魈":"\n🟠護摩の杖\n🟠和璞鳶\n🟠赤砂の杖\n🟣千岩長槍\n🟣死闘の槍\n🟣星鎌・試作",
+    "閑雲":"\n🟠鶴鳴の余韻\n🟠天空の巻\n🟣誓いの明瞳\n🟠赤角石塵滅砕\n🟣金珀・試作\n🟣西風秘典\n🔵龍殺しの英傑譚\n🟣螭龍の剣\n🟣純水流華",
     //星4
     "凝光":"\n🟠神楽の真意\n🟠浮世の錠\n🟠四風原典\n🟣流浪楽章\n🟠天空の巻\n🟣匣中日月\n🟣ドドコの物語",
     "ゴロー":"\n🟠終焉を嘆く詩\n🟣祭礼の弓\n🟣西風猟弓",
@@ -187,90 +187,178 @@ const messageReplies1 = {
 
 const messageReplies2 = {
     //星5
-    "ナヴィア": "https://lata.notion.site/lata/27096133685449ce8e5b92d5ede23b2c?pvs=4",
-    "荒瀧一斗": "https://lata.notion.site/lata/a2419140e7df417ab98913eeff97526c?pvs=4",
-    //“主人公(岩)": "",
-    "アルベド": "https://lata.notion.site/lata/ba08322988a649d5980cb1b28bd4bef3?pvs=4",
-    "鍾離": "https://lata.notion.site/lata/86b6e3919df5476385736fb85fcafaf1?pvs=4",
-    "珊瑚宮心海":"https://lata.notion.site/lata/3deb0896b6bc4e3dbf506779f021e00e?pvs=4",
-    //“主人公(水)":"",
-    "フリーナ":"https://lata.notion.site/lata/966d83ed9082416e85f762c442659825?pvs=4",
-    "ヌヴィレット":"https://lata.notion.site/lata/3962e9a7dca34b83af5da18f783cb60e?pvs=4",
-    "ニィロウ":"https://lata.notion.site/lata/82be03b37eb74cd8a465c583e09c61ee?pvs=4",
-    "夜蘭":"https://lata.notion.site/lata/99dca7bd7d0144aa8d87fa8f4a7a6729?pvs=4",
-    "神里綾人":"https://lata.notion.site/lata/03e4a5e7cd704d1db02c2d1120855ded?pvs=4",
-    "タルタリヤ":"https://lata.notion.site/lata/fb97bfddb53549df9bf9bf6498708d0e?pvs=4",
-    "モナ":"https://lata.notion.site/lata/340aa6421e924249a86b602064f36b13?pvs=4",
-    "七七":"https://lata.notion.site/lata/139a1464ab4e4a949ba6f35694604475?pvs=4",
-    "甘雨":"https://lata.notion.site/lata/b42ae17b2a0b4767baba367a79fb78fc?pvs=4",
-    "リオセスリ":"https://lata.notion.site/lata/497d5ce722cd44109d4c91011d002573?pvs=4",
-    "申鶴":"https://lata.notion.site/lata/fb2e19d4d76649169bf8d3413142ee2d?pvs=4",
-    "アーロイ":"https://lata.notion.site/lata/4939d47c95074955b16be97fb7229230?pvs=4",
-    "エウルア":"https://lata.notion.site/lata/03a9845859754900b274d628716ef13d?pvs=4",
-    "神里綾華":"https://lata.notion.site/lata/951579709f254262ae6065a98427cb7d?pvs=4",
-    "リネ":"https://lata.notion.site/lata/6be43d49c9894885b9787d89b8cc2855?pvs=4",
-    "胡桃":"https://lata.notion.site/lata/f9e6bfc54bce472e927f7ad9bdcc3e20?pvs=4",
-    "クレー":"https://lata.notion.site/lata/5f6ca14cc0d0482c951d8e51de166e97?pvs=4",
-    "ディシア":"https://lata.notion.site/lata/c1f3b6b77a1f460c85c5596dd0815da5?pvs=4",
-    "ディルック":"https://lata.notion.site/lata/bb0b748fda0841a7bdf579dd1010fb45?pvs=4",
-    "宵宮":"https://lata.notion.site/lata/f4a2ee0e31d74f6ca26297c92a2b7dc3?pvs=4",
-    "アルハイゼン":"https://lata.notion.site/lata/035c41f13f874494ae890f52704b9f65?pvs=4",
-    "ナヒーダ":"https://lata.notion.site/lata/e2564dd10fa342e8a56f26f0f342af62?pvs=4",
-    "ティナリ":"https://lata.notion.site/lata/89d0961e3c114f60846b14a70ccea442?pvs=4",
-    //“主人公(草)":"",
-    "白朮":"https://lata.notion.site/lata/df3193198665433a9329f1812a189c88?pvs=4",
-    "雷電将軍":"https://lata.notion.site/lata/abe73216ca224cd88a8ca46d06c0f495?pvs=4",
-    "セノ":"https://lata.notion.site/lata/b553de82dc2d46109d758bbf3cf520f0?pvs=4",
-    //“主人公(雷)":"",
-    "刻晴":"https://lata.notion.site/lata/abf8b57c34194c0d81740f1bf3ea5b0d?pvs=4",
-    "八重神子":"https://lata.notion.site/lata/49d5fbbd588b4898b02332f62b5a1f98?pvs=4",
-    "放浪者":"https://lata.notion.site/lata/03e823e31c9544659c7a0d5146676b7e?pvs=4",
-    "ジン":"https://lata.notion.site/lata/1824eda2cf3c4c969586eb2b7d5daa17?pvs=4",
-    //“主人公(風)":"",
-    "ウェンティ":"https://lata.notion.site/lata/65a59b1cf1664c1a9e9789a5773274f0?pvs=4",
-    "楓原万葉":"https://lata.notion.site/lata/55aa57e7fddd4ad9ae998b38e2d39bdc?pvs=4",
-    "魈":"https://lata.notion.site/lata/8e660d236d8440d6be0f40249f5f47d2?pvs=4",
-    "閑雲":"https://lata.notion.site/lata/ab506c1f33544ad883e2529474c85f10?pvs=4",
+    "ナヴィア":"\nhttps://lata.notion.site/lata/27096133685449ce8e5b92d5ede23b2c?pvs=4",
+    "荒瀧一斗":"\nhttps://lata.notion.site/lata/a2419140e7df417ab98913eeff97526c?pvs=4",
+    "主人公(岩)":"",
+    "アルベド":"\nhttps://lata.notion.site/lata/ba08322988a649d5980cb1b28bd4bef3?pvs=4",
+    "鍾離":"\nhttps://lata.notion.site/lata/86b6e3919df5476385736fb85fcafaf1?pvs=4",
+    "珊瑚宮心海":"\nhttps://lata.notion.site/lata/3deb0896b6bc4e3dbf506779f021e00e?pvs=4",
+    "主人公(水)":"",
+    "フリーナ":"\nhttps://lata.notion.site/lata/966d83ed9082416e85f762c442659825?pvs=4",
+    "ヌヴィレット":"\nhttps://lata.notion.site/lata/3962e9a7dca34b83af5da18f783cb60e?pvs=4",
+    "ニィロウ":"\nhttps://lata.notion.site/lata/82be03b37eb74cd8a465c583e09c61ee?pvs=4",
+    "夜蘭":"\nhttps://lata.notion.site/lata/99dca7bd7d0144aa8d87fa8f4a7a6729?pvs=4",
+    "神里綾人":"\nhttps://lata.notion.site/lata/03e4a5e7cd704d1db02c2d1120855ded?pvs=4",
+    "タルタリヤ":"\nhttps://lata.notion.site/lata/fb97bfddb53549df9bf9bf6498708d0e?pvs=4",
+    "モナ":"\nhttps://lata.notion.site/lata/340aa6421e924249a86b602064f36b13?pvs=4",
+    "七七":"\nhttps://lata.notion.site/lata/139a1464ab4e4a949ba6f35694604475?pvs=4",
+    "甘雨":"\nhttps://lata.notion.site/lata/b42ae17b2a0b4767baba367a79fb78fc?pvs=4",
+    "リオセスリ":"\nhttps://lata.notion.site/lata/497d5ce722cd44109d4c91011d002573?pvs=4",
+    "申鶴":"\nhttps://lata.notion.site/lata/fb2e19d4d76649169bf8d3413142ee2d?pvs=4",
+    "アーロイ":"\nhttps://lata.notion.site/lata/4939d47c95074955b16be97fb7229230?pvs=4",
+    "エウルア":"\nhttps://lata.notion.site/lata/03a9845859754900b274d628716ef13d?pvs=4",
+    "神里綾華":"\nhttps://lata.notion.site/lata/951579709f254262ae6065a98427cb7d?pvs=4",
+    "リネ":"\nhttps://lata.notion.site/lata/6be43d49c9894885b9787d89b8cc2855?pvs=4",
+    "胡桃":"\nhttps://lata.notion.site/lata/f9e6bfc54bce472e927f7ad9bdcc3e20?pvs=4",
+    "クレー":"\nhttps://lata.notion.site/lata/5f6ca14cc0d0482c951d8e51de166e97?pvs=4",
+    "ディシア":"\nhttps://lata.notion.site/lata/c1f3b6b77a1f460c85c5596dd0815da5?pvs=4",
+    "ディルック":"\nhttps://lata.notion.site/lata/bb0b748fda0841a7bdf579dd1010fb45?pvs=4",
+    "宵宮":"\nhttps://lata.notion.site/lata/f4a2ee0e31d74f6ca26297c92a2b7dc3?pvs=4",
+    "アルハイゼン":"\nhttps://lata.notion.site/lata/035c41f13f874494ae890f52704b9f65?pvs=4",
+    "ナヒーダ":"\nhttps://lata.notion.site/lata/e2564dd10fa342e8a56f26f0f342af62?pvs=4",
+    "ティナリ":"\nhttps://lata.notion.site/lata/89d0961e3c114f60846b14a70ccea442?pvs=4",
+    "主人公(草)":"",
+    "白朮":"\nhttps://lata.notion.site/lata/df3193198665433a9329f1812a189c88?pvs=4",
+    "雷電将軍":"\nhttps://lata.notion.site/lata/abe73216ca224cd88a8ca46d06c0f495?pvs=4",
+    "セノ":"\nhttps://lata.notion.site/lata/b553de82dc2d46109d758bbf3cf520f0?pvs=4",
+    "主人公(雷)":"",
+    "刻晴":"\nhttps://lata.notion.site/lata/abf8b57c34194c0d81740f1bf3ea5b0d?pvs=4",
+    "八重神子":"\nhttps://lata.notion.site/lata/49d5fbbd588b4898b02332f62b5a1f98?pvs=4",
+    "放浪者":"\nhttps://lata.notion.site/lata/03e823e31c9544659c7a0d5146676b7e?pvs=4",
+    "ジン":"\nhttps://lata.notion.site/lata/1824eda2cf3c4c969586eb2b7d5daa17?pvs=4",
+    "主人公(風)":"",
+    "ウェンティ":"\nhttps://lata.notion.site/lata/65a59b1cf1664c1a9e9789a5773274f0?pvs=4",
+    "楓原万葉":"\nhttps://lata.notion.site/lata/55aa57e7fddd4ad9ae998b38e2d39bdc?pvs=4",
+    "魈":"\nhttps://lata.notion.site/lata/8e660d236d8440d6be0f40249f5f47d2?pvs=4",
+    "閑雲":"\nhttps://lata.notion.site/lata/ab506c1f33544ad883e2529474c85f10?pvs=4",
     //星4
-    "凝光":"https://lata.notion.site/lata/712d9f1d224f4bb3937dc7f3edc7381c?pvs=4",
-    "ゴロー":"https://lata.notion.site/lata/7ef1efb1ae4e473288765e5b68b5296d?pvs=4",
-    "雲菫":"https://lata.notion.site/lata/6d89a809bb5b43ff99486da048659e3d?pvs=4",
-    "ノエル":"https://lata.notion.site/lata/3a75c619079b45ad8337b33f64920c57?pvs=4",
-    "行秋":"https://lata.notion.site/lata/87121103fe70488b8ac4f09458c58353?pvs=4",
-    "バーバラ":"https://lata.notion.site/lata/f5cda2a0472e45249eeb60f629c09c18?pvs=4",
-    "キャンディス":"https://lata.notion.site/lata/357cc4287cff47e28b40dc20f3fd0e78?pvs=4",
-    "ロサリア":"https://lata.notion.site/lata/d94bfdb2290742cf867f276f2dc9cd29?pvs=4",
-    "ディオナ":"https://lata.notion.site/lata/772defbf00ab436491cd93bb465cc70b?pvs=4",
-    "ガイア":"https://lata.notion.site/lata/4dc2478a593944df9261c223f8d715c6?pvs=4",
-    "ミカ":"https://lata.notion.site/lata/ac134acb64cf4c56a516694bfa8f431c?pvs=4",
-    "レイラ":"https://lata.notion.site/lata/4af63338e3f740fabdc6b41b0fd34f2d?pvs=4",
-    "シャルロット":"https://lata.notion.site/lata/297edfb866a645e5a3c929416da2c29f?pvs=4",
-    "フレミネ":"https://lata.notion.site/lata/55f1d1db3e09436daa3feea05f864df7?pvs=4",
-    "重雲":"https://lata.notion.site/lata/60f3941117e9494dab91e970754cbf99?pvs=4",
-    "トーマ":"https://lata.notion.site/lata/9e1cecc9461a4f9cb54be0a743bc7711?pvs=4",
-    "シュヴルーズ":"https://lata.notion.site/lata/fdc10c9f40bc42b182121f7d5500bc94?pvs=4",
-    "香菱":"https://lata.notion.site/lata/ddd2b2a614ff42eab7aacf2c665bf216?pvs=4",
-    "辛炎":"https://lata.notion.site/lata/d50caa9d35c14bbda127c569d25592cc?pvs=4",
-    "アンバー":"https://lata.notion.site/lata/3af1556022704dc7afb7a0dac2533510?pvs=4",
-    "煙緋":"https://lata.notion.site/lata/bf6234702d04488998c8a3ecc9af484f?pvs=4",
-    "ベネット":"https://lata.notion.site/lata/a5e12eba1053404e8b15dbd1af9e1851?pvs=4",
-    "嘉明":"https://lata.notion.site/lata/e7d88aeadefc41e5b4b4607d491c2a63?pvs=4",
-    "綺良々":"https://lata.notion.site/lata/be2f14e9805e45fda0bbbedb234b229a?pvs=4",
-    "ヨォーヨ":"https://lata.notion.site/lata/e918432c8bbb4687b03208024d59f37e?pvs=4",
-    "カーヴェ":"https://lata.notion.site/lata/5362bee30e7d45459d4d3421e9a0b960?pvs=4",
-    "コレイ":"https://lata.notion.site/lata/7afcee97fba347ef85d84abecdecca30?pvs=4",
-    "レザー":"https://lata.notion.site/lata/b4a42c14d69f43c5bcc02dedc7e48713?pvs=4",
-    "北斗":"https://lata.notion.site/lata/cc994c3662e241da8b89f57a37c85081?pvs=4",
-    "フィッシュル":"https://lata.notion.site/lata/1ac37e1dd54c458296f649bb16de0fef?pvs=4",
-    "ドリー":"https://lata.notion.site/lata/d0cfb2b635854c8d875d838c2e3a18d8?pvs=4",
-    "久岐忍":"https://lata.notion.site/lata/1e2ae7240fdf4fef8418a91b60e0b74e?pvs=4",
-    "リサ":"https://lata.notion.site/lata/9fbb0c2b171b4684b135f0ab2ae8d7c5?pvs=4",
-    "九条裟羅":"https://lata.notion.site/lata/19c3edc93a484a2abf7f09841a4b9122?pvs=4",
-    "ファルザン":"https://lata.notion.site/lata/b85f3391e6ca463bb726dbd7930f62da?pvs=4",
-    "鹿野院平蔵":"https://lata.notion.site/lata/5bb701e0fe0541888536ffc1ea29b5aa?pvs=4",
-    "スクロース":"https://lata.notion.site/lata/8d8a290f19e94b7ca951c895b0219ac1?pvs=4",
-    "リネット":"https://lata.notion.site/lata/ab54267a8bf348fd8250807aac173ce1?pvs=4",
-    "早柚":"https://lata.notion.site/lata/3f0a93b8c71e4bae863c98c145a0f159?pvs=4"
+    "凝光":"\nhttps://lata.notion.site/lata/712d9f1d224f4bb3937dc7f3edc7381c?pvs=4",
+    "ゴロー":"\nhttps://lata.notion.site/lata/7ef1efb1ae4e473288765e5b68b5296d?pvs=4",
+    "雲菫":"\nhttps://lata.notion.site/lata/6d89a809bb5b43ff99486da048659e3d?pvs=4",
+    "ノエル":"\nhttps://lata.notion.site/lata/3a75c619079b45ad8337b33f64920c57?pvs=4",
+    "行秋":"\nhttps://lata.notion.site/lata/87121103fe70488b8ac4f09458c58353?pvs=4",
+    "バーバラ":"\nhttps://lata.notion.site/lata/f5cda2a0472e45249eeb60f629c09c18?pvs=4",
+    "キャンディス":"\nhttps://lata.notion.site/lata/357cc4287cff47e28b40dc20f3fd0e78?pvs=4",
+    "ロサリア":"\nhttps://lata.notion.site/lata/d94bfdb2290742cf867f276f2dc9cd29?pvs=4",
+    "ディオナ":"\nhttps://lata.notion.site/lata/772defbf00ab436491cd93bb465cc70b?pvs=4",
+    "ガイア":"\nhttps://lata.notion.site/lata/4dc2478a593944df9261c223f8d715c6?pvs=4",
+    "ミカ":"\nhttps://lata.notion.site/lata/ac134acb64cf4c56a516694bfa8f431c?pvs=4",
+    "レイラ":"\nhttps://lata.notion.site/lata/4af63338e3f740fabdc6b41b0fd34f2d?pvs=4",
+    "シャルロット":"\nhttps://lata.notion.site/lata/297edfb866a645e5a3c929416da2c29f?pvs=4",
+    "フレミネ":"\nhttps://lata.notion.site/lata/55f1d1db3e09436daa3feea05f864df7?pvs=4",
+    "重雲":"\nhttps://lata.notion.site/lata/60f3941117e9494dab91e970754cbf99?pvs=4",
+    "トーマ":"\nhttps://lata.notion.site/lata/9e1cecc9461a4f9cb54be0a743bc7711?pvs=4",
+    "シュヴルーズ":"\nhttps://lata.notion.site/lata/fdc10c9f40bc42b182121f7d5500bc94?pvs=4",
+    "香菱":"\nhttps://lata.notion.site/lata/ddd2b2a614ff42eab7aacf2c665bf216?pvs=4",
+    "辛炎":"\nhttps://lata.notion.site/lata/d50caa9d35c14bbda127c569d25592cc?pvs=4",
+    "アンバー":"\nhttps://lata.notion.site/lata/3af1556022704dc7afb7a0dac2533510?pvs=4",
+    "煙緋":"\nhttps://lata.notion.site/lata/bf6234702d04488998c8a3ecc9af484f?pvs=4",
+    "ベネット":"\nhttps://lata.notion.site/lata/a5e12eba1053404e8b15dbd1af9e1851?pvs=4",
+    "嘉明":"\nhttps://lata.notion.site/lata/e7d88aeadefc41e5b4b4607d491c2a63?pvs=4",
+    "綺良々":"\nhttps://lata.notion.site/lata/be2f14e9805e45fda0bbbedb234b229a?pvs=4",
+    "ヨォーヨ":"\nhttps://lata.notion.site/lata/e918432c8bbb4687b03208024d59f37e?pvs=4",
+    "カーヴェ":"\nhttps://lata.notion.site/lata/5362bee30e7d45459d4d3421e9a0b960?pvs=4",
+    "コレイ":"\nhttps://lata.notion.site/lata/7afcee97fba347ef85d84abecdecca30?pvs=4",
+    "レザー":"\nhttps://lata.notion.site/lata/b4a42c14d69f43c5bcc02dedc7e48713?pvs=4",
+    "北斗":"\nhttps://lata.notion.site/lata/cc994c3662e241da8b89f57a37c85081?pvs=4",
+    "フィッシュル":"\nhttps://lata.notion.site/lata/1ac37e1dd54c458296f649bb16de0fef?pvs=4",
+    "ドリー":"\nhttps://lata.notion.site/lata/d0cfb2b635854c8d875d838c2e3a18d8?pvs=4",
+    "久岐忍":"\nhttps://lata.notion.site/lata/1e2ae7240fdf4fef8418a91b60e0b74e?pvs=4",
+    "リサ":"\nhttps://lata.notion.site/lata/9fbb0c2b171b4684b135f0ab2ae8d7c5?pvs=4",
+    "九条裟羅":"\nhttps://lata.notion.site/lata/19c3edc93a484a2abf7f09841a4b9122?pvs=4",
+    "ファルザン":"\nhttps://lata.notion.site/lata/b85f3391e6ca463bb726dbd7930f62da?pvs=4",
+    "鹿野院平蔵":"\nhttps://lata.notion.site/lata/5bb701e0fe0541888536ffc1ea29b5aa?pvs=4",
+    "スクロース":"\nhttps://lata.notion.site/lata/8d8a290f19e94b7ca951c895b0219ac1?pvs=4",
+    "リネット":"\nhttps://lata.notion.site/lata/ab54267a8bf348fd8250807aac173ce1?pvs=4",
+    "早柚":"\nhttps://lata.notion.site/lata/3f0a93b8c71e4bae863c98c145a0f159?pvs=4"
+};
+
+const messageReplies3 = {
+    //星5
+    "ナヴィア":"\n【推奨凸】\n0凸,3凸",
+    "荒瀧一斗":"\n【推奨凸】\n0凸,2凸",
+    "主人公(岩)": "",
+    "アルベド":"\n【推奨凸】\n0凸,4凸",
+    "鍾離":"\n【推奨凸】\n0凸,1凸,2凸",
+    "珊瑚宮心海":"\n【推奨凸】\n0凸",
+    "主人公(水)": "",
+    "フリーナ":"\n【推奨凸】\n0凸,1凸,2凸",
+    "ヌヴィレット":"\n【推奨凸】\n0凸,1凸,3凸",
+    "ニィロウ":"\n【推奨凸】\n0凸,2凸",
+    "夜蘭":"\n【推奨凸】\n0凸,1凸",
+    "神里綾人":"\n【推奨凸】\n0凸,4凸",
+    "タルタリヤ":"\n【推奨凸】\n0凸,1凸",
+    "モナ":"\n【推奨凸】\n0凸,1凸",
+    "七七":"\n【推奨凸】\n0凸",
+    "甘雨":"\n【推奨凸】\n0凸,1凸",
+    "リオセスリ":"\n【推奨凸】\n0凸,1凸",
+    "申鶴":"\n【推奨凸】\n0凸,1凸",
+    "アーロイ":"\n【推奨凸】\n",
+    "エウルア":"\n【推奨凸】\n0凸,2凸",
+    "神里綾華":"\n【推奨凸】\n0凸,2凸",
+    "リネ":"\n【推奨凸】\n0凸,2凸",
+    "胡桃":"\n【推奨凸】\n0凸,1凸",
+    "クレー":"\n【推奨凸】\n0凸,2凸",
+    "ディシア":"\n【推奨凸】\n1凸,4凸",
+    "ディルック":"\n【推奨凸】\n0凸",
+    "宵宮":"\n【推奨凸】\n0凸,2凸",
+    "アルハイゼン":"\n【推奨凸】\n0凸,6凸",
+    "ナヒーダ":"\n【推奨凸】\n0凸,2凸",
+    "ティナリ":"\n【推奨凸】\n0凸,2凸",
+    "主人公(草)":"",
+    "白朮":"\n【推奨凸】\n0凸,2凸",
+    "雷電将軍":"\n【推奨凸】\n0凸,2凸",
+    "セノ":"\n【推奨凸】\n0凸,2凸",
+    "主人公(雷)":"",
+    "刻晴":"\n【推奨凸】\n0凸,4凸",
+    "八重神子":"\n【推奨凸】\n0凸,4凸",
+    "放浪者":"\n【推奨凸】\n0凸,2凸",
+    "ジン":"\n【推奨凸】\n0凸,2凸",
+    "主人公(風)":"",
+    "ウェンティ":"\n【推奨凸】\n0凸,2凸",
+    "楓原万葉":"\n【推奨凸】\n0凸,2凸",
+    "魈":"\n【推奨凸】\n0凸,1凸",
+    "閑雲":"\n【推奨凸】\n1凸,2凸",
+    //星4
+    "凝光":"\n【推奨凸】\n0凸,1凸",
+    "ゴロー":"\n【推奨凸】\n2凸,6凸",
+    "雲菫":"\n【推奨凸】\n2凸,6凸",
+    "ノエル":"\n【推奨凸】\n1凸,6凸",
+    "行秋":"\n【推奨凸】\n2凸,6凸",
+    "バーバラ":"\n【推奨凸】\n0凸,6凸",
+    "キャンディス":"\n【推奨凸】\n2凸,6凸",
+    "ロサリア":"\n【推奨凸】\n2凸,6凸",
+    "ディオナ":"\n【推奨凸】\n2凸,6凸",
+    "ガイア":"\n【推奨凸】\n0凸,6凸",
+    "ミカ":"\n【推奨凸】\n2凸,6凸",
+    "レイラ":"\n【推奨凸】\n1凸,4凸",
+    "シャルロット":"\n【推奨凸】\n1凸",
+    "フレミネ":"\n【推奨凸】\n4凸,6凸",
+    "重雲":"\n【推奨凸】\n2凸",
+    "トーマ":"\n【推奨凸】\n1凸,6凸",
+    "シュヴルーズ":"\n【推奨凸】\n0凸,6凸",
+    "香菱":"\n【推奨凸】\n0凸,4凸",
+    "辛炎":"\n【推奨凸】\n2凸,4凸",
+    "アンバー":"\n【推奨凸】\n0凸",
+    "煙緋":"\n【推奨凸】\n1凸,2凸",
+    "ベネット":"\n【推奨凸】\n1凸,5凸",
+    "嘉明":"\n【推奨凸】\n2凸,6凸",
+    "綺良々":"\n【推奨凸】\n0凸,6凸",
+    "ヨォーヨ":"\n【推奨凸】\n0凸,2凸",
+    "カーヴェ":"\n【推奨凸】\n0凸,4凸",
+    "コレイ":"\n【推奨凸】\n0凸,4凸",
+    "レザー":"\n【推奨凸】\n0凸,4凸",
+    "北斗":"\n【推奨凸】\n1凸,6凸",
+    "フィッシュル":"\n【推奨凸】\n0凸,6凸",
+    "ドリー":"\n【推奨凸】\n0凸,4凸",
+    "久岐忍":"\n【推奨凸】\n0凸,2凸",
+    "リサ":"\n【推奨凸】\n0凸,2凸",
+    "九条裟羅":"\n【推奨凸】\n6凸",
+    "ファルザン":"\n【推奨凸】\n6凸",
+    "鹿野院平蔵":"\n【推奨凸】\n1凸,6凸",
+    "スクロース":"\n【推奨凸】\n1凸,6凸",
+    "リネット":"\n【推奨凸】\n1凸,4凸",
+    "早柚":"\n【推奨凸】\n1凸,6凸"
 };
 
 
@@ -290,7 +378,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     if (commandName === `炎キャラのステータス`) {
       if (characterName in messageReplies) {
         if (messageReplies.hasOwnProperty(characterName)) {
-          const characterStats = messageReplies[characterName];
+          const characterStats = messageReplies[characterName] + messageReplies3[characterName] + messageReplies2[characterName];
             await interaction.reply(`${characterName}のステータス\n${characterStats}`);
           } else {
             await interaction.reply(`${characterName}のステータスは登録されていません。`);
@@ -301,7 +389,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '岩キャラのステータス') {
         if (characterName in messageReplies) {
           if (messageReplies.hasOwnProperty(characterName)) {
-          const characterStats = messageReplies[characterName];
+          const characterStats = messageReplies[characterName] + messageReplies3[characterName] + messageReplies2[characterName];
             await interaction.reply(`${characterName}のステータス\n${characterStats}`);
           } else {
             await interaction.reply(`${characterName}のステータスは登録されていません。`);
@@ -312,7 +400,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '水キャラのステータス') {
         if (characterName in messageReplies) {
           if (messageReplies.hasOwnProperty(characterName)) {
-          const characterStats = messageReplies[characterName];
+          const characterStats = messageReplies[characterName] + messageReplies3[characterName] + messageReplies2[characterName];
             await interaction.reply(`${characterName}のステータス\n${characterStats}`);
           } else {
             await interaction.reply(`${characterName}のステータスは登録されていません。`);
@@ -323,7 +411,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '草キャラのステータス') {
         if (characterName in messageReplies) {
           if (messageReplies.hasOwnProperty(characterName)) {
-          const characterStats = messageReplies[characterName];
+          const characterStats = messageReplies[characterName] + messageReplies3[characterName] + messageReplies2[characterName];
             await interaction.reply(`${characterName}のステータス\n${characterStats}`);
           } else {
             await interaction.reply(`${characterName}のステータスは登録されていません。`);
@@ -334,7 +422,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '氷キャラのステータス') {
         if (characterName in messageReplies) {
           if (messageReplies.hasOwnProperty(characterName)) {
-          const characterStats = messageReplies[characterName];
+          const characterStats = messageReplies[characterName] + messageReplies3[characterName] + messageReplies2[characterName];
             await interaction.reply(`${characterName}のステータス\n${characterStats}`);
           } else {
             await interaction.reply(`${characterName}のステータスは登録されていません。`);
@@ -345,7 +433,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '風キャラのステータス') {
         if (characterName in messageReplies) {
           if (messageReplies.hasOwnProperty(characterName)) {
-          const characterStats = messageReplies[characterName];
+          const characterStats = messageReplies[characterName] + messageReplies3[characterName] + messageReplies2[characterName];
             await interaction.reply(`${characterName}のステータス\n${characterStats}`);
           } else {
             await interaction.reply(`${characterName}のステータスは登録されていません。`);
@@ -356,7 +444,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '雷キャラのステータス') {
         if (characterName in messageReplies) {
           if (messageReplies.hasOwnProperty(characterName)) {
-          const characterStats = messageReplies[characterName];
+          const characterStats = messageReplies[characterName] + messageReplies3[characterName] + messageReplies2[characterName];
             await interaction.reply(`${characterName}のステータス\n${characterStats}`);
           } else {
             await interaction.reply(`${characterName}のステータスは登録されていません。`);
@@ -375,7 +463,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     if (commandName === `炎キャラの武器`) {
       if (armsName in messageReplies) {
         if (messageReplies.hasOwnProperty(armsName)) {
-        const characterStats = messageReplies[armsName];
+        const characterStats = messageReplies[armsName] + messageReplies2[armsName];
           await interaction.reply(`${armsName}の武器\n${characterStats}`);
         } else {
           await interaction.reply(`${armsName}の武器は登録されていません。`);
@@ -386,7 +474,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '岩キャラの武器') {
         if (armsName in messageReplies) {
           if (messageReplies.hasOwnProperty(armsName)) {
-          const characterStats = messageReplies[armsName];
+          const characterStats = messageReplies[armsName] + messageReplies2[armsName];
             await interaction.reply(`${armsName}の武器\n${characterStats}`);
           } else {
             await interaction.reply(`${armsName}の武器は登録されていません。`);
@@ -397,7 +485,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '水キャラの武器') {
         if (armsName in messageReplies) {
           if (messageReplies.hasOwnProperty(armsName)) {
-          const characterStats = messageReplies[armsName];
+          const characterStats = messageReplies[armsName] + messageReplies2[armsName];
             await interaction.reply(`${armsName}の武器\n${characterStats}`);
           } else {
             await interaction.reply(`${armsName}の武器は登録されていません。`);
@@ -408,7 +496,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '草キャラの武器') {
         if (armsName in messageReplies) {
           if (messageReplies.hasOwnProperty(armsName)) {
-          const characterStats = messageReplies[armsName];
+          const characterStats = messageReplies[armsName] + messageReplies2[armsName];
             await interaction.reply(`${armsName}の武器\n${characterStats}`);
           } else {
             await interaction.reply(`${armsName}の武器は登録されていません。`);
@@ -419,7 +507,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '氷キャラの武器') {
         if (armsName in messageReplies) {
           if (messageReplies.hasOwnProperty(armsName)) {
-          const characterStats = messageReplies[armsName];
+          const characterStats = messageReplies[armsName] + messageReplies2[armsName];
             await interaction.reply(`${armsName}の武器\n${characterStats}`);
           } else {
             await interaction.reply(`${armsName}の武器は登録されていません。`);
@@ -430,7 +518,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '風キャラの武器') {
         if (armsName in messageReplies) {
           if (messageReplies.hasOwnProperty(armsName)) {
-          const characterStats = messageReplies[armsName];
+          const characterStats = messageReplies[armsName] + messageReplies2[armsName];
             await interaction.reply(`${armsName}の武器\n${characterStats}`);
           } else {
             await interaction.reply(`${armsName}の武器は登録されていません。`);
@@ -441,7 +529,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
     } else if (commandName === '雷キャラの武器') {
         if (armsName in messageReplies) {
           if (messageReplies.hasOwnProperty(armsName)) {
-          const characterStats = messageReplies[armsName];
+          const characterStats = messageReplies[armsName] + messageReplies2[armsName];
             await interaction.reply(`${armsName}の武器\n${characterStats}`);
           } else {
             await interaction.reply(`${armsName}の武器は登録されていません。`);
@@ -475,7 +563,7 @@ for (const keyword of statusKeywords) {
   if (content.endsWith(keyword)) {
     const baseContent = content.slice(0, -keyword.length).trim();
     if (messageReplies.hasOwnProperty(baseContent)) {
-      const reply_text = messageReplies[baseContent];
+      const reply_text = messageReplies[baseContent] + messageReplies3[baseContent] + messageReplies2[baseContent];
       message.reply(reply_text)
         .then((message) => console.log("Sent message: " + reply_text))
         .catch(console.error);
@@ -492,7 +580,7 @@ for (const keyword of statusKeywords1) {
   if (content1.endsWith(keyword)) {
     const baseContent = content1.slice(0, -keyword.length).trim();
     if (messageReplies1.hasOwnProperty(baseContent)) {
-      const reply_text = messageReplies1[baseContent];
+      const reply_text = messageReplies1[baseContent] + messageReplies2[baseContent];
       message.reply(reply_text)
         .then((message) => console.log("Sent message: " + reply_text))
         .catch(console.error);
@@ -500,13 +588,6 @@ for (const keyword of statusKeywords1) {
     }
   }
 }
- 
-  if (message.content.match(/にゃ～ん|にゃーん/)){
-    let text = "にゃ～ん";
-    sendMsg(message.channel.id, text);
-    return;
-  }
-  
   
 });
 

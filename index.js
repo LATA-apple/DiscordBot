@@ -761,7 +761,7 @@ client.on('messageCreate', async message => {
             // Terminate worker
             await worker.terminate();
             // Reply with the recognized text
-            processingMessage.edit(`${message.author},文字の抽出が完了しました:\n ${text}`)
+            processingMessage.edit(`${message.author},文字の抽出が完了しました: ${text}`)
           }).catch(error => {
             console.error('Error creating worker:', error);
             message.reply('An error occurred while processing the image.');

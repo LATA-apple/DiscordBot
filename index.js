@@ -361,19 +361,34 @@ const messageReplies3 = {
     "早柚":"\n【推奨凸】\n1凸,6凸"
 };
 
-const monthu1 = "【モンド】忘却の峡谷(自由)\n　-🔴アンバー\n　-🔵バーバラ\n　-🍃スクロース\n　-❄️ディオナ\n　-❄️アーロイ\n　-🔴クレー\n　-🔵タルタリヤ\n　-🍃🟠旅人(風・岩)\n";
-const monthu2 = "【璃月】太山府(繁栄)\n　-🟠凝光\n　-❄️七七\n　-🟣刻晴\n　-🍃魈\n　-❄️申鶴\n　-🔵夜蘭\n　-🟠旅人(岩)\n";
-const monthu3 = "【稲妻】菫色ノ庭(浮世)\n　-🔴トーマ\n　-🍃鹿野院平蔵\n　-🟢綺良々\n　-🔴宵宮\n　-🔵珊瑚宮心海\n　-🟣旅人(雷)\n";
-const monthu4 = "【スメール】無学の塔(忠言)\n　-🔵キャンディス\n　-🍃ファルザン\n　-🟢ティナリ\n　-🟣セノ\n　-🟢旅人(草)\n";
-const monthu5 = "【フォンテーヌ】蒼白の遺栄(公平)\n　-🔴リネ\n　-🔵ヌヴィレット\n　-🟠ナヴィア\n　-🔵旅人(水)";
+const book_monthu1 = "【モンド】忘却の峡谷(自由)\n　-🔴アンバー\n　-🔵バーバラ\n　-🍃スクロース\n　-❄️ディオナ\n　-❄️アーロイ\n　-🔴クレー\n　-🔵タルタリヤ\n　-🍃🟠旅人(風・岩)\n";
+const book_monthu2 = "【璃月】太山府(繁栄)\n　-🟠凝光\n　-❄️七七\n　-🟣刻晴\n　-🍃魈\n　-❄️申鶴\n　-🔵夜蘭\n　-🟠旅人(岩)\n";
+const book_monthu3 = "【稲妻】菫色ノ庭(浮世)\n　-🔴トーマ\n　-🍃鹿野院平蔵\n　-🟢綺良々\n　-🔴宵宮\n　-🔵珊瑚宮心海\n　-🟣旅人(雷)\n";
+const book_monthu4 = "【スメール】無学の塔(忠言)\n　-🔵キャンディス\n　-🍃ファルザン\n　-🟢ティナリ\n　-🟣セノ\n　-🟢旅人(草)\n";
+const book_monthu5 = "【フォンテーヌ】蒼白の遺栄(公平)\n　-🔴リネ\n　-🔵ヌヴィレット\n　-🟠ナヴィア\n　-🔵旅人(水)";
+const book_monthu = book_monthu1 + book_monthu2 + book_monthu3 + book_monthu4 + book_monthu5;
 
-const tuefri1 = "";
-const tuefri2 = "";
-const tuefri3 = "";
-const tuefri4 = "";
-const tuefri5 = "";
-const wedsat = "【モンド】忘却の峡谷(詩文)\n　-❄️ガイア\n　-🟣フィッシュル\n　-🟣リサ\n　-❄️ロサリア\n　-❄️ミカ\n　-🟠アルベド\n　-🍃ウェンティ\n　-🍃🟠旅人(風・岩)\n【璃月】太山府(黄金)\n　-🔵行秋\n　-🔴煙緋\n　-🔴辛炎\n　-🟣北斗\n　-🟠鍾離\n　-🟢白朮\n　-🍃閑雲\n　-🟠旅人(岩)\n【稲妻】菫色ノ庭(天光)\n　-🟠ゴロー\n　-🍃早柚\n　-🟣雷電将軍\n　-🟣八重神子\n　-🟣旅人(雷)\n【スメール】無学の塔(篤行)\n　-🟢コレイ\n　-🔴ディシア\n　-🔵ニィロウ\n　-🍃放浪者\n　-🟢旅人(草)\n【フォンテーヌ】蒼白の遺栄(秩序)\n　-🔴シュヴルーズ\n　-🍃リネット\n　-❄️リオセスリ\n　-🔵旅人(水)";
-const sun = "【モンド】忘却の峡谷(自由・(抗争・詩文)\n【璃月】太山府(繁栄・勤労・黄金)\n【稲妻】菫色ノ庭(浮世・風雅・天光)\n【スメール】無学の塔(忠言・創意・篤行)\n【フォンテーヌ】蒼白の遺栄(公平・正義・秩序)\n　-全ての秘境が解放されています。";
+const book_tuefri1 = "【モンド】忘却の峡谷(抗争)\n　-🔴ベネット\n　-🟠ノエル\n　-🟣レザー\n　-🍃ジン\n　-❄️エウルア\n　-🔴ディルック\n　-🔵モナ\n　-🍃🟠旅人(風・岩)\n";
+const book_tuefri2 = "【璃月】太山府(勤労)\n　-🟠雲菫\n　-🔴香菱\n　-❄️重雲\n　-🟢ヨォーヨ\n　-🍃楓原万葉\n　-❄️甘雨\n　-🔴胡桃\n　-🟠旅人(岩)\n";
+const book_tuefri3 = "【稲妻】菫色ノ庭(風雅)\n　-🟣久岐忍\n　-🟣九条裟羅\n　-🟠荒瀧一斗\n　-❄️神里綾華\n　-🔵神里綾人\n　-🟣旅人(雷)\n";
+const book_tuefri4 = "【スメール】無学の塔(創意)\n　-🟣ドリー\n　-❄️レイラ\n　-🟢カーヴェ\n　-🟢アルハイゼン\n　-🟢ナヒーダ\n　-🟢旅人(草)\n";
+const book_tuefri5 = "【フォンテーヌ】蒼白の遺栄(正義)\n　-❄️シャルロット\n　-❄️フレミネ\n　-🔵フリーナ\n　-🔵旅人(水)";
+const book_tuefri = book_tuefri1 + book_tuefri2 + book_tuefri3 + book_tuefri4 + book_tuefri5;
+
+const book_wedsat1 = "【モンド】忘却の峡谷(詩文)\n　-❄️ガイア\n　-🟣フィッシュル\n　-🟣リサ\n　-❄️ロサリア\n　-❄️ミカ\n　-🟠アルベド\n　-🍃ウェンティ\n　-🍃🟠旅人(風・岩)\n";
+const book_wedsat2 = "【璃月】太山府(黄金)\n　-🔵行秋\n　-🔴煙緋\n　-🔴辛炎\n　-🟣北斗\n　-🟠鍾離\n　-🟢白朮\n　-🍃閑雲\n　-🟠旅人(岩)\n";
+const book_wedsat3 = "【稲妻】菫色ノ庭(天光)\n　-🟠ゴロー\n　-🍃早柚\n　-🟣雷電将軍\n　-🟣八重神子\n　-🟣旅人(雷)\n";
+const book_wedsat4 = "【スメール】無学の塔(篤行)\n　-🟢コレイ\n　-🔴ディシア\n　-🔵ニィロウ\n　-🍃放浪者\n　-🟢旅人(草)\n";
+const book_wedsat5 = "【フォンテーヌ】蒼白の遺栄(秩序)\n　-🔴シュヴルーズ\n　-🍃リネット\n　-❄️リオセスリ\n　-🔵旅人(水)";
+const book_wedsat = book_wedsat1 + book_wedsat2 + book_wedsat3 + book_wedsat4 + book_wedsat5;
+
+const book_sun1 = "【モンド】忘却の峡谷(自由・抗争・詩文)\n";
+const book_sun2 = "【璃月】太山府(繁栄・勤労・黄金)\n";
+const book_sun3 = "【稲妻】菫色ノ庭(浮世・風雅・天光)\n";
+const book_sun4 = "【スメール】無学の塔(忠言・創意・篤行)\n";
+const book_sun5 = "【フォンテーヌ】蒼白の遺栄(公平・正義・秩序)\n";
+const book_sunend = "　-全ての秘境が解放されています。";
+const book_sun = book_sun1 + book_sun2 + book_sun3 + book_sun4 + book_sun5 + book_sunend;
 
 
 //スラッシュコマンド
@@ -615,25 +630,25 @@ for (const keyword of statusKeywords1) {
       // 曜日ごとに異なる返信を準備
       switch (dayOfWeek) {
         case 0://sun
-          reply = "日曜日の天賦本\n" + sun1;
+          reply = "日曜日の天賦本\n" + book_sun;
           break;
         case 1://mon
-          reply = "月曜日の天賦本\n" + monthu1;
+          reply = "月曜日の天賦本\n" + book_monthu;
           break;
         case 2://tue
-          reply = "火曜日の天賦本\n" + tuefri1;
+          reply = "火曜日の天賦本\n" + book_tuefri;
           break;
         case 3://wed
-          reply = "水曜日の天賦本\n" + wedsat1;
+          reply = "水曜日の天賦本\n" + book_wedsat;
           break;
         case 4://thu
-          reply = "木曜日の天賦本\n" + monthu1;
+          reply = "木曜日の天賦本\n" + book_monthu;
           break;
         case 5://fri
-          reply = "金曜日の天賦本\n" + tuefri1;
+          reply = "金曜日の天賦本\n" + book_tuefri;
           break;
         case 6://sat
-          reply = "土曜日の天賦本\n" + wedsat1;
+          reply = "土曜日の天賦本\n" + book_wedsat;
           break;
         default://other
           reply = "曜日エラー";

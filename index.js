@@ -1,5 +1,5 @@
 const { Client, Intents } = require("discord.js");
-const { createWorker } = require('tesseract.js');
+const Tesseract = require('tesseract.js');
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -7,6 +7,7 @@ const client = new Client({
 
 client.on("ready", () => {
   console.log(`==== Logged in: ${client.user.tag} ====`);
+  console.log('Bot is ready!');
   client.user.setPresence({ activity: { name: "げーむ" } });
 });
 
@@ -735,39 +736,21 @@ for (const keyword of statusKeywords1) {
 });
 
 
-client.on('messageCreate', async message => {
-  // Ignore messages from other bots
-  if (message.author.bot) return;
-
-  // Check if message contains attachments
-  if (message.attachments.size > 0) {
-    // Iterate over attachments
-    for (const attachment of message.attachments.values()) {
-      // Check if attachment is an image
-      if (attachment.contentType.startsWith('image')) {
-        try {
-          // Get image URL
-          const url = attachment.url;
-          // Create Tesseract worker
-          const worker = createWorker({
-            logger: m => process.send({ message: m }) // Use process.send to communicate with the parent process
-          });
-          await worker.load();
-          await worker.loadLanguage('eng');
-          await worker.initialize('eng');
-          // Recognize text from image
-          const { data: { text } } = await worker.recognize(url);
-          // Terminate worker
-          await worker.terminate();
-          // Reply with the recognized text
-          message.reply(`Text extracted from image: ${text}`);
-        } catch (error) {
-          console.error('Error processing image:', error);
-          message.reply('An error occurred while processing the image.');
-        }
-      }
-    }
+// メッセージを受信した時に実行されるイベント
+client.on('messageCreate', async (message) => {
+  // メッセージが画像かどうかを確認
+  if (!message.attachments.first()) {
+    return;
   }
+
+  // 画像をダウンロード
+  const image = await message.attachments.first().download();
+
+  // OCRを実行
+  const text = await Tesseract.recognize(image);
+
+  // メッセージに結果を送信
+  message.channel.send(text);
 });
 
 

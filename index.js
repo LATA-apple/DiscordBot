@@ -361,6 +361,11 @@ const messageReplies3 = {
     "早柚":"\n【推奨凸】\n1凸,6凸"
 };
 
+const monthu = "【テスト運用中】月・木曜日の天賦本の内容です。";
+const tuefri = "【テスト運用中】月・木曜日の天賦本の内容です。";
+const wedsat = "【テスト運用中】月・木曜日の天賦本の内容です。";
+const sun = "【テスト運用中】月・木曜日の天賦本の内容です。";
+
 
 //スラッシュコマンド
 client.on('interactionCreate', async interaction => { //メッセージを受け取ったら
@@ -600,28 +605,28 @@ for (const keyword of statusKeywords1) {
 
       // 曜日ごとに異なる返信を準備
       switch (dayOfWeek) {
-        case 0:
+        case 0://sun
           reply = "【テスト運用中】日曜日の天賦本の内容です。";
           break;
-        case 1:
+        case 1://mon
           reply = "【テスト運用中】月曜日の天賦本の内容です。";
           break;
-        case 2:
+        case 2://tue
           reply = "【テスト運用中】火曜日の天賦本の内容です。";
           break;
-        case 3:
+        case 3://wed
           reply = "【テスト運用中】水曜日の天賦本の内容です。";
           break;
-        case 4:
+        case 4://thu
           reply = "【テスト運用中】木曜日の天賦本の内容です。";
           break;
-        case 5:
+        case 5://fri
           reply = "【テスト運用中】金曜日の天賦本の内容です。";
           break;
-        case 6:
+        case 6://sat
           reply = "【テスト運用中】土曜日の天賦本の内容です。";
           break;
-        default:
+        default://other
           reply = "【テスト運用中】天賦本の内容です。";
       }
 

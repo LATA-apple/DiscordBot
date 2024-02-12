@@ -10,8 +10,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "discord.js": "^13.7.0",
-    "tesseract.js": "1.0.10"
+    "discord.js": "^13.7.0"
   },
   "devDependencies": {},
   "prettier": {

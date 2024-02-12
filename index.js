@@ -1,4 +1,5 @@
 const { Client, Intents } = require("discord.js");
+const Tesseract = require("tesseract.js");
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -729,6 +730,26 @@ for (const keyword of statusKeywords1) {
         .catch(console.error);
     }
   }
+  
+  client.on("message", (message) => {
+  if (message.attachments.size > 0) {
+    message.attachments.forEach((attachment) => {
+      // Getting the Image URL
+      var ImageURL = attachment.proxyURL;
+
+      // Running the image through Tesseract
+      Tesseract.recognize(
+        ImageURL,
+        "eng",
+        { logger: (m) => console.log(m) }
+      ).then(({ data: { text } }) => {
+        // Replying with the extracted test
+        console.log(text);
+        message.lineReply(text);
+      });
+    });
+  }
+});
   
 });
 

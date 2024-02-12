@@ -608,6 +608,7 @@ client.on('interactionCreate', async interaction => { //メッセージを受け
 
 //Botメンション
 client.on("messageCreate", (message) => {
+  
   console.log(`▶ [${message.author.tag}] ${message.content}`);
   if (message.mentions.users.has(client.user.id)) {
     message.reply("Hi!");
@@ -731,5 +732,7 @@ for (const keyword of statusKeywords1) {
   }
   
 });
+
+
 
 client.login(process.env.DISCORD_BOT_TOKEN);

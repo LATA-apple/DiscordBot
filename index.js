@@ -589,6 +589,49 @@ for (const keyword of statusKeywords1) {
   }
 }
   
+  
+  // メッセージがBotによって送信されたものでない場合にのみ処理を行う
+  if (!message.author.bot) {
+    // "天賦本"が含まれているかをチェック
+    if (message.content.includes("天賦本")) {
+      const dayOfWeek = new Date().getDay(); // 0: 日曜日, 1: 月曜日, ..., 6: 土曜日
+
+      let reply;
+
+      // 曜日ごとに異なる返信を準備
+      switch (dayOfWeek) {
+        case 0:
+          reply = "【テスト運用中】日曜日の天賦本の内容です。";
+          break;
+        case 1:
+          reply = "【テスト運用中】月曜日の天賦本の内容です。";
+          break;
+        case 2:
+          reply = "【テスト運用中】火曜日の天賦本の内容です。";
+          break;
+        case 3:
+          reply = "【テスト運用中】水曜日の天賦本の内容です。";
+          break;
+        case 4:
+          reply = "【テスト運用中】木曜日の天賦本の内容です。";
+          break;
+        case 5:
+          reply = "【テスト運用中】金曜日の天賦本の内容です。";
+          break;
+        case 6:
+          reply = "【テスト運用中】土曜日の天賦本の内容です。";
+          break;
+        default:
+          reply = "【テスト運用中】天賦本の内容です。";
+      }
+
+      // 返信を送信
+      message.reply(reply)
+        .then((message) => console.log("Sent message: " + reply))
+        .catch(console.error);
+    }
+  }
+  
 });
 
 client.login(process.env.DISCORD_BOT_TOKEN);

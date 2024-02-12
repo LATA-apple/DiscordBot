@@ -747,6 +747,8 @@ client.on('messageCreate', async message => {
       // Check if attachment is an image
       if (attachment.contentType.startsWith('image')) {
         try {
+          // Send a message to indicate that the bot is processing the image
+          const processingMessage = await message.reply('画像から文字を抽出中…');
           // Get image URL
           const url = attachment.url;
           // Create Tesseract worker

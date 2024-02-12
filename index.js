@@ -750,15 +750,20 @@ client.on('messageCreate', async message => {
           // Get image URL
           const url = attachment.url;
           // Create Tesseract worker
-          const worker = createWorker();
-          await worker.load();
-          await worker.loadLanguage('eng');
-          await worker.initialize('eng');
-          // Recognize text from image
-          const { data: { text } } = await worker.recognize(url);
-          await worker.terminate();
-          // Reply with the recognized text
-          message.reply(`Text extracted from image: ${text}`);
+          createWorker().then(async worker => {
+            await worker.load();
+            await worker.loadLanguage('jpn');
+            await worker.initialize('jpn');
+            // Recognize text from image
+            const { data: { text } } = await worker.recognize(url);
+            // Terminate worker
+            await worker.terminate();
+            // Reply with the recognized text
+            message.reply(`Text extracted from image: ${text}`);
+          }).catch(error => {
+            console.error('Error creating worker:', error);
+            message.reply('An error occurred while processing the image.');
+          });
         } catch (error) {
           console.error('Error processing image:', error);
           message.reply('An error occurred while processing the image.');

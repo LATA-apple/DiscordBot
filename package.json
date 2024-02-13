@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "discord.js": "^13.7.0",
-    "tesseract.js": "^5.0.4"
+    "tesseract.js": "^5.0.4",
+    "tesseract.js-core": "^5.0.0"
   },
   "devDependencies": {},
   "prettier": {

@@ -739,9 +739,15 @@ for (const keyword of statusKeywords1) {
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
+  
   // Ignore messages from other user
   console.log(message.author.username);
   if (message.author.username != 'lata19760401') return;
+  // Check if the message is from the specified channels
+  console.log(message.channel.id);
+  // 原神・テスト用、 個人・テスト用、 原神・自慢の聖遺物を貼っていけぇ！ のみ許可
+  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116' && message.channel.id !== '1196454920220586044') return;
+  
   // Check if message contains attachments
   if (message.attachments.size > 0) {
     // Iterate over attachments

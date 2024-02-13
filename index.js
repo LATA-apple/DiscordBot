@@ -770,6 +770,26 @@ client.on('messageCreate', async message => {
           const filteredText = text.replace(/[^\S\n]/g, '');
           const linesStartingWithBullet = filteredText.split('\n').filter(line => line.trim().startsWith('・')).map(line => line.replace(/^・/, ''));
           const cleanedText = linesStartingWithBullet.join('\n');
+          // Extract values for specified patterns
+          let attack = '';
+          let critical = '';
+          let critical_hurt = '';
+          cleanedText.split('\n').forEach(line => {
+            if (line.includes('攻撃力')) {
+              attack = line.replace('攻撃力+', '').replace('%', '').trim();
+            } else if (line.includes('会心率')) {
+              critical = line.replace('会心率+', '').replace('%', '').trim();
+            } else if (line.includes('会心ダメージ')) {
+              critical_hurt = line.replace('会心ダメージ+', '').replace('%', '').trim();
+            }
+          });
+          
+          let critical_value = critical*2+critical_hurt;
+          let critical_attack_value = critical*2+critical_hurt+attack;
+
+          console.log('攻撃力:', attack + '%');
+          console.log('会心率:', critical + '%');
+          console.log('会心ダメージ:', critical_hurt + '%');
           console.log(cleanedText)
           // Terminate worker
           await worker.terminate();

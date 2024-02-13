@@ -800,7 +800,7 @@ client.on('messageCreate', async message => {
           } else if (critical_value >= 30) {
               flower_rank = '厳選ランクB';
           } else if (critical_value >= 20) {
-              flower_rank = '臨時聖遺物';
+              flower_rank = '仮聖遺物';
           } else {
               flower_rank = 'ゴミ';
           }
@@ -814,7 +814,7 @@ client.on('messageCreate', async message => {
           } else if (critical_value >= 25) {
               sands_rank = '厳選ランクB';
           } else if (critical_value >= 15) {
-              sands_rank = '臨時聖遺物';
+              sands_rank = '仮聖遺物';
           } else {
               sands_rank = 'ゴミ';
           }
@@ -828,21 +828,65 @@ client.on('messageCreate', async message => {
           } else if (critical_value >= 20) {
               crown_rank = '厳選ランクB';
           } else if (critical_value >= 10) {
-              crown_rank = '臨時聖遺物';
+              crown_rank = '仮聖遺物';
           } else {
               crown_rank = 'ゴミ';
           }
+          let critical_rank = '花・羽　→'+(flower_rank)+'\n時計・杯→'+(sands_rank)+'\n冠　　　→'+(crown_rank)
           
-          console.log('花・羽のランク: ' + flower_rank);
-          console.log('時計・杯のランク: ' + sands_rank);
-          console.log('冠のランク: ' + crown_rank);
-          let rank = '花・羽→'+(flower_rank)+'\n時計・杯→'+(sands_rank)+'\n冠→'+(crown_rank)
+          let flower_rank_attack = '';
+          let sands_rank_attack = '';
+          let crown_rank_attack = '';
+          
+          if (critical_attack_value >= 50) {
+              flower_rank_attack = '理論値';
+          } else if (critical_attack_value >= 45) {
+              flower_rank_attack = '厳選ランクS';
+          } else if (critical_attack_value >= 40) {
+              flower_rank_attack = '厳選ランクA';
+          } else if (critical_attack_value >= 30) {
+              flower_rank_attack = '厳選ランクB';
+          } else if (critical_attack_value >= 20) {
+              flower_rank_attack = '仮聖遺物';
+          } else {
+              flower_rank_attack = 'ゴミ';
+          }
+          
+          if (critical_attack_value >= 45) {
+              sands_rank_attack = '理論値';
+          } else if (critical_attack_value >= 40) {
+              sands_rank_attack = '厳選ランクS';
+          } else if (critical_attack_value >= 35) {
+              sands_rank_attack = '厳選ランクA';
+          } else if (critical_attack_value >= 25) {
+              sands_rank_attack = '厳選ランクB';
+          } else if (critical_attack_value >= 15) {
+              sands_rank_attack = '仮聖遺物';
+          } else {
+              sands_rank_attack = 'ゴミ';
+          }
+          
+          if (critical_attack_value >= 40) {
+              crown_rank_attack = '理論値';
+          } else if (critical_attack_value >= 35) {
+              crown_rank_attack = '厳選ランクS';
+          } else if (critical_attack_value >= 30) {
+              crown_rank_attack = '厳選ランクA';
+          } else if (critical_attack_value >= 20) {
+              crown_rank_attack = '厳選ランクB';
+          } else if (critical_attack_value >= 10) {
+              crown_rank_attack = '仮聖遺物';
+          } else {
+              crown_rank_attack = 'ゴミ';
+          }
+          let critical_attack_rank = '花・羽　→'+(flower_rank_attack)+'\n時計・杯→'+(sands_rank_attack)+'\n冠　　　→'+(crown_rank_attack)
+                    
                     
           console.log(cleanedText)
           // Terminate worker
           await worker.terminate();
           // Reply with the recognized text
-          let relic_value = (cleanedText)+'\n【スコア】\n会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n【会心ランク】\n'+(rank)
+          let relic_value = (cleanedText)+'\n【スコア】\n会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n【会心ランク】\n'+(critical_rank)+'\n【会心＋攻撃力％ランク】\n'+(critical_attack_rank)
           let error_value = (relic_value)+'\n(⚠️画像から正確にデータが読み取れなかった可能性があります。\nトリミングをして、もう一度お試しください。⚠️)'
           if ((critical_value == 0)||(critical_attack_value == 0)) {
               relic_value = error_value;

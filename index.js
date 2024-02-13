@@ -756,7 +756,7 @@ client.on('messageCreate', async message => {
       if (attachment.contentType.startsWith('image')) {
         try {
           // Send a message to indicate that the bot is processing the image
-          const processingMessage = await message.reply('画像から文字を抽出中…\n(40秒程お待ちください…)');
+          const processingMessage = await message.reply('画像から文字を抽出/スコアを計算中…\n(40秒程お待ちください…)');
           // Get image URL
           const url = attachment.url;
           console.log(url)
@@ -771,9 +771,9 @@ client.on('messageCreate', async message => {
           const linesStartingWithBullet = filteredText.split('\n').filter(line => line.trim().startsWith('・')).map(line => line.replace(/^・/, ''));
           const cleanedText = linesStartingWithBullet.join('\n');
           // Extract values for specified patterns
-          let attack = '';
-          let critical = '';
-          let critical_hurt = '';
+          let attack = 0;
+          let critical = 0;
+          let critical_hurt = 0;
           cleanedText.split('\n').forEach(line => {
             if (line.includes('攻撃力')) {
               attack = parseFloat(line.replace('攻撃力+', '').replace('%', '').trim());
@@ -786,18 +786,12 @@ client.on('messageCreate', async message => {
           
           let critical_value = critical*2+critical_hurt;
           let critical_attack_value = critical*2+critical_hurt+attack;
-
-          console.log('攻撃力:', attack + '%');
-          console.log('会心率:', critical + '%');
-          console.log('会心ダメージ:', critical_hurt + '%');
-          console.log('会心値:', critical_value);
-          console.log('会心+攻撃力値:', critical_attack_value);
-          message.reply('会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value))
           console.log(cleanedText)
           // Terminate worker
           await worker.terminate();
           // Reply with the recognized text
-          processingMessage.edit(`${message.author},文字の抽出が完了しました:\n${cleanedText}`)
+          let relic_value = (cleanedText)+'\n\n会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)
+          processingMessage.edit(relic_value)
         } catch (error) {
           console.error('Error processing image:', error);
           message.reply('An error occurred while processing the image.');

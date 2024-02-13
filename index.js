@@ -752,21 +752,17 @@ client.on('messageCreate', async message => {
           const url = attachment.url;
           console.log(url)
           // Create Tesseract worker
-          createWorker().then(async worker => {
-            await worker.load();
-            await worker.loadLanguage('jpn');
-            await worker.initialize('jpn');
-            // Recognize text from image
-            const { data: { text } } = await worker.recognize((url),{ lang:"eng" });
-            console.log(text)
-            // Terminate worker
-            await worker.terminate();
-            // Reply with the recognized text
-            processingMessage.edit(`${message.author},文字の抽出が完了しました:\n ${text}`)
-          }).catch(error => {
-            console.error('Error creating worker:', error);
-            message.reply('An error occurred while processing the image.');
-          });
+          const worker = await createWorker('jpn');
+          await worker.load();
+          await worker.loadLanguage('jpn');
+          await worker.initialize('jpn');
+          // Recognize text from image
+          const { data: { text } } = await worker.recognize(url);
+          console.log(text)
+          // Terminate worker
+          await worker.terminate();
+          // Reply with the recognized text
+          processingMessage.edit(`${message.author},文字の抽出が完了しました:\n ${text}`)
         } catch (error) {
           console.error('Error processing image:', error);
           message.reply('An error occurred while processing the image.');

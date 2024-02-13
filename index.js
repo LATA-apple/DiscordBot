@@ -739,49 +739,6 @@ for (const keyword of statusKeywords1) {
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
-  
-  if (message.attachments.size > 0) {
-    // Iterate over attachments
-    for (const attachment of message.attachments.values()) {
-      // Check if attachment is an image
-      if (attachment.contentType.startsWith('image')) {
-        try {
-          // Send a message to indicate that the bot is processing the image
-          const processingMessage = await message.reply('画像から文字を抽出中…');
-          // Get image URL
-          const url = attachment.url;
-          console.log(url)
-          // Create Tesseract worker
-          createWorker().then(async worker => {
-            await worker.load();
-            await worker.loadLanguage('jpn');
-            await worker.initialize('jpn');
-            // Recognize text from image
-            const { data: { text } } = await worker.recognize((url),{ lang:"eng" });
-            console.log(text)
-            // Terminate worker
-            await worker.terminate();
-            // Reply with the recognized text
-            processingMessage.edit(`${message.author},文字の抽出が完了しました:\n ${text}`)
-          }).catch(error => {
-            console.error('Error creating worker:', error);
-            message.reply('An error occurred while processing the image.');
-          });
-        } catch (error) {
-          console.error('Error processing image:', error);
-          message.reply('An error occurred while processing the image.');
-        }
-      }
-    }
-  }
-  
-  (async () => {
-    const worker = await createWorker('eng');
-    const ret = await worker.recognize('https://tesseract.projectnaptha.com/img/eng_bw.png');
-    console.log(ret.data.text);
-    await worker.terminate();
-  })();
-
   // Check if message contains attachments
   if (message.attachments.size > 0) {
     // Iterate over attachments

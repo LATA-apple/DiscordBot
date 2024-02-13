@@ -761,7 +761,7 @@ client.on('messageCreate', async message => {
           await worker.initialize('jpn');
           // Recognize text from image
           const { data: { text } } = await worker.recognize(url);
-          const cleanedText = text.replace(/\s+/g, '');
+          const cleanedText = text.replace(/[^\S\n]/g, '');
           console.log(cleanedText)
           // Terminate worker
           await worker.terminate();

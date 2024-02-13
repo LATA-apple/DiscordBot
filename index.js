@@ -737,6 +737,11 @@ for (const keyword of statusKeywords1) {
 
 
 client.on('messageCreate', async message => {
+  
+  createWorker.recognize((message.attachments.values()),{ lang:"jpn" })
+
+.then(function(e){ console.log(e) })
+  
   // Ignore messages from other bots
   if (message.author.bot) return;
 
@@ -763,7 +768,7 @@ client.on('messageCreate', async message => {
             // Terminate worker
             await worker.terminate();
             // Reply with the recognized text
-            processingMessage.edit(`${message.author},文字の抽出が完了しました: ${text}`)
+            processingMessage.edit(`${message.author},文字の抽出が完了しました:\n ${text}`)
           }).catch(error => {
             console.error('Error creating worker:', error);
             message.reply('An error occurred while processing the image.');

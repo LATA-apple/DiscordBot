@@ -754,9 +754,9 @@ client.on('messageCreate', async message => {
           console.log(url)
           // Create Tesseract worker
           createWorker().then(async worker => {
-            //await worker.load();
-            //await worker.loadLanguage('jpn');
-            //await worker.initialize('jpn');
+            await worker.load();
+            await worker.loadLanguage('jpn');
+            await worker.initialize('jpn');
             // Recognize text from image
             const { data: { text } } = await worker.recognize(url);
             console.log(text)

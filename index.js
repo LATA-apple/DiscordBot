@@ -800,9 +800,9 @@ client.on('messageCreate', async message => {
           } else if (critical_value >= 30) {
               flower_rank = 'A';
           } else if (critical_value >= 20) {
-              flower_rank = 'B';
+              flower_rank = '臨時聖遺物';
           } else {
-              flower_rank = 'C';
+              flower_rank = 'ゴミ';
           }
           
           if (critical_value >= 45) {
@@ -814,9 +814,9 @@ client.on('messageCreate', async message => {
           } else if (critical_value >= 25) {
               sands_rank = 'A';
           } else if (critical_value >= 15) {
-              sands_rank = 'B';
+              sands_rank = '臨時聖遺物';
           } else {
-              sands_rank = 'C';
+              sands_rank = 'ゴミ';
           }
           
           if (critical_value >= 40) {
@@ -828,9 +828,9 @@ client.on('messageCreate', async message => {
           } else if (critical_value >= 20) {
               crown_rank = 'A';
           } else if (critical_value >= 10) {
-              crown_rank = 'B';
+              crown_rank = '臨時聖遺物';
           } else {
-              crown_rank = 'C';
+              crown_rank = 'ゴミ';
           }
           
           console.log('花・羽のランク: ' + flower_rank);

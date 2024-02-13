@@ -794,11 +794,11 @@ client.on('messageCreate', async message => {
           if (critical_value >= 50) {
               flower_rank = '理論値';
           } else if (critical_value >= 45) {
-              flower_rank = 'SS';
+              flower_rank = '厳選ランクS';
           } else if (critical_value >= 40) {
-              flower_rank = 'S';
+              flower_rank = '厳選ランクA';
           } else if (critical_value >= 30) {
-              flower_rank = 'A';
+              flower_rank = '厳選ランクB';
           } else if (critical_value >= 20) {
               flower_rank = '臨時聖遺物';
           } else {
@@ -808,11 +808,11 @@ client.on('messageCreate', async message => {
           if (critical_value >= 45) {
               sands_rank = '理論値';
           } else if (critical_value >= 40) {
-              sands_rank = 'SS';
+              sands_rank = '厳選ランクS';
           } else if (critical_value >= 35) {
-              sands_rank = 'S';
+              sands_rank = '厳選ランクA';
           } else if (critical_value >= 25) {
-              sands_rank = 'A';
+              sands_rank = '厳選ランクB';
           } else if (critical_value >= 15) {
               sands_rank = '臨時聖遺物';
           } else {
@@ -822,11 +822,11 @@ client.on('messageCreate', async message => {
           if (critical_value >= 40) {
               crown_rank = '理論値';
           } else if (critical_value >= 35) {
-              crown_rank = 'SS';
+              crown_rank = '厳選ランクS';
           } else if (critical_value >= 30) {
-              crown_rank = 'S';
+              crown_rank = '厳選ランクA';
           } else if (critical_value >= 20) {
-              crown_rank = 'A';
+              crown_rank = '厳選ランクB';
           } else if (critical_value >= 10) {
               crown_rank = '臨時聖遺物';
           } else {
@@ -842,7 +842,7 @@ client.on('messageCreate', async message => {
           // Terminate worker
           await worker.terminate();
           // Reply with the recognized text
-          let relic_value = (cleanedText)+'\n\n会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n\n'+(rank)
+          let relic_value = (cleanedText)+'\n【スコア】\n会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n【会心ランク】\n'+(rank)
           let error_value = (relic_value)+'\n(⚠️画像から正確にデータが読み取れなかった可能性があります。\nトリミングをして、もう一度お試しください。⚠️)'
           if ((critical_value == 0)||(critical_attack_value == 0)) {
               relic_value = error_value;

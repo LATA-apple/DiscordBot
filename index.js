@@ -737,11 +737,6 @@ for (const keyword of statusKeywords1) {
 
 
 client.on('messageCreate', async message => {
-  
-  createWorker.recognize((message.attachments.values()),{ lang:"jpn" })
-
-.then(function(e){ console.log(e) })
-  
   // Ignore messages from other bots
   if (message.author.bot) return;
 
@@ -763,7 +758,7 @@ client.on('messageCreate', async message => {
             await worker.loadLanguage('jpn');
             await worker.initialize('jpn');
             // Recognize text from image
-            const { data: { text } } = await worker.recognize(url);
+            const { data: { text } } = await worker.recognize((url),{ lang:"eng" });
             console.log(text)
             // Terminate worker
             await worker.terminate();

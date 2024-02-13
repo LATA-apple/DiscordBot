@@ -751,6 +751,7 @@ client.on('messageCreate', async message => {
           const processingMessage = await message.reply('画像から文字を抽出中…');
           // Get image URL
           const url = attachment.url;
+          console.log(url)
           // Create Tesseract worker
           createWorker().then(async worker => {
             await worker.load();
@@ -758,6 +759,7 @@ client.on('messageCreate', async message => {
             await worker.initialize('jpn');
             // Recognize text from image
             const { data: { text } } = await worker.recognize(url);
+            console.log(text)
             // Terminate worker
             await worker.terminate();
             // Reply with the recognized text

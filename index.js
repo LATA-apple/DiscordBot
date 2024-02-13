@@ -761,12 +761,14 @@ client.on('messageCreate', async message => {
           await worker.initialize('jpn');
           // Recognize text from image
           const { data: { text } } = await worker.recognize(url);
-          const cleanedText = text.replace(/[^\S\n]/g, '');
+          const filteredText = text.replace(/[^\S\n]/g, '');
+          const linesStartingWithBullet = filteredText.split('\n').filter(line => line.trim().startsWith('・')).map(line => line.replace(/^・/, ''));
+          const cleanedText = linesStartingWithBullet.join('\n');
           console.log(cleanedText)
           // Terminate worker
           await worker.terminate();
           // Reply with the recognized text
-          processingMessage.edit(`${message.author},文字の抽出が完了しました:\n ${cleanedText}`)
+          processingMessage.edit(`${message.author},文字の抽出が完了しました:\n${cleanedText}`)
         } catch (error) {
           console.error('Error processing image:', error);
           message.reply('An error occurred while processing the image.');

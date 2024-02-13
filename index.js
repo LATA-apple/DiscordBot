@@ -739,6 +739,9 @@ for (const keyword of statusKeywords1) {
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
+  // Ignore messages from other user
+  console.log(message.author.username);
+  if (message.author.username != 'lata19760401') return;
   // Check if message contains attachments
   if (message.attachments.size > 0) {
     // Iterate over attachments
@@ -758,11 +761,12 @@ client.on('messageCreate', async message => {
           await worker.initialize('jpn');
           // Recognize text from image
           const { data: { text } } = await worker.recognize(url);
-          console.log(text)
+          const cleanedText = text.replace(/\s+/g, '');
+          console.log(cleanedText)
           // Terminate worker
           await worker.terminate();
           // Reply with the recognized text
-          processingMessage.edit(`${message.author},文字の抽出が完了しました:\n ${text}`)
+          processingMessage.edit(`${message.author},文字の抽出が完了しました:\n ${cleanedText}`)
         } catch (error) {
           console.error('Error processing image:', error);
           message.reply('An error occurred while processing the image.');

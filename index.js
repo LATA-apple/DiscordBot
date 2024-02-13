@@ -740,9 +740,9 @@ client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
   
-  // Ignore messages from other user
   console.log(message.author.username);
-  if (message.author.username != 'lata19760401') return;
+  // lata19760401のみ許可
+  //if (message.author.username != 'lata19760401') return;
   // Check if the message is from the specified channels
   console.log(message.channel.id);
   // 原神・テスト用、 個人・テスト用、 原神・自慢の聖遺物を貼っていけぇ！ のみ許可

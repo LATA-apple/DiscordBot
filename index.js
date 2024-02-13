@@ -786,11 +786,63 @@ client.on('messageCreate', async message => {
           
           let critical_value = critical*2+critical_hurt;
           let critical_attack_value = critical*2+critical_hurt+attack;
+          
+          let flower_rank = '';
+          let sands_rank = '';
+          let crown_rank = '';
+          
+          if (critical_value >= 50) {
+              flower_rank = '理論値';
+          } else if (critical_value >= 45) {
+              flower_rank = 'SS';
+          } else if (critical_value >= 40) {
+              flower_rank = 'S';
+          } else if (critical_value >= 30) {
+              flower_rank = 'A';
+          } else if (critical_value >= 20) {
+              flower_rank = 'B';
+          } else {
+              flower_rank = 'C';
+          }
+          
+          if (critical_value >= 45) {
+              sands_rank = '理論値';
+          } else if (critical_value >= 40) {
+              sands_rank = 'SS';
+          } else if (critical_value >= 35) {
+              sands_rank = 'S';
+          } else if (critical_value >= 25) {
+              sands_rank = 'A';
+          } else if (critical_value >= 15) {
+              sands_rank = 'B';
+          } else {
+              sands_rank = 'C';
+          }
+          
+          if (critical_value >= 40) {
+              crown_rank = '理論値';
+          } else if (critical_value >= 35) {
+              crown_rank = 'SS';
+          } else if (critical_value >= 30) {
+              crown_rank = 'S';
+          } else if (critical_value >= 20) {
+              crown_rank = 'A';
+          } else if (critical_value >= 10) {
+              crown_rank = 'B';
+          } else {
+              crown_rank = 'C';
+          }
+          
+          console.log('花・羽のランク: ' + flower_rank);
+          console.log('時計・杯のランク: ' + sands_rank);
+          console.log('冠のランク: ' + crown_rank);
+          let rank = '花・羽→'+(flower_rank)+'\n時計・杯→'+(sands_rank)+'\n冠→'+(crown_rank)
+                    
           console.log(cleanedText)
           // Terminate worker
           await worker.terminate();
           // Reply with the recognized text
-          let relic_value = (cleanedText)+'\n\n会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)
+          let relic_value = (cleanedText)+'\n\n会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n\n'+(rank)
           let error_value = (relic_value)+'\n(⚠️画像から正確にデータが読み取れなかった可能性があります。\nトリミングをして、もう一度お試しください。⚠️)'
           if ((critical_value == 0)||(critical_attack_value == 0)) {
               relic_value = error_value;

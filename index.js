@@ -756,7 +756,7 @@ client.on('messageCreate', async message => {
       if (attachment.contentType.startsWith('image')) {
         try {
           // Send a message to indicate that the bot is processing the image
-          const processingMessage = await message.reply('画像から文字を抽出中…');
+          const processingMessage = await message.reply('画像から文字を抽出中…\n(40秒程お待ちください…)');
           // Get image URL
           const url = attachment.url;
           console.log(url)
@@ -776,11 +776,11 @@ client.on('messageCreate', async message => {
           let critical_hurt = '';
           cleanedText.split('\n').forEach(line => {
             if (line.includes('攻撃力')) {
-              attack = line.replace('攻撃力+', '').replace('%', '').trim();
+              attack = parseFloat(line.replace('攻撃力+', '').replace('%', '').trim());
             } else if (line.includes('会心率')) {
-              critical = line.replace('会心率+', '').replace('%', '').trim();
+              critical = parseFloat(line.replace('会心率+', '').replace('%', '').trim());
             } else if (line.includes('会心ダメージ')) {
-              critical_hurt = line.replace('会心ダメージ+', '').replace('%', '').trim();
+              critical_hurt = parseFloat(line.replace('会心ダメージ+', '').replace('%', '').trim());
             }
           });
           
@@ -790,6 +790,9 @@ client.on('messageCreate', async message => {
           console.log('攻撃力:', attack + '%');
           console.log('会心率:', critical + '%');
           console.log('会心ダメージ:', critical_hurt + '%');
+          console.log('会心値:', critical_value);
+          console.log('会心+攻撃力値:', critical_attack_value);
+          message.reply('会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value))
           console.log(cleanedText)
           // Terminate worker
           await worker.terminate();

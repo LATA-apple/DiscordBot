@@ -791,6 +791,10 @@ client.on('messageCreate', async message => {
           await worker.terminate();
           // Reply with the recognized text
           let relic_value = (cleanedText)+'\n\n会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)
+          let error_value = (relic_value)+'\n(＊画像から正確にデータが読み取れなかった可能性があります。\nトリミングをして、もう一度お試しください。＊)'
+          if ((critical_value == 0)||(critical_attack_value == 0)) {
+              relic_value = error_value;
+            }
           processingMessage.edit(relic_value)
         } catch (error) {
           console.error('Error processing image:', error);

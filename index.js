@@ -93,22 +93,20 @@ client.on('messageCreate', async message => {
     
     console.log(fields);
     
-    // Embedメッセージの作成
-    message.channel.send(
-      {embed: {
-        author: {
-        name: 'Administrator',
-        url: 'https://discordapp.com',
-        icon_url: 'https://cdn.discordapp.com/embed/avatars/0.png'
-      },
-        title: message.content, // message.contentをタイトルとして使用
-        thumbnail: {
-          url: imageURL // imageURLをthumbnailのURLとして使用
-        },
-        fields: fields
-      }
-    });
+    if (fields.length > 0) {
+      const embedMessage = {
+        embed: {
+          title: message.content, 
+          thumbnail: {
+            url: imageURL
+          },
+          fields: fields.text
+        }
+      };
+      console.log(embedMessage);
     
+      message.channel.send(embedMessage);
+    }
     
     
     

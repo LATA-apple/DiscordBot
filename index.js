@@ -44,6 +44,8 @@ client.on('messageCreate', async message => {
     body: JSON.stringify(filterData)
   };
   
+  const fields = [];
+  
   // データの取得と処理
   fetch(url, requestOptions)
     .then(response => response.json())
@@ -66,6 +68,14 @@ client.on('messageCreate', async message => {
           value = multiSelectValues.join(', ');
         }
         
+        if (value !== null && value !== '') {
+          fields.push({
+            name: key,
+            value: typeof value === 'object' ? JSON.stringify(value) : value,
+            inline: true
+          });
+        }
+        
         // 空行が含まれる場合は削除してからメッセージに含めて送信
         if (value !== null && value !== '') {
           // プロパティのキーと値をメッセージに含めて送信
@@ -81,23 +91,23 @@ client.on('messageCreate', async message => {
         message.channel.send(imageURL);
       }
     
+    console.log(fields);
     
     // Embedメッセージの作成
-    const embedMessage = {
-      embed: {
+    message.channel.send(
+      {embed: {
+        author: {
+        name: 'Administrator',
+        url: 'https://discordapp.com',
+        icon_url: 'https://cdn.discordapp.com/embed/avatars/0.png'
+      },
         title: message.content, // message.contentをタイトルとして使用
         thumbnail: {
           url: imageURL // imageURLをthumbnailのURLとして使用
         },
-        fields: [
-          {
-            name: key, // fieldsのname
-            value: value // fieldsのvalue
-          }
-          // 他のfieldsの内容もここに追加できます
-        ]
+        fields: fields
       }
-    };
+    });
     
     
     

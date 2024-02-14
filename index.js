@@ -21,7 +21,7 @@ client.on('messageCreate', async message => {
   if (message.author.bot) return;
   
   // Check if the message is from the specified channel ID
-  if (message.channel.id !== '1206824509538308116') return;
+  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116') return;
   
   const headers = {
     'Content-Type': 'application/json',
@@ -50,11 +50,13 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-      const properties = data.results[0].properties;
+    const properties = data.results[0].properties;
+    const notionurl = data.results[0].public_url;
     
     const embed = new MessageEmbed()
     .setTitle(message.content)
     .setColor('RANDOM')
+    .setURL(notionurl)
     
       Object.keys(properties).forEach(key => {
         const property = properties[key]; // 各プロパティを取得

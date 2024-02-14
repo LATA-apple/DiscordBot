@@ -775,11 +775,11 @@ client.on('messageCreate', async message => {
           let critical = 0;
           let critical_hurt = 0;
           cleanedText.split('\n').forEach(line => {
-            if (line.includes('攻撃力')) {
+            if ((line.includes('攻撃力'))&&(line.includes('%'))) {
               attack = parseFloat(line.replace('攻撃力+', '').replace('%', '').trim());
-            } else if (line.includes('会心率')) {
+            } else if ((line.includes('会心率'))&&(line.includes('%'))) {
               critical = parseFloat(line.replace('会心率+', '').replace('%', '').trim());
-            } else if (line.includes('会心ダメージ')) {
+            } else if ((line.includes('会心ダメージ'))&&(line.includes('%'))) {
               critical_hurt = parseFloat(line.replace('会心ダメージ+', '').replace('%', '').trim());
             }
           });

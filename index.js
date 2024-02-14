@@ -54,9 +54,7 @@ client.on('messageCreate', async message => {
     
     const embed = new MessageEmbed()
     .setTitle(message.content)
-    .setThumbnail(imageURL)
     .setColor('RANDOM')
-    .setTimestamp();
     
       Object.keys(properties).forEach(key => {
         const property = properties[key]; // 各プロパティを取得
@@ -78,24 +76,13 @@ client.on('messageCreate', async message => {
         if (value !== null && value !== '') {
             embed.addField(key, typeof value === 'object' ? JSON.stringify(value) : value);
         }
-        
-        // 空行が含まれる場合は削除してからメッセージに含めて送信
-        if (value !== null && value !== '') {
-          // プロパティのキーと値をメッセージに含めて送信
-          message.channel.send(`**${key}:** ${typeof value === 'object' ? JSON.stringify(value) : value}`);
-        }
       });
       
       // URLを取得
       const imageURL = data.results[0].icon.external.url;
-      
-      // URLが存在する場合はメッセージとして送信
-      if (imageURL) {
-        message.channel.send(imageURL);
-      }
+      embed.setThumbnail(imageURL)
     
-    console.log(embed);
-     message.channel.send({ embeds: [embed] })
+      message.channel.send({ embeds: [embed] })
     
     
     

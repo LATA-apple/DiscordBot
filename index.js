@@ -54,21 +54,30 @@ client.on('messageCreate', async message => {
         console.log(`Key: ${key}`);
         console.log(property); // プロパティの内容を出力
         
-        // Valueの値をnameまたはcontentの値、もしくはnullとして取得
+        // Valueの値を取得し、空行を削除
         let value = null;
         if (property.name) {
-          value = property.name;
+          value = property.name.trim();
         } else if (property.content) {
-          value = property.content;
+          value = property.content.trim();
         } else if (property.type === 'multi_select') {
-          // multi_selectの場合は各オブジェクトのnameプロパティの値を取得し、カンマで連結する
-          const multiSelectValues = property.multi_select.map(item => item.name);
+          // multi_selectの場合は各オブジェクトのnameプロパティの値を取得し、カンマで連結して空行を削除
+          const multiSelectValues = property.multi_select.map(item => item.name.trim());
           value = multiSelectValues.join(', ');
         }
         
-        // プロパティのキーと値をメッセージに含めて送信
-        message.channel.send(`Key: ${key}\nValue: ${value}`);
+        // 空行が含まれる場合は削除してからメッセージに含めて送信
+        if (value !== null && value !== '') {
+          // プロパティのキーと値をメッセージに含めて送信
+          message.channel.send(`**${key}:** ${typeof value === 'object' ? JSON.stringify(value) : value}`);
+        }
       });
+      
+      // 画像のURLを取得して送信
+      const imageURLs = properties['画像']?.files.map(file => file.file?.url).filter(url => url);
+      if (imageURLs && imageURLs.length > 0) {
+        message.channel.send(imageURLs.join('\n'));
+      }
     })
     .catch(error => console.error('Error:', error));
   

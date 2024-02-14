@@ -1,4 +1,4 @@
-const { Client, Intents } = require("discord.js");
+const { Client, Intents, MessageEmbed } = require("discord.js");
 const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
 
@@ -51,6 +51,13 @@ client.on('messageCreate', async message => {
     .then(response => response.json())
     .then(data => {
       const properties = data.results[0].properties;
+    
+    const embed = new MessageEmbed()
+    .setTitle(message.content)
+    .setThumbnail(imageURL)
+    .setColor('RANDOM')
+    .setTimestamp();
+    
       Object.keys(properties).forEach(key => {
         const property = properties[key]; // 各プロパティを取得
         console.log(`Key: ${key}`);
@@ -68,6 +75,10 @@ client.on('messageCreate', async message => {
           value = multiSelectValues.join(', ');
         }
         
+        if (value !== null && value !== '') {
+            embed.addField(key, typeof value === 'object' ? JSON.stringify(value) : value);
+        }
+        
         // 空行が含まれる場合は削除してからメッセージに含めて送信
         if (value !== null && value !== '') {
           // プロパティのキーと値をメッセージに含めて送信
@@ -82,6 +93,11 @@ client.on('messageCreate', async message => {
       if (imageURL) {
         message.channel.send(imageURL);
       }
+    
+    console.log(embed);
+     message.channel.send({ embeds: [embed] })
+    
+    
     
     })
     .catch(error => console.error('Error:', error));

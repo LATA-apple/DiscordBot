@@ -44,6 +44,7 @@ client.on('messageCreate', async message => {
     body: JSON.stringify(filterData)
   };
   
+  // データの取得と処理
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
@@ -52,8 +53,21 @@ client.on('messageCreate', async message => {
         const property = properties[key]; // 各プロパティを取得
         console.log(`Key: ${key}`);
         console.log(property); // プロパティの内容を出力
-        message.channel.send(`Key: ${key}`);
-        message.channel.send(property);
+        
+        // Valueの値をnameまたはcontentの値、もしくはnullとして取得
+        let value = null;
+        if (property.name) {
+          value = property.name;
+        } else if (property.content) {
+          value = property.content;
+        } else if (property.type === 'multi_select') {
+          // multi_selectの場合は各オブジェクトのnameプロパティの値を取得し、カンマで連結する
+          const multiSelectValues = property.multi_select.map(item => item.name);
+          value = multiSelectValues.join(', ');
+        }
+        
+        // プロパティのキーと値をメッセージに含めて送信
+        message.channel.send(`Key: ${key}\nValue: ${value}`);
       });
     })
     .catch(error => console.error('Error:', error));

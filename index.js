@@ -48,7 +48,7 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-      const properties = data.results[0].properties; // レスポンスのresultsからpropertiesオブジェクトを取得
+      const properties = data.results[0].properties;
       Object.keys(properties).forEach(key => {
         const property = properties[key]; // 各プロパティを取得
         console.log(`Key: ${key}`);
@@ -73,13 +73,12 @@ client.on('messageCreate', async message => {
         }
       });
       
-      // 画像のURLを取得して送信
-      const imageURLs = properties['画像']?.files.map(file => file.file?.url).filter(url => url);
-      console.log(imageURLs);
-      if (imageURLs && imageURLs.length > 0) {
-        imageURLs.forEach(url => {
-          message.channel.send(url);
-        });
+      // URLを取得
+      const imageURL = data.results[0].icon.external.url;
+      
+      // URLが存在する場合はメッセージとして送信
+      if (imageURL) {
+        message.channel.send(imageURL);
       }
     })
     .catch(error => console.error('Error:', error));

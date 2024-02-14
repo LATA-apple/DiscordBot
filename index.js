@@ -13,21 +13,37 @@ client.on("ready", () => {
 });
 
 const databaseId = '9403ad41aa344441951044a6656d0d9a';
-const url = `https://api.notion.com/v1/pages/${databaseId}`;
+const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
 const headers = {
   'Content-Type': 'application/json',
-  'Notion-Version': '2021-05-13',
+  'Notion-Version': '2022-06-28',
   'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
 };
 
-fetch(url, {
-  method: 'GET',
-  headers: headers
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
+const filterData = {
+  "filter": {
+    "property": "キャラ名",
+    "title": {
+      "equals": "魈"
+    }
+  }
+};
+
+const requestOptions = {
+  method: 'POST',
+  headers: headers,
+  body: JSON.stringify(filterData)
+};
+
+fetch(url, requestOptions)
+  .then(response => response.json())
+  .then(data => {
+    // propertiesプロパティを取得
+    const properties = data.properties;
+    console.log(properties);
+  })
+  .catch(error => console.error('Error:', error));
 
 
 client.login(process.env.DISCORD_BOT_TOKEN);

@@ -72,18 +72,10 @@ client.on('messageCreate', async message => {
           message.channel.send(`**${key}:** ${typeof value === 'object' ? JSON.stringify(value) : value}`);
         }
       });
-    // ValueからURLを取得
-const imageURL = properties.files[0].name;
-
-// URLが存在する場合はメッセージとして送信
-if (imageURL) {
-  message.channel.send({
-    files: [imageURL]
-  });
-}
       
       // 画像のURLを取得して送信
       const imageURLs = properties['画像']?.files.map(file => file.file?.url).filter(url => url);
+      console.log(imageURLs);
       if (imageURLs && imageURLs.length > 0) {
         imageURLs.forEach(url => {
           message.channel.send(url);

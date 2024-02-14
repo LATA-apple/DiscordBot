@@ -68,14 +68,6 @@ client.on('messageCreate', async message => {
           value = multiSelectValues.join(', ');
         }
         
-        if (value !== null && value !== '') {
-          fields.push({
-            name: key,
-            value: typeof value === 'object' ? JSON.stringify(value) : value,
-            inline: true
-          });
-        }
-        
         // 空行が含まれる場合は削除してからメッセージに含めて送信
         if (value !== null && value !== '') {
           // プロパティのキーと値をメッセージに含めて送信
@@ -90,25 +82,6 @@ client.on('messageCreate', async message => {
       if (imageURL) {
         message.channel.send(imageURL);
       }
-    
-    console.log(fields);
-    
-    if (fields.length > 0) {
-      const embedMessage = {
-        embed: {
-          title: message.content, 
-          thumbnail: {
-            url: imageURL
-          },
-          fields: fields.text
-        }
-      };
-      console.log(embedMessage);
-    
-      message.channel.send(embedMessage);
-    }
-    
-    
     
     })
     .catch(error => console.error('Error:', error));

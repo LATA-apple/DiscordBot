@@ -39,9 +39,12 @@ const requestOptions = {
 fetch(url, requestOptions)
   .then(response => response.json())
   .then(data => {
-    // propertiesプロパティを取得
-    const properties = data.properties;
-    console.log(properties);
+    const properties = data.results[0].properties; // レスポンスのresultsからpropertiesオブジェクトを取得
+    Object.keys(properties).forEach(key => {
+      const property = properties[key]; // 各プロパティを取得
+      console.log(`Key: ${key}`);
+      console.log(property); // プロパティの内容を出力
+    });
   })
   .catch(error => console.error('Error:', error));
 

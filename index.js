@@ -86,6 +86,8 @@ client.on('messageCreate', async message => {
         if (value !== null && value !== '') {
             embed.addField(key, typeof value === 'object' ? JSON.stringify(value) : value);
         }
+        
+        console.log(property.results[0]);
       });
       
       // URLを取得

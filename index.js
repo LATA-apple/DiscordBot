@@ -67,13 +67,20 @@ client.on('messageCreate', async message => {
         // Valueの値を取得し、空行を削除
         let value = null;
         if (property.name) {
-          value = property.name.trim();
+            value = property.name.trim();
         } else if (property.content) {
-          value = property.content.trim();
+            value = property.content.trim();
         } else if (property.type === 'multi_select') {
-          // multi_selectの場合は各オブジェクトのnameプロパティの値を取得し、カンマで連結して空行を削除
-          const multiSelectValues = property.multi_select.map(item => item.name.trim());
-          value = multiSelectValues.join(', ');
+            // multi_selectの場合は各オブジェクトのnameプロパティの値を取得し、カンマで連結して空行を削除
+            const multiSelectValues = property.multi_select.map(item => item.name.trim());
+            value = multiSelectValues.join(', ');
+        } else if (property.type === 'select') {
+            // selectの場合はnameプロパティの値を取得
+            value = property.select.name.trim();
+        } else if (property.type === 'rich_text') {
+            // rich_textの場合は、plain_textプロパティの値を取得して連結
+            const plainTextValues = property.rich_text.map(text => text.plain_text.trim());
+            value = plainTextValues.join('\n');
         }
         
         if (value !== null && value !== '') {

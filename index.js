@@ -80,12 +80,12 @@ client.on('messageCreate', async message => {
         } else if (property.type === 'rich_text') {
             // rich_textの場合は、plain_textプロパティの値を取得して連結
             const plainTextValues = property.rich_text.map(text => text.plain_text.trim());
-            value = plainTextValues.join('\n');
+            value = plainTextValues.some(text => /[0-9]/.test(text)) ? plainTextValues.join(' : ') : plainTextValues.join('\n');
         }
         
         if (value !== null && value !== '') {
             if (!value.includes('凸】')) {
-                embed.addField('- '+key+'-', typeof value === 'object' ? JSON.stringify(value) : value, true);
+                embed.addField('- '+key+' -', typeof value === 'object' ? JSON.stringify(value) : value);
             }
         }
       });

@@ -45,6 +45,7 @@ client.on('messageCreate', async message => {
   };
   
   const fields = [];
+  console.log(`--------------------------------------------------`);
   
   // データの取得と処理
   fetch(url, requestOptions)

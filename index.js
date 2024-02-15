@@ -44,6 +44,8 @@ client.on('messageCreate', async message => {
     body: JSON.stringify(filterData)
   };
   
+  const notionurl = ''
+  
   const fields = [];
   console.log(`--------------------------------------------------`);
   

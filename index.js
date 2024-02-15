@@ -67,7 +67,7 @@ client.on('messageCreate', async message => {
         // Valueの値を取得し、空行を削除
         let value = null;
         if (property.name) {
-            value = property.name.trim();
+          value = property.name.trim();
         } else if (property.content) {
             value = property.content.trim();
         } else if (property.type === 'multi_select') {
@@ -80,19 +80,23 @@ client.on('messageCreate', async message => {
         } else if (property.type === 'rich_text') {
             // rich_textの場合は、plain_textプロパティの値を取得して連結
             const plainTextValues = property.rich_text.map(text => text.plain_text.trim());
+              if (plainTextValues.includes('凸効果')) {
+                // '凸効果' の場合は何もしない
+                return;
+              }
             value = plainTextValues.join('\n');
         }
         
         if (value !== null && value !== '') {
             embed.addField(key, typeof value === 'object' ? JSON.stringify(value) : value);
         }
-        
-        console.log(property.results[0]);
       });
       
       // URLを取得
       const imageURL = data.results[0].icon.external.url;
       embed.setThumbnail(imageURL)
+    
+      console.log(embed.fields);
     
       message.channel.send({ embeds: [embed] })
     

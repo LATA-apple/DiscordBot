@@ -1,4 +1,4 @@
-const { Client, Intents, MessageEmbed, TextInput } = require("discord.js");
+const { Client, Intents, MessageEmbed } = require("discord.js");
 const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
 
@@ -12,39 +12,9 @@ client.on("ready", () => {
   client.user.setPresence({ activity: { name: "げーむ" } });
 });
 
-let attack = null;
-let critical = null;
-let critical_hurt = null;
-
 const databaseId = '9403ad41aa344441951044a6656d0d9a';
 const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
-const askForStats = async (message) => {
-  const collector = message.channel.createMessageCollector({
-    filter: m => m.author.id === message.author.id,
-    max: 3, // ユーザーが提供することが期待されるメッセージの数
-    time: 60000, // ユーザーの回答を待機する時間（ミリ秒）
-  });
-
-  // メッセージを収集して、それぞれのステータス値を設定する
-  collector.on('collect', (m) => {
-    if (m.content.toLowerCase().startsWith('attack')) {
-      attack = parseFloat(m.content.split(' ')[1]);
-    } else if (m.content.toLowerCase().startsWith('critical')) {
-      critical = parseFloat(m.content.split(' ')[1]);
-    } else if (m.content.toLowerCase().startsWith('critical_hurt')) {
-      critical_hurt = parseFloat(m.content.split(' ')[1]);
-    }
-  });
-
-  // コレクションの終了時に、ステータスを確認してメッセージを送信
-  collector.on('end', () => {
-    message.channel.send(`Attack: ${attack}\nCritical: ${critical}\nCritical Hurt: ${critical_hurt}`);
-  });
-
-  // ユーザーに入力を促すメッセージを送信
-  await message.channel.send('Please provide your stats in the format `Attack: [value]`, `Critical: [value]`, `Critical_Hurt: [value]`');
-};
 
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
@@ -133,7 +103,23 @@ client.on('messageCreate', async message => {
     const imageURL = data.results[0].icon.external.url;
     embed.setThumbnail(imageURL)
     
+    console.log(embed.fields);
+    
     message.channel.send({ embeds: [embed] })
+    /*
+    const pageId = notionurl.split('/').pop();
+    console.log(pageId);
+    const page_url = `https://api.notion.com/v1/pages/${pageId}`;
+    const page_requestOptions = {
+      method: 'GET',
+      headers: headers,
+    };
+    fetch(page_url, page_requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    */
     
     })
     .catch(error => console.error('Error:', error));

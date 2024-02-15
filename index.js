@@ -83,10 +83,10 @@ client.on('messageCreate', async message => {
             // rich_textの場合は、plain_textプロパティの値を取得して連結
             const plainTextValues = property.rich_text.map(text => text.plain_text.trim());
             let formattedValue = '';
-              for (let i = 0; i < plainTextValues.length; i += 2) {
-                  formattedValue += `${plainTextValues[i]} : ${plainTextValues[i + 1]}\n`;
-              }
-               value = formattedValue.trim();
+            for (let i = 0; i < plainTextValues.length; i += 2) {
+                formattedValue += `${plainTextValues[i]} : ${plainTextValues[i + 1]}\n`;
+            }
+            value = formattedValue.trim();
         }
         
         if (value !== null && value !== '') {

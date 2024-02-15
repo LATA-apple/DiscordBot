@@ -80,7 +80,11 @@ client.on('messageCreate', async message => {
         } else if (property.type === 'rich_text') {
             // rich_textの場合は、plain_textプロパティの値を取得して連結
             const plainTextValues = property.rich_text.map(text => text.plain_text.trim());
-            value = plainTextValues.some(text => /[0-9]/.test(text)) ? plainTextValues.join(' : ') : plainTextValues.join('\n');
+            let formattedValue = '';
+              for (let i = 0; i < plainTextValues.length; i += 2) {
+                  formattedValue += `${plainTextValues[i]} : ${plainTextValues[i + 1]}\n`;
+              }
+               value = formattedValue.trim();
         }
         
         if (value !== null && value !== '') {

@@ -96,15 +96,26 @@ client.on('messageCreate', async message => {
         }
       });
       
-      // URLを取得
-      const imageURL = data.results[0].icon.external.url;
-      embed.setThumbnail(imageURL)
+    // URLを取得
+    const imageURL = data.results[0].icon.external.url;
+    embed.setThumbnail(imageURL)
     
-      console.log(embed.fields);
+    console.log(embed.fields);
     
-      message.channel.send({ embeds: [embed] })
+    message.channel.send({ embeds: [embed] })
     
-    
+    const pageId = notionurl.split('/').pop();
+    const page_url = `https://api.notion.com/v1/pages/${pageId}/query`;
+    const page_requestOptions = {
+      method: 'GET',
+      headers: headers,
+      body: JSON.stringify
+    };
+    fetch(page_url, page_requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
     
     })
     .catch(error => console.error('Error:', error));

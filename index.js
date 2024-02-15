@@ -19,9 +19,8 @@ const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
-  
-  // Check if the message is from the specified channel ID
-  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116') return;
+  // 原神・テスト用、 個人・テスト用、 原神・キャラ情報 のみ許可
+  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   
   const headers = {
     'Content-Type': 'application/json',
@@ -83,8 +82,12 @@ client.on('messageCreate', async message => {
             // rich_textの場合は、plain_textプロパティの値を取得して連結
             const plainTextValues = property.rich_text.map(text => text.plain_text.trim());
             let formattedValue = '';
-            for (let i = 0; i < plainTextValues.length; i += 2) {
+            if (key === '目標ステータス') {
+              for (let i = 0; i < plainTextValues.length; i += 2) {
                 formattedValue += `${plainTextValues[i]} : ${plainTextValues[i + 1]}\n`;
+              }
+            } else {
+              formattedValue = plainTextValues.join('\n');
             }
             value = formattedValue.trim();
         }

@@ -103,19 +103,20 @@ client.on('messageCreate', async message => {
     console.log(embed.fields);
     
     message.channel.send({ embeds: [embed] })
-    
+    /*
     const pageId = notionurl.split('/').pop();
-    const page_url = `https://api.notion.com/v1/pages/${pageId}/query`;
+    console.log(pageId);
+    const page_url = `https://api.notion.com/v1/pages/${pageId}`;
     const page_requestOptions = {
       method: 'GET',
       headers: headers,
-      body: JSON.stringify
     };
     fetch(page_url, page_requestOptions)
     .then(response => response.json())
     .then(data => {
       console.log(data);
     })
+    */
     
     })
     .catch(error => console.error('Error:', error));

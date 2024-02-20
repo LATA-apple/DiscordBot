@@ -286,13 +286,9 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
-                const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
-                console.log(search_result);
-                orthopedics_text += critical_text + search_result + '\n';
-                console.log(orthopedics_text);
                             })
                 .catch(error => console.error('Error:', error));
-              //orthopedics_text += critical_text + search_result + '\n';
+              orthopedics_text += critical_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }

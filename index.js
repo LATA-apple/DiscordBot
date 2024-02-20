@@ -250,8 +250,7 @@ client.on('messageCreate', async message => {
           
           let up_num = '';
           let up_percent = '';
-              up_num = '';
-              up_percent = '';
+          let search_result = '';
           
           //ここまで
           
@@ -287,10 +286,12 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                console.log(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-            
-              orthopedics_text += critical_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+                search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+              orthopedics_text += critical_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
           }

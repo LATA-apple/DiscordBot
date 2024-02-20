@@ -12,8 +12,6 @@ const element_mastery_search = require('./search/element_mastery');
 const critical_search = require('./search/critical');
 const critical_hurt_search = require('./search/critical_hurt');
 
-const resultObject = getObjectByName('1793');
-
 function get_hp_num_search(name) {
   return hp_num_search.find(item => item.name === name);
 }
@@ -285,13 +283,6 @@ client.on('messageCreate', async message => {
           }
           //値調整用ここまで
           
-          //上昇率計算
-          
-          
-          
-          
-          //
-          
           let critical_text = '会心率+'+critical+'%';
           let critical_hurt_text = '会心ダメージ+'+critical_hurt+'%';
           let attack_text = '攻撃力+'+attack+'%';
@@ -302,6 +293,61 @@ client.on('messageCreate', async message => {
           let hp_num_text = 'HP+'+hp_num;
           let charge_efficiency_text = '元素チャージ効率+'+charge_efficiency+'%';
           let element_mastery_text = '元素熟知+'+element_mastery;
+          
+          //サブオプ上昇値・率　ここから
+          /*
+          const result_hp_num = hp_num_search('1793');
+          if (result_hp_num) {
+            const { up_num, up_percent } = result_hp_num;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          const result_hp = hp_search('1793');
+          if (result_hp) {
+            const { up_num, up_percent } = result_hp;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          const result_attack_num = attack_num_search('1793');
+          if (result_attack_num) {
+            const { up_num, up_percent } = result_attack_num;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          const result_attack = attack_search('1793');
+          if (result_attack) {
+            const { up_num, up_percent } = result_attack;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          const result_defense_num = defense_num_search('1793');
+          if (result_defense_num) {
+            const { up_num, up_percent } = result_defense_num;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          const result_defense = defense_search('1793');
+          if (result_defense) {
+            const { up_num, up_percent } = result_defense;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          const result_charge_efficiency = charge_efficiency_search('1793');
+          if (result_charge_efficiency) {
+            const { up_num, up_percent } = result_charge_efficiency;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          const result_element_mastery = element_mastery_search('1793');
+          if (result_element_mastery) {
+            const { up_num, up_percent } = result_element_mastery;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          const result_critical = critical_search('1793');
+          if (result_critical) {
+            const { up_num, up_percent } = result_critical;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          const result_critical_hurt = critical_hurt_search('1793');
+          if (result_critical_hurt) {
+            const { up_num, up_percent } = result_critical_hurt;
+            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
+          }
+          */
+          //サブオプ上昇値・率　ここまで
           
           let orthopedics_text = '';
           if (critical !== 0) {

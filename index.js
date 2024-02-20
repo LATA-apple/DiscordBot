@@ -288,10 +288,11 @@ client.on('messageCreate', async message => {
                   });
                 const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                 console.log(search_result);
+                orthopedics_text += critical_text + search_result + '\n';
+                console.log(orthopedics_text);
                             })
                 .catch(error => console.error('Error:', error));
-                search_result = '　(' + up_percent + '%, ' + up_num + '回)';
-              orthopedics_text += critical_text + search_result + '\n';
+              //orthopedics_text += critical_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
           }

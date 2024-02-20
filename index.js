@@ -48,7 +48,7 @@ client.on('messageCreate', async message => {
   const fields = [];
   console.log(`--------------------------------------------------`);
   
-  // データの取得と処理
+  //キャラ情報Notion自動読み出し
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
@@ -241,6 +241,13 @@ client.on('messageCreate', async message => {
             charge_efficiency = 11.7
           }
           //値調整用ここまで
+          
+          //上昇率計算
+          
+          
+          
+          
+          //
           
           let critical_text = '会心率+'+critical+'%';
           let critical_hurt_text = '会心ダメージ+'+critical_hurt+'%';

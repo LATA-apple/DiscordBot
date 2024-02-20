@@ -272,7 +272,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -296,7 +297,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -320,7 +322,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -344,7 +347,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -368,7 +372,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -392,7 +397,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -416,7 +422,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -440,7 +447,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -464,7 +472,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -488,7 +497,8 @@ client.on('messageCreate', async message => {
               fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
+                  const properties = data.results[0].properties;
+                  console.log(properties);
                             })
                 .catch(error => console.error('Error:', error));
             

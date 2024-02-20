@@ -2,15 +2,48 @@ const { Client, Intents, MessageEmbed } = require("discord.js");
 const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
 const hp_num_search = require('./search/hp_num');
+const hp_search = require('./search/hp');
+const attack_num_search = require('./search/attack_num');
+const attack_search = require('./search/attack');
+const defense_num_search = require('./search/defense_num');
+const defense_search = require('./search/defense');
+const charge_efficiency_search = require('./search/charge_efficiency');
+const element_mastery_search = require('./search/element_mastery');
+const critical_search = require('./search/critical');
+const critical_hurt_search = require('./search/critical_hurt');
 
+const resultObject = getObjectByName('1793');
 
-
-
-
-
-
-
-
+function get_hp_num_search(name) {
+  return hp_num_search.find(item => item.name === name);
+}
+function get_hp_search(name) {
+  return hp_search.find(item => item.name === name);
+}
+function get_attack_num_search(name) {
+  return attack_num_search.find(item => item.name === name);
+}
+function get_attack_search(name) {
+  return attack_search.find(item => item.name === name);
+}
+function get_defense_num_search(name) {
+  return defense_num_search.find(item => item.name === name);
+}
+function get_defense_search(name) {
+  return defense_search.find(item => item.name === name);
+}
+function get_charge_efficiency_search(name) {
+  return charge_efficiency_search.find(item => item.name === name);
+}
+function get_element_mastery_search(name) {
+  return element_mastery_search.find(item => item.name === name);
+}
+function get_critical_search(name) {
+  return critical_search.find(item => item.name === name);
+}
+function get_critical_hurt_search(name) {
+  return critical_hurt_search.find(item => item.name === name);
+}
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],

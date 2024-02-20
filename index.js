@@ -15,7 +15,7 @@ client.on("ready", () => {
 const databaseId = '9403ad41aa344441951044a6656d0d9a';
 const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
-
+//キャラ情報Notion自動読み込み
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
@@ -125,7 +125,7 @@ client.on('messageCreate', async message => {
     .catch(error => console.error('Error:', error));
   
 });
-
+//聖遺物画像自動認識・自動スコア算出
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;

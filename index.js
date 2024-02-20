@@ -242,57 +242,218 @@ client.on('messageCreate', async message => {
           //サブステ上昇値・上昇率検索
           let search_url = '';
           
-          const filterData = {
-            "filter": {
-              "property": "数値",
-              "title": {
-                "equals": message.content // メッセージの内容をキャラ名として使用
-              }
-            }
+          const headers = {
+            'Content-Type': 'application/json',
+            'Notion-Version': '2022-06-28',
+            'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
           };
+          
+          const search_Data = {};
+          
+          const requestOptions = {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(search_Data)
+          };
+          
+          let up_num = '';
+          let up_percent = '';
           
           //ここまで
           
           let orthopedics_text = '';
           if (critical !== 0) {
               search_url = 'https://api.notion.com/v1/databases/fceb32c8f9d943fc821dfd62cf6a567b/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": critical
+                  }
+                }
+              };
+            
+              fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += critical_text + '\n';
           }
           if (critical_hurt !== 0) {
               search_url = 'https://api.notion.com/v1/databases/2ff80d8c2f584ada9fcb19409dcb0884/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": critical_hurt
+                  }
+                }
+              };
+            
+              fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += critical_hurt_text + '\n';
           }
           if (attack !== 0) {
               search_url = 'https://api.notion.com/v1/databases/fdc31e0096c243229020bfc9e4e9d759/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": attack
+                  }
+                }
+              };
               orthopedics_text += attack_text + '\n';
           }
           if (attack_num !== 0) {
               search_url = 'https://api.notion.com/v1/databases/3ae0e24a2254444b8a4d3e995d34d575/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": attack_num
+                  }
+                }
+              };
+            
+              fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += attack_num_text + '\n';
           }
           if (defense !== 0) {
               search_url = 'https://api.notion.com/v1/databases/aca0ecd7c88e46998c62772cfba62778/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": defense
+                  }
+                }
+              };
+            
+              fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += defense_text + '\n';
           }
           if (defense_num !== 0) {
               search_url = 'https://api.notion.com/v1/databases/02e0146e5fd84af58990cedc2646a0bb/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": defense_num
+                  }
+                }
+              };
+            
+              fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += defense_num_text + '\n';
           }
           if (hp !== 0) {
               search_url = 'https://api.notion.com/v1/databases/11075a15a00749eea2fded22b5d2e0d4/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": hp
+                  }
+                }
+              };
+            
+              fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += hp_text + '\n';
           }
           if (hp_num !== 0) {
               search_url = 'https://api.notion.com/v1/databases/062859a7012249da8c485945f600436b/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": hp_num
+                  }
+                }
+              };
+            
+              fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += hp_num_text + '\n';
           }
           if (charge_efficiency !== 0) {
               search_url = 'https://api.notion.com/v1/databases/a31e25d7ee2642339b99a45e74a410dc/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": charge_efficiency
+                  }
+                }
+              };
+            
+              fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += charge_efficiency_text + '\n';
           }
           if (element_mastery !== 0) {
               search_url = 'https://api.notion.com/v1/databases/c5bbbe83803143f4b2eb252fa57b90b8/query';
+              const search_Data = {
+                "filter": {
+                  "property": "数値",
+                  "number": {
+                    "equals": element_mastery
+                  }
+                }
+              };
+            
+              fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += element_mastery_text + '\n';
+              
           }
           channel.send(critical_text+'\n'+critical_hurt_text+'\n'+attack_text+'\n'+attack_num_text+'\n'+defense_text+'\n'+defense_num_text+'\n'+hp_text+'\n'+hp_num_text+'\n'+charge_efficiency_text+'\n'+element_mastery_text );
           channel.send(orthopedics_text);

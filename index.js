@@ -290,7 +290,9 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += critical_text + '\n';
+              orthopedics_text += critical_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
           }
           if (critical_hurt !== 0) {
               search_url = 'https://api.notion.com/v1/databases/2ff80d8c2f584ada9fcb19409dcb0884/query';
@@ -312,10 +314,23 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += critical_hurt_text + '\n';
+              orthopedics_text += critical_hurt_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
           }
           if (attack !== 0) {
               search_url = 'https://api.notion.com/v1/databases/fdc31e0096c243229020bfc9e4e9d759/query';
@@ -337,10 +352,23 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += attack_text + '\n';
+              orthopedics_text += attack_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
           }
           if (attack_num !== 0) {
               search_url = 'https://api.notion.com/v1/databases/3ae0e24a2254444b8a4d3e995d34d575/query';
@@ -362,10 +390,23 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += attack_num_text + '\n';
+              orthopedics_text += attack_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
           }
           if (defense !== 0) {
               search_url = 'https://api.notion.com/v1/databases/aca0ecd7c88e46998c62772cfba62778/query';
@@ -387,10 +428,23 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += defense_text + '\n';
+              orthopedics_text += defense_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
           }
           if (defense_num !== 0) {
               search_url = 'https://api.notion.com/v1/databases/02e0146e5fd84af58990cedc2646a0bb/query';
@@ -412,10 +466,23 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += defense_num_text + '\n';
+              orthopedics_text += defense_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
           }
           if (hp !== 0) {
               search_url = 'https://api.notion.com/v1/databases/11075a15a00749eea2fded22b5d2e0d4/query';
@@ -437,10 +504,23 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += hp_text + '\n';
+              orthopedics_text += hp_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
           }
           if (hp_num !== 0) {
               search_url = 'https://api.notion.com/v1/databases/062859a7012249da8c485945f600436b/query';
@@ -462,10 +542,23 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += hp_num_text + '\n';
+              orthopedics_text += hp_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
           }
           if (charge_efficiency !== 0) {
               search_url = 'https://api.notion.com/v1/databases/a31e25d7ee2642339b99a45e74a410dc/query';
@@ -487,10 +580,23 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += charge_efficiency_text + '\n';
+              orthopedics_text += charge_efficiency_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
           }
           if (element_mastery !== 0) {
               search_url = 'https://api.notion.com/v1/databases/c5bbbe83803143f4b2eb252fa57b90b8/query';
@@ -512,10 +618,23 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += element_mastery_text + '\n';
+              orthopedics_text += element_mastery_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              up_num =　'';
+              up_percent =　'';
               
           }
           channel.send(critical_text+'\n'+critical_hurt_text+'\n'+attack_text+'\n'+attack_num_text+'\n'+defense_text+'\n'+defense_num_text+'\n'+hp_text+'\n'+hp_num_text+'\n'+charge_efficiency_text+'\n'+element_mastery_text );

@@ -269,7 +269,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -293,7 +293,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -317,7 +317,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -341,7 +341,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -365,7 +365,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -389,7 +389,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -413,7 +413,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -437,7 +437,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -461,7 +461,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -485,7 +485,7 @@ client.on('messageCreate', async message => {
                 headers: headers,
                 body: JSON.stringify(search_Data)
               };
-              fetch(search_url, search_Data)
+              fetch(search_url, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);

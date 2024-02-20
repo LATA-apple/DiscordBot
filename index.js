@@ -286,7 +286,6 @@ client.on('messageCreate', async message => {
           }
           channel.send(critical_text+'\n'+critical_hurt_text+'\n'+attack_text+'\n'+attack_num_text+'\n'+defence_text+'\n'+defence_num_text+'\n'+hp_text+'\n'+hp_num_text+'\n'+charge_efficiency_text+'\n'+element_mastery_text );
           channel.send(orthopedics_text);
-          data_collection.send(orthopedics_text);
           
           let critical_value = critical*2+critical_hurt;
           let critical_attack_value = critical*2+critical_hurt+attack;
@@ -597,14 +596,15 @@ client.on('messageCreate', async message => {
             .setColor('RANDOM')
             .setThumbnail(url)
             .addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+          data_collection.send({ embeds: [embed] });
             //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defence_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
-            .addField('- 会心 -',critical_value+'\n'+critical_rank,true)
-            .addField('- 会心+攻撃力% -',critical_attack_value+'\n'+critical_attack_rank,true)
-            .addField('- 会心+防御力% -',critical_defence_value+'\n'+critical_defence_rank,true)
-            .addField('- 会心+HP% -',critical_hp_value+'\n'+critical_hp_rank,true)
-            .addField('- 会心+元素ﾁｬｰｼﾞ効率 -',critical_charge_efficiency_value+'\n'+critical_charge_efficiency_rank,true)
-            .addField('- 会心+元素熟知 -',critical_element_mastery_value+'\n'+critical_element_mastery_rank,true)
-            .setDescription('<@'+message.author+'>')
+            embed.addField('- 会心 -',critical_value+'\n'+critical_rank,true)
+            embed.addField('- 会心+攻撃力% -',critical_attack_value+'\n'+critical_attack_rank,true)
+            embed.addField('- 会心+防御力% -',critical_defence_value+'\n'+critical_defence_rank,true)
+            embed.addField('- 会心+HP% -',critical_hp_value+'\n'+critical_hp_rank,true)
+            embed.addField('- 会心+元素ﾁｬｰｼﾞ効率 -',critical_charge_efficiency_value+'\n'+critical_charge_efficiency_rank,true)
+            embed.addField('- 会心+元素熟知 -',critical_element_mastery_value+'\n'+critical_element_mastery_rank,true)
+            embed.setDescription('<@'+message.author+'>')
           
           console.log(embed)
           processingMessage.delete();

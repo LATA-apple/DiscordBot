@@ -1,6 +1,16 @@
 const { Client, Intents, MessageEmbed } = require("discord.js");
 const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
+const hp_num_search = require('./search/hp_num');
+
+
+
+
+
+
+
+
+
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -188,8 +198,8 @@ client.on('messageCreate', async message => {
           let critical_hurt = 0;
           let attack = 0;
           let attack_num = 0;
-          let defence = 0;
-          let defence_num = 0;
+          let defense = 0;
+          let defense_num = 0;
           let hp = 0;
           let hp_num = 0;
           let charge_efficiency = 0;
@@ -208,9 +218,9 @@ client.on('messageCreate', async message => {
               }
             } else if (line.includes('防御力')) {
               if (line.includes('%')) {
-                defence = parseFloat((line.replace('防御力+', '').replace('%', '').trim()).replace(/[^\d.]/g, ""));
+                defense = parseFloat((line.replace('防御力+', '').replace('%', '').trim()).replace(/[^\d.]/g, ""));
               } else {
-                defence_num = parseFloat((line.replace('防御力+', '').trim()).replace(/[^\d.]/g, ""));
+                defense_num = parseFloat((line.replace('防御力+', '').trim()).replace(/[^\d.]/g, ""));
               }
             } else if (line.includes('HP')) {
               if (line.includes('%')) {
@@ -231,8 +241,8 @@ client.on('messageCreate', async message => {
             critical_hurt = 11.7
           } else if (attack == 1.1) {
             attack = 11.1
-          } else if (defence == 1.7) {
-            defence = 11.7
+          } else if (defense == 1.7) {
+            defense = 11.7
           } else if (hp == 1.0) {
             hp = 11.0
           } else if (hp == 1.1) {
@@ -253,8 +263,8 @@ client.on('messageCreate', async message => {
           let critical_hurt_text = '会心ダメージ+'+critical_hurt+'%';
           let attack_text = '攻撃力+'+attack+'%';
           let attack_num_text = '攻撃力+'+attack_num;
-          let defence_text = '防御力+'+defence+'%';
-          let defence_num_text = '防御力+'+defence_num;
+          let defense_text = '防御力+'+defense+'%';
+          let defense_num_text = '防御力+'+defense_num;
           let hp_text = 'HP+'+hp+'%';
           let hp_num_text = 'HP+'+hp_num;
           let charge_efficiency_text = '元素チャージ効率+'+charge_efficiency+'%';
@@ -273,11 +283,11 @@ client.on('messageCreate', async message => {
           if (attack_num !== 0) {
               orthopedics_text += attack_num_text + '\n';
           }
-          if (defence !== 0) {
-              orthopedics_text += defence_text + '\n';
+          if (defense !== 0) {
+              orthopedics_text += defense_text + '\n';
           }
-          if (defence_num !== 0) {
-              orthopedics_text += defence_num_text + '\n';
+          if (defense_num !== 0) {
+              orthopedics_text += defense_num_text + '\n';
           }
           if (hp !== 0) {
               orthopedics_text += hp_text + '\n';
@@ -291,19 +301,19 @@ client.on('messageCreate', async message => {
           if (element_mastery !== 0) {
               orthopedics_text += element_mastery_text + '\n';
           }
-          channel.send(critical_text+'\n'+critical_hurt_text+'\n'+attack_text+'\n'+attack_num_text+'\n'+defence_text+'\n'+defence_num_text+'\n'+hp_text+'\n'+hp_num_text+'\n'+charge_efficiency_text+'\n'+element_mastery_text );
+          channel.send(critical_text+'\n'+critical_hurt_text+'\n'+attack_text+'\n'+attack_num_text+'\n'+defense_text+'\n'+defense_num_text+'\n'+hp_text+'\n'+hp_num_text+'\n'+charge_efficiency_text+'\n'+element_mastery_text );
           channel.send(orthopedics_text);
           
           let critical_value = critical*2+critical_hurt;
           let critical_attack_value = critical*2+critical_hurt+attack;
-          let critical_defence_value = critical*2+critical_hurt+defence;
+          let critical_defense_value = critical*2+critical_hurt+defense;
           let critical_charge_efficiency_value = critical*2+critical_hurt+charge_efficiency;
           let critical_hp_value = critical*2+critical_hurt+hp;
           let critical_element_mastery_value = critical*2+critical_hurt+(element_mastery*0.25);
           
           let critical_rank = '';
           let critical_attack_rank = '';
-          let critical_defence_rank = '';
+          let critical_defense_rank = '';
           let critical_hp_rank = '';
           let critical_charge_efficiency_rank = '';
           let critical_element_mastery_rank = '';
@@ -402,49 +412,49 @@ client.on('messageCreate', async message => {
           
           //防御型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
-            if (critical_defence_value >= 50) {
-                critical_defence_rank = '理論値';
-            } else if (critical_defence_value >= 45) {
-                critical_defence_rank = '厳選ランクS';
-            } else if (critical_defence_value >= 40) {
-                critical_defence_rank = '厳選ランクA';
-            } else if (critical_defence_value >= 30) {
-                critical_defence_rank = '厳選ランクB';
-            } else if (critical_defence_value >= 20) {
-                critical_defence_rank = '仮聖遺物';
+            if (critical_defense_value >= 50) {
+                critical_defense_rank = '理論値';
+            } else if (critical_defense_value >= 45) {
+                critical_defense_rank = '厳選ランクS';
+            } else if (critical_defense_value >= 40) {
+                critical_defense_rank = '厳選ランクA';
+            } else if (critical_defense_value >= 30) {
+                critical_defense_rank = '厳選ランクB';
+            } else if (critical_defense_value >= 20) {
+                critical_defense_rank = '仮聖遺物';
             } else {
-                critical_defence_rank = 'ゴミ';
+                critical_defense_rank = 'ゴミ';
             }
           } else if ((type_of_relics.includes('時の砂')) || (type_of_relics.includes('空の杯'))) {
-            if (critical_defence_value >= 45) {
-                critical_defence_rank = '理論値';
-            } else if (critical_defence_value >= 40) {
-                critical_defence_rank = '厳選ランクS';
-            } else if (critical_defence_value >= 35) {
-                critical_defence_rank = '厳選ランクA';
-            } else if (critical_defence_value >= 25) {
-                critical_defence_rank = '厳選ランクB';
-            } else if (critical_defence_value >= 15) {
-                critical_defence_rank = '仮聖遺物';
+            if (critical_defense_value >= 45) {
+                critical_defense_rank = '理論値';
+            } else if (critical_defense_value >= 40) {
+                critical_defense_rank = '厳選ランクS';
+            } else if (critical_defense_value >= 35) {
+                critical_defense_rank = '厳選ランクA';
+            } else if (critical_defense_value >= 25) {
+                critical_defense_rank = '厳選ランクB';
+            } else if (critical_defense_value >= 15) {
+                critical_defense_rank = '仮聖遺物';
             } else {
-                critical_defence_rank = 'ゴミ';
+                critical_defense_rank = 'ゴミ';
             }
           } else if ((type_of_relics.includes('理の冠'))) {
-            if (critical_defence_value >= 40) {
-                critical_defence_rank = '理論値';
-            } else if (critical_defence_value >= 35) {
-                critical_defence_rank = '厳選ランクS';
-            } else if (critical_defence_value >= 30) {
-                critical_defence_rank = '厳選ランクA';
-            } else if (critical_defence_value >= 20) {
-                critical_defence_rank = '厳選ランクB';
-            } else if (critical_defence_value >= 10) {
-                critical_defence_rank = '仮聖遺物';
+            if (critical_defense_value >= 40) {
+                critical_defense_rank = '理論値';
+            } else if (critical_defense_value >= 35) {
+                critical_defense_rank = '厳選ランクS';
+            } else if (critical_defense_value >= 30) {
+                critical_defense_rank = '厳選ランクA';
+            } else if (critical_defense_value >= 20) {
+                critical_defense_rank = '厳選ランクB';
+            } else if (critical_defense_value >= 10) {
+                critical_defense_rank = '仮聖遺物';
             } else {
-                critical_defence_rank = 'ゴミ';
+                critical_defense_rank = 'ゴミ';
             }
           }
-          console.log(critical_defence_rank)
+          console.log(critical_defense_rank)
           
           //HP型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
@@ -604,10 +614,10 @@ client.on('messageCreate', async message => {
             .setThumbnail(url)
             .addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
           data_collection.send({ embeds: [embed] });
-            //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defence_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
+            //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defense_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
             embed.addField('- 会心 -',critical_value+'\n'+critical_rank,true)
             embed.addField('- 会心+攻撃力% -',critical_attack_value+'\n'+critical_attack_rank,true)
-            embed.addField('- 会心+防御力% -',critical_defence_value+'\n'+critical_defence_rank,true)
+            embed.addField('- 会心+防御力% -',critical_defense_value+'\n'+critical_defense_rank,true)
             embed.addField('- 会心+HP% -',critical_hp_value+'\n'+critical_hp_rank,true)
             embed.addField('- 会心+元素ﾁｬｰｼﾞ効率 -',critical_charge_efficiency_value+'\n'+critical_charge_efficiency_rank,true)
             embed.addField('- 会心+元素熟知 -',critical_element_mastery_value+'\n'+critical_element_mastery_rank,true)

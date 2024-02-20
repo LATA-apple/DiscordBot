@@ -1,4 +1,3 @@
-//HP実数値
 const hp_num_list = [
   { name: '1793', up_num: '5', up_percent: '600' },
   { name: '1763', up_num: '5', up_percent: '590' },

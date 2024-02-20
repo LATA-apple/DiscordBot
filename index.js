@@ -1,16 +1,6 @@
 const { Client, Intents, MessageEmbed } = require("discord.js");
 const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
-const hp_num_search = require('./search/hp_num');
-const hp_search = require('./search/hp');
-const attack_num_search = require('./search/attack_num');
-const attack_search = require('./search/attack');
-const defense_num_search = require('./search/defense_num');
-const defense_search = require('./search/defense');
-const charge_efficiency_search = require('./search/charge_efficiency');
-const element_mastery_search = require('./search/element_mastery');
-const critical_search = require('./search/critical');
-const critical_hurt_search = require('./search/critical_hurt');
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -138,37 +128,6 @@ client.on('messageCreate', async message => {
 //聖遺物画像自動認識・自動スコア算出
 client.on('messageCreate', async message => {
   
-  function get_hp_num_search(name) {
-    return hp_num_search.find(item => item.name === name);
-  }
-  function get_hp_search(name) {
-    return hp_search.find(item => item.name === name);
-  }
-  function get_attack_num_search(name) {
-    return attack_num_search.find(item => item.name === name);
-  }
-  function get_attack_search(name) {
-    return attack_search.find(item => item.name === name);
-  }
-  function get_defense_num_search(name) {
-    return defense_num_search.find(item => item.name === name);
-  }
-  function get_defense_search(name) {
-    return defense_search.find(item => item.name === name);
-  }
-  function get_charge_efficiency_search(name) {
-    return charge_efficiency_search.find(item => item.name === name);
-  }
-  function get_element_mastery_search(name) {
-    return element_mastery_search.find(item => item.name === name);
-  }
-  function get_critical_search(name) {
-    return critical_search.find(item => item.name === name);
-  }
-  function get_critical_hurt_search(name) {
-    return critical_hurt_search.find(item => item.name === name);
-  }
-  
   // Ignore messages from other bots
   if (message.author.bot) return;
   
@@ -295,61 +254,6 @@ client.on('messageCreate', async message => {
           let charge_efficiency_text = '元素チャージ効率+'+charge_efficiency+'%';
           let element_mastery_text = '元素熟知+'+element_mastery;
           
-          //サブオプ上昇値・率　ここから
-          /*
-          const result_hp_num = hp_search('1793');
-          if (result_hp) {
-            const { up_num, up_percent } = result_hp_num;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          const result_hp = hp_search('1793');
-          if (result_hp) {
-            const { up_num, up_percent } = result_hp;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          const result_attack_num = attack_num_search('1793');
-          if (result_attack_num) {
-            const { up_num, up_percent } = result_attack_num;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          const result_attack = attack_search('1793');
-          if (result_attack) {
-            const { up_num, up_percent } = result_attack;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          const result_defense_num = defense_num_search('1793');
-          if (result_defense_num) {
-            const { up_num, up_percent } = result_defense_num;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          const result_defense = defense_search('1793');
-          if (result_defense) {
-            const { up_num, up_percent } = result_defense;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          const result_charge_efficiency = charge_efficiency_search('1793');
-          if (result_charge_efficiency) {
-            const { up_num, up_percent } = result_charge_efficiency;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          const result_element_mastery = element_mastery_search('1793');
-          if (result_element_mastery) {
-            const { up_num, up_percent } = result_element_mastery;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          const result_critical = critical_search('1793');
-          if (result_critical) {
-            const { up_num, up_percent } = result_critical;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          const result_critical_hurt = critical_hurt_search('1793');
-          if (result_critical_hurt) {
-            const { up_num, up_percent } = result_critical_hurt;
-            console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
-          }
-          */
-          //サブオプ上昇値・率　ここまで
-          
           let orthopedics_text = '';
           if (critical !== 0) {
               orthopedics_text += critical_text + '\n';
@@ -373,8 +277,6 @@ client.on('messageCreate', async message => {
               orthopedics_text += hp_text + '\n';
           }
           if (hp_num !== 0) {
-              orthopedics_text += hp_num_text + '\n';
-          if (result_hp_num) {
               orthopedics_text += hp_num_text + '\n';
           }
           if (charge_efficiency !== 0) {

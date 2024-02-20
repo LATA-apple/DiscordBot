@@ -248,14 +248,6 @@ client.on('messageCreate', async message => {
             'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
           };
           
-          const search_Data = {};
-          
-          const requestOptions = {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(search_Data)
-          };
-          
           let up_num = '';
           let up_percent = '';
           
@@ -272,8 +264,12 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
-            
-              fetch(url, requestOptions)
+              const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -292,8 +288,12 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
-            
-              fetch(url, requestOptions)
+               const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -312,6 +312,18 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
+              const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                            })
+                .catch(error => console.error('Error:', error));
+            
               orthopedics_text += attack_text + '\n';
           }
           if (attack_num !== 0) {
@@ -324,8 +336,12 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
-            
-              fetch(url, requestOptions)
+              const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -344,8 +360,12 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
-            
-              fetch(url, requestOptions)
+              const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -364,8 +384,12 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
-            
-              fetch(url, requestOptions)
+              const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -384,8 +408,12 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
-            
-              fetch(url, requestOptions)
+              const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -404,8 +432,12 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
-            
-              fetch(url, requestOptions)
+              const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -424,8 +456,12 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
-            
-              fetch(url, requestOptions)
+              const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
@@ -444,8 +480,12 @@ client.on('messageCreate', async message => {
                   }
                 }
               };
-            
-              fetch(url, requestOptions)
+              const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(search_Data)
+              };
+              fetch(search_url, search_Data)
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);

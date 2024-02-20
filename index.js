@@ -250,6 +250,8 @@ client.on('messageCreate', async message => {
           
           let up_num = '';
           let up_percent = '';
+              up_num = '';
+              up_percent = '';
           
           //ここまで
           
@@ -274,6 +276,17 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                  Object.keys(properties).forEach(key => {
+                    const property = properties[key]; // 各プロパティを取得
+                    console.log(`Key: ${key}`);
+                    if (key === '上昇数') {
+                      up_num = property.title[0].text.content;
+                    } else if (key === '上昇率') {
+                      up_percent = property.number;
+                    }
+                    console.log(`up_num: ${up_num}`);
+                    console.log(`up_percent: ${up_percent}`);
+                  });
                             })
                 .catch(error => console.error('Error:', error));
             

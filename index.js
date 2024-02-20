@@ -12,41 +12,10 @@ const element_mastery_search = require('./search/element_mastery');
 const critical_search = require('./search/critical');
 const critical_hurt_search = require('./search/critical_hurt');
 
-function get_hp_num_search(name) {
-  return hp_num_search.find(item => item.name === name);
-}
-function get_hp_search(name) {
-  return hp_search.find(item => item.name === name);
-}
-function get_attack_num_search(name) {
-  return attack_num_search.find(item => item.name === name);
-}
-function get_attack_search(name) {
-  return attack_search.find(item => item.name === name);
-}
-function get_defense_num_search(name) {
-  return defense_num_search.find(item => item.name === name);
-}
-function get_defense_search(name) {
-  return defense_search.find(item => item.name === name);
-}
-function get_charge_efficiency_search(name) {
-  return charge_efficiency_search.find(item => item.name === name);
-}
-function get_element_mastery_search(name) {
-  return element_mastery_search.find(item => item.name === name);
-}
-function get_critical_search(name) {
-  return critical_search.find(item => item.name === name);
-}
-function get_critical_hurt_search(name) {
-  return critical_hurt_search.find(item => item.name === name);
-}
-
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
-
+//オンライン時
 client.on("ready", () => {
   console.log(`==== Logged in: ${client.user.tag} ====`);
   console.log('Bot is ready!');
@@ -168,6 +137,38 @@ client.on('messageCreate', async message => {
 });
 //聖遺物画像自動認識・自動スコア算出
 client.on('messageCreate', async message => {
+  
+  function get_hp_num_search(name) {
+    return hp_num_search.find(item => item.name === name);
+  }
+  function get_hp_search(name) {
+    return hp_search.find(item => item.name === name);
+  }
+  function get_attack_num_search(name) {
+    return attack_num_search.find(item => item.name === name);
+  }
+  function get_attack_search(name) {
+    return attack_search.find(item => item.name === name);
+  }
+  function get_defense_num_search(name) {
+    return defense_num_search.find(item => item.name === name);
+  }
+  function get_defense_search(name) {
+    return defense_search.find(item => item.name === name);
+  }
+  function get_charge_efficiency_search(name) {
+    return charge_efficiency_search.find(item => item.name === name);
+  }
+  function get_element_mastery_search(name) {
+    return element_mastery_search.find(item => item.name === name);
+  }
+  function get_critical_search(name) {
+    return critical_search.find(item => item.name === name);
+  }
+  function get_critical_hurt_search(name) {
+    return critical_hurt_search.find(item => item.name === name);
+  }
+  
   // Ignore messages from other bots
   if (message.author.bot) return;
   
@@ -296,8 +297,8 @@ client.on('messageCreate', async message => {
           
           //サブオプ上昇値・率　ここから
           /*
-          const result_hp_num = hp_num_search('1793');
-          if (result_hp_num) {
+          const result_hp_num = hp_search('1793');
+          if (result_hp) {
             const { up_num, up_percent } = result_hp_num;
             console.log(`up_num: ${up_num}, up_percent: ${up_percent}`);
           }
@@ -372,6 +373,8 @@ client.on('messageCreate', async message => {
               orthopedics_text += hp_text + '\n';
           }
           if (hp_num !== 0) {
+              orthopedics_text += hp_num_text + '\n';
+          if (result_hp_num) {
               orthopedics_text += hp_num_text + '\n';
           }
           if (charge_efficiency !== 0) {

@@ -634,12 +634,6 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
-                
-                  up_num = properties.title[0].text.content;
-                  up_percent = properties.number;
-                  console.log(`up_num: ${up_num}`);
-                  console.log(`up_percent: ${up_percent}`);
-                  
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
                     console.log(`Key: ${key}`);

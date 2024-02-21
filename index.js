@@ -304,12 +304,7 @@ client.on('messageCreate', async message => {
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
-                if (typeof critical_text !== 'undefined' && critical_text !== '') {
-                    orthopedics_text += critical_text + search_result + '\n'; // search_resultをorthopedics_textに追加する
-                } else {
-                    console.error('critical_text is undefined or empty');
-                }
-                console.log('orthopedics_text:',orthopedics_text);
+                orthopedics_text += critical_text + search_result + '\n';
               }
               orthopedics_text += critical_text + search_result.text + '\n';
               up_num =　'';

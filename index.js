@@ -849,12 +849,31 @@ client.on('messageCreate', async message => {
           channel.send(critical_text+'\n'+critical_hurt_text+'\n'+attack_text+'\n'+attack_num_text+'\n'+defense_text+'\n'+defense_num_text+'\n'+hp_text+'\n'+hp_num_text+'\n'+charge_efficiency_text+'\n'+element_mastery_text );
           //channel.send(orthopedics_text);
           
-          let critical_value = (critical*2+critical_hurt).toFixed(1);
-          let critical_attack_value = (critical*2+critical_hurt+attack).toFixed(1);
-          let critical_defense_value = (critical*2+critical_hurt+defense).toFixed(1);
-          let critical_charge_efficiency_value = (critical*2+critical_hurt+charge_efficiency).toFixed(1);
-          let critical_hp_value = (critical*2+critical_hurt+hp).toFixed(1);
-          let critical_element_mastery_value = (critical*2+critical_hurt+(element_mastery*0.25)).toFixed(1);
+          let critical_value = critical*2+critical_hurt;
+          let critical_attack_value = critical*2+critical_hurt+attack;
+          let critical_defense_value = critical*2+critical_hurt+defense;
+          let critical_charge_efficiency_value = critical*2+critical_hurt+charge_efficiency;
+          let critical_hp_value = critical*2+critical_hurt+hp;
+          let critical_element_mastery_value = critical*2+critical_hurt+(element_mastery*0.25);
+          
+          if (critical_value * 10 < 1) {
+              critical_value = (critical_value).toFixed(1);
+          }
+          if (critical_attack_value * 10 < 1) {
+              critical_attack_value = (critical_attack_value).toFixed(1);
+          }
+          if (critical_defense_value * 10 < 1) {
+              critical_defense_value = (critical_defense_value).toFixed(1);
+          }
+          if (critical_charge_efficiency_value * 10 < 1) {
+              critical_charge_efficiency_value = (critical_charge_efficiency_value).toFixed(1);
+          }
+          if (critical_hp_value * 10 < 1) {
+              critical_hp_value = (critical_hp_value).toFixed(1);
+          }
+          if (critical_element_mastery_value * 10 < 1) {
+              critical_element_mastery_value = (critical_element_mastery_value).toFixed(1);
+          }
           
           let critical_rank = '';
           let critical_attack_rank = '';

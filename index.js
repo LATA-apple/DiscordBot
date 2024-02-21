@@ -252,6 +252,8 @@ client.on('messageCreate', async message => {
           let up_num = '';
           let up_percent = '';
           let search_result = '';
+          const controller = new AbortController();
+          const signal = controller.signal;
           
           //ここまで
           
@@ -343,7 +345,6 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += critical_hurt_text + search_result + '\n';
-                console.log('here'+orthopedics_text);
               }
               //orthopedics_text += critical_hurt_text + search_result + '\n';
               up_num =　'';

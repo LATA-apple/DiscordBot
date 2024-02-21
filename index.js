@@ -298,6 +298,8 @@ client.on('messageCreate', async message => {
                   let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text);
+                  console.log(embed);
                             })
                 .catch(error => console.error('Error:', error));
               function useResponseData(search_result) {
@@ -349,6 +351,8 @@ client.on('messageCreate', async message => {
                   let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text);
+                  console.log(embed);
                             })
                 .catch(error => console.error('Error:', error));
               function useResponseData(search_result) {

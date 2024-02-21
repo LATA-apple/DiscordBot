@@ -875,14 +875,14 @@ client.on('messageCreate', async message => {
           let critical_charge_efficiency_value = critical*2+critical_hurt+charge_efficiency;
           let critical_hp_value = critical*2+critical_hurt+hp;
           let critical_element_mastery_value = critical*2+critical_hurt+(element_mastery*0.25);
-          /*
+          
           critical_value = Math.round(critical_value * 10) / 10;
           critical_attack_value = Math.round(critical_attack_value * 10) / 10;
           critical_defense_value = Math.round(critical_defense_value * 10) / 10;
           critical_charge_efficiency_value = Math.round(critical_charge_efficiency_value * 10) / 10;
           critical_hp_value = Math.round(critical_hp_value * 10) / 10;
           critical_element_mastery_value = Math.round(critical_element_mastery_value * 10) / 10;
-          */
+          
           let critical_rank = '';
           let critical_attack_rank = '';
           let critical_defense_rank = '';

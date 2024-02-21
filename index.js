@@ -236,31 +236,31 @@ client.on('messageCreate', async message => {
           
           //少数以下１位処理ここから
           if ((critical % 1 != 0)&&(critical != 0)) {
-              critical = Math.floor((critical) * 10) / 10;
+              critical = parseInt((critical) * 10) / 10;
           }
           if ((critical_hurt % 1 != 0)&&(critical_hurt != 0)) {
-              critical_hurt = (critical_hurt).toFixed(1);
+              critical_hurt = parseInt((critical_hurt) * 10) / 10;
           }
           if ((attack % 1 != 0)&&(attack != 0)) {
-              attack = (attack).toFixed(1);
+              attack = parseInt((attack) * 10) / 10;
           }
           if ((attack_num % 1 != 0)&&(attack_num != 0)) {
               attack_num = attack_num;
           }
           if ((defense % 1 != 0)&&(defense != 0)) {
-              defense = (defense).toFixed(1);
+              defense = parseInt((defense) * 10) / 10;
           }
           if ((defense_num % 1 != 0)&&(defense_num != 0)) {
               defense_num = defense_num;
           }
           if ((hp % 1 != 0)&&(hp != 0)) {
-              hp = (hp).toFixed(1);
+              hp = parseInt((hp) * 10) / 10;
           }
           if ((hp_num % 1 != 0)&&(hp_num != 0)) {
               hp_num = +hp_num;
           }
           if ((charge_efficiency % 1 != 0)&&(charge_efficiency != 0)) {
-              charge_efficiency = (charge_efficiency).toFixed(1);
+              charge_efficiency = parseInt((charge_efficiency) * 10) / 10;
           }
           if ((element_mastery % 1 != 0)&&(element_mastery != 0)) {
               element_mastery = element_mastery;
@@ -875,14 +875,14 @@ client.on('messageCreate', async message => {
           let critical_charge_efficiency_value = critical*2+critical_hurt+charge_efficiency;
           let critical_hp_value = critical*2+critical_hurt+hp;
           let critical_element_mastery_value = critical*2+critical_hurt+(element_mastery*0.25);
-          
+          /*
           critical_value = Math.round(critical_value * 10) / 10;
           critical_attack_value = Math.round(critical_attack_value * 10) / 10;
           critical_defense_value = Math.round(critical_defense_value * 10) / 10;
           critical_charge_efficiency_value = Math.round(critical_charge_efficiency_value * 10) / 10;
           critical_hp_value = Math.round(critical_hp_value * 10) / 10;
           critical_element_mastery_value = Math.round(critical_element_mastery_value * 10) / 10;
-          
+          */
           let critical_rank = '';
           let critical_attack_rank = '';
           let critical_defense_rank = '';

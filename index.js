@@ -235,16 +235,36 @@ client.on('messageCreate', async message => {
           //値調整用ここまで
           
           //少数以下１位処理ここから
-          critical = (critical).toFixed(1);
-          critical_hurt = (critical_hurt).toFixed(1);
-          attack = (attack).toFixed(1);
-          attack_num = attack_num;
-          defense = (defense).toFixed(1);
-          defense_num = defense_num;
-          hp = (hp).toFixed(1);
-          hp_num = +hp_num;
-          charge_efficiency = (charge_efficiency).toFixed(1);
-          element_mastery = element_mastery;
+          if ((critical * 10 < 1)&&(critical != 0)) {
+              critical = (critical).toFixed(1);
+          }
+          if ((critical_hurt * 10 < 1)&&(critical_hurt != 0)) {
+              critical_hurt = (critical_hurt).toFixed(1);
+          }
+          if ((attack * 10 < 1)&&(attack != 0)) {
+              attack = (attack).toFixed(1);
+          }
+          if ((attack_num * 10 < 1)&&(attack_num != 0)) {
+              attack_num = attack_num;
+          }
+          if ((defense * 10 < 1)&&(defense != 0)) {
+              defense = (defense).toFixed(1);
+          }
+          if ((defense_num * 10 < 1)&&(defense_num != 0)) {
+              defense_num = defense_num;
+          }
+          if ((hp * 10 < 1)&&(hp != 0)) {
+              hp = (hp).toFixed(1);
+          }
+          if ((hp_num * 10 < 1)&&(hp_num != 0)) {
+              hp_num = +hp_num;
+          }
+          if ((charge_efficiency * 10 < 1)&&(charge_efficiency != 0)) {
+              charge_efficiency = (charge_efficiency).toFixed(1);
+          }
+          if ((element_mastery * 10 < 1)&&(element_mastery != 0)) {
+              element_mastery = element_mastery;
+          }
           //少数以下１位処理ここまで
           
           let critical_text = '会心率+'+critical+'%';
@@ -855,26 +875,26 @@ client.on('messageCreate', async message => {
           let critical_charge_efficiency_value = critical*2+critical_hurt+charge_efficiency;
           let critical_hp_value = critical*2+critical_hurt+hp;
           let critical_element_mastery_value = critical*2+critical_hurt+(element_mastery*0.25);
-          
-          if (critical_value * 10 < 1) {
+          /*
+          if ((critical_value * 10 < 1)&&(critical_value != 0)) {
               critical_value = (critical_value).toFixed(1);
           }
-          if (critical_attack_value * 10 < 1) {
+          if ((critical_attack_value * 10 < 1)&&(critical_attack_value != 0)) {
               critical_attack_value = (critical_attack_value).toFixed(1);
           }
-          if (critical_defense_value * 10 < 1) {
+          if ((critical_defense_value * 10 < 1)&&(critical_defense_value != 0)) {
               critical_defense_value = (critical_defense_value).toFixed(1);
           }
-          if (critical_charge_efficiency_value * 10 < 1) {
+          if ((critical_charge_efficiency_value * 10 < 1)&&(critical_charge_efficiency_value != 0)) {
               critical_charge_efficiency_value = (critical_charge_efficiency_value).toFixed(1);
           }
-          if (critical_hp_value * 10 < 1) {
+          if ((critical_hp_value * 10 < 1)&&(critical_hp_value != 0)) {
               critical_hp_value = (critical_hp_value).toFixed(1);
           }
-          if (critical_element_mastery_value * 10 < 1) {
+          if ((critical_element_mastery_value * 10 < 1)&&(critical_element_mastery_value !== 0)) {
               critical_element_mastery_value = (critical_element_mastery_value).toFixed(1);
           }
-          
+          */
           let critical_rank = '';
           let critical_attack_rank = '';
           let critical_defense_rank = '';

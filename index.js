@@ -295,14 +295,11 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += critical_text + search_result + '\n';
+                console.log(orthopedics_text);
               }
               orthopedics_text += critical_text + search_result + '\n';
               up_num =　'';
@@ -345,14 +342,11 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += critical_hurt_text + search_result + '\n';
+                console.log(orthopedics_text);
               }
               orthopedics_text += critical_hurt_text + search_result + '\n';
               up_num =　'';
@@ -395,10 +389,6 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
@@ -445,10 +435,6 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
@@ -495,10 +481,6 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
@@ -545,10 +527,6 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
@@ -595,10 +573,6 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
@@ -645,10 +619,6 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
@@ -695,10 +665,6 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
@@ -745,10 +711,6 @@ client.on('messageCreate', async message => {
                   useResponseData(search_result);
                             })
                 .catch(error => console.error('Error:', error));
-              // 5秒後にリクエストを中止する例
-              setTimeout(() => {
-                controller.abort();
-              }, 2000);
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);

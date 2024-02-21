@@ -137,6 +137,12 @@ client.on('messageCreate', async message => {
           // Get image URL
           const url = attachment.url;
           console.log(url)
+          
+          const embed = new MessageEmbed()
+            .setTitle('- 聖遺物スコア -')
+            .setColor('RANDOM')
+            .setThumbnail(url)
+          
           // Create Tesseract worker
           const worker = await createWorker('jpn');
           await worker.load();
@@ -252,8 +258,7 @@ client.on('messageCreate', async message => {
           let up_num = '';
           let up_percent = '';
           let search_result = '';
-          const controller = new AbortController();
-          const signal = controller.signal;
+          let count = 0;
           
           //ここまで
           
@@ -299,7 +304,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += critical_text + search_result + '\n';
-                console.log(orthopedics_text);
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += critical_text + search_result + '\n';
               up_num =　'';
@@ -346,7 +355,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += critical_hurt_text + search_result + '\n';
-                console.log(orthopedics_text);
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += critical_hurt_text + search_result + '\n';
               up_num =　'';
@@ -393,6 +406,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += attack_text + search_result + '\n';
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += attack_text + search_result + '\n';
               up_num =　'';
@@ -439,6 +457,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += attack_num_text + search_result + '\n';
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += attack_num_text + search_result + '\n';
               up_num =　'';
@@ -485,6 +508,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += defense_text + search_result + '\n';
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += defense_text + search_result + '\n';
               up_num =　'';
@@ -531,6 +559,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += defense_num_text + search_result + '\n';
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += defense_num_text + search_result + '\n';
               up_num =　'';
@@ -577,6 +610,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += hp_text + search_result + '\n';
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += hp_text + search_result + '\n';
               up_num =　'';
@@ -623,6 +661,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += hp_num_text + search_result + '\n';
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += hp_num_text + search_result + '\n';
               up_num =　'';
@@ -669,6 +712,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += charge_efficiency_text + search_result + '\n';
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += charge_efficiency_text + search_result + '\n';
               up_num =　'';
@@ -715,6 +763,11 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += element_mastery_text + search_result + '\n';
+                if (count == 4) {
+                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+                } else {
+                  count += count + 1;
+                }
               }
               orthopedics_text += element_mastery_text + search_result + '\n';
               up_num =　'';
@@ -1028,12 +1081,9 @@ client.on('messageCreate', async message => {
           processingMessage.edit(relic_value)
           */
           
-          const embed = new MessageEmbed()
-            .setTitle('- 聖遺物スコア -')
-            .setColor('RANDOM')
-            .setThumbnail(url)
-            .addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
-          data_collection.send({embeds: [embed] });
+          
+            embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+            data_collection.send({embeds: [embed] });
             //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defense_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
             embed.addField('- 会心 -',critical_value+'\n'+critical_rank,true)
             embed.addField('- 会心+攻撃力% -',critical_attack_value+'\n'+critical_attack_rank,true)

@@ -305,6 +305,7 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += critical_text + search_result + '\n';
+                console.log('orthopedics_text:',orthopedics_text);
               }
               orthopedics_text += critical_text + search_result.text + '\n';
               up_num =　'';

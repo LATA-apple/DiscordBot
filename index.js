@@ -290,8 +290,8 @@ client.on('messageCreate', async message => {
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
                   let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
@@ -304,10 +304,10 @@ client.on('messageCreate', async message => {
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
-                if (typeof critical_text !== 'undefined') {
+                if (typeof critical_text !== 'undefined' && critical_text !== '') {
                     orthopedics_text += critical_text + search_result + '\n'; // search_resultをorthopedics_textに追加する
                 } else {
-                    console.error('critical_text is undefined');
+                    console.error('critical_text is undefined or empty');
                 }
                 console.log('orthopedics_text:',orthopedics_text);
               }

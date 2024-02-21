@@ -1149,7 +1149,7 @@ client.on('messageCreate', async message => {
             embed.addField('- 会心+防御力% -',critical_defense_value+'\n'+critical_defense_rank,true)
             embed.addField('- 会心+HP% -',critical_hp_value+'\n'+critical_hp_rank,true)
             embed.addField('- 会心+元素ﾁｬｰｼﾞ効率 -',critical_charge_efficiency_value+'\n'+critical_charge_efficiency_rank,true)
-            embed.addField('- 会心+元素熟知 -',critical_element_mastery_value+'\n'+critical_element_mastery_rank,true)
+            embed.addField('- 会心+元素熟知 -',critical_element_mastery_rank+' ('+critical_element_mastery_value+')'+,true)
             embed.setDescription('<@'+message.author+'>')
           
           console.log(embed)

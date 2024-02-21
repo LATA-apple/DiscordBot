@@ -1,6 +1,7 @@
 const { Client, Intents, MessageEmbed } = require("discord.js");
 const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
+const https = require('https');
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -256,6 +257,18 @@ client.on('messageCreate', async message => {
           
           let orthopedics_text = '';
           if (critical !== 0) {
+            
+            const options = {
+                hostname: 'api.notion.com',
+                path: '/v1/databases/fceb32c8f9d943fc821dfd62cf6a567b/query',
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV', // APIトークンを設定
+                    'Notion-Version': '2022-06-28', // バージョンを設定
+                    'Content-Type': 'application/json'
+                }
+            };
+            
               search_url = 'https://api.notion.com/v1/databases/fceb32c8f9d943fc821dfd62cf6a567b/query';
               const search_Data = {
                 "filter": {
@@ -289,13 +302,9 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += critical_text + search_result + '\n';
-                  console.log('orthopedics_text');
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
+              console.log(`search_result: ${search_result}`);
               orthopedics_text += critical_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
@@ -334,10 +343,6 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += critical_hurt_text + search_result + '\n';
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -379,10 +384,6 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += attack_text + search_result + '\n';
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -424,10 +425,6 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += attack_num_text + search_result + '\n';
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -469,10 +466,6 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += defense_text + search_result + '\n';
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -514,10 +507,6 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += defense_num_text + search_result + '\n';
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -559,10 +548,6 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += hp_text + search_result + '\n';
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -604,10 +589,6 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += hp_num_text + search_result + '\n';
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -649,10 +630,6 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += charge_efficiency_text + search_result + '\n';
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
@@ -694,10 +671,6 @@ client.on('messageCreate', async message => {
                   // search_resultをここで作成する
                   const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
-
-                  // orthopedics_textに追加する
-                  orthopedics_text += element_mastery_text + search_result + '\n';
-                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             

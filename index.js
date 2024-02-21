@@ -299,7 +299,7 @@ client.on('messageCreate', async message => {
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                   embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text);
-                  console.log(embed);
+                  console.log(critical+embed);
                             })
                 .catch(error => console.error('Error:', error));
               function useResponseData(search_result) {
@@ -352,7 +352,7 @@ client.on('messageCreate', async message => {
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                   embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text);
-                  console.log(embed);
+                  console.log(critical_hurt+embed);
                             })
                 .catch(error => console.error('Error:', error));
               function useResponseData(search_result) {

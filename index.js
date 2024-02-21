@@ -286,9 +286,16 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += critical_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
-              orthopedics_text += critical_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += critical_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -323,10 +330,17 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += critical_hurt_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += critical_hurt_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += critical_hurt_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -361,10 +375,17 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += attack_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += attack_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += attack_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -399,10 +420,17 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += attack_num_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += attack_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += attack_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -437,10 +465,17 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += defense_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += defense_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += defense_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -475,10 +510,17 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += defense_num_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += defense_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += defense_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -513,10 +555,17 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += hp_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += hp_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += hp_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -551,10 +600,17 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += hp_num_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += hp_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += hp_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -589,10 +645,17 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += charge_efficiency_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += charge_efficiency_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += charge_efficiency_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -627,10 +690,17 @@ client.on('messageCreate', async message => {
                     console.log(`up_num: ${up_num}`);
                     console.log(`up_percent: ${up_percent}`);
                   });
+                  // search_resultをここで作成する
+                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  console.log(search_result); // デバッグ用
+
+                  // orthopedics_textに追加する
+                  orthopedics_text += element_mastery_text + search_result + '\n';
+                  console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
             
-              orthopedics_text += element_mastery_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              //orthopedics_text += element_mastery_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
               

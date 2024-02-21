@@ -196,24 +196,24 @@ client.on('messageCreate', async message => {
               if (line.includes('%')) {
                 attack = parseFloat((line.replace('攻撃力+', '').replace('%', '').trim()).replace(/[^\d.]/g, ""));
               } else {
-                attack_num = parseFloat((line.replace('攻撃力+', '').trim()).replace(/[^\d.]/g, ""));
+                attack_num = parseFloat((line.replace('攻撃力+', '').trim()).replace(/[^\d.]/g, ""));/////
               }
             } else if (line.includes('防御力')) {
               if (line.includes('%')) {
                 defense = parseFloat((line.replace('防御力+', '').replace('%', '').trim()).replace(/[^\d.]/g, ""));
               } else {
-                defense_num = parseFloat((line.replace('防御力+', '').trim()).replace(/[^\d.]/g, ""));
+                defense_num = parseFloat((line.replace('防御力+', '').trim()).replace(/[^\d.]/g, ""));/////
               }
             } else if (line.includes('HP')) {
               if (line.includes('%')) {
                 hp = parseFloat((line.replace('HP+', '').replace('%', '').trim()).replace(/[^\d.]/g, ""));
               } else {
-                hp_num = parseFloat((line.replace('HP+', '').trim()).replace(/[^\d.]/g, ""));
+                hp_num = parseFloat((line.replace('HP+', '').trim()).replace(/[^\d.]/g, "").replace('.', ''));/////
               }
             } else if ((line.includes('元素チャージ効率'))&&(line.includes('%'))) {
               charge_efficiency = parseFloat((line.replace('元素チャージ効率+', '').replace('%', '').trim()).replace(/[^\d.]/g, ""));
             } else if (line.includes('元素熟知')) {
-              element_mastery = parseFloat((line.replace('元素熟知+', '').trim()).replace(/[^\d.]/g, ""));
+              element_mastery = parseFloat((line.replace('元素熟知+', '').trim()).replace(/[^\d.]/g, ""));/////
             }
           });
           //値調整用ここから
@@ -233,6 +233,19 @@ client.on('messageCreate', async message => {
             charge_efficiency = 11.7
           }
           //値調整用ここまで
+          
+          //少数以下１位処理ここから
+          critical_text = (critical).toFixed(1);
+          critical_hurt_text = (critical_hurt).toFixed(1);
+          attack_text = (attack).toFixed(1);
+          attack_num_text = attack_num;
+          defense_text = (defense).toFixed(1);
+          defense_num_text = defense_num;
+          hp_text = (hp).toFixed(1);
+          hp_num_text = +hp_num;
+          charge_efficiency_text = (charge_efficiency).toFixed(1);
+          element_mastery_text = element_mastery;
+          //少数以下１位処理ここまで
           
           let critical_text = '会心率+'+critical+'%';
           let critical_hurt_text = '会心ダメージ+'+critical_hurt+'%';
@@ -836,12 +849,12 @@ client.on('messageCreate', async message => {
           channel.send(critical_text+'\n'+critical_hurt_text+'\n'+attack_text+'\n'+attack_num_text+'\n'+defense_text+'\n'+defense_num_text+'\n'+hp_text+'\n'+hp_num_text+'\n'+charge_efficiency_text+'\n'+element_mastery_text );
           //channel.send(orthopedics_text);
           
-          let critical_value = (critical*2+critical_hurt).toFixed(2);
-          let critical_attack_value = (critical*2+critical_hurt+attack).toFixed(2);
-          let critical_defense_value = (critical*2+critical_hurt+defense).toFixed(2);
-          let critical_charge_efficiency_value = (critical*2+critical_hurt+charge_efficiency).toFixed(2);
-          let critical_hp_value = (critical*2+critical_hurt+hp).toFixed(2);
-          let critical_element_mastery_value = (critical*2+critical_hurt+(element_mastery*0.25)).toFixed(2);
+          let critical_value = (critical*2+critical_hurt).toFixed(1);
+          let critical_attack_value = (critical*2+critical_hurt+attack).toFixed(1);
+          let critical_defense_value = (critical*2+critical_hurt+defense).toFixed(1);
+          let critical_charge_efficiency_value = (critical*2+critical_hurt+charge_efficiency).toFixed(1);
+          let critical_hp_value = (critical*2+critical_hurt+hp).toFixed(1);
+          let critical_element_mastery_value = (critical*2+critical_hurt+(element_mastery*0.25)).toFixed(1);
           
           let critical_rank = '';
           let critical_attack_rank = '';

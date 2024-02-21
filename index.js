@@ -343,6 +343,7 @@ client.on('messageCreate', async message => {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += critical_hurt_text + search_result + '\n';
+                console.log('here'+orthopedics_text);
               }
               //orthopedics_text += critical_hurt_text + search_result + '\n';
               up_num =　'';
@@ -572,8 +573,9 @@ client.on('messageCreate', async message => {
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
+                orthopedics_text += hp_text + search_result + '\n';
               }
-              orthopedics_text += hp_text + search_result + '\n';
+              //orthopedics_text += hp_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -617,8 +619,9 @@ client.on('messageCreate', async message => {
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
+                orthopedics_text += hp_num_text + search_result + '\n';
               }
-              orthopedics_text += hp_num_text + search_result + '\n';
+              //orthopedics_text += hp_num_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -662,8 +665,9 @@ client.on('messageCreate', async message => {
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
+                orthopedics_text += charge_efficiency_text + search_result + '\n';
               }
-              orthopedics_text += charge_efficiency_text + search_result + '\n';
+              //orthopedics_text += charge_efficiency_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -707,8 +711,9 @@ client.on('messageCreate', async message => {
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
+                orthopedics_text += element_mastery_text + search_result + '\n';
               }
-              orthopedics_text += element_mastery_text + search_result + '\n';
+              //orthopedics_text += element_mastery_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
               
@@ -1024,7 +1029,7 @@ client.on('messageCreate', async message => {
             .setTitle('- 聖遺物スコア -')
             .setColor('RANDOM')
             .setThumbnail(url)
-            embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+            .addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
           data_collection.send({embeds: [embed] });
             //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defense_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
             embed.addField('- 会心 -',critical_value+'\n'+critical_rank,true)

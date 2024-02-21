@@ -284,7 +284,7 @@ client.on('messageCreate', async message => {
                   console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
-                    console.log(`Key: ${key}`);
+                    //console.log(`Key: ${key}`);
                     if (key === '上昇数') {
                       up_num = property.title[0].text.content;
                     } else if (key === '上昇率') {
@@ -294,17 +294,16 @@ client.on('messageCreate', async message => {
                     //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
-                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text);
-                  console.log(critical+embed);
                             })
                 .catch(error => console.error('Error:', error));
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += critical_text + search_result + '\n';
+                console.log('orthopedics_text:', orthopedics_text); //
               }
               orthopedics_text += critical_text + search_result.text + '\n';
               up_num =　'';
@@ -332,27 +331,26 @@ client.on('messageCreate', async message => {
                   console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
-                    console.log(`Key: ${key}`);
+                    //console.log(`Key: ${key}`);
                     if (key === '上昇数') {
                       up_num = property.title[0].text.content;
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
-                  embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text);
-                  console.log(critical_hurt+embed);
                             })
                 .catch(error => console.error('Error:', error));
               function useResponseData(search_result) {
                 // responseDataを使って必要な処理を行う
                 console.log('test'+search_result);
                 orthopedics_text += critical_hurt_text + search_result + '\n';
+                console.log('orthopedics_text:', orthopedics_text); //
               }
               orthopedics_text += critical_hurt_text + JSON.stringify(search_result) + '\n';
               up_num =　'';
@@ -380,17 +378,17 @@ client.on('messageCreate', async message => {
                   console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
-                    console.log(`Key: ${key}`);
+                    //console.log(`Key: ${key}`);
                     if (key === '上昇数') {
                       up_num = property.title[0].text.content;
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                             })
@@ -426,17 +424,17 @@ client.on('messageCreate', async message => {
                   console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
-                    console.log(`Key: ${key}`);
+                    //console.log(`Key: ${key}`);
                     if (key === '上昇数') {
                       up_num = property.title[0].text.content;
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                             })
@@ -472,17 +470,17 @@ client.on('messageCreate', async message => {
                   console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
-                    console.log(`Key: ${key}`);
+                    //console.log(`Key: ${key}`);
                     if (key === '上昇数') {
                       up_num = property.title[0].text.content;
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                             })
@@ -518,17 +516,17 @@ client.on('messageCreate', async message => {
                   console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
-                    console.log(`Key: ${key}`);
+                    //console.log(`Key: ${key}`);
                     if (key === '上昇数') {
                       up_num = property.title[0].text.content;
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                             })
@@ -564,17 +562,17 @@ client.on('messageCreate', async message => {
                   console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
-                    console.log(`Key: ${key}`);
+                    //console.log(`Key: ${key}`);
                     if (key === '上昇数') {
                       up_num = property.title[0].text.content;
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                             })
@@ -610,17 +608,17 @@ client.on('messageCreate', async message => {
                   console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
-                    console.log(`Key: ${key}`);
+                    //console.log(`Key: ${key}`);
                     if (key === '上昇数') {
                       up_num = property.title[0].text.content;
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                             })
@@ -653,7 +651,7 @@ client.on('messageCreate', async message => {
                 .then(response => response.json())
                 .then(data => {
                   const properties = data.results[0].properties;
-                  console.log(properties);
+                  //console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
                     console.log(`Key: ${key}`);
@@ -662,11 +660,11 @@ client.on('messageCreate', async message => {
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                             })
@@ -702,17 +700,17 @@ client.on('messageCreate', async message => {
                   console.log(properties);
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
-                    console.log(`Key: ${key}`);
+                    //console.log(`Key: ${key}`);
                     if (key === '上昇数') {
                       up_num = property.title[0].text.content;
                     } else if (key === '上昇率') {
                       up_percent = property.number;
                     }
-                    console.log(`up_num: ${up_num}`);
-                    console.log(`up_percent: ${up_percent}`);
+                    //console.log(`up_num: ${up_num}`);
+                    //console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = ' (' + String(up_percent) + '%, ' + String(up_num) + '回)';
                   console.log(search_result); // デバッグ用
                   useResponseData(search_result);
                             })

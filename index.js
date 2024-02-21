@@ -235,34 +235,34 @@ client.on('messageCreate', async message => {
           //値調整用ここまで
           
           //少数以下１位処理ここから
-          if ((critical * 10 < 1)&&(critical != 0)) {
-              critical = (critical).toFixed(1);
+          if ((critical % 1 != 0)&&(critical != 0)) {
+              critical = Math.floor((critical) * 10) / 10;
           }
-          if ((critical_hurt * 10 < 1)&&(critical_hurt != 0)) {
+          if ((critical_hurt % 1 != 0)&&(critical_hurt != 0)) {
               critical_hurt = (critical_hurt).toFixed(1);
           }
-          if ((attack * 10 < 1)&&(attack != 0)) {
+          if ((attack % 1 != 0)&&(attack != 0)) {
               attack = (attack).toFixed(1);
           }
-          if ((attack_num * 10 < 1)&&(attack_num != 0)) {
+          if ((attack_num % 1 != 0)&&(attack_num != 0)) {
               attack_num = attack_num;
           }
-          if ((defense * 10 < 1)&&(defense != 0)) {
+          if ((defense % 1 != 0)&&(defense != 0)) {
               defense = (defense).toFixed(1);
           }
-          if ((defense_num * 10 < 1)&&(defense_num != 0)) {
+          if ((defense_num % 1 != 0)&&(defense_num != 0)) {
               defense_num = defense_num;
           }
-          if ((hp * 10 < 1)&&(hp != 0)) {
+          if ((hp % 1 != 0)&&(hp != 0)) {
               hp = (hp).toFixed(1);
           }
-          if ((hp_num * 10 < 1)&&(hp_num != 0)) {
+          if ((hp_num % 1 != 0)&&(hp_num != 0)) {
               hp_num = +hp_num;
           }
-          if ((charge_efficiency * 10 < 1)&&(charge_efficiency != 0)) {
+          if ((charge_efficiency % 1 != 0)&&(charge_efficiency != 0)) {
               charge_efficiency = (charge_efficiency).toFixed(1);
           }
-          if ((element_mastery * 10 < 1)&&(element_mastery != 0)) {
+          if ((element_mastery % 1 != 0)&&(element_mastery != 0)) {
               element_mastery = element_mastery;
           }
           //少数以下１位処理ここまで

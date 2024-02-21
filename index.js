@@ -262,9 +262,8 @@ client.on('messageCreate', async message => {
           
           let orthopedics_text = '';
           if (critical !== 0) {
-              up_num =　'';
-              up_percent =　'';
-              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              
+              //search_result = hp_num_list{hp};
               orthopedics_text += critical_text + search_result + '\n';
           }
           if (critical_hurt !== 0) {

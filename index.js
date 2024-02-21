@@ -1144,12 +1144,12 @@ client.on('messageCreate', async message => {
             embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
             data_collection.send({embeds: [embed] });
             //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defense_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
-            embed.addField('- 会心 -',critical_value+'\n'+critical_rank,true)
-            embed.addField('- 会心+攻撃力% -',critical_attack_value+'\n'+critical_attack_rank,true)
-            embed.addField('- 会心+防御力% -',critical_defense_value+'\n'+critical_defense_rank,true)
-            embed.addField('- 会心+HP% -',critical_hp_value+'\n'+critical_hp_rank,true)
-            embed.addField('- 会心+元素ﾁｬｰｼﾞ効率 -',critical_charge_efficiency_value+'\n'+critical_charge_efficiency_rank,true)
-            embed.addField('- 会心+元素熟知 -',critical_element_mastery_rank+' ('+critical_element_mastery_value+')'+,true)
+            embed.addField('- 会心 -',critical_rank+' ('+critical_value+')',true)
+            embed.addField('- 会心+攻撃力% -',critical_attack_rank+' ('+critical_attack_value+')',true)
+            embed.addField('- 会心+防御力% -',critical_defense_rank+' ('+critical_defense_value+')',true)
+            embed.addField('- 会心+HP% -',critical_hp_rank+' ('+critical_hp_value+')',true)
+            embed.addField('- 会心+元素ﾁｬｰｼﾞ効率 -',critical_charge_efficiency_rank+' ('+critical_charge_efficiency_value+')',true)
+            embed.addField('- 会心+元素熟知 -',critical_element_mastery_rank+' ('+critical_element_mastery_value+')',true)
             embed.setDescription('<@'+message.author+'>')
           
           console.log(embed)

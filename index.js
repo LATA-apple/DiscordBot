@@ -262,54 +262,64 @@ client.on('messageCreate', async message => {
           
           let orthopedics_text = '';
           if (critical !== 0) {
-              orthopedics_text += critical_text + search_result.text + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              orthopedics_text += critical_text + search_result + '\n';
           }
           if (critical_hurt !== 0) {
-              orthopedics_text += critical_hurt_text + JSON.stringify(search_result) + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              orthopedics_text += critical_hurt_text + search_result + '\n';
           }
           if (attack !== 0) {
-              orthopedics_text += attack_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              orthopedics_text += attack_text + search_result + '\n';
           }
           if (attack_num !== 0) {
-              orthopedics_text += attack_num_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              orthopedics_text += attack_num_text + search_result + '\n';
           }
           if (defense !== 0) {
-              orthopedics_text += defense_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+              orthopedics_text += defense_text + search_result + '\n';
           }
           if (defense_num !== 0) {
-              orthopedics_text += defense_num_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              orthopedics_text += defense_num_text + search_result + '\n';
           }
           if (hp !== 0) {
-              orthopedics_text += hp_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              orthopedics_text += hp_text + search_result + '\n';
           }
           if (hp_num !== 0) {
-              orthopedics_text += hp_num_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              orthopedics_text += hp_num_text + search_result + '\n';
           }
           if (charge_efficiency !== 0) {
-              orthopedics_text += charge_efficiency_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              orthopedics_text += charge_efficiency_text + search_result + '\n';
           }
           if (element_mastery !== 0) {
-              orthopedics_text += element_mastery_text + search_result + '\n';
               up_num =　'';
               up_percent =　'';
+              search_result = '　(' + up_percent + '%, ' + up_num + '回)'; 
+              orthopedics_text += element_mastery_text + search_result + '\n';
               
           }
           channel.send(critical_text+'\n'+critical_hurt_text+'\n'+attack_text+'\n'+attack_num_text+'\n'+defense_text+'\n'+defense_num_text+'\n'+hp_text+'\n'+hp_num_text+'\n'+charge_efficiency_text+'\n'+element_mastery_text );

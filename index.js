@@ -257,18 +257,6 @@ client.on('messageCreate', async message => {
           
           let orthopedics_text = '';
           if (critical !== 0) {
-            
-            const options = {
-                hostname: 'api.notion.com',
-                path: '/v1/databases/fceb32c8f9d943fc821dfd62cf6a567b/query',
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV', // APIトークンを設定
-                    'Notion-Version': '2022-06-28', // バージョンを設定
-                    'Content-Type': 'application/json'
-                }
-            };
-            
               search_url = 'https://api.notion.com/v1/databases/fceb32c8f9d943fc821dfd62cf6a567b/query';
               const search_Data = {
                 "filter": {
@@ -300,9 +288,13 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
+                .then(() => {
+                    // fetch内での処理が完了した後に外部のコードでresponseDataを利用
+                    console.log(`search_result→ ${search_result}`);
+                })
                 .catch(error => console.error('Error:', error));
               console.log(`search_result: ${search_result}`);
               orthopedics_text += critical_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
@@ -341,7 +333,7 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
                 .catch(error => console.error('Error:', error));
@@ -382,7 +374,7 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
                 .catch(error => console.error('Error:', error));
@@ -423,7 +415,7 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
                 .catch(error => console.error('Error:', error));
@@ -464,7 +456,7 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
                 .catch(error => console.error('Error:', error));
@@ -505,7 +497,7 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
                 .catch(error => console.error('Error:', error));
@@ -546,7 +538,7 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
                 .catch(error => console.error('Error:', error));
@@ -587,7 +579,7 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
                 .catch(error => console.error('Error:', error));
@@ -628,7 +620,7 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
                 .catch(error => console.error('Error:', error));
@@ -669,7 +661,7 @@ client.on('messageCreate', async message => {
                     console.log(`up_percent: ${up_percent}`);
                   });
                   // search_resultをここで作成する
-                  const search_result = '　(' + up_percent + '%, ' + up_num + '回)';
+                  let search_result = '　(' + up_percent + '%, ' + up_num + '回)';
                   console.log(search_result); // デバッグ用
                             })
                 .catch(error => console.error('Error:', error));

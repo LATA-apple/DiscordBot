@@ -292,10 +292,11 @@ client.on('messageCreate', async message => {
 
                   // orthopedics_textに追加する
                   orthopedics_text += critical_text + search_result + '\n';
+                  console.log('orthopedics_text');
                   console.log(orthopedics_text); // orthopedics_textを確認する
                             })
                 .catch(error => console.error('Error:', error));
-              //orthopedics_text += critical_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += critical_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -340,7 +341,7 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              //orthopedics_text += critical_hurt_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += critical_hurt_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -385,7 +386,7 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              //orthopedics_text += attack_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += attack_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -430,7 +431,7 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              //orthopedics_text += attack_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += attack_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -475,7 +476,7 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              //orthopedics_text += defense_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += defense_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -520,7 +521,7 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              //orthopedics_text += defense_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += defense_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -565,7 +566,7 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              //orthopedics_text += hp_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += hp_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -610,7 +611,7 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              //orthopedics_text += hp_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += hp_num_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -655,7 +656,7 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              //orthopedics_text += charge_efficiency_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += charge_efficiency_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
           }
@@ -700,7 +701,7 @@ client.on('messageCreate', async message => {
                             })
                 .catch(error => console.error('Error:', error));
             
-              //orthopedics_text += element_mastery_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
+              orthopedics_text += element_mastery_text + '　(' + up_percent + '%, ' + up_num + '回)' + '\n';
               up_num =　'';
               up_percent =　'';
               

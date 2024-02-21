@@ -634,6 +634,12 @@ client.on('messageCreate', async message => {
                 .then(data => {
                   const properties = data.results[0].properties;
                   console.log(properties);
+                
+                  up_num = properties.title[0].text.content;
+                  up_percent = properties.number;
+                  console.log(`up_num: ${up_num}`);
+                  console.log(`up_percent: ${up_percent}`);
+                  
                   Object.keys(properties).forEach(key => {
                     const property = properties[key]; // 各プロパティを取得
                     console.log(`Key: ${key}`);
@@ -706,7 +712,7 @@ client.on('messageCreate', async message => {
               
           }
           channel.send(critical_text+'\n'+critical_hurt_text+'\n'+attack_text+'\n'+attack_num_text+'\n'+defense_text+'\n'+defense_num_text+'\n'+hp_text+'\n'+hp_num_text+'\n'+charge_efficiency_text+'\n'+element_mastery_text );
-          channel.send(orthopedics_text);
+          //channel.send(orthopedics_text);
           
           let critical_value = critical*2+critical_hurt;
           let critical_attack_value = critical*2+critical_hurt+attack;
@@ -1016,8 +1022,8 @@ client.on('messageCreate', async message => {
             .setTitle('- 聖遺物スコア -')
             .setColor('RANDOM')
             .setThumbnail(url)
-            .addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
-          data_collection.send({ embeds: [embed] });
+            embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
+          data_collection.send({embeds: [embed] });
             //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defense_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
             embed.addField('- 会心 -',critical_value+'\n'+critical_rank,true)
             embed.addField('- 会心+攻撃力% -',critical_attack_value+'\n'+critical_attack_rank,true)

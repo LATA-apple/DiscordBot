@@ -170,10 +170,10 @@ client.on('messageCreate', async message => {
           
           
           const linesStartingWithBullet = filteredText.split('\n')
-          //追加→ || line.trim().startsWith('.')  
-          .filter(line => line.trim().startsWith('・') || line.trim().startsWith('*') || line.trim().startsWith('･') || line.trim().startsWith('＊') || line.trim().startsWith('.'))
+          //追加→ || line.trim().startsWith('.') 
+          .filter(line => line.trim().startsWith('・') || line.trim().startsWith('*') || line.trim().startsWith('･') || line.trim().startsWith('＊'))
           //追加→ |^.
-          .map(line => line.replace(/^・|^(\*)|^･|^＊|^./, ''));
+          .map(line => line.replace(/^・|^(\*)|^･|^＊/, ''));
           const cleanedText = linesStartingWithBullet.join('\n');
           // Extract values for specified patterns
           let critical = 0;
@@ -235,16 +235,16 @@ client.on('messageCreate', async message => {
           //値調整用ここまで
           
           //少数以下１位処理ここから
-          critical_text = (critical).toFixed(1);
-          critical_hurt_text = (critical_hurt).toFixed(1);
-          attack_text = (attack).toFixed(1);
-          attack_num_text = attack_num;
-          defense_text = (defense).toFixed(1);
-          defense_num_text = defense_num;
-          hp_text = (hp).toFixed(1);
-          hp_num_text = +hp_num;
-          charge_efficiency_text = (charge_efficiency).toFixed(1);
-          element_mastery_text = element_mastery;
+          critical = (critical).toFixed(1);
+          critical_hurt = (critical_hurt).toFixed(1);
+          attack = (attack).toFixed(1);
+          attack_num = attack_num;
+          defense = (defense).toFixed(1);
+          defense_num = defense_num;
+          hp = (hp).toFixed(1);
+          hp_num = +hp_num;
+          charge_efficiency = (charge_efficiency).toFixed(1);
+          element_mastery = element_mastery;
           //少数以下１位処理ここまで
           
           let critical_text = '会心率+'+critical+'%';

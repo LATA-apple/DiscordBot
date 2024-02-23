@@ -229,6 +229,8 @@ client.on('messageCreate', async message => {
             hp = 11.0
           } else if (hp == 1.1) {
             hp = 11.1
+          } else if (hp == 0.1) {
+            hp = 11.1
           } else if (charge_efficiency == 1.7) {
             charge_efficiency = 11.7
           }

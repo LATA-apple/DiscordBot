@@ -297,9 +297,6 @@ client.on('messageCreate', async message => {
           let up_num = '';
           let up_percent = '';
           let search_result = '';
-          let few_count = 0;
-          let many_count = 0;
-          let all_percent = 0;
           
           //ここまで
           
@@ -1175,6 +1172,32 @@ client.on('messageCreate', async message => {
             }
           }
           console.log(critical_element_mastery_rank)
+          
+          
+          function parseText(orthopedics_text) {
+              let entries = orthopedics_text.split("\n");
+              let parsedData = [];
+          
+              entries.forEach(entry => {
+                  let few_count = 0;
+                  let many_count = 0;
+                  let all_percent = 0;
+          
+                  if (entry.includes('or')) {
+                      let counts = entry.match(/\d+/g);
+                      few_count = parseInt(counts[0]);
+                      many_count = parseInt(counts[1]);
+                  } else {
+                      few_count = parseInt(entry.match(/\d+/)[0]);
+                  }
+          
+                  all_percent = parseInt(entry.match(/\d+/)[1]);
+          
+                  parsedData.push({ few_count, many_count, all_percent });
+              });
+
+              return parsedData;
+          }
           
                     
           console.log(cleanedText)

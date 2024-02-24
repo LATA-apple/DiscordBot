@@ -1207,15 +1207,16 @@ client.on('messageCreate', async message => {
               let option = '';
               if (few_count == 4 && many_count == 4) {
                   growth_rate1 = all_percent / 8;//3
-                  option = '';
+                  option = '3オプ';
               } else if (few_count == 4 && many_count >= 5) {
                   growth_rate1 = all_percent / 8;//3
                   growth_rate2 = all_percent / 9;//4
               } else if (few_count >= 5) {
                   growth_rate1 = all_percent / 9;//4
+                  option = '4オプ';
               }
 
-              return { few_count, many_count, all_percent, growth_rate1, growth_rate2 };
+              return { few_count, many_count, all_percent, growth_rate1, growth_rate2, option };
           }
           console.log(parseText(calculator))
           
@@ -1223,7 +1224,7 @@ client.on('messageCreate', async message => {
           if (parseText(calculator).growth_rate2 !== 0) {
               growth = '3オプ → '+(parseText(calculator).growth_rate1).toFixed(2)+'%\n4オプ → '+(parseText(calculator).growth_rate2).toFixed(2)+'%';
           } else {
-            growth = '3オプ → '+(parseText(calculator).growth_rate1).toFixed(2)+'%';
+            growth = parseText(calculator).option+' → '+(parseText(calculator).growth_rate1).toFixed(2)+'%';
           }
           console.log(growth)
                     

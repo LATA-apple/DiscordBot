@@ -1190,13 +1190,15 @@ client.on('messageCreate', async message => {
                               many_count += parseInt(counts[1]);
                           } else {
                               few_count += parseInt(counts[0]);
+                              many_count += parseInt(counts[0]);
                           }
                       }
           
-                      let percentMatches = textAfterParenthesis.match(/\d+%?/g);
+                      let percentMatches = textAfterParenthesis.match(/\d+(\.\d+)?%/g);
                       if (percentMatches) {
-                          all_percent += parseFloat(percentMatches[1].replace('%', ''));
-                          console.log(parseFloat(percentMatches[1].replace('%', '')))
+                          let percentValue = parseFloat(percentMatches[0].match(/\d+(\.\d+)?/g)[0]);
+                          all_percent += percentValue;
+                          console.log(percentValue)
                       }
                   }
                   console.log(textAfterParenthesis,few_count,many_count,all_percent)

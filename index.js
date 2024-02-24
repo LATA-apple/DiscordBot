@@ -108,7 +108,7 @@ client.on('messageCreate', async message => {
     const imageURL = data.results[0].icon.external.url;
     embed.setThumbnail(imageURL)
     
-    console.log(embed.fields);
+    //console.log(embed.fields);
     
     message.channel.send({ embeds: [embed] })
     })
@@ -941,7 +941,7 @@ client.on('messageCreate', async message => {
                 critical_rank = 'ゴミ';
             }
           }
-          console.log(critical_rank)
+          //console.log(critical_rank)
           
           //攻撃型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
@@ -987,7 +987,7 @@ client.on('messageCreate', async message => {
                 critical_attack_rank = 'ゴミ';
             }
           }
-          console.log(critical_attack_rank)
+          //console.log(critical_attack_rank)
           
           //防御型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
@@ -1033,7 +1033,7 @@ client.on('messageCreate', async message => {
                 critical_defense_rank = 'ゴミ';
             }
           }
-          console.log(critical_defense_rank)
+          //console.log(critical_defense_rank)
           
           //HP型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
@@ -1079,7 +1079,7 @@ client.on('messageCreate', async message => {
                 critical_hp_rank = 'ゴミ';
             }
           }
-          console.log(critical_hp_rank)
+          //console.log(critical_hp_rank)
           
           //元素チャージ効率型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
@@ -1125,7 +1125,7 @@ client.on('messageCreate', async message => {
                 critical_charge_efficiency_rank = 'ゴミ';
             }
           }
-          console.log(critical_charge_efficiency_rank)
+          //console.log(critical_charge_efficiency_rank)
           
           //元素熟知型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
@@ -1171,36 +1171,40 @@ client.on('messageCreate', async message => {
                 critical_element_mastery_rank = 'ゴミ';
             }
           }
-          console.log(critical_element_mastery_rank)
+          //console.log(critical_element_mastery_rank)
           
           let calculator = orthopedics_text;
           function parseText(calculator) {
               let entries = calculator.split("\n");
-              let parsedData = [];
+              let few_count = 0;
+              let many_count = 0;
+              let all_percent = 0;
           
               entries.forEach(entry => {
-                  let few_count = 0;
-                  let many_count = 0;
-                  let all_percent = 0;
-          
-                  if (entry.includes('or')) {
-                      let counts = entry.match(/\d+/g);
-                      few_count = parseInt(counts[0]);
-                      many_count = parseInt(counts[1]);
-                  } else {
-                      few_count = parseInt(entry.match(/\d+/)[0]);
+                  let countMatches = entry.match(/\d+/g);
+                  if (countMatches) {
+                      if (entry.includes('or')) {
+                          few_count += parseInt(countMatches[0]);
+                          many_count += parseInt(countMatches[1]);
+                          console.log(few_count,many_count,all_percent)
+                      } else {
+                          few_count += parseInt(countMatches[0]);
+                          console.log(few_count,many_count,all_percent)
+                      }
                   }
           
-                  all_percent = parseInt(entry.match(/\d+/)[1]);
-          
-                  parsedData.push({ few_count, many_count, all_percent });
+                  let percentMatches = entry.match(/\d+%?/g);
+                  if (percentMatches) {
+                      all_percent += parseInt(percentMatches[1]);
+                      console.log(few_count,many_count,all_percent)
+                  }
               });
 
-              return parsedData;
+              return { few_count, many_count, all_percent };
           }
-          console.log(parsedData)
+          console.log(parseText(calculator))
                     
-          console.log(cleanedText)
+          //console.log(cleanedText)
           // Terminate worker
           await worker.terminate();
           // Reply with the recognized text
@@ -1225,7 +1229,7 @@ client.on('messageCreate', async message => {
             embed.addField('- 会心+元素熟知 -',critical_element_mastery_rank+' ('+critical_element_mastery_value+')',true)
             embed.setDescription('<@'+message.author+'>')
           
-          console.log(embed)
+          //console.log(embed)
           processingMessage.delete();
           message.reply({ embeds: [embed] })
           

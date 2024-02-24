@@ -1181,23 +1181,25 @@ client.on('messageCreate', async message => {
               let all_percent = 0;
           
               entries.forEach(entry => {
-                  let countMatches = entry.match(/\d+/g);
-                  if (countMatches) {
-                      if (entry.includes('or')) {
-                          few_count += parseInt(countMatches[0]);
-                          many_count += parseInt(countMatches[1]);
-                          console.log(few_count,many_count,all_percent)
-                      } else {
-                          few_count += parseInt(countMatches[0]);
-                          console.log(few_count,many_count,all_percent)
+                  let textAfterParenthesis = entry.split("(")[1]; // '('以降のテキストを抽出
+                  if (textAfterParenthesis) {
+                      let counts = textAfterParenthesis.match(/\d+/g);
+                      if (counts) {
+                           if (entry.includes('or')) {
+                              few_count += parseInt(counts[0]);
+                              many_count += parseInt(counts[1]);
+                          } else {
+                              few_count += parseInt(counts[0]);
+                          }
+                      }
+          
+                      let percentMatches = textAfterParenthesis.match(/\d+%?/g);
+                      if (percentMatches) {
+                          all_percent += parseFloat(percentMatches[1].replace('%', ''));
+                          console.log(parseFloat(percentMatches[1].replace('%', '')))
                       }
                   }
-          
-                  let percentMatches = entry.match(/\d+%?/g);
-                  if (percentMatches) {
-                      all_percent += parseInt(percentMatches[1]);
-                      console.log(few_count,many_count,all_percent)
-                  }
+                  console.log(textAfterParenthesis,few_count,many_count,all_percent)
               });
 
               return { few_count, many_count, all_percent };

@@ -1179,6 +1179,8 @@ client.on('messageCreate', async message => {
               let few_count = 0;
               let many_count = 0;
               let all_percent = 0;
+              let growth_rate1 = 0;
+              let growth_rate2 = 0;
           
               entries.forEach(entry => {
                   let textAfterParenthesis = entry.split("(")[1]; // '('以降のテキストを抽出
@@ -1198,13 +1200,20 @@ client.on('messageCreate', async message => {
                       if (percentMatches) {
                           let percentValue = parseFloat(percentMatches[0].match(/\d+(\.\d+)?/g)[0]);
                           all_percent += percentValue;
-                          console.log(percentValue)
                       }
                   }
                   console.log(textAfterParenthesis,few_count,many_count,all_percent)
               });
+              if (few_count === 4 && many_count === 4) {
+                  growth_rate1 = all_percent / 8;
+              } else if (few_count >= 5) {
+                  growth_rate1 = all_percent / 9;
+              } else if (few_count === 4 && many_count >= 5) {
+                  growth_rate1 = all_percent / 8;
+                  growth_rate2 = all_percent / 9;
+              }
 
-              return { few_count, many_count, all_percent };
+              return { few_count, many_count, all_percent, growth_rate1, growth_rate2 };
           }
           console.log(parseText(calculator))
                     

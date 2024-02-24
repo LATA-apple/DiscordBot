@@ -1217,12 +1217,13 @@ client.on('messageCreate', async message => {
           }
           console.log(parseText(calculator))
           
-          let growth = '3オプ→'+parseText(calculator).growth_rate1
+          let growth = ''
           if (parseText(calculator).growth_rate2 !== 0) {
-              growth = '3オプ→'+(parseText(calculator).growth_rate1).toFixed(2)+'\n4オプ→'+(parseText(calculator).growth_rate1).toFixed(2);
+              growth = '3オプ → '+(parseText(calculator).growth_rate1).toFixed(2)+'%\n4オプ → '+(parseText(calculator).growth_rate2).toFixed(2)+'%';
           } else {
-            
+            growth = '3オプ → '+(parseText(calculator).growth_rate1).toFixed(2)+'%';
           }
+          console.log(growth)
                     
           //console.log(cleanedText)
           // Terminate worker
@@ -1247,7 +1248,7 @@ client.on('messageCreate', async message => {
             embed.addField('- 会心+HP% -',critical_hp_rank+' ('+critical_hp_value+')',true)
             embed.addField('- 会心+元素ﾁｬｰｼﾞ効率 -',critical_charge_efficiency_rank+' ('+critical_charge_efficiency_value+')',true)
             embed.addField('- 会心+元素熟知 -',critical_element_mastery_rank+' ('+critical_element_mastery_value+')',true)
-            //embed.addField('サブオプ伸び率',parseText(calculator).growth_rate1)
+            embed.addField('- サブオプ伸び率(70-100%) -',growth)
             embed.setDescription('<@'+message.author+'>')
           
           //console.log(embed)

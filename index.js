@@ -1204,13 +1204,15 @@ client.on('messageCreate', async message => {
                   }
                   console.log(textAfterParenthesis,few_count,many_count,all_percent)
               });
-              if (few_count === 4 && many_count === 4) {
-                  growth_rate1 = all_percent / 8;
+              let option = '';
+              if (few_count == 4 && many_count == 4) {
+                  growth_rate1 = all_percent / 8;//3
+                  option = '';
+              } else if (few_count == 4 && many_count >= 5) {
+                  growth_rate1 = all_percent / 8;//3
+                  growth_rate2 = all_percent / 9;//4
               } else if (few_count >= 5) {
-                  growth_rate1 = all_percent / 9;
-              } else if (few_count === 4 && many_count >= 5) {
-                  growth_rate1 = all_percent / 8;
-                  growth_rate2 = all_percent / 9;
+                  growth_rate1 = all_percent / 9;//4
               }
 
               return { few_count, many_count, all_percent, growth_rate1, growth_rate2 };

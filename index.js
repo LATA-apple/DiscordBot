@@ -8,8 +8,13 @@ const client = new Client({
 //オンライン時
 client.on("ready", () => {
   console.log(`==== Logged in: ${client.user.tag} ====`);
+  client.user.setPresence({
+    activity: {
+    name: client.channels.cache.size+"サーバーに導入中"
+  },//status: dndにすると、Botのステータスが取り込み中に、idleにすると、退席中
+    status: "online"
+  });
   console.log('Bot is ready!');
-  client.user.setPresence({ activity: { name: "げーむ" } });
 });
 
 const databaseId = '9403ad41aa344441951044a6656d0d9a';

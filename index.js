@@ -1173,9 +1173,9 @@ client.on('messageCreate', async message => {
           }
           console.log(critical_element_mastery_rank)
           
-          
-          function parseText(orthopedics_text) {
-              let entries = orthopedics_text.split("\n");
+          let calculator = orthopedics_text;
+          function parseText(calculator) {
+              let entries = calculator.split("\n");
               let parsedData = [];
           
               entries.forEach(entry => {
@@ -1198,7 +1198,7 @@ client.on('messageCreate', async message => {
 
               return parsedData;
           }
-          
+          console.log(parsedData)
                     
           console.log(cleanedText)
           // Terminate worker

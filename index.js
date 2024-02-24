@@ -297,6 +297,9 @@ client.on('messageCreate', async message => {
           let up_num = '';
           let up_percent = '';
           let search_result = '';
+          let few_count = 0;
+          let many_count = 0;
+          let all_percent = 0;
           
           //ここまで
           

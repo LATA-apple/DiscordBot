@@ -128,11 +128,24 @@ client.on('messageCreate', async message => {
   .then(data => {
     const nickname = message.content;
     const characters = data.characters;
+    let characterKey = null;
     for (const key in characters) {
       if (characters[key].includes(nickname)) {
-        console.log(key); // "1002"がコンソールに表示されます
-        break; // 一致するものが見つかったらループを終了します
+        characterKey = key;
+        break;
       }
+    }
+    if (characterKey) {
+      const scoreURL = `https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/2.0.0`;
+      fetch(scoreURL)
+        .then(response => response.json())
+        .then(scoreData => {
+          console.log(scoreData);
+          // 取得したスコアデータを使って何か処理を行います
+        })
+        .catch(error => console.error('スコアデータの取得中にエラーが発生しました:', error));
+    } else {
+      console.log('キャラクターが見つかりませんでした');
     }
   })
   .catch(error => console.error('データの取得中にエラーが発生しました:', error));

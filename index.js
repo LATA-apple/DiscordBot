@@ -139,6 +139,9 @@ client.on('messageCreate', async message => {
           let characterKey = null;
           for (const key in characters) {
             if (characters[key].includes(nickname)) {
+              let icon = 'https://github.com/Mar-7th/StarRailRes/blob/master/icon/character/'+key+'.png?raw=true';
+              console.log(icon);
+              embed.setThumbnail(icon);
               characterKey = key;
               break;
             }
@@ -186,7 +189,7 @@ client.on('messageCreate', async message => {
                            `\n効果抵抗: ${scoreData[characterKey].sub.StatusResistanceBase}`+
                            `\n撃破特効: ${scoreData[characterKey].sub.BreakDamageAddedRatioBase}`,true);
             embed.setDescription('<@'+message.author+'>')
-            message.channel.reply({ embeds: [embed] });
+            message.reply({ embeds: [embed] });
             
             // ここで取得したデータを使用して追加の処理を行うことができます
           } else {

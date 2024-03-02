@@ -146,10 +146,11 @@ client.on('messageCreate', async message => {
             console.log(scoreData[characterKey]); // characterKeyに対応するデータを出力
             embed.addField('頭部', `HP固定値: ${scoreData[characterKey].main.head.HPDelta}`);
             embed.addField('腕部', `攻撃力固定値: ${scoreData[characterKey].main.hand.AttackDelta}`);
-            embed.addField('胴部', `HP％: ${data.main.body.HPAddedRatio}`+`攻撃力％: ${data.main.body.AttackAddedRatio}`+`防御力％: ${data.main.body.DefenceAddedRatio}`+`会心率: ${data.main.body.CriticalChanceBase}`+`会心ダメージ: ${data.main.body.CriticalDamageBase}`+`治癒量: ${data.main.body.HealRatioBase}`+`効果命中: ${data.main.body.StatusProbabilityBase}`);
-            embed.addField('脚部', `HP％: ${data.main.feet.HPAddedRatio}`+`攻撃力％: ${data.main.feet.AttackAddedRatio}`+`防御力％: ${data.main.feet.DefenceAddedRatio}`+`速度: ${data.main.feet.SpeedDelta}`);
+            embed.addField('胴部', `HP％: ${data.main.body.HPAddedRatio}`+`\n攻撃力％: ${data.main.body.AttackAddedRatio}`+`\n防御力％: ${data.main.body.DefenceAddedRatio}`+`\n会心率: ${data.main.body.CriticalChanceBase}`+`\n会心ダメージ: ${data.main.body.CriticalDamageBase}`+`\n治癒量: ${data.main.body.HealRatioBase}`+`\n効果命中: ${data.main.body.StatusProbabilityBase}`);
+            embed.addField('脚部', `HP％: ${data.main.feet.HPAddedRatio}`+`\n攻撃力％: ${data.main.feet.AttackAddedRatio}`+`\n防御力％: ${data.main.feet.DefenceAddedRatio}`+`速度: ${data.main.feet.SpeedDelta}`);
             embed.addField('次元界オーブ', `HP％: ${data.main.sphere.HPAddedRatio}`+`攻撃力％: ${data.main.sphere.AttackAddedRatio}`+`防御力％: ${data.main.sphere.DefenceAddedRatio}`+`物理与ダメージ: ${data.main.sphere.PhysicalAddedRatio}`+`炎与ダメージ: ${data.main.sphere.FireAddedRatio}`+`氷与ダメージ: ${data.main.sphere.IceAddedRatio}`+`雷与ダメージ: ${data.main.sphere.ThunderAddedRatio}`+`風与ダメージ: ${data.main.sphere.WindAddedRatio}`+`量子与ダメージ: ${data.main.sphere.QuantumAddedRatio}`+`虚数与ダメージ: ${data.main.sphere.ImaginaryAddedRatio}`);
-            
+            embed.addField('連結縄', `HP％: ${data.main.rope.HPAddedRatio}`+`攻撃力％: ${data.main.rope.AttackAddedRatio}`+`防御力％: ${data.main.rope.DefenceAddedRatio}`+`撃破特効: ${data.main.rope.BreakDamageAddedRatioBase}`+`EP回復効率: ${data.main.rope.SPRatioBase}`);
+            embed.addField('サブオプション', `HP固定値: ${scoreData[characterKey].sub.HPDelta}`+`HP%: ${scoreData[characterKey].sub.HPAddedRatio}`+`攻撃力固定値: ${data.sub.AttackDelta}`+`攻撃力固定値: ${data.sub.AttackAddedRatio}`+`防御力固定値: ${data.sub.DefenceDelta}`+`防御力％: ${data.sub.DefenceAddedRatio}`+`速度: ${data.sub.SpeedDelta}`+`会心率: ${data.sub.CriticalChanceBase}`+`会心ダメージ: ${data.sub.CriticalDamageBase}`+`効果命中: ${data.sub.StatusProbabilityBase}`+`効果抵抗: ${data.main.body.StatusResistanceBase}`+'撃破特効: ${data.sub.BreakDamageAddedRatioBase}');
             
             
             // ここで取得したデータを使用して追加の処理を行うことができます

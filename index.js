@@ -57,7 +57,7 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    console.log(data);
+    if (!data.results[0]) return;
     const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
     
@@ -153,7 +153,7 @@ client.on('messageCreate', async message => {
             embed.addField('連結縄', `HP％: ${scoreData[characterKey].main.rope.HPAddedRatio}`+`\n攻撃力％: ${scoreData[characterKey].main.rope.AttackAddedRatio}`+`\n防御力％: ${scoreData[characterKey].main.rope.DefenceAddedRatio}`+`\n撃破特効: ${scoreData[characterKey].main.rope.BreakDamageAddedRatioBase}`+`\nEP回復効率: ${scoreData[characterKey].main.rope.SPRatioBase}`);
             embed.addField('サブオプション', `HP固定値: ${scoreData[characterKey].sub.HPDelta}`+`\nHP%: ${scoreData[characterKey].sub.HPAddedRatio}`+`\n攻撃力固定値: ${scoreData[characterKey].sub.AttackDelta}`+`\n攻撃力固定値: ${scoreData[characterKey].sub.AttackAddedRatio}`+`\n防御力固定値: ${scoreData[characterKey].sub.DefenceDelta}`+`\n防御力％: ${scoreData[characterKey].sub.DefenceAddedRatio}`+`\n速度: ${scoreData[characterKey].sub.SpeedDelta}`+`\n会心率: ${scoreData[characterKey].sub.CriticalChanceBase}`+`\n会心ダメージ: ${scoreData[characterKey].sub.CriticalDamageBase}`+`\n効果命中: ${scoreData[characterKey].sub.StatusProbabilityBase}`+`\n効果抵抗: ${scoreData[characterKey].main.body.StatusResistanceBase}`+`\n撃破特効: ${scoreData[characterKey].sub.BreakDamageAddedRatioBase}`);
             console.log(embed);
-            //message.send({ embeds: [embed] })
+            message.send({ embeds: [embed] });
             
             // ここで取得したデータを使用して追加の処理を行うことができます
           } else {
@@ -163,7 +163,8 @@ client.on('messageCreate', async message => {
         .catch(error => console.error('データの取得中にエラーが発生しました:', error));
     })
     .catch(error => console.error('スコアデータの取得中にエラーが発生しました:', error));
-  
+  message.send('test');
+  message.send({ embeds: [embed] });
 });
 
 //聖遺物画像自動認識・自動スコア算出

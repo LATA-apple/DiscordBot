@@ -123,32 +123,31 @@ client.on('messageCreate', async message => {
   // 原神・テスト用、 個人・テスト用 のみ許可
   if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116') return;
   
-  fetch('https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/jp/nickname.json')
-  .then(response => response.json())
-  .then(data => {
-    const nickname = message.content;
-    const characters = data.characters;
-    let characterKey = null;
-    for (const key in characters) {
-      if (characters[key].includes(nickname)) {
-        characterKey = key;
-        break;
-      }
-    }
-    if (characterKey) {
-      const scoreURL = `https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/2.0.0`;
-      fetch(scoreURL)
+  fetch('https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/2.0.0')
+    .then(response => response.json())
+    .then(scoreData => {
+      fetch('https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/jp/nickname.json')
         .then(response => response.json())
-        .then(scoreData => {
-          console.log(scoreData);
-          // 取得したスコアデータを使って何か処理を行います
+        .then(data => {
+          const nickname = "丹恒";
+          const characters = data.characters;
+          let characterKey = null;
+          for (const key in characters) {
+            if (characters[key].includes(nickname)) {
+              characterKey = key;
+              break;
+            }
+          }
+          if (characterKey && scoreData[characterKey]) {
+            console.log(scoreData[characterKey]); // characterKeyに対応するデータを出力
+            // ここで取得したデータを使用して追加の処理を行うことができます
+          } else {
+            console.log('キャラクターが見つかりませんでした');
+          }
         })
-        .catch(error => console.error('スコアデータの取得中にエラーが発生しました:', error));
-    } else {
-      console.log('キャラクターが見つかりませんでした');
-    }
-  })
-  .catch(error => console.error('データの取得中にエラーが発生しました:', error));
+        .catch(error => console.error('データの取得中にエラーが発生しました:', error));
+    })
+    .catch(error => console.error('スコアデータの取得中にエラーが発生しました:', error));
   
 });
 

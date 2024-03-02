@@ -57,6 +57,7 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
+    console.log(data);
     const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
     
@@ -146,12 +147,13 @@ client.on('messageCreate', async message => {
             console.log(scoreData[characterKey]); // characterKeyに対応するデータを出力
             embed.addField('頭部', `HP固定値: ${scoreData[characterKey].main.head.HPDelta}`);
             embed.addField('腕部', `攻撃力固定値: ${scoreData[characterKey].main.hand.AttackDelta}`);
-            embed.addField('胴部', `HP％: ${data.main.body.HPAddedRatio}`+`\n攻撃力％: ${data.main.body.AttackAddedRatio}`+`\n防御力％: ${data.main.body.DefenceAddedRatio}`+`\n会心率: ${data.main.body.CriticalChanceBase}`+`\n会心ダメージ: ${data.main.body.CriticalDamageBase}`+`\n治癒量: ${data.main.body.HealRatioBase}`+`\n効果命中: ${data.main.body.StatusProbabilityBase}`);
-            embed.addField('脚部', `HP％: ${data.main.feet.HPAddedRatio}`+`\n攻撃力％: ${data.main.feet.AttackAddedRatio}`+`\n防御力％: ${data.main.feet.DefenceAddedRatio}`+`速度: ${data.main.feet.SpeedDelta}`);
-            embed.addField('次元界オーブ', `HP％: ${data.main.sphere.HPAddedRatio}`+`攻撃力％: ${data.main.sphere.AttackAddedRatio}`+`防御力％: ${data.main.sphere.DefenceAddedRatio}`+`物理与ダメージ: ${data.main.sphere.PhysicalAddedRatio}`+`炎与ダメージ: ${data.main.sphere.FireAddedRatio}`+`氷与ダメージ: ${data.main.sphere.IceAddedRatio}`+`雷与ダメージ: ${data.main.sphere.ThunderAddedRatio}`+`風与ダメージ: ${data.main.sphere.WindAddedRatio}`+`量子与ダメージ: ${data.main.sphere.QuantumAddedRatio}`+`虚数与ダメージ: ${data.main.sphere.ImaginaryAddedRatio}`);
-            embed.addField('連結縄', `HP％: ${data.main.rope.HPAddedRatio}`+`攻撃力％: ${data.main.rope.AttackAddedRatio}`+`防御力％: ${data.main.rope.DefenceAddedRatio}`+`撃破特効: ${data.main.rope.BreakDamageAddedRatioBase}`+`EP回復効率: ${data.main.rope.SPRatioBase}`);
-            embed.addField('サブオプション', `HP固定値: ${scoreData[characterKey].sub.HPDelta}`+`HP%: ${scoreData[characterKey].sub.HPAddedRatio}`+`攻撃力固定値: ${data.sub.AttackDelta}`+`攻撃力固定値: ${data.sub.AttackAddedRatio}`+`防御力固定値: ${data.sub.DefenceDelta}`+`防御力％: ${data.sub.DefenceAddedRatio}`+`速度: ${data.sub.SpeedDelta}`+`会心率: ${data.sub.CriticalChanceBase}`+`会心ダメージ: ${data.sub.CriticalDamageBase}`+`効果命中: ${data.sub.StatusProbabilityBase}`+`効果抵抗: ${data.main.body.StatusResistanceBase}`+'撃破特効: ${data.sub.BreakDamageAddedRatioBase}');
-            
+            embed.addField('胴部', `HP％: ${scoreData[characterKey].main.body.HPAddedRatio}`+`\n攻撃力％: ${scoreData[characterKey].main.body.AttackAddedRatio}`+`\n防御力％: ${scoreData[characterKey].main.body.DefenceAddedRatio}`+`\n会心率: ${scoreData[characterKey].main.body.CriticalChanceBase}`+`\n会心ダメージ: ${scoreData[characterKey].main.body.CriticalDamageBase}`+`\n治癒量: ${scoreData[characterKey].main.body.HealRatioBase}`+`\n効果命中: ${scoreData[characterKey].main.body.StatusProbabilityBase}`);
+            embed.addField('脚部', `HP％: ${scoreData[characterKey].main.feet.HPAddedRatio}`+`\n攻撃力％: ${scoreData[characterKey].main.feet.AttackAddedRatio}`+`\n防御力％: ${scoreData[characterKey].main.feet.DefenceAddedRatio}`+`\n速度: ${scoreData[characterKey].main.feet.SpeedDelta}`);
+            embed.addField('次元界オーブ', `HP％: ${scoreData[characterKey].main.sphere.HPAddedRatio}`+`\n攻撃力％: ${scoreData[characterKey].main.sphere.AttackAddedRatio}`+`\n防御力％: ${scoreData[characterKey].main.sphere.DefenceAddedRatio}`+`\n物理与ダメージ: ${scoreData[characterKey].main.sphere.PhysicalAddedRatio}`+`\n炎与ダメージ: ${scoreData[characterKey].main.sphere.FireAddedRatio}`+`\n氷与ダメージ: ${scoreData[characterKey].main.sphere.IceAddedRatio}`+`\n雷与ダメージ: ${scoreData[characterKey].main.sphere.ThunderAddedRatio}`+`\n風与ダメージ: ${scoreData[characterKey].main.sphere.WindAddedRatio}`+`\n量子与ダメージ: ${scoreData[characterKey].main.sphere.QuantumAddedRatio}`+`\n虚数与ダメージ: ${scoreData[characterKey].main.sphere.ImaginaryAddedRatio}`);
+            embed.addField('連結縄', `HP％: ${scoreData[characterKey].main.rope.HPAddedRatio}`+`\n攻撃力％: ${scoreData[characterKey].main.rope.AttackAddedRatio}`+`\n防御力％: ${scoreData[characterKey].main.rope.DefenceAddedRatio}`+`\n撃破特効: ${scoreData[characterKey].main.rope.BreakDamageAddedRatioBase}`+`\nEP回復効率: ${scoreData[characterKey].main.rope.SPRatioBase}`);
+            embed.addField('サブオプション', `HP固定値: ${scoreData[characterKey].sub.HPDelta}`+`\nHP%: ${scoreData[characterKey].sub.HPAddedRatio}`+`\n攻撃力固定値: ${scoreData[characterKey].sub.AttackDelta}`+`\n攻撃力固定値: ${scoreData[characterKey].sub.AttackAddedRatio}`+`\n防御力固定値: ${scoreData[characterKey].sub.DefenceDelta}`+`\n防御力％: ${scoreData[characterKey].sub.DefenceAddedRatio}`+`\n速度: ${scoreData[characterKey].sub.SpeedDelta}`+`\n会心率: ${scoreData[characterKey].sub.CriticalChanceBase}`+`\n会心ダメージ: ${scoreData[characterKey].sub.CriticalDamageBase}`+`\n効果命中: ${scoreData[characterKey].sub.StatusProbabilityBase}`+`\n効果抵抗: ${scoreData[characterKey].main.body.StatusResistanceBase}`+`\n撃破特効: ${scoreData[characterKey].sub.BreakDamageAddedRatioBase}`);
+            console.log(embed);
+            //message.send({ embeds: [embed] })
             
             // ここで取得したデータを使用して追加の処理を行うことができます
           } else {

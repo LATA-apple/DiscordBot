@@ -115,6 +115,30 @@ client.on('messageCreate', async message => {
     .catch(error => console.error('Error:', error));
   
 });
+
+//スタレ キャラ
+client.on('messageCreate', async message => {
+  // Ignore messages from other bots
+  if (message.author.bot) return;
+  // 原神・テスト用、 個人・テスト用 のみ許可
+  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116') return;
+  
+  fetch('https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/jp/nickname.json')
+  .then(response => response.json())
+  .then(data => {
+    const nickname = message.content;
+    const characters = data.characters;
+    for (const key in characters) {
+      if (characters[key].includes(nickname)) {
+        console.log(key); // "1002"がコンソールに表示されます
+        break; // 一致するものが見つかったらループを終了します
+      }
+    }
+  })
+  .catch(error => console.error('データの取得中にエラーが発生しました:', error));
+  
+});
+
 //聖遺物画像自動認識・自動スコア算出
 client.on('messageCreate', async message => {
   

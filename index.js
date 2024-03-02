@@ -123,6 +123,10 @@ client.on('messageCreate', async message => {
   // 原神・テスト用、 個人・テスト用 のみ許可
   if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116') return;
   
+  const embed = new MessageEmbed()
+    .setTitle('- 遺物評価 -')
+    .setColor('RANDOM')
+  
   fetch('https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/2.0.0')
     .then(response => response.json())
     .then(scoreData => {
@@ -140,6 +144,14 @@ client.on('messageCreate', async message => {
           }
           if (characterKey && scoreData[characterKey]) {
             console.log(scoreData[characterKey]); // characterKeyに対応するデータを出力
+            embed.addField('頭部', `HP固定値: ${scoreData[characterKey].main.head.HPDelta}`);
+            embed.addField('腕部', `攻撃力固定値: ${scoreData[characterKey].main.hand.AttackDelta}`);
+            embed.addField('胴部', `HP％: ${data.main.body.HPAddedRatio}`+`攻撃力％: ${data.main.body.AttackAddedRatio}`+`防御力％: ${data.main.body.DefenceAddedRatio}`+`会心率: ${data.main.body.CriticalChanceBase}`+`会心ダメージ: ${data.main.body.CriticalDamageBase}`+`治癒量: ${data.main.body.HealRatioBase}`+`効果命中: ${data.main.body.StatusProbabilityBase}`);
+            embed.addField('脚部', `HP％: ${data.main.feet.HPAddedRatio}`+`攻撃力％: ${data.main.feet.AttackAddedRatio}`+`防御力％: ${data.main.feet.DefenceAddedRatio}`+`速度: ${data.main.feet.SpeedDelta}`);
+            embed.addField('次元界オーブ', `HP％: ${data.main.sphere.HPAddedRatio}`+`攻撃力％: ${data.main.sphere.AttackAddedRatio}`+`防御力％: ${data.main.sphere.DefenceAddedRatio}`+`物理与ダメージ: ${data.main.sphere.PhysicalAddedRatio}`+`炎与ダメージ: ${data.main.sphere.FireAddedRatio}`+`氷与ダメージ: ${data.main.sphere.IceAddedRatio}`+`雷与ダメージ: ${data.main.sphere.ThunderAddedRatio}`+`風与ダメージ: ${data.main.sphere.WindAddedRatio}`+`量子与ダメージ: ${data.main.sphere.QuantumAddedRatio}`+`虚数与ダメージ: ${data.main.sphere.ImaginaryAddedRatio}`);
+            
+            
+            
             // ここで取得したデータを使用して追加の処理を行うことができます
           } else {
             console.log('キャラクターが見つかりませんでした');

@@ -121,8 +121,8 @@ client.on('messageCreate', async message => {
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
-  // 原神・テスト用、 個人・テスト用 のみ許可
-  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116') return;
+  // 原神・テスト用、 個人・テスト用、スタレツール・遺物評価 のみ許可
+  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116' && message.channel.id !== '1213488301991010354') return;
   
   const embed = new MessageEmbed()
     .setTitle('- 遺物評価 -')
@@ -134,7 +134,7 @@ client.on('messageCreate', async message => {
       fetch('https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/jp/nickname.json')
         .then(response => response.json())
         .then(data => {
-          const nickname = "丹恒";
+          const nickname = message.content;
           const characters = data.characters;
           let characterKey = null;
           for (const key in characters) {
@@ -162,12 +162,12 @@ client.on('messageCreate', async message => {
                            `\n攻撃力％: ${scoreData[characterKey].main.sphere.AttackAddedRatio}`+
                            `\n防御力％: ${scoreData[characterKey].main.sphere.DefenceAddedRatio}`+
                            `\n物理与ダメージ: ${scoreData[characterKey].main.sphere.PhysicalAddedRatio}`+
-                           `\n炎与ダメージ: ${scoreData[characterKey].main.sphere.FireAddedRatio}`+
-                           `\n氷与ダメージ: ${scoreData[characterKey].main.sphere.IceAddedRatio}`+
-                           `\n雷与ダメージ: ${scoreData[characterKey].main.sphere.ThunderAddedRatio}`+
-                           `\n風与ダメージ: ${scoreData[characterKey].main.sphere.WindAddedRatio}`+
-                           `\n量子与ダメージ: ${scoreData[characterKey].main.sphere.QuantumAddedRatio}`+
-                           `\n虚数与ダメージ: ${scoreData[characterKey].main.sphere.ImaginaryAddedRatio}`,true);
+                           `\n炎属性与ダメージ: ${scoreData[characterKey].main.sphere.FireAddedRatio}`+
+                           `\n氷属性与ダメージ: ${scoreData[characterKey].main.sphere.IceAddedRatio}`+
+                           `\n雷属性与ダメージ: ${scoreData[characterKey].main.sphere.ThunderAddedRatio}`+
+                           `\n風属性与ダメージ: ${scoreData[characterKey].main.sphere.WindAddedRatio}`+
+                           `\n量子属性与ダメージ: ${scoreData[characterKey].main.sphere.QuantumAddedRatio}`+
+                           `\n虚数属性与ダメージ: ${scoreData[characterKey].main.sphere.ImaginaryAddedRatio}`,true);
             embed.addField('- 連結縄 -', `HP％: ${scoreData[characterKey].main.rope.HPAddedRatio}`+
                            `\n攻撃力％: ${scoreData[characterKey].main.rope.AttackAddedRatio}`+
                            `\n防御力％: ${scoreData[characterKey].main.rope.DefenceAddedRatio}`+
@@ -185,7 +185,8 @@ client.on('messageCreate', async message => {
                            `\n効果命中: ${scoreData[characterKey].sub.StatusProbabilityBase}`+
                            `\n効果抵抗: ${scoreData[characterKey].sub.StatusResistanceBase}`+
                            `\n撃破特効: ${scoreData[characterKey].sub.BreakDamageAddedRatioBase}`,true);
-            message.channel.send({ embeds: [embed] });
+            embed.setDescription('<@'+message.author+'>')
+            message.channel.reply({ embeds: [embed] });
             
             // ここで取得したデータを使用して追加の処理を行うことができます
           } else {

@@ -57,7 +57,7 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    if (!data.results[0]) return;
+    //if (!data.results[0]) return;
     const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
     

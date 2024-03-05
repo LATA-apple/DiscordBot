@@ -24,8 +24,8 @@ const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
-  // 原神・テスト用、 個人・テスト用、 原神・キャラ情報 のみ許可
-  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
+  // 個人・テスト用、 原神・キャラ情報 のみ許可
+  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   
   const headers = {
     'Content-Type': 'application/json',
@@ -121,8 +121,8 @@ client.on('messageCreate', async message => {
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
-  // 原神・テスト用、 個人・テスト用、スタレツール・遺物評価 のみ許可
-  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116' && message.channel.id !== '1213488301991010354') return;
+  // 個人・テスト用、スタレツール・遺物評価 のみ許可
+  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1213488301991010354') return;
   
   const embed = new MessageEmbed()
     .setTitle('- 遺物評価 -')
@@ -212,8 +212,8 @@ client.on('messageCreate', async message => {
   //if (message.author.username != 'lata19760401') return;
   // Check if the message is from the specified channels
   console.log(message.channel.id);
-  // 原神・テスト用、 個人・テスト用、 原神・自慢の聖遺物を貼っていけぇ！ のみ許可
-  if (message.channel.id !== '1198496932654501958' && message.channel.id !== '1206824509538308116' && message.channel.id !== '1196454920220586044') return;
+  // 個人・テスト用、 原神・自慢の聖遺物を貼っていけぇ！ のみ許可
+  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1196454920220586044') return;
   
   // Check if message contains attachments
   if (message.attachments.size > 0) {

@@ -83,6 +83,7 @@ client.on('messageCreate', async message => {
             value = multiSelectValues.join(', ');
         } else if (property.type === 'select') {
             // selectの場合はnameプロパティの値を取得
+            console.log('*****'+property.select.name);
             value = property.select.name.trim();
         } else if (property.type === 'rich_text') {
             // rich_textの場合は、plain_textプロパティの値を取得して連結

@@ -66,8 +66,8 @@ client.on('messageCreate', async message => {
     .setColor('RANDOM')
     .setURL(notionurl)
     
-    //const re = data.results[0].properties["凸とその解説"]["rich_text"][0]["plain_text"];
-    //console.log(re);
+    const re = data.results[0].properties["推奨ステータス"].multi_select.map(item => item.name).join('\n');
+    console.log(re);
     
       Object.keys(properties).forEach(key => {
         const property = properties[key]; // 各プロパティを取得

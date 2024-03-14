@@ -66,6 +66,9 @@ client.on('messageCreate', async message => {
     .setColor('RANDOM')
     .setURL(notionurl)
     
+    //const re = data.results[0].properties["凸とその解説"]["rich_text"][0]["plain_text"];
+    //console.log(re);
+    
       Object.keys(properties).forEach(key => {
         const property = properties[key]; // 各プロパティを取得
         console.log(`Key: ${key}`);
@@ -83,7 +86,6 @@ client.on('messageCreate', async message => {
             value = multiSelectValues.join(', ');
         } else if (property.type === 'select') {
             // selectの場合はnameプロパティの値を取得
-            console.log('*****'+property.select.name);
             value = property.select.name.trim();
         } else if (property.type === 'rich_text') {
             // rich_textの場合は、plain_textプロパティの値を取得して連結

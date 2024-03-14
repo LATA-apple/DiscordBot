@@ -66,8 +66,22 @@ client.on('messageCreate', async message => {
     .setColor('RANDOM')
     .setURL(notionurl)
     
-    const re = data.results[0].properties["推奨ステータス"].multi_select.map(item => item.name).join('\n');
-    console.log(re);
+    let sendtext = '';
+    sendtext = data.results[0]?.properties["レア度"]?["select"]?["name"];
+    sendtext = data.results[0]?.properties["元素"]?["select"]?["name"]
+    sendtext = data.results[0]?.properties["武器種"]?["select"]?["name"]
+    sendtext = data.results[0]?.properties["育成優先度"]?["select"]?["name"]
+    sendtext = data.results[0]?.properties["最優先ステータス"]?["select"]?["name"]
+    sendtext = data.results[0]?.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n')
+    sendtext = data.results[0]?.properties["特産品"]?["select"]?["name"]
+    sendtext = data.results[0]?.properties["強敵"]?["select"]?["name"]
+    sendtext = data.results[0]?.properties["天賦本"]?["select"]?["name"]
+    sendtext = data.results[0]?.properties["天賦素材(週ボス)"]?["select"]?["name"]
+    sendtext = data.results[0]?.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n')
+    sendtext = data.results[0]?.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n')
+    sendtext = data.results[0]?.properties["凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n')
+    sendtext = data.results[0]?.properties[“おすすめ武器”]?.rich_text?.map(item => item.plain_text).join('\n')
+    console.log(sendtext);
     
       Object.keys(properties).forEach(key => {
         const property = properties[key]; // 各プロパティを取得

@@ -74,20 +74,35 @@ client.on('messageCreate', async message => {
     sendtext = data.results[0]?.properties["レア度"]?.select?.name;
     embed1.addField('- '+'レア度'+' -', sendtext);
     sendtext = data.results[0]?.properties["元素"]?.select?.name;
+    embed1.addField('- '+'元素'+' -', sendtext);
     sendtext = data.results[0]?.properties["武器種"]?.select?.name;
+    embed1.addField('- '+'武器種'+' -', sendtext);
     sendtext = data.results[0]?.properties["育成優先度"]?.select?.name;
+    embed1.addField('- '+'育成優先度'+' -', sendtext);
     sendtext = data.results[0]?.properties["最優先ステータス"]?.select?.name;
+    embed1.addField('- '+'最優先ステータス'+' -', sendtext);
     sendtext = data.results[0]?.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
+    embed1.addField('- '+'推奨ステータス'+' -', sendtext);
     sendtext = data.results[0]?.properties["特産品"]?.select?.name;
+    embed1.addField('- '+'特産品'+' -', sendtext);
     sendtext = data.results[0]?.properties["強敵"]?.select?.name;
+    embed1.addField('- '+'強敵'+' -', sendtext);
     sendtext = data.results[0]?.properties["天賦本"]?.select?.name;
+    embed1.addField('- '+'天賦本'+' -', sendtext);
     sendtext = data.results[0]?.properties["天賦素材(週ボス)"]?.select?.name;
+    embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext);
     sendtext = data.results[0]?.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
+    embed1.addField('- '+'参照プロパティ'+' -', sendtext);
     sendtext = data.results[0]?.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
-    sendtext = data.results[0]?.properties["凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
+    embed1.addField('- '+'推奨凸'+' -', sendtext);
+    sendtext = data.results[0]?.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
+    embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
     sendtext = data.results[0]?.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
-    message.channel.send({ embeds: [embed] })
-    
+    embed1.addField('- '+'おすすめ武器'+' -', sendtext);
+    const image = data.results[0].icon.external.url;
+    embed1.setThumbnail(image)
+    message.channel.send({ embeds: [embed1] })
+    /*
       Object.keys(properties).forEach(key => {
         const property = properties[key]; // 各プロパティを取得
         console.log(`Key: ${key}`);
@@ -134,6 +149,7 @@ client.on('messageCreate', async message => {
     //console.log(embed.fields);
     
     message.channel.send({ embeds: [embed] })
+    */
     })
     .catch(error => console.error('Error:', error));
   

@@ -245,21 +245,23 @@ client.on('messageCreate', async message => {
     let sendtext = '';
     
     data.results.forEach(page => {
-      sendtext = data.results[0]?.properties["天賦種"]?.select?.name;
+      console.log(page);
+      sendtext = page.properties["天賦種"]?.title?.[0]?.text.context;
       if (sendtext) {
         embed1.addField('- '+'天賦種'+' -', sendtext,true);
       }
-      sendtext = data.results[0]?.properties["地域・秘境名"]?.select?.name;
+      sendtext = page.properties["地域・秘境名"]?.select?.name;
       if (sendtext) {
         embed1.addField('- '+'地域・秘境名'+' -', sendtext,true);
       }
-      sendtext = data.results[0]?.properties["使用キャラ"]?.rich_text?.map(item => item.plain_text).join('\n');
+      sendtext = page.properties["使用キャラ"]?.rich_text?.map(item => item.plain_text).join('\n');
       if (sendtext) {
         embed1.addField('- '+'使用キャラ'+' -', sendtext,true);
       }
-      const image = data.results[0].icon.external.url;
+      const image = page.icon.external.url;
       embed1.setThumbnail(image)
       message.channel.send({ embeds: [embed1] })
+      embed1
       });
       
     })

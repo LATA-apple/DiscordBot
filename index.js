@@ -185,7 +185,6 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    console.log(data.results[0].properties);
     const properties = data.results[0].properties;
     const notionurl2 = data.results[0].public_url;
     let sendtext = '';
@@ -194,7 +193,6 @@ client.on('messageCreate', async message => {
       //.setColor('RANDOM')
       .setURL(notionurl2)
       sendtext = page.properties["天賦種"]?.title?.[0]?.plain_text;
-      console.log(sendtext);
       if (sendtext) {
         embed2.setTitle(sendtext);
       }
@@ -261,7 +259,6 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    console.log(data.results[0].properties);
     const properties = data.results[0].properties;
     const notionurl3 = data.results[0].public_url;
     let sendtext = '';
@@ -270,7 +267,6 @@ client.on('messageCreate', async message => {
       //.setColor('RANDOM')
       .setURL(notionurl3)
       sendtext = page.properties["素材"]?.title?.[0]?.plain_text;
-      console.log(sendtext);
       if (sendtext) {
         embed3.setTitle(sendtext);
       }

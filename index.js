@@ -53,6 +53,7 @@ client.on('messageCreate', async message => {
   const notionurl = ''
   
   const fields = [];
+  console.log(message.content);
   console.log(`--------------------------------------------------`);
   
   //キャラ情報Notion自動読み出し
@@ -146,6 +147,7 @@ client.on('messageCreate', async message => {
   // 個人・テスト用、 原神・天賦本 のみ許可
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1196351988967936111') return;
   let searchtext = '';
+  if (!message.content.includes('天賦本')) return;
   if ((message.content.includes('月曜日の天賦本'))||(message.content.includes('木曜日の天賦本'))){
     searchtext = '月曜日/木曜日/日曜日';
   } else if ((message.content.includes('火曜日の天賦本'))||(message.content.includes('金曜日の天賦本'))){
@@ -187,12 +189,12 @@ client.on('messageCreate', async message => {
     .then(data => {
     console.log(data.results[0].properties);
     const properties = data.results[0].properties;
-    const notionurl = data.results[0].public_url;
+    const notionurl2 = data.results[0].public_url;
     let sendtext = '';
     data.results.forEach(page => {
       const embed2 = new MessageEmbed()
       //.setColor('RANDOM')
-      .setURL(notionurl)
+      .setURL(notionurl2)
       sendtext = page.properties["天賦種"]?.title?.[0]?.plain_text;
       console.log(sendtext);
       if (sendtext) {
@@ -206,8 +208,8 @@ client.on('messageCreate', async message => {
       if (sendtext) {
         embed2.addField('- '+'使用キャラ'+' -', sendtext,true);
       }
-      const image = page.icon.external.url;
-      embed2.setThumbnail(image)
+      const image2 = page.icon.external.url;
+      embed2.setThumbnail(image2)
       message.channel.send({ embeds: [embed2] })
       });  
     })
@@ -223,9 +225,7 @@ client.on('messageCreate', async message => {
   // 個人・テスト用、 原神・武器突破素材 のみ許可
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197527073951072318') return;
   let searchtext = '';
-  if message.content.includes('武器突破素材'){
-    searchtext = '月曜日/木曜日/日曜日';
-  }
+  if (!message.content.includes('武器突破素材')) return;
   if ((message.content.includes('月曜日の武器突破素材'))||(message.content.includes('木曜日の武器突破素材'))){
     searchtext = '月曜日/木曜日/日曜日';
   } else if ((message.content.includes('火曜日の武器突破素材'))||(message.content.includes('金曜日の武器突破素材'))){
@@ -267,12 +267,12 @@ client.on('messageCreate', async message => {
     .then(data => {
     console.log(data.results[0].properties);
     const properties = data.results[0].properties;
-    const notionurl = data.results[0].public_url;
+    const notionurl3 = data.results[0].public_url;
     let sendtext = '';
     data.results.forEach(page => {
       const embed3 = new MessageEmbed()
       //.setColor('RANDOM')
-      .setURL(notionurl)
+      .setURL(notionurl3)
       sendtext = page.properties["素材"]?.title?.[0]?.plain_text;
       console.log(sendtext);
       if (sendtext) {
@@ -286,8 +286,8 @@ client.on('messageCreate', async message => {
       if (sendtext) {
         embed3.addField('- '+'使用武器'+' -', sendtext,true);
       }
-      const image = page.icon.external.url;
-      embed3.setThumbnail(image)
+      const image3 = page.icon.external.url;
+      embed3.setThumbnail(image3)
       message.channel.send({ embeds: [embed3] })
       });  
     })

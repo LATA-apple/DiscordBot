@@ -209,7 +209,6 @@ client.on('messageCreate', async message => {
     'Notion-Version': '2022-06-28',
     'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
   };
-  
   const filterData = {
   "filter": {
     "property": "曜日",
@@ -218,19 +217,16 @@ client.on('messageCreate', async message => {
     }
   }
 };
-  
   const requestOptions = {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(filterData)
   };
-  
   const notionurl = ''
-  
   const fields = [];
   console.log(`--------------------------------------------------`);
   
-  //キャラ情報Notion自動読み出し
+  //天賦本Notion自動読み出し
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
@@ -238,30 +234,29 @@ client.on('messageCreate', async message => {
     const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
     
-    const embed1 = new MessageEmbed()
-    .setTitle(message.content)
-    .setColor('RANDOM')
-    .setURL(notionurl)
+    
     let sendtext = '';
     
     data.results.forEach(page => {
-      console.log(page);
-      sendtext = page.properties["天賦種"]?.title?.[0]?.text.context;
+      const embed2 = new MessageEmbed()
+      //.setColor('RANDOM')
+      .setURL(notionurl)
+      sendtext = page.properties["天賦種"]?.title?.[0]?.plain_text;
+      console.log(sendtext);
       if (sendtext) {
-        embed1.addField('- '+'天賦種'+' -', sendtext,true);
+        embed2.setTitle(sendtext);
       }
       sendtext = page.properties["地域・秘境名"]?.select?.name;
       if (sendtext) {
-        embed1.addField('- '+'地域・秘境名'+' -', sendtext,true);
+        embed2.addField('- '+'地域・秘境名'+' -', sendtext,true);
       }
       sendtext = page.properties["使用キャラ"]?.rich_text?.map(item => item.plain_text).join('\n');
       if (sendtext) {
-        embed1.addField('- '+'使用キャラ'+' -', sendtext,true);
+        embed2.addField('- '+'使用キャラ'+' -', sendtext,true);
       }
       const image = page.icon.external.url;
-      embed1.setThumbnail(image)
-      message.channel.send({ embeds: [embed1] })
-      embed1
+      embed2.setThumbnail(image)
+      message.channel.send({ embeds: [embed2] })
       });
       
     })

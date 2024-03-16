@@ -185,7 +185,7 @@ client.on('messageCreate', async message => {
 });
 
 //天賦本Notion自動読み込み
-databaseId = '9403ad41aa344441951044a6656d0d9a';
+databaseId = '3b2844eb5a364e24946b96733728e559';
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
@@ -193,8 +193,14 @@ client.on('messageCreate', async message => {
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   
   let searchtext = '';
-  if (()){
-    
+  if ((message.content == '月曜日')||(message.content == '木曜日')){
+    searchtext = '月曜日/木曜日/日曜日';
+  } else if ((message.content == '火曜日')||(message.content == '金曜日')){
+    searchtext = '火曜日/金曜日/日曜日';
+  } else if ((message.content == '水曜日')||(message.content == '土曜日')){
+    searchtext = '水曜日/土曜日/日曜日';
+  } else if (message.content == '日曜日'){
+    searchtext = '水曜日/土曜日/日曜日';
   }
   const headers = {
     'Content-Type': 'application/json',
@@ -203,13 +209,13 @@ client.on('messageCreate', async message => {
   };
   
   const filterData = {
-    "filter": {
-      "property": "キャラ名",
-      "title": {
-        "equals": message.content // メッセージの内容をキャラ名として使用
-      }
+  "filter": {
+    "property": "曜日",
+    "select": {
+      "equals": searchtext
     }
-  };
+  }
+};
   
   const requestOptions = {
     method: 'POST',
@@ -226,7 +232,7 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    //if (!data.results[0]) return;
+    console.log(data);
     const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
     
@@ -240,61 +246,17 @@ client.on('messageCreate', async message => {
     .setColor('RANDOM')
     .setURL(notionurl)
     let sendtext = '';
-    sendtext = data.results[0]?.properties["レア度"]?.select?.name;
+    sendtext = data.results[0]?.properties["天賦種"]?.select?.name;
     if (sendtext) {
-      embed1.addField('- '+'レア度'+' -', sendtext,true);
+      embed1.addField('- '+'天賦種'+' -', sendtext,true);
     }
-    sendtext = data.results[0]?.properties["元素"]?.select?.name;
+    sendtext = data.results[0]?.properties["地域・秘境名"]?.select?.name;
     if (sendtext) {
-      embed1.addField('- '+'元素'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["武器種"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'武器種'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["特産品"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'特産品'+' -', sendtext),true;
-    }
-    sendtext = data.results[0]?.properties["強敵"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'強敵'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["天賦本"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'天賦本'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["天賦素材(週ボス)"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["育成優先度"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'育成優先度'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["最優先ステータス"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
+      embed1.addField('- '+'地域・秘境名'+' -', sendtext,true);
     }
     sendtext = data.results[0]?.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
     if (sendtext) {
       embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'推奨凸'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
     }
     const image = data.results[0].icon.external.url;
     embed1.setThumbnail(image)

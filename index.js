@@ -317,9 +317,12 @@ client.on('messageCreate', async message => {
           }
           if (characterKey && scoreData[characterKey]) {
             console.log(scoreData[characterKey]); // characterKeyに対応するデータを出力
-            embed.addField('- 頭部 -', `HP固定値: ${scoreData[characterKey].main.head.HPDelta}`,true);
-            embed.addField('- 腕部 -', `攻撃力固定値: ${scoreData[characterKey].main.hand.AttackDelta}`,true);
-            embed.addField('- 胴部 -', `HP％: ${scoreData[characterKey].main.body.HPAddedRatio}`+
+            embed.addField('- 頭部 -',
+                           `HP固定値: ${scoreData[characterKey].main.head.HPDelta}`,true);
+            embed.addField('- 腕部 -',
+                           `攻撃力固定値: ${scoreData[characterKey].main.hand.AttackDelta}`,true);
+            embed.addField('- 胴部 -',
+                           `HP％: ${scoreData[characterKey].main.body.HPAddedRatio}`+
                            `\n攻撃力％: ${scoreData[characterKey].main.body.AttackAddedRatio}`+
                            `\n防御力％: ${scoreData[characterKey].main.body.DefenceAddedRatio}`+
                            `\n会心率: ${scoreData[characterKey].main.body.CriticalChanceBase}`+
@@ -347,9 +350,9 @@ client.on('messageCreate', async message => {
                            `\nEP回復効率: ${scoreData[characterKey].main.rope.SPRatioBase}`,true);
             embed.addField('- サブオプション -', `HP固定値: ${scoreData[characterKey].sub.HPDelta}`+
                            `\nHP%: ${scoreData[characterKey].sub.HPAddedRatio}`+
-                           `\n攻撃力固定値: ${scoreData[characterKey].sub.AttackDelta}`+
                            `\n攻撃力固定値: ${scoreData[characterKey].sub.AttackAddedRatio}`+
-                           `\n防御力固定値: ${scoreData[characterKey].sub.DefenceDelta}`+
+                           `\n攻撃力％: ${scoreData[characterKey].sub.AttackDelta}`+
+                            `\n防御力固定値: ${scoreData[characterKey].sub.DefenceDelta}`+
                            `\n防御力％: ${scoreData[characterKey].sub.DefenceAddedRatio}`+
                            `\n速度: ${scoreData[characterKey].sub.SpeedDelta}`+
                            `\n会心率: ${scoreData[characterKey].sub.CriticalChanceBase}`+

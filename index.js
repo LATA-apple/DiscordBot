@@ -17,10 +17,11 @@ client.on("ready", () => {
   console.log('Bot is ready!');
 });
 
-const databaseId = '9403ad41aa344441951044a6656d0d9a';
-const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
 //キャラ情報Notion自動読み込み
+let databaseId = '';
+databaseId = '9403ad41aa344441951044a6656d0d9a';
+const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
@@ -178,6 +179,126 @@ client.on('messageCreate', async message => {
     
     message.channel.send({ embeds: [embed] })
     */
+    })
+    .catch(error => console.error('Error:', error));
+  
+});
+
+//天賦本Notion自動読み込み
+databaseId = '9403ad41aa344441951044a6656d0d9a';
+client.on('messageCreate', async message => {
+  // Ignore messages from other bots
+  if (message.author.bot) return;
+  // 個人・テスト用、 原神・キャラ情報 のみ許可
+  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
+  
+  let searchtext = '';
+  if (()){
+    
+  }
+  const headers = {
+    'Content-Type': 'application/json',
+    'Notion-Version': '2022-06-28',
+    'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
+  };
+  
+  const filterData = {
+    "filter": {
+      "property": "キャラ名",
+      "title": {
+        "equals": message.content // メッセージの内容をキャラ名として使用
+      }
+    }
+  };
+  
+  const requestOptions = {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(filterData)
+  };
+  
+  const notionurl = ''
+  
+  const fields = [];
+  console.log(`--------------------------------------------------`);
+  
+  //キャラ情報Notion自動読み出し
+  fetch(url, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+    //if (!data.results[0]) return;
+    const properties = data.results[0].properties;
+    const notionurl = data.results[0].public_url;
+    
+    const embed = new MessageEmbed()
+    .setTitle(message.content)
+    .setColor('RANDOM')
+    .setURL(notionurl)
+    
+    const embed1 = new MessageEmbed()
+    .setTitle(message.content)
+    .setColor('RANDOM')
+    .setURL(notionurl)
+    let sendtext = '';
+    sendtext = data.results[0]?.properties["レア度"]?.select?.name;
+    if (sendtext) {
+      embed1.addField('- '+'レア度'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["元素"]?.select?.name;
+    if (sendtext) {
+      embed1.addField('- '+'元素'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["武器種"]?.select?.name;
+    if (sendtext) {
+      embed1.addField('- '+'武器種'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["特産品"]?.select?.name;
+    if (sendtext) {
+      embed1.addField('- '+'特産品'+' -', sendtext),true;
+    }
+    sendtext = data.results[0]?.properties["強敵"]?.select?.name;
+    if (sendtext) {
+      embed1.addField('- '+'強敵'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["天賦本"]?.select?.name;
+    if (sendtext) {
+      embed1.addField('- '+'天賦本'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["天賦素材(週ボス)"]?.select?.name;
+    if (sendtext) {
+      embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["育成優先度"]?.select?.name;
+    if (sendtext) {
+      embed1.addField('- '+'育成優先度'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["最優先ステータス"]?.select?.name;
+    if (sendtext) {
+      embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
+    if (sendtext) {
+      embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
+    if (sendtext) {
+      embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
+    if (sendtext) {
+      embed1.addField('- '+'推奨凸'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
+    if (sendtext) {
+      embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
+    }
+    sendtext = data.results[0]?.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
+    if (sendtext) {
+      embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
+    }
+    const image = data.results[0].icon.external.url;
+    embed1.setThumbnail(image)
+    message.channel.send({ embeds: [embed1] })
     })
     .catch(error => console.error('Error:', error));
   

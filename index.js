@@ -20,8 +20,9 @@ client.on("ready", () => {
 
 //キャラ情報Notion自動読み込み
 let databaseId = '';
+let url = '';
 databaseId = '9403ad41aa344441951044a6656d0d9a';
-const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
+url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
@@ -186,6 +187,7 @@ client.on('messageCreate', async message => {
 
 //天賦本Notion自動読み込み
 databaseId = '3b2844eb5a364e24946b96733728e559';
+url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
@@ -254,9 +256,9 @@ client.on('messageCreate', async message => {
     if (sendtext) {
       embed1.addField('- '+'地域・秘境名'+' -', sendtext,true);
     }
-    sendtext = data.results[0]?.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
+    sendtext = data.results[0]?.properties["使用キャラ"]?.rich_text?.map(item => item.plain_text).join('\n');
     if (sendtext) {
-      embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
+      embed1.addField('- '+'使用キャラ'+' -', sendtext,true);
     }
     const image = data.results[0].icon.external.url;
     embed1.setThumbnail(image)

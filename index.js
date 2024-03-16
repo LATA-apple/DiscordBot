@@ -191,18 +191,22 @@ url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
-  // 個人・テスト用、 原神・キャラ情報 のみ許可
-  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
-  
+  // 個人・テスト用、 原神・天賦本 のみ許可
+  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1196351988967936111') return;
   let searchtext = '';
-  if ((message.content == '月曜日')||(message.content == '木曜日')){
+  if ((message.content.includes('月曜日'))||(message.content.includes('木曜日'))){
     searchtext = '月曜日/木曜日/日曜日';
-  } else if ((message.content == '火曜日')||(message.content == '金曜日')){
+  } else if ((message.content.includes('火曜日'))||(message.content.includes('金曜日'))){
     searchtext = '火曜日/金曜日/日曜日';
-  } else if ((message.content == '水曜日')||(message.content == '土曜日')){
+  } else if ((message.content.includes('水曜日'))||(message.content.includes('土曜日'))){
     searchtext = '水曜日/土曜日/日曜日';
-  } else if (message.content == '日曜日'){
-    searchtext = '水曜日/土曜日/日曜日';
+  } else if (message.content.includes('月曜日')){
+    const embed2 = new MessageEmbed()
+      .setTitle('日曜日')
+      .setColor('RANDOM')
+      .setDescription('全ての秘境が解放されています。')
+    message.channel.send({ embeds: [embed2] })
+    return;
   }
   const headers = {
     'Content-Type': 'application/json',
@@ -225,7 +229,6 @@ client.on('messageCreate', async message => {
   const notionurl = ''
   const fields = [];
   console.log(`--------------------------------------------------`);
-  
   //天賦本Notion自動読み出し
   fetch(url, requestOptions)
     .then(response => response.json())
@@ -233,10 +236,7 @@ client.on('messageCreate', async message => {
     //console.log(data);
     const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
-    
-    
     let sendtext = '';
-    
     data.results.forEach(page => {
       const embed2 = new MessageEmbed()
       //.setColor('RANDOM')
@@ -257,11 +257,9 @@ client.on('messageCreate', async message => {
       const image = page.icon.external.url;
       embed2.setThumbnail(image)
       message.channel.send({ embeds: [embed2] })
-      });
-      
+      });  
     })
     .catch(error => console.error('Error:', error));
-  
 });
 
 //スタレ キャラ

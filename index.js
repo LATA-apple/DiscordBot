@@ -139,13 +139,11 @@ client.on('messageCreate', async message => {
 });
 
 //天賦本Notion自動読み込み
-databaseId = '3b2844eb5a364e24946b96733728e559';
-url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 client.on('messageCreate', async message => {
-  // Ignore messages from other bots
-  if (message.author.bot) return;
   // 個人・テスト用、 原神・天賦本 のみ許可
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1196351988967936111') return;
+  databaseId = '3b2844eb5a364e24946b96733728e559';
+  url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   let searchtext = '';
   if (!message.content.includes('天賦本')) return;
   if ((message.content.includes('月曜日の天賦本'))||(message.content.includes('木曜日の天賦本'))){
@@ -162,12 +160,12 @@ client.on('messageCreate', async message => {
     message.channel.send({ embeds: [embed2] })
     return;
   }
-  const headers = {
+  const headers2 = {
     'Content-Type': 'application/json',
     'Notion-Version': '2022-06-28',
     'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
   };
-  const filterData = {
+  const filterData2 = {
   "filter": {
     "property": "曜日",
     "select": {
@@ -177,8 +175,8 @@ client.on('messageCreate', async message => {
 };
   const requestOptions = {
     method: 'POST',
-    headers: headers,
-    body: JSON.stringify(filterData)
+    headers: headers2,
+    body: JSON.stringify(filterData2)
   };
   const notionurl = ''
   const fields = [];
@@ -215,16 +213,14 @@ client.on('messageCreate', async message => {
     })
     .catch(error => console.error('Error:', error));
 });
-
+//*
 //武器突破素材Notion自動読み込み
-databaseId = '6741efb5c8064e2d9dbc0b21d08dfea3';
-url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 client.on('messageCreate', async message => {
-  // Ignore messages from other bots
-  if (message.author.bot) return;
   // 個人・テスト用、 原神・武器突破素材 のみ許可
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197527073951072318') return;
   let searchtext = '';
+  databaseId = '6741efb5c8064e2d9dbc0b21d08dfea3';
+  url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   if (!message.content.includes('武器突破素材')) return;
   if ((message.content.includes('月曜日の武器突破素材'))||(message.content.includes('木曜日の武器突破素材'))){
     searchtext = '月曜日/木曜日/日曜日';
@@ -240,12 +236,12 @@ client.on('messageCreate', async message => {
     message.channel.send({ embeds: [embed3] })
     return;
   }
-  const headers = {
+  const headers3 = {
     'Content-Type': 'application/json',
     'Notion-Version': '2022-06-28',
     'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
   };
-  const filterData = {
+  const filterData3 = {
   "filter": {
     "property": "曜日",
     "select": {
@@ -255,8 +251,8 @@ client.on('messageCreate', async message => {
 };
   const requestOptions = {
     method: 'POST',
-    headers: headers,
-    body: JSON.stringify(filterData)
+    headers: headers3,
+    body: JSON.stringify(filterData3)
   };
   const notionurl = ''
   const fields = [];
@@ -293,7 +289,7 @@ client.on('messageCreate', async message => {
     })
     .catch(error => console.error('Error:', error));
 });
-
+//*/
 //スタレ キャラ
 client.on('messageCreate', async message => {
   // Ignore messages from other bots

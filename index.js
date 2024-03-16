@@ -132,54 +132,6 @@ client.on('messageCreate', async message => {
     const image = data.results[0].icon.external.url;
     embed1.setThumbnail(image)
     message.channel.send({ embeds: [embed1] })
-    /*
-      Object.keys(properties).forEach(key => {
-        const property = properties[key]; // 各プロパティを取得
-        console.log(`Key: ${key}`);
-        console.log(property); // プロパティの内容を出力
-        
-        // Valueの値を取得し、空行を削除
-        let value = null;
-        if (property.name) {
-          value = property.name.trim();
-        } else if (property.content) {
-            value = property.content.trim();
-        } else if (property.type === 'multi_select') {
-            // multi_selectの場合は各オブジェクトのnameプロパティの値を取得し、カンマで連結して空行を削除
-            const multiSelectValues = property.multi_select.map(item => item.name.trim());
-            value = multiSelectValues.join(', ');
-        } else if (property.type === 'select') {
-            // selectの場合はnameプロパティの値を取得
-            value = property.select.name.trim();
-        } else if (property.type === 'rich_text') {
-            // rich_textの場合は、plain_textプロパティの値を取得して連結
-            const plainTextValues = property.rich_text.map(text => text.plain_text.trim());
-            let formattedValue = '';
-            if (key === '目標ステータス') {
-              for (let i = 0; i < plainTextValues.length; i += 2) {
-                formattedValue += `${plainTextValues[i]} : ${plainTextValues[i + 1]}\n`;
-              }
-            } else {
-              formattedValue = plainTextValues.join('\n');
-            }
-            value = formattedValue.trim();
-        }
-        
-        if (value !== null && value !== '') {
-            if (!value.includes('凸】')) {
-                embed.addField('- '+key+' -', typeof value === 'object' ? JSON.stringify(value) : value);
-            }
-        }
-      });
-      
-    // URLを取得
-    const imageURL = data.results[0].icon.external.url;
-    embed.setThumbnail(imageURL)
-    
-    //console.log(embed.fields);
-    
-    message.channel.send({ embeds: [embed] })
-    */
     })
     .catch(error => console.error('Error:', error));
   
@@ -233,7 +185,7 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    //console.log(data);
+    console.log(data.results[0].properties);
     const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
     let sendtext = '';
@@ -271,18 +223,21 @@ client.on('messageCreate', async message => {
   // 個人・テスト用、 原神・武器突破素材 のみ許可
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197527073951072318') return;
   let searchtext = '';
-  if ((message.content.includes('月曜日'))||(message.content.includes('木曜日'))){
+  if message.content.includes('武器突破素材'){
     searchtext = '月曜日/木曜日/日曜日';
-  } else if ((message.content.includes('火曜日'))||(message.content.includes('金曜日'))){
+  }
+  if ((message.content.includes('月曜日の武器突破素材'))||(message.content.includes('木曜日の武器突破素材'))){
+    searchtext = '月曜日/木曜日/日曜日';
+  } else if ((message.content.includes('火曜日の武器突破素材'))||(message.content.includes('金曜日の武器突破素材'))){
     searchtext = '火曜日/金曜日/日曜日';
-  } else if ((message.content.includes('水曜日'))||(message.content.includes('土曜日'))){
+  } else if ((message.content.includes('水曜日の武器突破素材'))||(message.content.includes('土曜日の武器突破素材'))){
     searchtext = '水曜日/土曜日/日曜日';
-  } else if (message.content.includes('月曜日')){
-    const embed2 = new MessageEmbed()
+  } else if (message.content.includes('日曜日の武器突破素材')){
+    const embed3 = new MessageEmbed()
       .setTitle('日曜日')
       .setColor('RANDOM')
       .setDescription('全ての武器突破素材が解放されています。')
-    message.channel.send({ embeds: [embed2] })
+    message.channel.send({ embeds: [embed3] })
     return;
   }
   const headers = {
@@ -310,30 +265,30 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    //console.log(data);
+    console.log(data.results[0].properties);
     const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
     let sendtext = '';
     data.results.forEach(page => {
-      const embed2 = new MessageEmbed()
+      const embed3 = new MessageEmbed()
       //.setColor('RANDOM')
       .setURL(notionurl)
       sendtext = page.properties["素材"]?.title?.[0]?.plain_text;
       console.log(sendtext);
       if (sendtext) {
-        embed2.setTitle(sendtext);
+        embed3.setTitle(sendtext);
       }
       sendtext = page.properties["地域"]?.select?.name;
       if (sendtext) {
-        embed2.addField('- '+'地域'+' -', sendtext,true);
+        embed3.addField('- '+'地域'+' -', sendtext,true);
       }
       sendtext = page.properties["使用武器"]?.rich_text?.map(item => item.plain_text).join('\n');
       if (sendtext) {
-        embed2.addField('- '+'使用武器'+' -', sendtext,true);
+        embed3.addField('- '+'使用武器'+' -', sendtext,true);
       }
       const image = page.icon.external.url;
-      embed2.setThumbnail(image)
-      message.channel.send({ embeds: [embed2] })
+      embed3.setThumbnail(image)
+      message.channel.send({ embeds: [embed3] })
       });  
     })
     .catch(error => console.error('Error:', error));

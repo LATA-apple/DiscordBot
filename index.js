@@ -234,35 +234,34 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    console.log(data);
+    //console.log(data);
     const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
-    
-    const embed = new MessageEmbed()
-    .setTitle(message.content)
-    .setColor('RANDOM')
-    .setURL(notionurl)
     
     const embed1 = new MessageEmbed()
     .setTitle(message.content)
     .setColor('RANDOM')
     .setURL(notionurl)
     let sendtext = '';
-    sendtext = data.results[0]?.properties["天賦種"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'天賦種'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["地域・秘境名"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'地域・秘境名'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["使用キャラ"]?.rich_text?.map(item => item.plain_text).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'使用キャラ'+' -', sendtext,true);
-    }
-    const image = data.results[0].icon.external.url;
-    embed1.setThumbnail(image)
-    message.channel.send({ embeds: [embed1] })
+    
+    data.results.forEach(page => {
+      sendtext = data.results[0]?.properties["天賦種"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'天賦種'+' -', sendtext,true);
+      }
+      sendtext = data.results[0]?.properties["地域・秘境名"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'地域・秘境名'+' -', sendtext,true);
+      }
+      sendtext = data.results[0]?.properties["使用キャラ"]?.rich_text?.map(item => item.plain_text).join('\n');
+      if (sendtext) {
+        embed1.addField('- '+'使用キャラ'+' -', sendtext,true);
+      }
+      const image = data.results[0].icon.external.url;
+      embed1.setThumbnail(image)
+      message.channel.send({ embeds: [embed1] })
+      });
+      
     })
     .catch(error => console.error('Error:', error));
   

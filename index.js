@@ -194,13 +194,13 @@ client.on('messageCreate', async message => {
   // 個人・テスト用、 原神・天賦本 のみ許可
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1196351988967936111') return;
   let searchtext = '';
-  if ((message.content.includes('月曜日'))||(message.content.includes('木曜日'))){
+  if ((message.content.includes('月曜日の天賦本'))||(message.content.includes('木曜日の天賦本'))){
     searchtext = '月曜日/木曜日/日曜日';
-  } else if ((message.content.includes('火曜日'))||(message.content.includes('金曜日'))){
+  } else if ((message.content.includes('火曜日の天賦本'))||(message.content.includes('金曜日の天賦本'))){
     searchtext = '火曜日/金曜日/日曜日';
-  } else if ((message.content.includes('水曜日'))||(message.content.includes('土曜日'))){
+  } else if ((message.content.includes('水曜日の天賦本'))||(message.content.includes('土曜日の天賦本'))){
     searchtext = '水曜日/土曜日/日曜日';
-  } else if (message.content.includes('月曜日')){
+  } else if (message.content.includes('日曜日の天賦本')){
     const embed2 = new MessageEmbed()
       .setTitle('日曜日')
       .setColor('RANDOM')
@@ -253,6 +253,83 @@ client.on('messageCreate', async message => {
       sendtext = page.properties["使用キャラ"]?.rich_text?.map(item => item.plain_text).join('\n');
       if (sendtext) {
         embed2.addField('- '+'使用キャラ'+' -', sendtext,true);
+      }
+      const image = page.icon.external.url;
+      embed2.setThumbnail(image)
+      message.channel.send({ embeds: [embed2] })
+      });  
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+//武器突破素材Notion自動読み込み
+databaseId = '6741efb5c8064e2d9dbc0b21d08dfea3';
+url = `https://api.notion.com/v1/databases/${databaseId}/query`;
+client.on('messageCreate', async message => {
+  // Ignore messages from other bots
+  if (message.author.bot) return;
+  // 個人・テスト用、 原神・武器突破素材 のみ許可
+  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197527073951072318') return;
+  let searchtext = '';
+  if ((message.content.includes('月曜日'))||(message.content.includes('木曜日'))){
+    searchtext = '月曜日/木曜日/日曜日';
+  } else if ((message.content.includes('火曜日'))||(message.content.includes('金曜日'))){
+    searchtext = '火曜日/金曜日/日曜日';
+  } else if ((message.content.includes('水曜日'))||(message.content.includes('土曜日'))){
+    searchtext = '水曜日/土曜日/日曜日';
+  } else if (message.content.includes('月曜日')){
+    const embed2 = new MessageEmbed()
+      .setTitle('日曜日')
+      .setColor('RANDOM')
+      .setDescription('全ての武器突破素材が解放されています。')
+    message.channel.send({ embeds: [embed2] })
+    return;
+  }
+  const headers = {
+    'Content-Type': 'application/json',
+    'Notion-Version': '2022-06-28',
+    'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
+  };
+  const filterData = {
+  "filter": {
+    "property": "曜日",
+    "select": {
+      "equals": searchtext
+    }
+  }
+};
+  const requestOptions = {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(filterData)
+  };
+  const notionurl = ''
+  const fields = [];
+  console.log(`--------------------------------------------------`);
+  //武器突破素材Notion自動読み出し
+  fetch(url, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+    //console.log(data);
+    const properties = data.results[0].properties;
+    const notionurl = data.results[0].public_url;
+    let sendtext = '';
+    data.results.forEach(page => {
+      const embed2 = new MessageEmbed()
+      //.setColor('RANDOM')
+      .setURL(notionurl)
+      sendtext = page.properties["素材"]?.title?.[0]?.plain_text;
+      console.log(sendtext);
+      if (sendtext) {
+        embed2.setTitle(sendtext);
+      }
+      sendtext = page.properties["地域"]?.select?.name;
+      if (sendtext) {
+        embed2.addField('- '+'地域'+' -', sendtext,true);
+      }
+      sendtext = page.properties["使用武器"]?.rich_text?.map(item => item.plain_text).join('\n');
+      if (sendtext) {
+        embed2.addField('- '+'使用武器'+' -', sendtext,true);
       }
       const image = page.icon.external.url;
       embed2.setThumbnail(image)

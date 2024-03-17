@@ -29,7 +29,18 @@ client.on('messageCreate', async message => {
   // 個人・テスト用、 原神・キャラ情報 のみ許可
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   
-  //キャラ名
+  //キャラ名 形成
+  if((message.content == 'でぃるっく')){
+    message.content == 'ディルック'
+  }else if((message.content == 'でぃしあ')){
+    message.content == 'ディシア'
+  }else if((message.content == 'りね')){
+    message.content == 'リネ'
+  }else if((message.content == 'ふーたお')||(message.content == 'フータオ')||(message.content == '堂主')){
+    message.content == '胡桃'
+  }
+  console.log(message.content)
+  //キャラ名 形成 ここまで
   
   const headers = {
     'Content-Type': 'application/json',

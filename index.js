@@ -173,28 +173,22 @@ client.on('messageCreate', async message => {
     charactername = 'ロサリア'
   }else if((message.content == 'ちおり')||(message.content == 'チオリ')||(message.content == '千織屋店主')){
     charactername = '千織'
-  }else if((message.content == 'あるべど')||(message.content == '首席錬金術師兼調査小隊隊長')){
+  }else if((message.content == 'あるべど')||(message.content == '首席錬金術師兼調査小隊隊長')||(message.content == '首席錬金術師')||(message.content == '調査小隊隊長')){
     charactername = 'アルベド'
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
+  }else if((message.content == 'あらたきいっと')||(message.content == 'アラタキイット')||(message.content == '荒瀧派初代親分')||(message.content == '真紅の鬼の末裔')){
+    charactername = '荒瀧一斗'
+  }else if((message.content == 'しょうり')||(message.content == 'ショウリ')||(message.content == '岩神')||(message.content == 'モラクス')||(message.content == '岩王帝君')||(message.content == '往生堂客卿')){
+    charactername = '鍾離'
+  }else if((message.content == 'なゔぃあ')||(message.content == '「棘薔薇の会」の会長・リーダー・ボス・司令塔')){
+    charactername = 'ナヴィア'
+  }else if((message.content == 'うんきん')||(message.content == 'ウンキン')||(message.content == '雲翰社座長')){
+    charactername = '雲菫'
+  }else if((message.content == 'のえる')||(message.content == '騎士見習い')||(message.content == 'メイド')){
+    charactername = 'ノエル'
+  }else if((message.content == 'ぎょうこう')||(message.content == 'ギョウコウ')||(message.content == '天権')){
+    charactername = '凝光'
+  }else if((message.content == 'ごろー')||(message.content == '海祇軍大将')){
+    charactername = 'ゴロー'
   }else if((message.content == '')||(message.content == '')){
     charactername = ''
   }else if((message.content == '')||(message.content == '')){

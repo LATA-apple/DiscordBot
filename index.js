@@ -130,7 +130,6 @@ client.on('messageCreate', async message => {
   if((message.content == 'かえではらかずは')||(message.content == 'カエデハラカズハ')||(message.content == '万葉')){
     charactername = '楓原万葉';
   }
-  
   if((message.content == 'かみさとあやか')||(message.content == 'カミサトアヤカ')||(message.content == '白鷺姫君')){
     charactername = '神里綾華';
   }
@@ -182,7 +181,6 @@ client.on('messageCreate', async message => {
   if((message.content == 'しかのいんへいぞう')||(message.content == 'シカノインヘイゾウ')||(message.content == '天才少年探偵')){
     charactername = '鹿野院平蔵'
   }
-  
   if((message.content == 'てぃなり')||(message.content == 'レンジャー長')){
     charactername = 'ティナリ'
   }
@@ -234,7 +232,6 @@ client.on('messageCreate', async message => {
   if((message.content == 'きらら')||(message.content == 'キララ')||(message.content == '狛荷屋配達員')||(message.content == '猫又')){
     charactername = '綺良々'
   }
-  
   if((message.content == 'りね')){
     charactername = 'リネ'
   }
@@ -275,7 +272,7 @@ client.on('messageCreate', async message => {
   
   if((message.content == '召使')||(message.content == 'ファトゥス第４位')||(message.content == 'アルレッキーノ')){
     charactername = 'アルレッキーノ'
-  }if(charactername == 'アルレッキーノ') return;
+  }
   if((message.content == 'しぐうぃん')||(message.content == '看護師長')||(message.content == 'シグウィン')){
     charactername = 'シグウィン'
     const embed1 = new MessageEmbed()

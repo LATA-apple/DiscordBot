@@ -81,7 +81,7 @@ client.on('messageCreate', async message => {
     charactername = 'キャンディス'
   }else if((message.content == 'ゆくあき')||(message.content == 'ユクアキ')){
     charactername = '行秋'
-  }else if((message.content == 'かんうん')||(message.content == 'カンウン')){
+  }else if((message.content == 'かんうん')||(message.content == 'カンウン')||(message.content == '留雲借風真君')){
     charactername = '閑雲'
   }else if((message.content == '')||(message.content == '')){
     charactername = ''

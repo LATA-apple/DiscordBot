@@ -83,14 +83,14 @@ client.on('messageCreate', async message => {
     charactername = '行秋'
   }else if((message.content == 'かんうん')||(message.content == 'カンウン')||(message.content == '留雲借風真君')){
     charactername = '閑雲'
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
+  }else if((message.content == 'うぇんてぃ')||(message.content == '風神')||(message.content == 'バルバトス')){
+    charactername = 'ウェンティ'
+  }else if((message.content == 'ほうろうしゃ')||(message.content == 'ホウロウシャ')||(message.content == 'スカラマシュ')||(message.content == '散兵兵')||(message.content == 'ファトゥス第6位')||(message.content == '雷電国崩')){
+    charactername = '放浪者'
+  }else if((message.content == 'じん')||(message.content == '西風騎士団代理団長')){
+    charactername = 'ジン'
+  }else if((message.content == 'かえではらかずは')||(message.content == '万葉')){
+    charactername = '楓原万葉'
   }else if((message.content == '')||(message.content == '')){
     charactername = ''
   }else if((message.content == '')||(message.content == '')){

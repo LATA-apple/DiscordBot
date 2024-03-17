@@ -53,125 +53,125 @@ client.on('messageCreate', async message => {
     charactername = 'シュヴルーズ'
   }else if((message.content == 'がみん')||(message.content == 'ガミン')||(message.content == '鏢師')){
     charactername = '嘉明'
-  }else if((message.content == '')){
+  }else if((message.content == 'しんえん')||(message.content == 'シンエン')){
+    charactername = '辛炎'
+  }else if((message.content == 'あんばー')||(message.content == '偵察騎士')){
+    charactername = 'アンバー'
+  }else if((message.content == 'しゃんりん')||(message.content == 'シャンリン')){
+    charactername = '香菱'
+  }else if((message.content == 'もな')||(message.content == 'アストローギスト・モナ・メギストス')||(message.content == '占星術師')){
+    charactername = 'モナ'
+  }else if((message.content == 'かみさとあやと')||(message.content == '社奉行当主')){
+    charactername = '神里綾人'
+  }else if((message.content == 'ふりーな')||(message.content == '水神')){
+    charactername = 'フリーナ'
+  }else if((message.content == 'いぇらん')||(message.content == 'イェラン')){
+    charactername = '夜蘭'
+  }else if((message.content == 'ぬゔぃれっと')||(message.content == '水龍')){
+    charactername = 'ヌヴィレット'
+  }else if((message.content == 'たるたりや')||(message.content == 'タルタリア')||(message.content == '公子')){
+    charactername = 'タルタリヤ'
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
-  }else if((message.content == '')){
-    charactername = ''
-  }else if((message.content == '')){
-    charactername = ''
-  }else if((message.content == '')){
-    charactername = ''
-  }else if((message.content == '')){
-    charactername = ''
-  }else if((message.content == '')){
-    charactername = ''
-  }else if((message.content == '')){
-    charactername = ''
-  }else if((message.content == '')){
-    charactername = ''
-  }else if((message.content == '')){
-    charactername = ''
-  }else if((message.content == '')){
-    charactername = ''
-  }else if((message.content == '')){
+  }else if((message.content == '')||(message.content == '')){
     charactername = ''
   }else {
     charactername = message.content;

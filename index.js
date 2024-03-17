@@ -45,8 +45,134 @@ client.on('messageCreate', async message => {
     charactername = '宵宮'
   }else if((message.content == 'とーま')){
     charactername = 'トーマ'
-  }else if((message.content == 'ベネット')||(message.content == '花火師')){
+  }else if((message.content == 'ベネット')||(message.content == '炎神')){
     charactername = 'ベネット'
+  }else if((message.content == 'えんひ')||(message.content == 'エンヒ')||(message.content == '法律家')){
+    charactername = '煙緋'
+  }else if((message.content == 'しゅゔるーず')||(message.content == 'シュブルーズ')||(message.content == 'しゅぶるーず')||(message.content == '特巡隊隊長')){
+    charactername = 'シュヴルーズ'
+  }else if((message.content == 'がみん')||(message.content == 'ガミン')||(message.content == '鏢師')){
+    charactername = '嘉明'
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
+  }else if((message.content == '')){
+    charactername = ''
   }else {
     charactername = message.content;
   }

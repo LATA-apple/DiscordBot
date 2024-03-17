@@ -12,7 +12,7 @@ client.on("ready", () => {
   client.user.setPresence({
     activity: {
     name: client.channels.cache.size+"サーバーに導入中"
-  },//status: dndにすると、Botのステータスが取り込み中に、idleにすると、退席中
+  },//status: dndにすると、Botのステータスが取り込み中に、idleにすると、退席中に、onlineにすると、オンラインに
     status: "online"
   });
   console.log('Bot is ready!');
@@ -27,7 +27,7 @@ client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
   // 個人・テスト用、 原神・キャラ情報 のみ許可
-  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718'&& message.channel.id !== '1218939675209891861') return;
+  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   databaseId = '9403ad41aa344441951044a6656d0d9a';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   let charactername = message.content;
@@ -62,14 +62,17 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    console.log(data.results[0])
+    console.log(data.results[0]);
     const notionurl = data.results[0].public_url;
     
     const embed1 = new MessageEmbed()
-    .setTitle(charactername)
     .setColor('RANDOM')
     .setURL(notionurl)
     let sendtext = '';
+    sendtext = data.results[0]?.properties["キャラ名"]?.title?.[0]?.plain_text;
+    if (sendtext) {
+      embed1.setTitle(sendtext);
+    }
     sendtext = data.results[0]?.properties["レア度"]?.select?.name;
     if (sendtext) {
       embed1.addField('- '+'レア度'+' -', sendtext,true);
@@ -210,7 +213,7 @@ client.on('messageCreate', async message => {
     })
     .catch(error => console.error('Error:', error));
 });
-//*
+
 //武器突破素材Notion自動読み込み
 client.on('messageCreate', async message => {
   // 個人・テスト用、 原神・武器突破素材 のみ許可

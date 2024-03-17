@@ -1,3 +1,4 @@
+//一時的に使用可能な部屋 && message.channel.id !== '1218939675209891861'
 const { Client, Intents, MessageEmbed } = require("discord.js");
 const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
@@ -26,7 +27,7 @@ client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
   // 個人・テスト用、 原神・キャラ情報 のみ許可
-  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
+  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718'&& message.channel.id !== '1218939675209891861') return;
   databaseId = '9403ad41aa344441951044a6656d0d9a';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   let charactername = message.content;
@@ -36,15 +37,14 @@ client.on('messageCreate', async message => {
     'Notion-Version': '2022-06-28',
     'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
   };
-  
   const filterData = {
     "filter": {
-      "property": "キャラ名",
-      "title": {
-        "equals": charactername // メッセージの内容をキャラ名として使用
+      "property": "検索用キーワード",
+      "rich_text": {
+        "contains": charactername
       }
     }
-  };
+  }
   
   const requestOptions = {
     method: 'POST',
@@ -62,8 +62,7 @@ client.on('messageCreate', async message => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(data => {
-    //if (!data.results[0]) return;
-    //const properties = data.results[0].properties;
+    console.log(data.results[0])
     const notionurl = data.results[0].public_url;
     
     const embed1 = new MessageEmbed()
@@ -127,7 +126,8 @@ client.on('messageCreate', async message => {
     if (sendtext) {
       embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
     }
-    const image = data.results[0]?.icon.external?.url;
+    const image = data.results[0]?.icon.external.url;
+    console.log(image);
     if (image) {
       embed1.setThumbnail(image)
     }

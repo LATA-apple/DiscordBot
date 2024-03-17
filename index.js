@@ -127,8 +127,10 @@ client.on('messageCreate', async message => {
     if (sendtext) {
       embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
     }
-    const image = data.results[0].icon.external.url;
-    embed1.setThumbnail(image)
+    const image = data.results[0]?.icon.external?.url;
+    if (image) {
+      embed1.setThumbnail(image)
+    }
     message.channel.send({ embeds: [embed1] })
     })
     .catch(error => console.error('Error:', error));

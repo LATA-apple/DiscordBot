@@ -189,10 +189,10 @@ client.on('messageCreate', async message => {
     charactername = '凝光'
   }else if((message.content == 'ごろー')||(message.content == '海祇軍大将')){
     charactername = 'ゴロー'
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
+  }else if((message.content == '召使')||(message.content == 'ファトゥス第４位')){
+    charactername = 'アルレッキーノ'
+  }else if((message.content == 'しぐうぃん')||(message.content == '看護師長')){
+    charactername = 'シグウィン'
   }else {
     charactername = message.content;
   }

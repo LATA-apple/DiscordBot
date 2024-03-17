@@ -147,8 +147,34 @@ client.on('messageCreate', async message => {
     charactername = '七七'
   }else if((message.content == 'かみさとあやか')||(message.content == 'カミサトアヤカ')||(message.content == '白鷺姫君')){
     charactername = '神里綾華'
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
+  }else if((message.content == 'かんう')||(message.content == 'カンウ')||(message.content == '月海亭秘書')){
+    charactername = '甘雨'
+  }else if((message.content == 'しんかく')||(message.content == 'シンカク')){
+    charactername = '申鶴'
+  }else if((message.content == 'りおせすり')||(message.content == '公爵')||(message.content == 'メロピデ要塞管理者')){
+    charactername = 'リオセスリ'
+  }else if((message.content == 'えうるあ')||(message.content == '遊撃小隊隊長')){
+    charactername = 'エウルア'
+  }else if((message.content == 'みか')||(message.content == '前進測量士')){
+    charactername = 'ミカ'
+  }else if((message.content == 'ちょううん')||(message.content == 'チョウウン')||(message.content == '方士')){
+    charactername = '重雲'
+  }else if((message.content == 'ふれみね')||(message.content == '腕利き潜水士')){
+    charactername = 'フレミネ'
+  }else if((message.content == 'れいら')||(message.content == '明論派')){
+    charactername = 'レイラ'
+  }else if((message.content == 'がいあ')||(message.content == '騎兵隊長')){
+    charactername = 'ガイア'
+  }else if((message.content == 'しゃるろっと')||(message.content == '新聞記者')){
+    charactername = 'シャルロット'
+  }else if((message.content == 'でぃおな')||(message.content == 'バーテンダー')){
+    charactername = 'ディオナ'
+  }else if((message.content == 'ろさりあ')||(message.content == 'シスター')){
+    charactername = 'ロサリア'
+  }else if((message.content == 'ちおり')||(message.content == 'チオリ')||(message.content == '千織屋店主')){
+    charactername = '千織'
+  }else if((message.content == 'あるべど')||(message.content == '首席錬金術師兼調査小隊隊長')){
+    charactername = 'アルベド'
   }else if((message.content == '')||(message.content == '')){
     charactername = ''
   }else if((message.content == '')||(message.content == '')){

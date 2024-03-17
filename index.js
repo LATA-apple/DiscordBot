@@ -31,50 +31,8 @@ client.on('messageCreate', async message => {
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   //キャラ名 形成
   let charactername = message.content;
-  if((message.content == 'うぇんてぃ')||(message.content == '風神')||(message.content == 'バルバトス')){
-    charactername = 'ウェンティ';
-  }
-  if((message.content == 'でぃるっく')){
-    charactername = 'ディルック';
-  }
-  if((message.content == 'じん')||(message.content == '西風騎士団代理団長')){
-    charactername = 'ジン';
-  }
-  if((message.content == 'こくせい')||(message.content == 'コクセイ')||(message.content == '玉衡')){
-    charactername = '刻晴';
-  }
-  if((message.content == 'もな')||(message.content == 'アストローギスト・モナ・メギストス')||(message.content == '占星術師')){
-    charactername = 'モナ';
-  }
-  if((message.content == 'なな')||(message.content == 'ナナ')||(message.content == '不卜盧薬剤師')){
-    charactername = '七七';
-  }
-  if((message.content == 'あんばー')||(message.content == '偵察騎士')){
-    charactername = 'アンバー';
-  }
-  if((message.content == 'がいあ')||(message.content == '騎兵隊長')){
-    charactername = 'ガイア';
-  }
-  if((message.content == 'りさ')||(message.content == '図書司書')||(message.content == '西風騎士団図書館司書')){
-    charactername = 'リサ';
-  }
-  if((message.content == 'ばーばら')||(message.content == '聖職者')||(message.content == 'アイドル')){
-    charactername = 'バーバラ';
-  }
-  if((message.content == 'ほくと')||(message.content == 'ホクト')||(message.content == '南十字船隊船長')||(message.content == '姉貴')){
-    charactername = '北斗';
-  }
-  if((message.content == 'ベネット')||(message.content == '炎神')){
-    charactername = 'ベネット';
-  }
-  if((message.content == 'ちょううん')||(message.content == 'チョウウン')||(message.content == '方士')){
-    charactername = '重雲';
-  }
-  if((message.content == 'ふぃっしゅる')||(message.content == 'フィッシュル・ヴォン・ルフシュロス・ナフィードット')||(message.content == '断罪の皇女')||(message.content == '捜査官')){
-    charactername = 'フィッシュル';
-  }
-  if((message.content == 'ぎょうこう')||(message.content == 'ギョウコウ')||(message.content == '天権')){
-    charactername = '凝光';
+  if((message.content == '')){
+    charactername = '';
   }
   if((message.content == 'のえる')||(message.content == '騎士見習い')||(message.content == 'メイド')){
     charactername = 'ノエル';
@@ -268,8 +226,6 @@ client.on('messageCreate', async message => {
   if((message.content == 'ちおり')||(message.content == 'チオリ')||(message.content == '千織屋店主')){
     charactername = '千織'
   }
-  
-  
   if((message.content == '召使')||(message.content == 'ファトゥス第４位')||(message.content == 'アルレッキーノ')){
     charactername = 'アルレッキーノ'
   }

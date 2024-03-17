@@ -89,26 +89,26 @@ client.on('messageCreate', async message => {
     charactername = '放浪者'
   }else if((message.content == 'じん')||(message.content == '西風騎士団代理団長')){
     charactername = 'ジン'
-  }else if((message.content == 'かえではらかずは')||(message.content == '万葉')){
+  }else if((message.content == 'かえではらかずは')||(message.content == 'カエデハラカズハ')||(message.content == '万葉')){
     charactername = '楓原万葉'
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
+  }else if((message.content == 'しょう')||(message.content == 'ショウ')||(message.content == '夜叉')||(message.content == '降魔大聖')||(message.content == '護法夜叉大将')){
+    charactername = '魈'
+  }else if((message.content == 'さゆ')||(message.content == 'サユ')||(message.content == '終末番')){
+    charactername = '早柚'
+  }else if((message.content == 'りねっと')||(message.content == 'マルチマジックアシスト装置')){
+    charactername = 'リネット'
+  }else if((message.content == 'すくろーす')||(message.content == '砂糖')||(message.content == '錬金術師')){
+    charactername = 'スクロース'
+  }else if((message.content == 'しかのいんへいぞう')||(message.content == 'シカノインヘイゾウ')||(message.content == '天才少年探偵')){
+    charactername = '鹿野院平蔵'
+  }else if((message.content == 'ふぁるざん')||(message.content == '知論派')){
+    charactername = 'ファルザン'
+  }else if((message.content == 'せの')||(message.content == '大マハマトラ')){
+    charactername = 'セノ'
+  }else if((message.content == 'こくせい')||(message.content == 'コクセイ')||(message.content == '玉衡')){
+    charactername = '刻晴'
+  }else if((message.content == 'やえみこ')||(message.content == 'ヤエミコ')||(message.content == '鳴神大社宮司')||(message.content == '八重堂編集長')){
+    charactername = '八重神子'
   }else if((message.content == '')||(message.content == '')){
     charactername = ''
   }else if((message.content == '')||(message.content == '')){

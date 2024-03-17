@@ -29,41 +29,7 @@ client.on('messageCreate', async message => {
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   databaseId = '9403ad41aa344441951044a6656d0d9a';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
-  //キャラ名 形成
   let charactername = message.content;
-  if((message.content == 'ふりーな')||(message.content == '水神')){
-    charactername = 'フリーナ'
-  }
-  if((message.content == 'しゃるろっと')||(message.content == '新聞記者')){
-    charactername = 'シャルロット'
-  }
-  if((message.content == 'なゔぃあ')||(message.content == '棘薔薇の会会長')||(message.content == '棘薔薇の会リーダー')||(message.content == '棘薔薇の会ボス')||(message.content == '棘薔薇の会司令塔')){
-    charactername = 'ナヴィア'
-  }
-  if((message.content == 'しゅゔるーず')||(message.content == 'シュブルーズ')||(message.content == 'しゅぶるーず')||(message.content == '特巡隊隊長')){
-    charactername = 'シュヴルーズ'
-  }
-  if((message.content == 'かんうん')||(message.content == 'カンウン')||(message.content == '留雲借風真君')){
-    charactername = '閑雲'
-  }
-  if((message.content == 'がみん')||(message.content == 'ガミン')||(message.content == '鏢師')){
-    charactername = '嘉明'
-  }
-  if((message.content == 'ちおり')||(message.content == 'チオリ')||(message.content == '千織屋店主')){
-    charactername = '千織'
-  }
-  if((message.content == '召使')||(message.content == 'ファトゥス第４位')||(message.content == 'アルレッキーノ')){
-    charactername = 'アルレッキーノ'
-  }
-  if((message.content == 'しぐうぃん')||(message.content == '看護師長')||(message.content == 'シグウィン')){
-    charactername = 'シグウィン'
-    const embed1 = new MessageEmbed()
-      .setTitle(charactername)
-      .setDescription('未実装キャラ')
-    message.channel.send({ embeds: [embed1] })
-    console.log(embed1)
-  }if(charactername == 'シグウィン') return;
-  //キャラ名 形成 ここまで
   
   const headers = {
     'Content-Type': 'application/json',

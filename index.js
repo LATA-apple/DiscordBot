@@ -21,25 +21,35 @@ client.on("ready", () => {
 //キャラ情報Notion自動読み込み
 let databaseId = '';
 let url = '';
-databaseId = '9403ad41aa344441951044a6656d0d9a';
-url = `https://api.notion.com/v1/databases/${databaseId}/query`;
+
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
   // 個人・テスト用、 原神・キャラ情報 のみ許可
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
-  
+  databaseId = '9403ad41aa344441951044a6656d0d9a';
+  url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   //キャラ名 形成
+  let charactername = '';
   if((message.content == 'でぃるっく')){
-    message.content == 'ディルック'
+    charactername = 'ディルック'
   }else if((message.content == 'でぃしあ')){
-    message.content == 'ディシア'
+    charactername = 'ディシア'
   }else if((message.content == 'りね')){
-    message.content == 'リネ'
+    charactername = 'リネ'
   }else if((message.content == 'ふーたお')||(message.content == 'フータオ')||(message.content == '堂主')){
-    message.content == '胡桃'
+    charactername = '胡桃'
+  }else if((message.content == 'くれー')){
+    charactername = 'クレー'
+  }else if((message.content == 'よいみや')||(message.content == '花火師')){
+    charactername = '宵宮'
+  }else if((message.content == 'とーま')){
+    charactername = 'トーマ'
+  }else if((message.content == 'ベネット')||(message.content == '花火師')){
+    charactername = 'ベネット'
+  }else {
+    charactername = message.content;
   }
-  console.log(message.content)
   //キャラ名 形成 ここまで
   
   const headers = {
@@ -52,7 +62,7 @@ client.on('messageCreate', async message => {
     "filter": {
       "property": "キャラ名",
       "title": {
-        "equals": message.content // メッセージの内容をキャラ名として使用
+        "equals": charactername // メッセージの内容をキャラ名として使用
       }
     }
   };
@@ -66,7 +76,7 @@ client.on('messageCreate', async message => {
   const notionurl = ''
   
   const fields = [];
-  console.log(message.content);
+  console.log(charactername);
   console.log(`--------------------------------------------------`);
   
   //キャラ情報Notion自動読み出し
@@ -74,16 +84,11 @@ client.on('messageCreate', async message => {
     .then(response => response.json())
     .then(data => {
     //if (!data.results[0]) return;
-    const properties = data.results[0].properties;
+    //const properties = data.results[0].properties;
     const notionurl = data.results[0].public_url;
     
-    const embed = new MessageEmbed()
-    .setTitle(message.content)
-    .setColor('RANDOM')
-    .setURL(notionurl)
-    
     const embed1 = new MessageEmbed()
-    .setTitle(message.content)
+    .setTitle(charactername)
     .setColor('RANDOM')
     .setURL(notionurl)
     let sendtext = '';

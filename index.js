@@ -129,24 +129,24 @@ client.on('messageCreate', async message => {
     charactername = '白朮'
   }else if((message.content == 'てぃなり')||(message.content == 'レンジャー長')){
     charactername = 'ティナリ'
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
+  }else if((message.content == 'あるはいぜん')||(message.content == 'はいぜん')||(message.content == '配膳')||(message.content == '教令院書記官')){
+    charactername = 'アルハイゼン'
+  }else if((message.content == 'なひーだ')||(message.content == '草神')||(message.content == 'クラクサナリデビ')){
+    charactername = 'ナヒーダ'
+  }else if((message.content == 'きらら')||(message.content == 'キララ')||(message.content == '狛荷屋配達員')||(message.content == '猫又')){
+    charactername = '綺良々'
+  }else if((message.content == 'かーゔぇ')||(message.content == '天才建築デザイナー')){
+    charactername = 'カーヴェ'
+  }else if((message.content == 'これい')||(message.content == 'コナ')||(message.content == '見習いレンジャー')){
+    charactername = 'コレイ'
+  }else if((message.content == 'よぉーよ')||(message.content == 'おませさん')){
+    charactername = 'ヨォーヨ'
+  }else if((message.content == 'あーろい')||(message.content == 'ノラの義勇兵')){
+    charactername = 'アーロイ'
+  }else if((message.content == 'なな')||(message.content == 'ナナ')||(message.content == '不卜盧薬剤師')){
+    charactername = '七七'
+  }else if((message.content == 'かみさとあやか')||(message.content == 'カミサトアヤカ')||(message.content == '白鷺姫君')){
+    charactername = '神里綾華'
   }else if((message.content == '')||(message.content == '')){
     charactername = ''
   }else if((message.content == '')||(message.content == '')){

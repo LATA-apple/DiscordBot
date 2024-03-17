@@ -29,6 +29,8 @@ client.on('messageCreate', async message => {
   // 個人・テスト用、 原神・キャラ情報 のみ許可
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   
+  //キャラ名
+  
   const headers = {
     'Content-Type': 'application/json',
     'Notion-Version': '2022-06-28',

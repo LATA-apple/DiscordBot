@@ -109,26 +109,26 @@ client.on('messageCreate', async message => {
     charactername = '刻晴'
   }else if((message.content == 'やえみこ')||(message.content == 'ヤエミコ')||(message.content == '鳴神大社宮司')||(message.content == '八重堂編集長')){
     charactername = '八重神子'
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
+  }else if((message.content == 'らいでんしょうぐん')||(message.content == 'ライデンショウグン')||(message.content == '雷神')||(message.content == 'バアルゼブル')){
+    charactername = '雷電将軍'
+  }else if((message.content == 'ふぃっしゅる')||(message.content == 'フィッシュル・ヴォン・ルフシュロス・ナフィードット')||(message.content == '断罪の皇女')||(message.content == '捜査官')){
+    charactername = 'フィッシュル'
+  }else if((message.content == 'れざー')){
+    charactername = 'レザー'
+  }else if((message.content == 'ほくと')||(message.content == 'ホクト')||(message.content == '南十字船隊船長')||(message.content == '姉貴')){
+    charactername = '北斗'
+  }else if((message.content == 'くきしのぶ')||(message.content == 'クキシノブ')||(message.content == '鬼の副手')||(message.content == '元鳴神大社巫女')){
+    charactername = '九岐忍'
+  }else if((message.content == 'りさ')||(message.content == '図書司書')||(message.content == '西風騎士団図書館司書')){
+    charactername = 'リサ'
+  }else if((message.content == 'くじょうさら')||(message.content == 'クジョウサラ')||(message.content == '天領奉行大将')){
+    charactername = '九条沙羅'
+  }else if((message.content == 'どりー')||(message.content == 'サンゲマ・ベイ卿')||(message.content == '旅商人')){
+    charactername = 'ドリー'
+  }else if((message.content == 'びゃくじゅつ')||(message.content == 'ビャクジュツ')||(message.content == '不卜廬店主')){
+    charactername = '白朮'
+  }else if((message.content == 'てぃなり')||(message.content == 'レンジャー長')){
+    charactername = 'ティナリ'
   }else if((message.content == '')||(message.content == '')){
     charactername = ''
   }else if((message.content == '')||(message.content == '')){

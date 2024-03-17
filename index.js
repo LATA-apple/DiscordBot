@@ -61,7 +61,7 @@ client.on('messageCreate', async message => {
     charactername = '香菱'
   }else if((message.content == 'もな')||(message.content == 'アストローギスト・モナ・メギストス')||(message.content == '占星術師')){
     charactername = 'モナ'
-  }else if((message.content == 'かみさとあやと')||(message.content == '社奉行当主')){
+  }else if((message.content == 'かみさとあやと')||(message.content == 'カミサトアヤト')||(message.content == '社奉行当主')){
     charactername = '神里綾人'
   }else if((message.content == 'ふりーな')||(message.content == '水神')){
     charactername = 'フリーナ'
@@ -69,20 +69,20 @@ client.on('messageCreate', async message => {
     charactername = '夜蘭'
   }else if((message.content == 'ぬゔぃれっと')||(message.content == '水龍')){
     charactername = 'ヌヴィレット'
-  }else if((message.content == 'たるたりや')||(message.content == 'タルタリア')||(message.content == '公子')){
+  }else if((message.content == 'たるたりや')||(message.content == 'タルタリア')||(message.content == '公子')||(message.content == 'ファトゥス第11位')){
     charactername = 'タルタリヤ'
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
-  }else if((message.content == '')||(message.content == '')){
-    charactername = ''
+  }else if((message.content == 'にぃろう')||(message.content == 'ズバイルシアター踊り子')){
+    charactername = 'ニィロウ'
+  }else if((message.content == 'さんごのみやここみ')||(message.content == '現人神の巫女')){
+    charactername = '珊瑚宮心美'
+  }else if((message.content == 'ばーばら')||(message.content == '聖職者')||(message.content == 'アイドル')){
+    charactername = 'バーバラ'
+  }else if((message.content == 'きゃんでぃす')||(message.content == 'キングデシェレトの末裔')){
+    charactername = 'キャンディス'
+  }else if((message.content == 'ゆくあき')||(message.content == 'ユクアキ')){
+    charactername = '行秋'
+  }else if((message.content == 'かんうん')||(message.content == 'カンウン')){
+    charactername = '閑雲'
   }else if((message.content == '')||(message.content == '')){
     charactername = ''
   }else if((message.content == '')||(message.content == '')){

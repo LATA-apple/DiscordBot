@@ -30,171 +30,259 @@ client.on('messageCreate', async message => {
   databaseId = '9403ad41aa344441951044a6656d0d9a';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   //キャラ名 形成
-  let charactername = '';
+  let charactername = message.content;
   if((message.content == 'でぃるっく')){
     charactername = 'ディルック'
-  }else if((message.content == 'でぃしあ')){
+  }
+  if((message.content == 'でぃしあ')){
     charactername = 'ディシア'
-  }else if((message.content == 'りね')){
+  }
+  if((message.content == 'りね')){
     charactername = 'リネ'
-  }else if((message.content == 'ふーたお')||(message.content == 'フータオ')||(message.content == '堂主')){
+  }
+  if((message.content == 'ふーたお')||(message.content == 'フータオ')||(message.content == '堂主')){
     charactername = '胡桃'
-  }else if((message.content == 'くれー')){
+  }
+  if((message.content == 'くれー')){
     charactername = 'クレー'
-  }else if((message.content == 'よいみや')||(message.content == '花火師')){
+  }
+  if((message.content == 'よいみや')||(message.content == '花火師')){
     charactername = '宵宮'
-  }else if((message.content == 'とーま')){
+  }
+  if((message.content == 'とーま')){
     charactername = 'トーマ'
-  }else if((message.content == 'ベネット')||(message.content == '炎神')){
+  }
+  if((message.content == 'ベネット')||(message.content == '炎神')){
     charactername = 'ベネット'
-  }else if((message.content == 'えんひ')||(message.content == 'エンヒ')||(message.content == '法律家')){
+  }
+  if((message.content == 'えんひ')||(message.content == 'エンヒ')||(message.content == '法律家')){
     charactername = '煙緋'
-  }else if((message.content == 'しゅゔるーず')||(message.content == 'シュブルーズ')||(message.content == 'しゅぶるーず')||(message.content == '特巡隊隊長')){
+  }
+  if((message.content == 'しゅゔるーず')||(message.content == 'シュブルーズ')||(message.content == 'しゅぶるーず')||(message.content == '特巡隊隊長')){
     charactername = 'シュヴルーズ'
-  }else if((message.content == 'がみん')||(message.content == 'ガミン')||(message.content == '鏢師')){
+  }
+  if((message.content == 'がみん')||(message.content == 'ガミン')||(message.content == '鏢師')){
     charactername = '嘉明'
-  }else if((message.content == 'しんえん')||(message.content == 'シンエン')){
+  }
+  if((message.content == 'しんえん')||(message.content == 'シンエン')){
     charactername = '辛炎'
-  }else if((message.content == 'あんばー')||(message.content == '偵察騎士')){
+  }
+  if((message.content == 'あんばー')||(message.content == '偵察騎士')){
     charactername = 'アンバー'
-  }else if((message.content == 'しゃんりん')||(message.content == 'シャンリン')){
+  }
+  if((message.content == 'しゃんりん')||(message.content == 'シャンリン')){
     charactername = '香菱'
-  }else if((message.content == 'もな')||(message.content == 'アストローギスト・モナ・メギストス')||(message.content == '占星術師')){
+  }
+  if((message.content == 'もな')||(message.content == 'アストローギスト・モナ・メギストス')||(message.content == '占星術師')){
     charactername = 'モナ'
-  }else if((message.content == 'かみさとあやと')||(message.content == 'カミサトアヤト')||(message.content == '社奉行当主')){
+  }
+  if((message.content == 'かみさとあやと')||(message.content == 'カミサトアヤト')||(message.content == '社奉行当主')){
     charactername = '神里綾人'
-  }else if((message.content == 'ふりーな')||(message.content == '水神')){
+  }
+  if((message.content == 'ふりーな')||(message.content == '水神')){
     charactername = 'フリーナ'
-  }else if((message.content == 'いぇらん')||(message.content == 'イェラン')){
+  }
+  if((message.content == 'いぇらん')||(message.content == 'イェラン')){
     charactername = '夜蘭'
-  }else if((message.content == 'ぬゔぃれっと')||(message.content == '水龍')){
+  }
+  if((message.content == 'ぬゔぃれっと')||(message.content == '水龍')){
     charactername = 'ヌヴィレット'
-  }else if((message.content == 'たるたりや')||(message.content == 'タルタリア')||(message.content == '公子')||(message.content == 'ファトゥス第11位')){
+  }
+  if((message.content == 'たるたりや')||(message.content == 'タルタリア')||(message.content == '公子')||(message.content == 'ファトゥス第11位')){
     charactername = 'タルタリヤ'
-  }else if((message.content == 'にぃろう')||(message.content == 'ズバイルシアター踊り子')){
+  }
+  if((message.content == 'にぃろう')||(message.content == 'ズバイルシアター踊り子')){
     charactername = 'ニィロウ'
-  }else if((message.content == 'さんごのみやここみ')||(message.content == '現人神の巫女')){
+  }
+  if((message.content == 'さんごのみやここみ')||(message.content == '現人神の巫女')){
     charactername = '珊瑚宮心美'
-  }else if((message.content == 'ばーばら')||(message.content == '聖職者')||(message.content == 'アイドル')){
+  }
+  if((message.content == 'ばーばら')||(message.content == '聖職者')||(message.content == 'アイドル')){
     charactername = 'バーバラ'
-  }else if((message.content == 'きゃんでぃす')||(message.content == 'キングデシェレトの末裔')){
+  }
+  if((message.content == 'きゃんでぃす')||(message.content == 'キングデシェレトの末裔')){
     charactername = 'キャンディス'
-  }else if((message.content == 'ゆくあき')||(message.content == 'ユクアキ')){
+  }
+  if((message.content == 'ゆくあき')||(message.content == 'ユクアキ')){
     charactername = '行秋'
-  }else if((message.content == 'かんうん')||(message.content == 'カンウン')||(message.content == '留雲借風真君')){
+  }
+  if((message.content == 'かんうん')||(message.content == 'カンウン')||(message.content == '留雲借風真君')){
     charactername = '閑雲'
-  }else if((message.content == 'うぇんてぃ')||(message.content == '風神')||(message.content == 'バルバトス')){
+  }
+  if((message.content == 'うぇんてぃ')||(message.content == '風神')||(message.content == 'バルバトス')){
     charactername = 'ウェンティ'
-  }else if((message.content == 'ほうろうしゃ')||(message.content == 'ホウロウシャ')||(message.content == 'スカラマシュ')||(message.content == '散兵兵')||(message.content == 'ファトゥス第6位')||(message.content == '雷電国崩')){
+  }
+  if((message.content == 'ほうろうしゃ')||(message.content == 'ホウロウシャ')||(message.content == 'スカラマシュ')||(message.content == '散兵兵')||(message.content == 'ファトゥス第6位')||(message.content == '雷電国崩')){
     charactername = '放浪者'
-  }else if((message.content == 'じん')||(message.content == '西風騎士団代理団長')){
+  }
+  if((message.content == 'じん')||(message.content == '西風騎士団代理団長')){
     charactername = 'ジン'
-  }else if((message.content == 'かえではらかずは')||(message.content == 'カエデハラカズハ')||(message.content == '万葉')){
+  }
+  if((message.content == 'かえではらかずは')||(message.content == 'カエデハラカズハ')||(message.content == '万葉')){
     charactername = '楓原万葉'
-  }else if((message.content == 'しょう')||(message.content == 'ショウ')||(message.content == '夜叉')||(message.content == '降魔大聖')||(message.content == '護法夜叉大将')){
+  }
+  if((message.content == 'しょう')||(message.content == 'ショウ')||(message.content == '夜叉')||(message.content == '降魔大聖')||(message.content == '護法夜叉大将')){
     charactername = '魈'
-  }else if((message.content == 'さゆ')||(message.content == 'サユ')||(message.content == '終末番')){
+  }
+  if((message.content == 'さゆ')||(message.content == 'サユ')||(message.content == '終末番')){
     charactername = '早柚'
-  }else if((message.content == 'りねっと')||(message.content == 'マルチマジックアシスト装置')){
+  }
+  if((message.content == 'りねっと')||(message.content == 'マルチマジックアシスト装置')){
     charactername = 'リネット'
-  }else if((message.content == 'すくろーす')||(message.content == '砂糖')||(message.content == '錬金術師')){
+  }
+  if((message.content == 'すくろーす')||(message.content == '砂糖')||(message.content == '錬金術師')){
     charactername = 'スクロース'
-  }else if((message.content == 'しかのいんへいぞう')||(message.content == 'シカノインヘイゾウ')||(message.content == '天才少年探偵')){
+  }
+  if((message.content == 'しかのいんへいぞう')||(message.content == 'シカノインヘイゾウ')||(message.content == '天才少年探偵')){
     charactername = '鹿野院平蔵'
-  }else if((message.content == 'ふぁるざん')||(message.content == '知論派')){
+  }
+  if((message.content == 'ふぁるざん')||(message.content == '知論派')){
     charactername = 'ファルザン'
-  }else if((message.content == 'せの')||(message.content == '大マハマトラ')){
+  }
+  if((message.content == 'せの')||(message.content == '大マハマトラ')){
     charactername = 'セノ'
-  }else if((message.content == 'こくせい')||(message.content == 'コクセイ')||(message.content == '玉衡')){
+  }
+  if((message.content == 'こくせい')||(message.content == 'コクセイ')||(message.content == '玉衡')){
     charactername = '刻晴'
-  }else if((message.content == 'やえみこ')||(message.content == 'ヤエミコ')||(message.content == '鳴神大社宮司')||(message.content == '八重堂編集長')){
+  }
+  if((message.content == 'やえみこ')||(message.content == 'ヤエミコ')||(message.content == '鳴神大社宮司')||(message.content == '八重堂編集長')){
     charactername = '八重神子'
-  }else if((message.content == 'らいでんしょうぐん')||(message.content == 'ライデンショウグン')||(message.content == '雷神')||(message.content == 'バアルゼブル')){
+  }
+  if((message.content == 'らいでんしょうぐん')||(message.content == 'ライデンショウグン')||(message.content == '雷神')||(message.content == 'バアルゼブル')){
     charactername = '雷電将軍'
-  }else if((message.content == 'ふぃっしゅる')||(message.content == 'フィッシュル・ヴォン・ルフシュロス・ナフィードット')||(message.content == '断罪の皇女')||(message.content == '捜査官')){
+  }
+  if((message.content == 'ふぃっしゅる')||(message.content == 'フィッシュル・ヴォン・ルフシュロス・ナフィードット')||(message.content == '断罪の皇女')||(message.content == '捜査官')){
     charactername = 'フィッシュル'
-  }else if((message.content == 'れざー')){
+  }
+  if((message.content == 'れざー')){
     charactername = 'レザー'
-  }else if((message.content == 'ほくと')||(message.content == 'ホクト')||(message.content == '南十字船隊船長')||(message.content == '姉貴')){
+  }
+  if((message.content == 'ほくと')||(message.content == 'ホクト')||(message.content == '南十字船隊船長')||(message.content == '姉貴')){
     charactername = '北斗'
-  }else if((message.content == 'くきしのぶ')||(message.content == 'クキシノブ')||(message.content == '鬼の副手')||(message.content == '元鳴神大社巫女')){
+  }
+  if((message.content == 'くきしのぶ')||(message.content == 'クキシノブ')||(message.content == '鬼の副手')||(message.content == '元鳴神大社巫女')){
     charactername = '九岐忍'
-  }else if((message.content == 'りさ')||(message.content == '図書司書')||(message.content == '西風騎士団図書館司書')){
+  }
+  if((message.content == 'りさ')||(message.content == '図書司書')||(message.content == '西風騎士団図書館司書')){
     charactername = 'リサ'
-  }else if((message.content == 'くじょうさら')||(message.content == 'クジョウサラ')||(message.content == '天領奉行大将')){
+  }
+  if((message.content == 'くじょうさら')||(message.content == 'クジョウサラ')||(message.content == '天領奉行大将')){
     charactername = '九条沙羅'
-  }else if((message.content == 'どりー')||(message.content == 'サンゲマ・ベイ卿')||(message.content == '旅商人')){
+  }
+  if((message.content == 'どりー')||(message.content == 'サンゲマ・ベイ卿')||(message.content == '旅商人')){
     charactername = 'ドリー'
-  }else if((message.content == 'びゃくじゅつ')||(message.content == 'ビャクジュツ')||(message.content == '不卜廬店主')){
+  }
+  if((message.content == 'びゃくじゅつ')||(message.content == 'ビャクジュツ')||(message.content == '不卜廬店主')){
     charactername = '白朮'
-  }else if((message.content == 'てぃなり')||(message.content == 'レンジャー長')){
+  }
+  if((message.content == 'てぃなり')||(message.content == 'レンジャー長')){
     charactername = 'ティナリ'
-  }else if((message.content == 'あるはいぜん')||(message.content == 'はいぜん')||(message.content == '配膳')||(message.content == '教令院書記官')){
+  }
+  if((message.content == 'あるはいぜん')||(message.content == 'はいぜん')||(message.content == '配膳')||(message.content == '教令院書記官')){
     charactername = 'アルハイゼン'
-  }else if((message.content == 'なひーだ')||(message.content == '草神')||(message.content == 'クラクサナリデビ')){
+  }
+  if((message.content == 'なひーだ')||(message.content == '草神')||(message.content == 'クラクサナリデビ')){
     charactername = 'ナヒーダ'
-  }else if((message.content == 'きらら')||(message.content == 'キララ')||(message.content == '狛荷屋配達員')||(message.content == '猫又')){
+  }
+  if((message.content == 'きらら')||(message.content == 'キララ')||(message.content == '狛荷屋配達員')||(message.content == '猫又')){
     charactername = '綺良々'
-  }else if((message.content == 'かーゔぇ')||(message.content == '天才建築デザイナー')){
+  }
+  if((message.content == 'かーゔぇ')||(message.content == '天才建築デザイナー')){
     charactername = 'カーヴェ'
-  }else if((message.content == 'これい')||(message.content == 'コナ')||(message.content == '見習いレンジャー')){
+  }
+  if((message.content == 'これい')||(message.content == 'コナ')||(message.content == '見習いレンジャー')){
     charactername = 'コレイ'
-  }else if((message.content == 'よぉーよ')||(message.content == 'おませさん')){
+  }
+  if((message.content == 'よぉーよ')||(message.content == 'おませさん')){
     charactername = 'ヨォーヨ'
-  }else if((message.content == 'あーろい')||(message.content == 'ノラの義勇兵')){
+  }
+  if((message.content == 'あーろい')||(message.content == 'ノラの義勇兵')){
     charactername = 'アーロイ'
-  }else if((message.content == 'なな')||(message.content == 'ナナ')||(message.content == '不卜盧薬剤師')){
+  }
+  if((message.content == 'なな')||(message.content == 'ナナ')||(message.content == '不卜盧薬剤師')){
     charactername = '七七'
-  }else if((message.content == 'かみさとあやか')||(message.content == 'カミサトアヤカ')||(message.content == '白鷺姫君')){
+  }
+  if((message.content == 'かみさとあやか')||(message.content == 'カミサトアヤカ')||(message.content == '白鷺姫君')){
     charactername = '神里綾華'
-  }else if((message.content == 'かんう')||(message.content == 'カンウ')||(message.content == '月海亭秘書')){
+  }
+  if((message.content == 'かんう')||(message.content == 'カンウ')||(message.content == '月海亭秘書')){
     charactername = '甘雨'
-  }else if((message.content == 'しんかく')||(message.content == 'シンカク')){
+  }
+  if((message.content == 'しんかく')||(message.content == 'シンカク')){
     charactername = '申鶴'
-  }else if((message.content == 'りおせすり')||(message.content == '公爵')||(message.content == 'メロピデ要塞管理者')){
+  }
+  if((message.content == 'りおせすり')||(message.content == '公爵')||(message.content == 'メロピデ要塞管理者')){
     charactername = 'リオセスリ'
-  }else if((message.content == 'えうるあ')||(message.content == '遊撃小隊隊長')){
+  }
+  if((message.content == 'えうるあ')||(message.content == '遊撃小隊隊長')){
     charactername = 'エウルア'
-  }else if((message.content == 'みか')||(message.content == '前進測量士')){
+  }
+  if((message.content == 'みか')||(message.content == '前進測量士')){
     charactername = 'ミカ'
-  }else if((message.content == 'ちょううん')||(message.content == 'チョウウン')||(message.content == '方士')){
+  }
+  if((message.content == 'ちょううん')||(message.content == 'チョウウン')||(message.content == '方士')){
     charactername = '重雲'
-  }else if((message.content == 'ふれみね')||(message.content == '腕利き潜水士')){
+  }
+  if((message.content == 'ふれみね')||(message.content == '腕利き潜水士')){
     charactername = 'フレミネ'
-  }else if((message.content == 'れいら')||(message.content == '明論派')){
+  }
+  if((message.content == 'れいら')||(message.content == '明論派')){
     charactername = 'レイラ'
-  }else if((message.content == 'がいあ')||(message.content == '騎兵隊長')){
+  }
+  if((message.content == 'がいあ')||(message.content == '騎兵隊長')){
     charactername = 'ガイア'
-  }else if((message.content == 'しゃるろっと')||(message.content == '新聞記者')){
+  }
+  if((message.content == 'しゃるろっと')||(message.content == '新聞記者')){
     charactername = 'シャルロット'
-  }else if((message.content == 'でぃおな')||(message.content == 'バーテンダー')){
+  }
+  if((message.content == 'でぃおな')||(message.content == 'バーテンダー')){
     charactername = 'ディオナ'
-  }else if((message.content == 'ろさりあ')||(message.content == 'シスター')){
+  }
+  if((message.content == 'ろさりあ')||(message.content == 'シスター')){
     charactername = 'ロサリア'
-  }else if((message.content == 'ちおり')||(message.content == 'チオリ')||(message.content == '千織屋店主')){
+  }
+  if((message.content == 'ちおり')||(message.content == 'チオリ')||(message.content == '千織屋店主')){
     charactername = '千織'
-  }else if((message.content == 'あるべど')||(message.content == '首席錬金術師兼調査小隊隊長')||(message.content == '首席錬金術師')||(message.content == '調査小隊隊長')){
+  }
+  if((message.content == 'あるべど')||(message.content == '首席錬金術師兼調査小隊隊長')||(message.content == '首席錬金術師')||(message.content == '調査小隊隊長')){
     charactername = 'アルベド'
-  }else if((message.content == 'あらたきいっと')||(message.content == 'アラタキイット')||(message.content == '荒瀧派初代親分')||(message.content == '真紅の鬼の末裔')){
+  }
+  if((message.content == 'あらたきいっと')||(message.content == 'アラタキイット')||(message.content == '荒瀧派初代親分')||(message.content == '真紅の鬼の末裔')){
     charactername = '荒瀧一斗'
-  }else if((message.content == 'しょうり')||(message.content == 'ショウリ')||(message.content == '岩神')||(message.content == 'モラクス')||(message.content == '岩王帝君')||(message.content == '往生堂客卿')){
+  }
+  if((message.content == 'しょうり')||(message.content == 'ショウリ')||(message.content == '岩神')||(message.content == 'モラクス')||(message.content == '岩王帝君')||(message.content == '往生堂客卿')){
     charactername = '鍾離'
-  }else if((message.content == 'なゔぃあ')||(message.content == '「棘薔薇の会」の会長・リーダー・ボス・司令塔')){
+  }
+  /*if((message.content == 'なゔぃあ')||(message.content == '棘薔薇の会会長')||(message.content == '棘薔薇の会リーダー')||(message.content == '棘薔薇の会ボス')||(message.content == '棘薔薇の会司令塔')){
     charactername = 'ナヴィア'
-  }else if((message.content == 'うんきん')||(message.content == 'ウンキン')||(message.content == '雲翰社座長')){
+  }*/
+  if((message.content == 'うんきん')||(message.content == 'ウンキン')||(message.content == '雲翰社座長')){
     charactername = '雲菫'
-  }else if((message.content == 'のえる')||(message.content == '騎士見習い')||(message.content == 'メイド')){
+  }
+  if((message.content == 'のえる')||(message.content == '騎士見習い')||(message.content == 'メイド')){
     charactername = 'ノエル'
-  }else if((message.content == 'ぎょうこう')||(message.content == 'ギョウコウ')||(message.content == '天権')){
+  }
+  if((message.content == 'ぎょうこう')||(message.content == 'ギョウコウ')||(message.content == '天権')){
     charactername = '凝光'
-  }else if((message.content == 'ごろー')||(message.content == '海祇軍大将')){
+  }
+  if((message.content == 'ごろー')||(message.content == '海祇軍大将')){
     charactername = 'ゴロー'
-  }else if((message.content == '召使')||(message.content == 'ファトゥス第４位')){
+  }
+  if((message.content == '召使')||(message.content == 'ファトゥス第４位')||(message.content == 'アルレッキーノ')){
     charactername = 'アルレッキーノ'
-  }else if((message.content == 'しぐうぃん')||(message.content == '看護師長')){
+    const embed1 = new MessageEmbed()
+      .setTitle(charactername)
+      .setDescription('未実装キャラ')
+    message.channel.send({ embeds: [embed1] })
+    return
+  }
+  if((message.content == 'しぐうぃん')||(message.content == '看護師長')||(message.content == 'シグウィン')){
     charactername = 'シグウィン'
-  }else {
-    charactername = message.content;
+    const embed1 = new MessageEmbed()
+      .setTitle(charactername)
+      .setDescription('未実装キャラ')
+    message.channel.send({ embeds: [embed1] })
+    return
   }
   //キャラ名 形成 ここまで
   

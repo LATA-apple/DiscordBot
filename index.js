@@ -207,7 +207,7 @@ client.on('messageCreate', async message => {
   if((message.content == 'れいら')||(message.content == '明論派')){
     charactername = 'レイラ'
   }
-  if((message.content == 'ほうろうしゃ')||(message.content == 'ホウロウシャ')||(message.content == 'スカラマシュ')||(message.content == '散兵兵')||(message.content == 'ファトゥス第6位')||(message.content == '雷電国崩')){
+  if((message.content == 'ほうろうしゃ')||(message.content == 'ホウロウシャ')||(message.content == 'スカラマシュ')||(message.content == '散兵')||(message.content == 'ファトゥス第6位')||(message.content == '雷電国崩')){
     charactername = '放浪者'
   }
   if((message.content == 'ふぁるざん')||(message.content == '知論派')){
@@ -275,20 +275,15 @@ client.on('messageCreate', async message => {
   
   if((message.content == '召使')||(message.content == 'ファトゥス第４位')||(message.content == 'アルレッキーノ')){
     charactername = 'アルレッキーノ'
-    const embed1 = new MessageEmbed()
-      .setTitle(charactername)
-      .setDescription('未実装キャラ')
-    message.channel.send({ embeds: [embed1] })
-    return
-  }
+  }if(charactername == 'アルレッキーノ') return;
   if((message.content == 'しぐうぃん')||(message.content == '看護師長')||(message.content == 'シグウィン')){
     charactername = 'シグウィン'
     const embed1 = new MessageEmbed()
       .setTitle(charactername)
       .setDescription('未実装キャラ')
     message.channel.send({ embeds: [embed1] })
-    return
-  }
+    console.log(embed1)
+  }if(charactername == 'シグウィン') return;
   //キャラ名 形成 ここまで
   
   const headers = {

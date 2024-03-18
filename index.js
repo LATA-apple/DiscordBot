@@ -93,8 +93,8 @@ client.on('messageCreate', async message => {
       recommendedExplanation = true
     }
     let all = false
-    if((omission = false)&&(omission = false)){
-      
+    if((omission = false)&&(priorityStatus = true)&&(recommendedStatus = false)&&(referenceproperty)&&(recommendedBump = false)&&(recommendedWeapons = false)&&(recommendedExplanation = false)){
+      all = true
     }
     
     data.results.forEach(page => {
@@ -106,6 +106,97 @@ client.on('messageCreate', async message => {
       if (sendtext) {
         embed1.setTitle(sendtext);
       }
+      
+      if(all){
+        sendtext = page.properties["レア度"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'レア度'+' -', sendtext,true);
+        }
+        sendtext = page.properties["元素"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'元素'+' -', sendtext,true);
+        }
+        sendtext = page.properties["武器種"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'武器種'+' -', sendtext,true);
+        }
+        sendtext = page.properties["特産品"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'特産品'+' -', sendtext),true;
+        }
+        sendtext = page.properties["強敵"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'強敵'+' -', sendtext,true);
+        }
+        sendtext = page.properties["天賦本"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'天賦本'+' -', sendtext,true);
+        }
+        sendtext = page.properties["天賦素材(週ボス)"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext,true);
+        }
+        sendtext = page.properties["育成優先度"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'育成優先度'+' -', sendtext,true);
+        }
+        sendtext = page.properties["最優先ステータス"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
+        }
+        sendtext = page.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
+        }
+        sendtext = page.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
+        }
+        sendtext = page.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'推奨凸'+' -', sendtext,true);
+        }
+        sendtext = page.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
+        }
+        sendtext = page.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
+        }
+      }else if(!omission){
+        sendtext = page.properties["育成優先度"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'育成優先度'+' -', sendtext,true);
+        }
+        sendtext = page.properties["最優先ステータス"]?.select?.name;
+        if (sendtext) {
+          embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
+        }
+        sendtext = page.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
+        }
+        sendtext = page.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
+        }
+        sendtext = page.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'推奨凸'+' -', sendtext,true);
+        }
+        sendtext = page.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
+        }
+        sendtext = page.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
+        }
+      }else{
+        
+      }
+      
       sendtext = page.properties["レア度"]?.select?.name;
       if (sendtext) {
         embed1.addField('- '+'レア度'+' -', sendtext,true);
@@ -139,29 +230,30 @@ client.on('messageCreate', async message => {
         embed1.addField('- '+'育成優先度'+' -', sendtext,true);
       }
       sendtext = page.properties["最優先ステータス"]?.select?.name;
-      if ((sendtext && !omission)||(sendtext && priorityStatus)) {
+      if ((sendtext && priorityStatus)) {
         embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
       }
       sendtext = page.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
-      if ((sendtext && !omission)||(sendtext && recommendedStatus)) {
+      if ((sendtext && recommendedStatus)) {
         embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
       }
       sendtext = page.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
-      if ((sendtext && !omission)||(sendtext && referenceproperty)) {
+      if ((sendtext && referenceproperty)) {
         embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
       }
       sendtext = page.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
-      if ((sendtext && !omission)||(sendtext && recommendedBump)) {
+      if ((sendtext && recommendedBump)) {
         embed1.addField('- '+'推奨凸'+' -', sendtext,true);
       }
       sendtext = page.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
-      if ((sendtext && !omission)||(sendtext && recommendedWeapons)) {
+      if ((sendtext && recommendedWeapons)) {
         embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
       }
       sendtext = page.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
-      if ((sendtext && !omission)||(sendtext && !recommendedExplanation)) {
+      if ((sendtext && !recommendedExplanation)) {
         embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
       }
+      
       const image = page.icon.external.url;
       console.log(image);
       if (image) {

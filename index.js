@@ -68,6 +68,16 @@ client.on('messageCreate', async message => {
     if((message.content.includes('(略)'))||(message.content.includes('省略'))){
       omission = true
     }
+    
+    let trainingPriority = false
+    if(message.content.includes('育成優先度')){
+      trainingPriority = true
+    }
+    let weeklyBoss = false
+    if((message.content.includes('天賦素材(週ボス)'))||(message.content.includes('週ボス'))){
+      weeklyBoss = true
+    }
+    
     let priorityStatus = false
     if((message.content.includes('最優先ステータス'))||(message.content.includes('優先ステータス'))){
       priorityStatus = true
@@ -93,7 +103,7 @@ client.on('messageCreate', async message => {
       recommendedExplanation = true
     }
     let all = false
-    if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)){
+    if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)&&(!trainingPriority)){
       all = true
     }
     data.results.forEach(page => {
@@ -218,15 +228,15 @@ client.on('messageCreate', async message => {
         if (sendtext) {
           embed1.addField('- '+'天賦本'+' -', sendtext,true);
         }
+        */
         sendtext = page.properties["天賦素材(週ボス)"]?.select?.name;
-        if (sendtext) {
+        if (sendtext && weeklyBoss) {
           embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext,true);
         }
         sendtext = page.properties["育成優先度"]?.select?.name;
-        if (sendtext) {
+        if (sendtext && trainingPriority) {
           embed1.addField('- '+'育成優先度'+' -', sendtext,true);
         }
-        */
         sendtext = page.properties["最優先ステータス"]?.select?.name;
         if ((sendtext && priorityStatus)) {
           embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);

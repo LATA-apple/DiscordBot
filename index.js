@@ -63,77 +63,81 @@ client.on('messageCreate', async message => {
     .then(response => response.json())
     .then(data => {
     const notionurl = data.results[0].public_url;
-    
-    const embed1 = new MessageEmbed()
-    .setColor('RANDOM')
-    .setURL(notionurl)
     let sendtext = '';
-    sendtext = data.results[0]?.properties["キャラ名"]?.title?.[0]?.plain_text;
-    if (sendtext) {
-      embed1.setTitle(sendtext);
-    }
-    sendtext = data.results[0]?.properties["レア度"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'レア度'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["元素"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'元素'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["武器種"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'武器種'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["特産品"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'特産品'+' -', sendtext),true;
-    }
-    sendtext = data.results[0]?.properties["強敵"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'強敵'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["天賦本"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'天賦本'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["天賦素材(週ボス)"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["育成優先度"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'育成優先度'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["最優先ステータス"]?.select?.name;
-    if (sendtext) {
-      embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'推奨凸'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
-    }
-    sendtext = data.results[0]?.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
-    if (sendtext) {
-      embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
-    }
-    const image = data.results[0]?.icon.external.url;
-    console.log(image);
-    if (image) {
-      embed1.setThumbnail(image)
-    }
-    message.channel.send({ embeds: [embed1] })
+    
+    data.results.forEach(page => {
+      const embed1 = new MessageEmbed()
+        .setColor('RANDOM')
+        .setURL(notionurl)
+      //sendtext = page.properties["キャラ名"]?.title?.[0]?.plain_text;
+      sendtext = page.properties["キャラ名"]?.title?.[0]?.plain_text;
+      if (sendtext) {
+        embed1.setTitle(sendtext);
+      }
+      sendtext = page.properties["レア度"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'レア度'+' -', sendtext,true);
+      }
+      sendtext = page.properties["元素"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'元素'+' -', sendtext,true);
+      }
+      sendtext = page.properties["武器種"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'武器種'+' -', sendtext,true);
+      }
+      sendtext = page.properties["特産品"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'特産品'+' -', sendtext),true;
+      }
+      sendtext = page.properties["強敵"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'強敵'+' -', sendtext,true);
+      }
+      sendtext = page.properties["天賦本"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'天賦本'+' -', sendtext,true);
+      }
+      sendtext = page.properties["天賦素材(週ボス)"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext,true);
+      }
+      sendtext = page.properties["育成優先度"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'育成優先度'+' -', sendtext,true);
+      }
+      sendtext = page.properties["最優先ステータス"]?.select?.name;
+      if (sendtext) {
+        embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
+      }
+      sendtext = page.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
+      if (sendtext) {
+        embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
+      }
+      sendtext = page.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
+      if (sendtext) {
+        embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
+      }
+      sendtext = page.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
+      if (sendtext) {
+        embed1.addField('- '+'推奨凸'+' -', sendtext,true);
+      }
+      sendtext = page.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
+      if (sendtext) {
+        embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
+      }
+      sendtext = page.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
+      if (sendtext) {
+        embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
+      }
+      const image = page.icon.external.url;
+      console.log(image);
+      if (image) {
+        embed1.setThumbnail(image)
+      }
+      message.channel.send({ embeds: [embed1] })
+        
+      });  
     })
     .catch(error => console.error('Error:', error));
   

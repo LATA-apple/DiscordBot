@@ -30,7 +30,7 @@ client.on('messageCreate', async message => {
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   databaseId = '9403ad41aa344441951044a6656d0d9a';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
-  let charactername = message.content.replace(/[\s　()（）]/g, "").replace('(略)', "").replace('省略', "").toLowerCase();
+  let charactername = message.content.replace(/[\s　()（）]/g, "").replace('(略)', "").replace('省略', "").replace('最優先ステータス', "").replace('優先ステータス', "").replace('推奨ステータス', "").replace('参照プロパティ', "").replace('推奨凸', "").replace('おすすめ武器', "").replace('おすすめ凸とその解説', "").replace('凸解説', "").toLowerCase();
   
   const headers = {
     'Content-Type': 'application/json',
@@ -89,8 +89,12 @@ client.on('messageCreate', async message => {
       recommendedWeapons = true
     }
     let recommendedExplanation = false
-    if((message.content.includes('おすすめ凸とその解説'))||(message.content.includes('解説'))){
+    if((message.content.includes('おすすめ凸とその解説'))||(message.content.includes('凸解説'))){
       recommendedExplanation = true
+    }
+    let all = false
+    if((omission = false)&&(omission = false)){
+      
     }
     
     data.results.forEach(page => {
@@ -135,27 +139,27 @@ client.on('messageCreate', async message => {
         embed1.addField('- '+'育成優先度'+' -', sendtext,true);
       }
       sendtext = page.properties["最優先ステータス"]?.select?.name;
-      if ((sendtext && !omission)||(sendtext && !priorityStatus)) {
+      if ((sendtext && !omission)||(sendtext && priorityStatus)) {
         embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
       }
       sendtext = page.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
-      if (sendtext && !omission) {
+      if ((sendtext && !omission)||(sendtext && recommendedStatus)) {
         embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
       }
       sendtext = page.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
-      if (sendtext && !omission) {
+      if ((sendtext && !omission)||(sendtext && referenceproperty)) {
         embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
       }
       sendtext = page.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
-      if (sendtext && !omission) {
+      if ((sendtext && !omission)||(sendtext && recommendedBump)) {
         embed1.addField('- '+'推奨凸'+' -', sendtext,true);
       }
       sendtext = page.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
-      if (sendtext && !omission) {
+      if ((sendtext && !omission)||(sendtext && recommendedWeapons)) {
         embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
       }
       sendtext = page.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
-      if (sendtext && !omission) {
+      if ((sendtext && !omission)||(sendtext && !recommendedExplanation)) {
         embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
       }
       const image = page.icon.external.url;

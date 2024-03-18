@@ -30,7 +30,7 @@ client.on('messageCreate', async message => {
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   databaseId = '9403ad41aa344441951044a6656d0d9a';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
-  let charactername = message.content;
+  let charactername = message.content.replace(/[\s　()（）]/g, "").replace('(略)', "").replace('省略', "").toLowerCase();
   
   const headers = {
     'Content-Type': 'application/json',
@@ -65,9 +65,10 @@ client.on('messageCreate', async message => {
     const notionurl = data.results[0].public_url;
     let sendtext = '';
     let omission = false
-    if((message.content.include('(略)'))||(message.content.include('省略'))){
+    if((message.content.includes('(略)'))||(message.content.includes('省略'))){
       omission = true
     }
+    let boss = false
     
     data.results.forEach(page => {
       const embed1 = new MessageEmbed()
@@ -107,31 +108,31 @@ client.on('messageCreate', async message => {
         embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext,true);
       }
       sendtext = page.properties["育成優先度"]?.select?.name;
-      if ((sendtext)&&((omission == false))) {
+      if (sendtext && !omission) {
         embed1.addField('- '+'育成優先度'+' -', sendtext,true);
       }
       sendtext = page.properties["最優先ステータス"]?.select?.name;
-      if ((sendtext)&&((omission == false))) {
+      if (sendtext && !omission) {
         embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
       }
       sendtext = page.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
-      if ((sendtext)&&((omission == false))) {
+      if (sendtext && !omission) {
         embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
       }
       sendtext = page.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
-      if ((sendtext)&&((omission == false))) {
+      if (sendtext && !omission) {
         embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
       }
       sendtext = page.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
-      if ((sendtext)&&((omission == false))) {
+      if (sendtext && !omission) {
         embed1.addField('- '+'推奨凸'+' -', sendtext,true);
       }
       sendtext = page.properties["おすすめ武器"]?.rich_text?.map(item => item.plain_text).join('\n');
-      if ((sendtext)&&((omission == false))) {
+      if (sendtext && !omission) {
         embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
       }
       sendtext = page.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
-      if ((sendtext)&&((omission == false))) {
+      if (sendtext && !omission) {
         embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
       }
       const image = page.icon.external.url;

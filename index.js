@@ -68,7 +68,30 @@ client.on('messageCreate', async message => {
     if((message.content.includes('(略)'))||(message.content.includes('省略'))){
       omission = true
     }
-    let boss = false
+    let priorityStatus = false
+    if((message.content.includes('最優先ステータス'))||(message.content.includes('優先ステータス'))){
+      priorityStatus = true
+    }
+    let recommendedStatus = false
+    if(message.content.includes('推奨ステータス')){
+      recommendedStatus = true
+    }
+    let referenceproperty = false
+    if(message.content.includes('参照プロパティ')){
+      referenceproperty = true
+    }
+    let recommendedBump = false
+    if(message.content.includes('推奨凸')){
+      recommendedBump = true
+    }
+    let recommendedWeapons = false
+    if(message.content.includes('おすすめ武器')){
+      recommendedWeapons = true
+    }
+    let recommendedExplanation = false
+    if((message.content.includes('おすすめ凸とその解説'))||(message.content.includes('解説'))){
+      recommendedExplanation = true
+    }
     
     data.results.forEach(page => {
       const embed1 = new MessageEmbed()
@@ -112,7 +135,7 @@ client.on('messageCreate', async message => {
         embed1.addField('- '+'育成優先度'+' -', sendtext,true);
       }
       sendtext = page.properties["最優先ステータス"]?.select?.name;
-      if (sendtext && !omission) {
+      if ((sendtext && !omission)||(sendtext && !priorityStatus)) {
         embed1.addField('- '+'最優先ステータス'+' -', sendtext,true);
       }
       sendtext = page.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');

@@ -93,10 +93,9 @@ client.on('messageCreate', async message => {
       recommendedExplanation = true
     }
     let all = false
-    if((omission = false)&&(priorityStatus = true)&&(recommendedStatus = false)&&(referenceproperty)&&(recommendedBump = false)&&(recommendedWeapons = false)&&(recommendedExplanation = false)){
+    if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)){
       all = true
     }
-    
     data.results.forEach(page => {
       const embed1 = new MessageEmbed()
         .setColor('RANDOM')
@@ -106,7 +105,7 @@ client.on('messageCreate', async message => {
       if (sendtext) {
         embed1.setTitle(sendtext);
       }
-      co
+      
       if(all){
         sendtext = page.properties["レア度"]?.select?.name;
         if (sendtext) {
@@ -249,7 +248,7 @@ client.on('messageCreate', async message => {
           embed1.addField('- '+'おすすめ武器'+' -', sendtext,true);
         }
         sendtext = page.properties["おすすめ凸とその解説"]?.rich_text?.map(item => item.plain_text).join('\n');
-        if ((sendtext && !recommendedExplanation)) {
+        if ((sendtext && recommendedExplanation)) {
           embed1.addField('- '+'おすすめ凸とその解説'+' -', sendtext);
         }
       }

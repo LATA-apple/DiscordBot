@@ -30,7 +30,7 @@ client.on('messageCreate', async message => {
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   databaseId = '9403ad41aa344441951044a6656d0d9a';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
-  let charactername = message.content.replace(/[\s　()（）]/g, "").replace('(略)', "").replace('省略', "").replace('最優先ステータス', "").replace('優先ステータス', "").replace('推奨ステータス', "").replace('参照プロパティ', "").replace('推奨凸', "").replace('おすすめ武器', "").replace('おすすめ凸とその解説', "").replace('凸解説', "").toLowerCase();
+  let charactername = message.content.replace(/[\s　()（）]/g, "").replace('(略)', "").replace('省略', "").replace('最優先ステータス', "").replace('優先ステータス', "").replace('推奨ステータス', "").replace('参照プロパティ', "").replace('推奨凸', "").replace('おすすめ武器', "").replace('おすすめ凸とその解説', "").replace('凸解説', "").replace('レア度', "").replace('元素', "").replace('武器種', "").replace('特産品', "").replace('強敵', "").replace('天賦本', "").replace('天賦素材', "").replace('週ボス', "").replace('育成優先度', "").toLowerCase();
   
   const headers = {
     'Content-Type': 'application/json',
@@ -68,16 +68,38 @@ client.on('messageCreate', async message => {
     if((message.content.includes('(略)'))||(message.content.includes('省略'))){
       omission = true
     }
-    
+    let rarity = false
+    if(message.content.includes('レア度')){
+      rarity = true
+    }
+    let element = false
+    if(message.content.includes('元素')){
+      element = true
+    }
+    let weaponType = false
+    if(message.content.includes('武器種')){
+      weaponType = true
+    }
+    let specialProduct = false
+    if(message.content.includes('特産品')){
+      specialProduct = true
+    }
+    let formidableEnemy = false
+    if(message.content.includes('強敵')){
+      formidableEnemy = true
+    }
+    let endowmentBook = false
+    if(message.content.includes('天賦本')){
+      endowmentBook = true
+    }
+    let weeklyBoss = false
+    if((message.content.includes('天賦素材'))||(message.content.includes('週ボス'))){
+      weeklyBoss = true
+    }
     let trainingPriority = false
     if(message.content.includes('育成優先度')){
       trainingPriority = true
     }
-    let weeklyBoss = false
-    if((message.content.includes('天賦素材(週ボス)'))||(message.content.includes('週ボス'))){
-      weeklyBoss = true
-    }
-    
     let priorityStatus = false
     if((message.content.includes('最優先ステータス'))||(message.content.includes('優先ステータス'))){
       priorityStatus = true
@@ -103,7 +125,7 @@ client.on('messageCreate', async message => {
       recommendedExplanation = true
     }
     let all = false
-    if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)&&(!trainingPriority)){
+    if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)&&(!trainingPriority)&&(!weeklyBoss)&&(!endowmentBook)&&(!formidableEnemy)&&(!specialProduct)&&(!weaponType)&&(!element)&&(!rarity)){
       all = true
     }
     data.results.forEach(page => {
@@ -203,32 +225,30 @@ client.on('messageCreate', async message => {
           embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext,true);
         }
       }else{
-        /*
         sendtext = page.properties["レア度"]?.select?.name;
-        if (sendtext) {
+        if (sendtext && rarity) {
           embed1.addField('- '+'レア度'+' -', sendtext,true);
         }
         sendtext = page.properties["元素"]?.select?.name;
-        if (sendtext) {
+        if (sendtext && element) {
           embed1.addField('- '+'元素'+' -', sendtext,true);
         }
         sendtext = page.properties["武器種"]?.select?.name;
-        if (sendtext) {
+        if (sendtext && weaponType) {
           embed1.addField('- '+'武器種'+' -', sendtext,true);
         }
         sendtext = page.properties["特産品"]?.select?.name;
-        if (sendtext) {
+        if (sendtext && specialProduct) {
           embed1.addField('- '+'特産品'+' -', sendtext),true;
         }
         sendtext = page.properties["強敵"]?.select?.name;
-        if (sendtext) {
+        if (sendtext && formidableEnemy) {
           embed1.addField('- '+'強敵'+' -', sendtext,true);
         }
         sendtext = page.properties["天賦本"]?.select?.name;
-        if (sendtext) {
+        if (sendtext && endowmentBook) {
           embed1.addField('- '+'天賦本'+' -', sendtext,true);
         }
-        */
         sendtext = page.properties["天賦素材(週ボス)"]?.select?.name;
         if (sendtext && weeklyBoss) {
           embed1.addField('- '+'天賦素材(週ボス)'+' -', sendtext,true);

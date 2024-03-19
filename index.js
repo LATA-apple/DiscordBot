@@ -123,6 +123,10 @@ client.on('messageCreate', async message => {
     if(message.content.includes('推奨ステータス')){
       recommendedStatus = true
     }
+    let targetStatus = false
+    if(message.content.includes('目標ステータス')){
+      targetStatus = true
+    }
     let referenceproperty = false
     if(message.content.includes('参照プロパティ')){
       referenceproperty = true
@@ -140,7 +144,7 @@ client.on('messageCreate', async message => {
       recommendedExplanation = true
     }
     let all = false
-    if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)&&(!trainingPriority)&&(!weeklyBoss)&&(!endowmentBook)&&(!formidableEnemy)&&(!specialProduct)&&(!weaponType)&&(!element)&&(!rarity)){
+    if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)&&(!trainingPriority)&&(!weeklyBoss)&&(!endowmentBook)&&(!formidableEnemy)&&(!specialProduct)&&(!weaponType)&&(!element)&&(!rarity)&&(!targetStatus)){
       all = true
     }
     data.results.forEach(page => {
@@ -193,6 +197,10 @@ client.on('messageCreate', async message => {
         sendtext = page.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
         if (sendtext) {
           embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
+        }
+        sendtext = page.properties["目標ステータス"]?.rich_text?.map(item => item.plain_text).join('\n');
+        if (sendtext) {
+          embed1.addField('- '+'目標ステータス'+' -', sendtext,true);
         }
         sendtext = page.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
         if (sendtext) {
@@ -279,6 +287,10 @@ client.on('messageCreate', async message => {
         sendtext = page.properties["推奨ステータス"]?.multi_select?.map(item => item.name).join('\n');
         if ((sendtext && recommendedStatus)) {
           embed1.addField('- '+'推奨ステータス'+' -', sendtext,true);
+        }
+        sendtext = page.properties["目標ステータス"]?.rich_text?.map(item => item.plain_text).join('\n');
+        if (sendtext && targetStatus) {
+          embed1.addField('- '+'目標ステータス'+' -', sendtext,true);
         }
         sendtext = page.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
         if ((sendtext && referenceproperty)) {

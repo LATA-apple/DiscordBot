@@ -30,7 +30,7 @@ client.on('messageCreate', async message => {
     .setDescription('埋め込みの説明 4096字まで')
     .addField('フィールド','最大25個まで')
     .setImage('https://static.wikia.nocookie.net/gensin-impact/images/8/88/Chiori_Icon.png')
-    .setImage('https://static.wikia.nocookie.net/gensin-impact/images/3/35/Rosaria_Icon.png')
+    embed.setImage('https://static.wikia.nocookie.net/gensin-impact/images/3/35/Rosaria_Icon.png')
   message.channel.send({ embeds: [embed] })
 });
 

@@ -22,13 +22,16 @@ client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
   // 個人・テスト用 のみ許可
-  if (message.channel.id !== '1206824509538308116') return;
+  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1218939675209891861') return;
   
   const embed = new MessageEmbed()
     .setColor('RANDOM')
     .setTitle('テスト')
-    .setImage('https://p.kindpng.com/picc/s/108-1084174_discord-js-discord-js-logo-png-transparent-png.png')
-    
+    .setDescription('埋め込みの説明 4096字まで')
+    .addField('フィールド','最大25個まで')
+    .setImage('https://static.wikia.nocookie.net/gensin-impact/images/8/88/Chiori_Icon.png')
+    .setImage('https://static.wikia.nocookie.net/gensin-impact/images/3/35/Rosaria_Icon.png')
+  message.channel.send({ embeds: [embed] })
 });
 
 

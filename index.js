@@ -18,6 +18,19 @@ client.on("ready", () => {
   console.log('Bot is ready!');
 });
 
+client.on('messageCreate', async message => {
+  // Ignore messages from other bots
+  if (message.author.bot) return;
+  // 個人・テスト用 のみ許可
+  if (message.channel.id !== '1206824509538308116') return;
+  
+  const embed = new MessageEmbed()
+    .setColor('RANDOM')
+    .setTitle('テスト')
+    .setImage('https://p.kindpng.com/picc/s/108-1084174_discord-js-discord-js-logo-png-transparent-png.png')
+    
+});
+
 
 //キャラ情報Notion自動読み込み
 let databaseId = '';

@@ -70,6 +70,7 @@ client.on('messageCreate', async message => {
   const notionurl = ''
   
   const fields = [];
+  console.log(message);
   console.log(charactername);
   console.log(`--------------------------------------------------`);
   
@@ -165,6 +166,9 @@ client.on('messageCreate', async message => {
         }
         sendtext = page.properties["元素"]?.select?.name;
         if (sendtext) {
+          if(sendtext == '岩'){
+            sendtext += 
+          }
           embed1.addField('- '+'元素'+' -', sendtext,true);
         }
         sendtext = page.properties["武器種"]?.select?.name;

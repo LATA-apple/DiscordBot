@@ -166,9 +166,20 @@ client.on('messageCreate', async message => {
         }
         sendtext = page.properties["元素"]?.select?.name;
         if (sendtext) {
-          if(sendtext == '岩'){
-            const emoji = client.emojis.find( "name", "Geo" );
-            sendtext = emoji+sendtext;
+          if(sendtext == '炎'){
+            sendtext = '<:pyro:1220011082484289607>'+sendtext;
+          }else if(sendtext == '水'){
+            sendtext = '<:Hydro:1220011354916782110>'+sendtext;
+          }else if(sendtext == '風'){
+            sendtext = '<:Anemo:1220011584810909727>'+sendtext;
+          }else if(sendtext == '雷'){
+            sendtext = '<:Electro:1220011476971159572>'+sendtext;
+          }else if(sendtext == '草'){
+            sendtext = '<:Dendro:1220013354932764762>'+sendtext;
+          }else if(sendtext == '氷'){
+            sendtext = '<:Cryo:1220011417072042044>'+sendtext;
+          }else if(sendtext == '岩'){
+            sendtext = '<:Geo:1220011532864458843>'+sendtext;
           }
           embed1.addField('- '+'元素'+' -', sendtext,true);
         }
@@ -231,6 +242,21 @@ client.on('messageCreate', async message => {
         }
         sendtext = page.properties["元素"]?.select?.name;
         if (sendtext) {
+          if(sendtext == '炎'){
+            sendtext = '<:pyro:1220011082484289607>'+sendtext;
+          }else if(sendtext == '水'){
+            sendtext = '<:Hydro:1220011354916782110>'+sendtext;
+          }else if(sendtext == '風'){
+            sendtext = '<:Anemo:1220011584810909727>'+sendtext;
+          }else if(sendtext == '雷'){
+            sendtext = '<:Electro:1220011476971159572>'+sendtext;
+          }else if(sendtext == '草'){
+            sendtext = '<:Dendro:1220013354932764762>'+sendtext;
+          }else if(sendtext == '氷'){
+            sendtext = '<:Cryo:1220011417072042044>'+sendtext;
+          }else if(sendtext == '岩'){
+            sendtext = '<:Geo:1220011532864458843>'+sendtext;
+          }
           embed1.addField('- '+'元素'+' -', sendtext,true);
         }
         sendtext = page.properties["武器種"]?.select?.name;
@@ -260,6 +286,21 @@ client.on('messageCreate', async message => {
         }
         sendtext = page.properties["元素"]?.select?.name;
         if (sendtext && element) {
+          if(sendtext == '炎'){
+            sendtext = '<:pyro:1220011082484289607>'+sendtext;
+          }else if(sendtext == '水'){
+            sendtext = '<:Hydro:1220011354916782110>'+sendtext;
+          }else if(sendtext == '風'){
+            sendtext = '<:Anemo:1220011584810909727>'+sendtext;
+          }else if(sendtext == '雷'){
+            sendtext = '<:Electro:1220011476971159572>'+sendtext;
+          }else if(sendtext == '草'){
+            sendtext = '<:Dendro:1220013354932764762>'+sendtext;
+          }else if(sendtext == '氷'){
+            sendtext = '<:Cryo:1220011417072042044>'+sendtext;
+          }else if(sendtext == '岩'){
+            sendtext = '<:Geo:1220011532864458843>'+sendtext;
+          }
           embed1.addField('- '+'元素'+' -', sendtext,true);
         }
         sendtext = page.properties["武器種"]?.select?.name;

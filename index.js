@@ -167,7 +167,8 @@ client.on('messageCreate', async message => {
         sendtext = page.properties["元素"]?.select?.name;
         if (sendtext) {
           if(sendtext == '岩'){
-            sendtext += 
+            const emoji = client.emojis.find( "name", "Geo" );
+            sendtext = emoji+sendtext;
           }
           embed1.addField('- '+'元素'+' -', sendtext,true);
         }

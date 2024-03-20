@@ -124,7 +124,7 @@ client.on('messageCreate', async message => {
       recommendedStatus = true
     }
     let targetStatus = false
-    if(message.content.includes('目標ステータス')){
+    if(message.content.includes('目標ステータス')||(message.content.includes('目標'))){
       targetStatus = true
     }
     let referenceproperty = false
@@ -147,6 +147,7 @@ client.on('messageCreate', async message => {
     if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)&&(!trainingPriority)&&(!weeklyBoss)&&(!endowmentBook)&&(!formidableEnemy)&&(!specialProduct)&&(!weaponType)&&(!element)&&(!rarity)&&(!targetStatus)){
       all = true
     }
+    console.log(all)
     data.results.forEach(page => {
       const embed1 = new MessageEmbed()
         .setColor('RANDOM')

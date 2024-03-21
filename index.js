@@ -45,7 +45,7 @@ client.on('messageCreate', async message => {
   if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
   databaseId = '9403ad41aa344441951044a6656d0d9a';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
-  let charactername = message.content.replace(/[\s　()（）]/g, "").replace('(略)', "").replace('省略', "").replace('最優先ステータス', "").replace('優先ステータス', "").replace('推奨ステータス', "").replace('参照プロパティ', "").replace('推奨凸', "").replace('おすすめ武器', "").replace('おすすめ凸とその解説', "").replace('凸解説', "").replace('レア度', "").replace('元素', "").replace('武器種', "").replace('特産品', "").replace('強敵', "").replace('天賦本', "").replace('天賦素材', "").replace('週ボス', "").replace('育成優先度', "").replace('目標ステータス', "").replace('目標', "").toLowerCase();
+  let charactername = message.content.replace(/[\s　()（）]/g, "").replace('(略)', "").replace('省略', "").replace('最優先ステータス', "").replace('優先ステータス', "").replace('推奨ステータス', "").replace('参照プロパティ', "").replace('推奨凸', "").replace('おすすめ武器', "").replace('おすすめ凸とその解説', "").replace('凸解説', "").replace('レア度', "").replace('元素', "").replace('武器種', "").replace('特産品', "").replace('強敵', "").replace('天賦本', "").replace('天賦素材', "").replace('週ボス', "").replace('育成優先度', "").replace('目標ステータス', "").replace('目標', "").replace('凸効果', "").toLowerCase();
   
   const headers = {
     'Content-Type': 'application/json',
@@ -144,8 +144,12 @@ client.on('messageCreate', async message => {
     if((message.content.includes('おすすめ凸とその解説'))||(message.content.includes('凸解説'))){
       recommendedExplanation = true
     }
+    let convecEffect = false
+    if(message.content.includes('凸効果')){
+      convecEffect = true
+    }
     let all = false
-    if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)&&(!trainingPriority)&&(!weeklyBoss)&&(!endowmentBook)&&(!formidableEnemy)&&(!specialProduct)&&(!weaponType)&&(!element)&&(!rarity)&&(!targetStatus)){
+    if((!omission)&&(!priorityStatus)&&(!recommendedStatus)&&(!referenceproperty)&&(!recommendedBump)&&(!recommendedWeapons)&&(!recommendedExplanation)&&(!trainingPriority)&&(!weeklyBoss)&&(!endowmentBook)&&(!formidableEnemy)&&(!specialProduct)&&(!weaponType)&&(!element)&&(!rarity)&&(!targetStatus)&&(!convecEffect)){
       all = true
     }
     console.log(all)
@@ -342,6 +346,10 @@ client.on('messageCreate', async message => {
         sendtext = page.properties["参照プロパティ"]?.rich_text?.map(item => item.plain_text).join('\n');
         if ((sendtext && referenceproperty)) {
           embed1.addField('- '+'参照プロパティ'+' -', sendtext,true);
+        }
+        sendtext = page.properties["凸効果"]?.rich_text?.map(item => item.plain_text).join('\n');
+        if ((sendtext && convecEffect)) {
+          embed1.addField('- '+'凸効果'+' -', sendtext,true);
         }
         sendtext = page.properties["推奨凸"]?.multi_select?.map(item => item.name).join('\n');
         if ((sendtext && recommendedBump)) {

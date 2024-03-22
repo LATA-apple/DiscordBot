@@ -33,6 +33,25 @@ client.on('messageCreate', async message => {
   //message.channel.send({ embeds: [embed] })
 });
 
+fetch('https://enka.network/api/uid/888225425')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    // レスポンスのContent-TypeがJSONであることを確認
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new TypeError('Expected JSON response from server');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data); // 取得したJSONデータをコンソールに表示
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+
 
 //キャラ情報Notion自動読み込み
 let databaseId = '';

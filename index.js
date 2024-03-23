@@ -397,7 +397,7 @@ client.on('messageCreate', async message => {
       .setTitle('日曜日')
       .setColor('RANDOM')
       .setDescription('全ての秘境が解放されています。')
-    message.channel.send('@silent', { embeds: [embed2] })
+    message.channel.send({ embeds: [embed2] })
     return;
   }
   const headers2 = {
@@ -446,7 +446,7 @@ client.on('messageCreate', async message => {
       }
       const image2 = page.icon.external.url;
       embed2.setThumbnail(image2)
-      message.channel.send({ content: '@silent', embeds: [embed2] })
+      message.channel.send({ embeds: [embed2] })
       });  
     })
     .catch(error => console.error('Error:', error));
@@ -471,7 +471,7 @@ client.on('messageCreate', async message => {
       .setTitle('日曜日')
       .setColor('RANDOM')
       .setDescription('全ての武器突破素材が解放されています。')
-    message.channel.send({ content: '@silent', embeds: [embed3] })
+    message.channel.send({ embeds: [embed3] })
     return;
   }
   const headers3 = {
@@ -520,7 +520,7 @@ client.on('messageCreate', async message => {
       }
       const image3 = page.icon.external.url;
       embed3.setThumbnail(image3)
-      message.channel.send({ content: '@silent', embeds: [embed3] })
+      message.channel.send({ embeds: [embed3] })
       });  
     })
     .catch(error => console.error('Error:', error));

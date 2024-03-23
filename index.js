@@ -23,6 +23,7 @@ client.on('messageCreate', async message => {
   if (message.author.bot) return;
   // 個人・パイモンのへそくり簿帳、 原神・パイモンのへそくり簿帳 のみ許可
   if (message.channel.id !== '1220962303529193502' && message.channel.id !== '1220951521987133551') return;
+  if(!message.content.includes('\n')) return;
   const parts = message.content.split("\n");
   const title = parts[0];
   const discription = parts[1];

@@ -1,4 +1,3 @@
-//一時的に使用可能な部屋 && message.channel.id !== '1218939675209891861'
 const { Client, Intents, MessageEmbed } = require("discord.js");
 const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
@@ -19,39 +18,21 @@ client.on("ready", () => {
 });
 
 client.on('messageCreate', async message => {
+  console.log(message);
   // Ignore messages from other bots
   if (message.author.bot) return;
-  // 個人・テスト用 のみ許可
-  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1218939675209891861') return;
-  
+  // 個人・パイモンのへそくり簿帳、 原神・パイモンのへそくり簿帳 のみ許可
+  if (message.channel.id !== '1220962303529193502' && message.channel.id !== '1220951521987133551') return;
+  const parts = message.content.split("\n");
+  const title = parts[0];
+  const discription = parts[1];
+  message.delete();
   const embed = new MessageEmbed()
     .setColor('RANDOM')
-    .setTitle('テスト')
-    .setDescription('埋め込みの説明 4096字まで')
-    .addField('フィールド','最大25個まで')
-    .setImage('https://static.wikia.nocookie.net/gensin-impact/images/8/88/Chiori_Icon.png')
-  //message.channel.send({ embeds: [embed] })
+    .setTitle(title)
+    .setDescription(discription)
+  message.channel.send({ embeds: [embed] })
 });
-
-fetch('https://enka.network/api/uid/888225425')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    // レスポンスのContent-TypeがJSONであることを確認
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      throw new TypeError('Expected JSON response from server');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data); // 取得したJSONデータをコンソールに表示
-  })
-  .catch(error => {
-    console.error('There was a problem with the fetch operation:', error);
-  });
-
 
 //キャラ情報Notion自動読み込み
 let databaseId = '';
@@ -60,8 +41,8 @@ let url = '';
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
-  // 個人・テスト用、 原神・キャラ情報 のみ許可
-  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197742966777839718') return;
+  // 個人・原神-キャラ情報、 原神・キャラ情報 のみ許可
+  if (message.channel.id !== '1220800594369970266' && message.channel.id !== '1197742966777839718') return;
   databaseId = '9403ad41aa344441951044a6656d0d9a';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   let charactername = message.content.replace(/[\s　()（）]/g, "").replace('(略)', "").replace('省略', "").replace('最優先ステータス', "").replace('優先ステータス', "").replace('推奨ステータス', "").replace('参照プロパティ', "").replace('推奨凸', "").replace('おすすめ武器', "").replace('おすすめ凸とその解説', "").replace('凸解説', "").replace('レア度', "").replace('元素', "").replace('武器種', "").replace('特産品', "").replace('強敵', "").replace('天賦本', "").replace('天賦素材', "").replace('週ボス', "").replace('育成優先度', "").replace('目標ステータス', "").replace('目標', "").replace('凸効果', "").toLowerCase();
@@ -398,8 +379,8 @@ client.on('messageCreate', async message => {
 
 //天賦本Notion自動読み込み
 client.on('messageCreate', async message => {
-  // 個人・テスト用、 原神・天賦本 のみ許可
-  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1196351988967936111') return;
+  // 個人・天賦本、 原神・天賦本 のみ許可
+  if (message.channel.id !== '1220800306829463643' && message.channel.id !== '1196351988967936111') return;
   databaseId = '3b2844eb5a364e24946b96733728e559';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   let searchtext = '';
@@ -472,8 +453,8 @@ client.on('messageCreate', async message => {
 
 //武器突破素材Notion自動読み込み
 client.on('messageCreate', async message => {
-  // 個人・テスト用、 原神・武器突破素材 のみ許可
-  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1197527073951072318') return;
+  // 個人・武器突破素材、 原神・武器突破素材 のみ許可
+  if (message.channel.id !== '1220800335543533708' && message.channel.id !== '1197527073951072318') return;
   let searchtext = '';
   databaseId = '6741efb5c8064e2d9dbc0b21d08dfea3';
   url = `https://api.notion.com/v1/databases/${databaseId}/query`;
@@ -548,8 +529,8 @@ client.on('messageCreate', async message => {
 client.on('messageCreate', async message => {
   // Ignore messages from other bots
   if (message.author.bot) return;
-  // 個人・テスト用、スタレツール・遺物評価 のみ許可
-  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1213488301991010354') return;
+  // 個人・スタレキャラ、スタレツール・遺物評価 のみ許可
+  if (message.channel.id !== '1220799928692117605' && message.channel.id !== '1213488301991010354') return;
   
   const embed = new MessageEmbed()
     .setTitle('- 遺物評価 -')
@@ -642,8 +623,8 @@ client.on('messageCreate', async message => {
   //if (message.author.username != 'lata19760401') return;
   // Check if the message is from the specified channels
   console.log(message.channel.id);
-  // 個人・テスト用、 原神・自慢の聖遺物を貼っていけぇ！ のみ許可
-  if (message.channel.id !== '1206824509538308116' && message.channel.id !== '1196454920220586044') return;
+  // 個人・聖遺物、 原神・自慢の聖遺物を貼っていけぇ！ のみ許可
+  if (message.channel.id !== '1220798423935221840' && message.channel.id !== '1196454920220586044') return;
   
   // Check if message contains attachments
   if (message.attachments.size > 0) {
@@ -759,31 +740,31 @@ client.on('messageCreate', async message => {
           
           //少数以下１位処理ここから
           if ((critical % 1 != 0)&&(critical != 0)) {
-              critical = parseInt((critical) * 10) / 10;
+              critical = (parseInt((critical) * 10) / 10);
           }
           if ((critical_hurt % 1 != 0)&&(critical_hurt != 0)) {
-              critical_hurt = parseInt((critical_hurt) * 10) / 10;
+              critical_hurt = (parseInt((critical_hurt) * 10) / 10);;
           }
           if ((attack % 1 != 0)&&(attack != 0)) {
-              attack = parseInt((attack) * 10) / 10;
+              attack = (parseInt((attack) * 10) / 10);
           }
           if ((attack_num % 1 != 0)&&(attack_num != 0)) {
               attack_num = attack_num;
           }
           if ((defense % 1 != 0)&&(defense != 0)) {
-              defense = parseInt((defense) * 10) / 10;
+              defense = (parseInt((defense) * 10) / 10);
           }
           if ((defense_num % 1 != 0)&&(defense_num != 0)) {
               defense_num = defense_num;
           }
           if ((hp % 1 != 0)&&(hp != 0)) {
-              hp = parseInt((hp) * 10) / 10;
+              hp = (parseInt((hp) * 10) / 10);
           }
           if ((hp_num % 1 != 0)&&(hp_num != 0)) {
               hp_num = +hp_num;
           }
           if ((charge_efficiency % 1 != 0)&&(charge_efficiency != 0)) {
-              charge_efficiency = parseInt((charge_efficiency) * 10) / 10;
+              charge_efficiency = (parseInt((charge_efficiency) * 10) / 10);
           }
           if ((element_mastery % 1 != 0)&&(element_mastery != 0)) {
               element_mastery = element_mastery;
@@ -819,13 +800,13 @@ client.on('messageCreate', async message => {
           let orthopedics_text = '';
           if (critical !== 0) {
               const critical_list = {
-                '23.3':'　(5回, 600%)',
-               '23.0':'　(5回, 590%)',
+               '23.3':'　(5回, 600%)',
+               '23':'　(5回, 590%)',
                '22.6':'　(5回, 580%)',
                '22.2':'　(5回, 570%)',
                '21.8':'　(5回, 560%)',
                '21.4':'　(5回, 550%)',
-               '21.0':'　(5回, 540%)',
+               '21':'　(5回, 540%)',
                '20.6':'　(5回, 530%)',
                '20.2':'　(5回, 520%)',
                '19.8':'　(5回, 510%)',
@@ -843,7 +824,7 @@ client.on('messageCreate', async message => {
                '15.2':'　(3or4回, 390%)',
                '14.8':'　(3or4回, 380%)',
                '14.4':'　(3or4回, 370%)',
-               '14.0':'　(3or4回, 360%)',
+               '14':'　(3or4回, 360%)',
                '13.6':'　(3or4回, 350%)',
                '13.2':'　(3回, 340%)',
                '12.8':'　(3回, 330%)',
@@ -861,7 +842,7 @@ client.on('messageCreate', async message => {
                '8.2':'　(2回, 210%)',
                '7.8':'　(1回, 200%)',
                '7.4':'　(1回, 190%)',
-               '7.0':'　(1回, 180%)',
+               '7':'　(1回, 180%)',
                '6.6':'　(1回, 170%)',
                '6.2':'　(1回, 160%)',
                '5.8':'　(1回, 150%)',
@@ -882,7 +863,7 @@ client.on('messageCreate', async message => {
               '44.3':'　(5回, 570%)',
               '43.5':'　(5回, 560%)',
               '42.7':'　(5回, 550%)',
-              '42.0':'　(5回, 540%)',
+              '42':'　(5回, 540%)',
               '41.2':'　(5回, 530%)',
               '40.4':'　(5回, 520%)',
               '39.6':'　(5回, 510%)',
@@ -891,7 +872,7 @@ client.on('messageCreate', async message => {
               '37.3':'　(4or5回, 480%)',
               '36.5':'　(4or5回, 470%)',
               '35.8':'　(4or5回, 460%)',
-              '35.0':'　(4or5回, 450%)',
+              '35':'　(4or5回, 450%)',
               '34.2':'　(4or5回, 440%)',
               '33.4':'　(4or5回, 430%)',
               '32.7':'　(4or5回, 420%)',
@@ -900,7 +881,7 @@ client.on('messageCreate', async message => {
               '30.3':'　(3or4回, 390%)',
               '29.5':'　(3or4回, 380%)',
               '28.8':'　(3or4回, 370%)',
-              '28.0':'　(3or4回, 360%)',
+              '28':'　(3or4回, 360%)',
               '27.2':'　(3or4回, 350%)',
               '26.4':'　(3回, 340%)',
               '25.7':'　(3回, 330%)',
@@ -909,7 +890,7 @@ client.on('messageCreate', async message => {
               '23.3':'　(2or3回, 300%)',
               '22.5':'　(2or3回, 290%)',
               '21.8':'　(2or3回, 280%)',
-              '21.0':'　(2回, 270%)',
+              '21':'　(2回, 270%)',
               '20.2':'　(2回, 260%)',
               '19.4':'　(2回, 250%)',
               '18.7':'　(2回, 240%)',
@@ -918,13 +899,13 @@ client.on('messageCreate', async message => {
               '16.3':'　(2回, 210%)',
               '15.5':'　(1回, 200%)',
               '14.8':'　(1回, 190%)',
-              '14.0':'　(1回, 180%)',
+              '14':'　(1回, 180%)',
               '13.2':'　(1回, 170%)',
               '12.4':'　(1回, 160%)',
               '11.7':'　(1回, 150%)',
               '10.9':'　(1回, 140%)',
               '7.8':'　(0回, 100%)',
-              '7.0':'　(0回, 90%)',
+              '7':'　(0回, 90%)',
               '6.2':'　(0回, 80%)',
               '5.4':'　(0回, 70%)'
               };
@@ -933,7 +914,7 @@ client.on('messageCreate', async message => {
           }
           if (attack !== 0) {
               const attack_list = {
-                '35.0':'　(5回, 600%)',
+                '35':'　(5回, 600%)',
                 '34.4':'　(5回, 590%)',
                 '33.8':'　(5回, 580%)',
                 '33.2':'　(5回, 570%)',
@@ -945,7 +926,7 @@ client.on('messageCreate', async message => {
                 '29.7':'　(5回, 510%)',
                 '29.2':'　(4or5回, 500%)',
                 '28.6':'　(4or5回, 490%)',
-                '28.0':'　(4or5回, 480%)',
+                '28':'　(4or5回, 480%)',
                 '27.4':'　(4or5回, 470%)',
                 '26.8':'　(4or5回, 460%)',
                 '26.3':'　(4or5回, 450%)',
@@ -957,11 +938,11 @@ client.on('messageCreate', async message => {
                 '22.7':'　(3or4回, 390%)',
                 '22.2':'　(3or4回, 380%)',
                 '21.6':'　(3or4回, 370%)',
-                '21.0':'　(3or4回, 360%)',
+                '21':'　(3or4回, 360%)',
                 '20.4':'　(3or4回, 350%)',
                 '19.8':'　(3回, 340%)',
                 '19.2':'　(3回, 330%)',
-               '18.7':'　(3回, 320%)',
+                '18.7':'　(3回, 320%)',
                 '18.1':'　(3回, 310%)',
                 '17.5':'　(2or3回, 300%)',
                 '16.9':'　(2or3回, 290%)',
@@ -969,7 +950,7 @@ client.on('messageCreate', async message => {
                 '15.8':'　(2回, 270%)',
                 '15.2':'　(2回, 260%)',
                 '14.6':'　(2回, 250%)',
-                '14.0':'　(2回, 240%)',
+                '14':'　(2回, 240%)',
                 '13.4':'　(2回, 230%)',
                 '12.8':'　(2回, 220%)',
                 '12.2':'　(2回, 210%)',
@@ -1048,7 +1029,7 @@ client.on('messageCreate', async message => {
           if (defense !== 0) {
               const defense_list = {
                 '43.7':'　(5回, 600%)',
-                '43.0':'　(5回, 590%)',
+                '43':'　(5回, 590%)',
                 '42.3':'　(5回, 580%)',
                 '41.6':'　(5回, 570%)',
                 '40.8':'　(5回, 560%)',
@@ -1059,7 +1040,7 @@ client.on('messageCreate', async message => {
                 '37.2':'　(5回, 510%)',
                 '36.5':'　(4or5回, 500%)',
                 '35.7':'　(4or5回, 490%)',
-                '35.0':'　(4or5回, 480%)',
+                '35':'　(4or5回, 480%)',
                 '34.3':'　(4or5回, 470%)',
                 '33.5':'　(4or5回, 460%)',
                 '32.8':'　(4or5回, 450%)',
@@ -1070,7 +1051,7 @@ client.on('messageCreate', async message => {
                 '29.2':'　(3or4回, 400%)',
                 '28.4':'　(3or4回, 390%)',
                 '27.7':'　(3or4回, 380%)',
-                '27.0':'　(3or4回, 370%)',
+                '27':'　(3or4回, 370%)',
                 '26.2':'　(3or4回, 360%)',
                 '25.5':'　(3or4回, 350%)',
                 '24.8':'　(3回, 340%)',
@@ -1081,11 +1062,11 @@ client.on('messageCreate', async message => {
                 '21.1':'　(2or3回, 290%)',
                 '20.4':'　(2or3回, 280%)',
                 '19.7':'　(2回, 270%)',
-                '19.0':'　(2回, 260%)',
+                '19':'　(2回, 260%)',
                 '18.2':'　(2回, 250%)',
                 '17.5':'　(2回, 240%)',
                 '16.8':'　(2回, 230%)',
-                '16.0':'　(2回, 220%)',
+                '16':'　(2回, 220%)',
                 '15.3':'　(2回, 210%)',
                 '14.6':'　(1回, 200%)',
                 '13.9':'　(1回, 190%)',
@@ -1161,7 +1142,7 @@ client.on('messageCreate', async message => {
           }
           if (hp !== 0) {
               const hp_list = {
-               '35.0':'　(5回, 600%)',
+               '35':'　(5回, 600%)',
                '34.4':'　(5回, 590%)',
                '33.8':'　(5回, 580%)',
                '33.2':'　(5回, 570%)',
@@ -1173,7 +1154,7 @@ client.on('messageCreate', async message => {
                '29.7':'　(5回, 510%)',
                '29.2':'　(4or5回, 500%)',
                '28.6':'　(4or5回, 490%)',
-               '28.0':'　(4or5回, 480%)',
+               '28':'　(4or5回, 480%)',
                '27.4':'　(4or5回, 470%)',
                '26.8':'　(4or5回, 460%)',
                '26.3':'　(4or5回, 450%)',
@@ -1185,7 +1166,7 @@ client.on('messageCreate', async message => {
                '22.7':'　(3or4回, 390%)',
                '22.2':'　(3or4回, 380%)',
                '21.6':'　(3or4回, 370%)',
-               '21.0':'　(3or4回, 360%)',
+               '21':'　(3or4回, 360%)',
                '20.4':'　(3or4回, 350%)',
                '19.8':'　(3回, 340%)',
                '19.2':'　(3回, 330%)',
@@ -1198,14 +1179,14 @@ client.on('messageCreate', async message => {
                '15.7':'　(2回, 270%)',
                '15.2':'　(2回, 260%)',
                '14.6':'　(2回, 250%)',
-               '14.0':'　(2回, 240%)',
+               '14':'　(2回, 240%)',
                '13.4':'　(2回, 230%)',
                '12.8':'　(2回, 220%)',
                '12.2':'　(2回, 210%)',
                '11.7':'　(1回, 200%)',
                '11.1':'　(1回, 190%)',
                '10.5':'　(1回, 180%)',
-              '9.9':'　(1回, 170%)',
+               '9.9':'　(1回, 170%)',
                '9.3':'　(1回, 160%)',
                '8.7':'　(1回, 150%)',
                '8.2':'　(1回, 140%)',
@@ -1282,10 +1263,10 @@ client.on('messageCreate', async message => {
                 '36.9':'　(5回, 570%)',
                 '36.3':'　(5回, 560%)',
                 '35.6':'　(5回, 550%)',
-                '35.0':'　(5回, 540%)',
+                '35':'　(5回, 540%)',
                 '34.3':'　(5回, 530%)',
                 '33.7':'　(5回, 520%)',
-                '33.0':'　(5回, 510%)',
+                '33':'　(5回, 510%)',
                 '32.4':'　(4or5回, 500%)',
                 '31.8':'　(4or5回, 490%)',
                 '31.1':'　(4or5回, 480%)',
@@ -1299,10 +1280,10 @@ client.on('messageCreate', async message => {
                 '25.9':'　(3or4回, 400%)',
                 '25.3':'　(3or4回, 390%)',
                 '24.6':'　(3or4回, 380%)',
-                '24.0':'　(3or4回, 370%)',
+                '24':'　(3or4回, 370%)',
                 '23.3':'　(3or4回, 360%)',
                 '22.7':'　(3or4回, 350%)',
-                '22.0':'　(3回, 340%)',
+                '22':'　(3回, 340%)',
                 '21.4':'　(3回, 330%)',
                 '20.7':'　(3回, 320%)',
                 '20.1':'　(3回, 310%)',
@@ -1316,10 +1297,10 @@ client.on('messageCreate', async message => {
                 '14.9':'　(2回, 230%)',
                 '14.2':'　(2回, 220%)',
                 '13.6':'　(2回, 210%)',
-                '13.0':'　(1回, 200%)',
+                '13':'　(1回, 200%)',
                 '12.3':'　(1回, 190%)',
                 '11.7':'　(1回, 180%)',
-                '11.0':'　(1回, 170%)',
+                '11':'　(1回, 170%)',
                 '10.4':'　(1回, 160%)',
                 '9.7':'　(1回, 150%)',
                 '9.1':'　(1回, 140%)',

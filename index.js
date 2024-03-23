@@ -397,7 +397,7 @@ client.on('messageCreate', async message => {
       .setTitle('日曜日')
       .setColor('RANDOM')
       .setDescription('全ての秘境が解放されています。')
-    message.channel.send({ content: '@silent', embeds: [embed2] })
+    message.channel.send('@silent', { embeds: [embed2] })
     return;
   }
   const headers2 = {

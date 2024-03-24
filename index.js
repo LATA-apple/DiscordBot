@@ -1398,9 +1398,9 @@ client.on('messageCreate', async message => {
           //会心型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
             if (critical_value >= 50) {
-                critical_rank = '理論値';
+                critical_rank = '⭐️理論値';
             } else if (critical_value >= 45) {
-                critical_rank = '厳選ランクS';
+                critical_rank = '⭕️厳選ランクS';
             } else if (critical_value >= 40) {
                 critical_rank = '厳選ランクA';
             } else if (critical_value >= 30) {
@@ -1412,9 +1412,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('時の砂')) || (type_of_relics.includes('空の杯'))) {
             if (critical_value >= 45) {
-                critical_rank = '理論値';
+                critical_rank = '⭐️理論値';
             } else if (critical_value >= 40) {
-                critical_rank = '厳選ランクS';
+                critical_rank = '⭕️厳選ランクS';
             } else if (critical_value >= 35) {
                 critical_rank = '厳選ランクA';
             } else if (critical_value >= 25) {
@@ -1426,9 +1426,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('理の冠'))) {
             if (critical_value >= 40) {
-                critical_rank = '理論値';
+                critical_rank = '⭐️理論値';
             } else if (critical_value >= 35) {
-                critical_rank = '厳選ランクS';
+                critical_rank = '⭕️厳選ランクS';
             } else if (critical_value >= 30) {
                 critical_rank = '厳選ランクA';
             } else if (critical_value >= 20) {
@@ -1444,9 +1444,9 @@ client.on('messageCreate', async message => {
           //攻撃型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
             if (critical_attack_value >= 50) {
-                critical_attack_rank = '理論値';
+                critical_attack_rank = '⭐️理論値';
             } else if (critical_attack_value >= 45) {
-                critical_attack_rank = '厳選ランクS';
+                critical_attack_rank = '⭕️厳選ランクS';
             } else if (critical_attack_value >= 40) {
                 critical_attack_rank = '厳選ランクA';
             } else if (critical_attack_value >= 30) {
@@ -1458,9 +1458,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('時の砂')) || (type_of_relics.includes('空の杯'))) {
             if (critical_attack_value >= 45) {
-                critical_attack_rank = '理論値';
+                critical_attack_rank = '⭐️理論値';
             } else if (critical_attack_value >= 40) {
-                critical_attack_rank = '厳選ランクS';
+                critical_attack_rank = '⭕️厳選ランクS';
             } else if (critical_attack_value >= 35) {
                 critical_attack_rank = '厳選ランクA';
             } else if (critical_attack_value >= 25) {
@@ -1472,9 +1472,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('理の冠'))) {
             if (critical_attack_value >= 40) {
-                critical_attack_rank = '理論値';
+                critical_attack_rank = '⭐️理論値';
             } else if (critical_attack_value >= 35) {
-                critical_attack_rank = '厳選ランクS';
+                critical_attack_rank = '⭕️厳選ランクS';
             } else if (critical_attack_value >= 30) {
                 critical_attack_rank = '厳選ランクA';
             } else if (critical_attack_value >= 20) {
@@ -1490,9 +1490,9 @@ client.on('messageCreate', async message => {
           //防御型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
             if (critical_defense_value >= 50) {
-                critical_defense_rank = '理論値';
+                critical_defense_rank = '⭐️理論値';
             } else if (critical_defense_value >= 45) {
-                critical_defense_rank = '厳選ランクS';
+                critical_defense_rank = '⭕️厳選ランクS';
             } else if (critical_defense_value >= 40) {
                 critical_defense_rank = '厳選ランクA';
             } else if (critical_defense_value >= 30) {
@@ -1504,9 +1504,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('時の砂')) || (type_of_relics.includes('空の杯'))) {
             if (critical_defense_value >= 45) {
-                critical_defense_rank = '理論値';
+                critical_defense_rank = '⭐️理論値';
             } else if (critical_defense_value >= 40) {
-                critical_defense_rank = '厳選ランクS';
+                critical_defense_rank = '⭕️厳選ランクS';
             } else if (critical_defense_value >= 35) {
                 critical_defense_rank = '厳選ランクA';
             } else if (critical_defense_value >= 25) {
@@ -1518,9 +1518,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('理の冠'))) {
             if (critical_defense_value >= 40) {
-                critical_defense_rank = '理論値';
+                critical_defense_rank = '⭐️理論値';
             } else if (critical_defense_value >= 35) {
-                critical_defense_rank = '厳選ランクS';
+                critical_defense_rank = '⭕️厳選ランクS';
             } else if (critical_defense_value >= 30) {
                 critical_defense_rank = '厳選ランクA';
             } else if (critical_defense_value >= 20) {
@@ -1536,9 +1536,9 @@ client.on('messageCreate', async message => {
           //HP型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
             if (critical_hp_value >= 50) {
-                critical_hp_rank = '理論値';
+                critical_hp_rank = '⭐️理論値';
             } else if (critical_hp_value >= 45) {
-                critical_hp_rank = '厳選ランクS';
+                critical_hp_rank = '⭕️厳選ランクS';
             } else if (critical_hp_value >= 40) {
                 critical_hp_rank = '厳選ランクA';
             } else if (critical_hp_value >= 30) {
@@ -1550,9 +1550,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('時の砂')) || (type_of_relics.includes('空の杯'))) {
             if (critical_hp_value >= 45) {
-                critical_hp_rank = '理論値';
+                critical_hp_rank = '⭐️理論値';
             } else if (critical_hp_value >= 40) {
-                critical_hp_rank = '厳選ランクS';
+                critical_hp_rank = '⭕️厳選ランクS';
             } else if (critical_hp_value >= 35) {
                 critical_hp_rank = '厳選ランクA';
             } else if (critical_hp_value >= 25) {
@@ -1564,9 +1564,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('理の冠'))) {
             if (critical_hp_value >= 40) {
-                critical_hp_rank = '理論値';
+                critical_hp_rank = '⭐️理論値';
             } else if (critical_hp_value >= 35) {
-                critical_hp_rank = '厳選ランクS';
+                critical_hp_rank = '⭕️厳選ランクS';
             } else if (critical_hp_value >= 30) {
                 critical_hp_rank = '厳選ランクA';
             } else if (critical_hp_value >= 20) {
@@ -1582,9 +1582,9 @@ client.on('messageCreate', async message => {
           //元素チャージ効率型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
             if (critical_charge_efficiency_value >= 50) {
-                critical_charge_efficiency_rank = '理論値';
+                critical_charge_efficiency_rank = '⭐️理論値';
             } else if (critical_charge_efficiency_value >= 45) {
-                critical_charge_efficiency_rank = '厳選ランクS';
+                critical_charge_efficiency_rank = '⭕️厳選ランクS';
             } else if (critical_charge_efficiency_value >= 40) {
                 critical_charge_efficiency_rank = '厳選ランクA';
             } else if (critical_charge_efficiency_value >= 30) {
@@ -1596,9 +1596,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('時の砂')) || (type_of_relics.includes('空の杯'))) {
             if (critical_charge_efficiency_value >= 45) {
-                critical_charge_efficiency_rank = '理論値';
+                critical_charge_efficiency_rank = '⭐️理論値';
             } else if (critical_charge_efficiency_value >= 40) {
-                critical_charge_efficiency_rank = '厳選ランクS';
+                critical_charge_efficiency_rank = '⭕️厳選ランクS';
             } else if (critical_charge_efficiency_value >= 35) {
                 critical_charge_efficiency_rank = '厳選ランクA';
             } else if (critical_charge_efficiency_value >= 25) {
@@ -1610,9 +1610,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('理の冠'))) {
             if (critical_charge_efficiency_value >= 40) {
-                critical_charge_efficiency_rank = '理論値';
+                critical_charge_efficiency_rank = '⭐️理論値';
             } else if (critical_charge_efficiency_value >= 35) {
-                critical_charge_efficiency_rank = '厳選ランクS';
+                critical_charge_efficiency_rank = '⭕️厳選ランクS';
             } else if (critical_charge_efficiency_value >= 30) {
                 critical_charge_efficiency_rank = '厳選ランクA';
             } else if (critical_charge_efficiency_value >= 20) {
@@ -1628,9 +1628,9 @@ client.on('messageCreate', async message => {
           //元素熟知型
           if ((type_of_relics.includes('生の花')) || (type_of_relics.includes('死の羽'))) {
             if (critical_element_mastery_value >= 50) {
-                critical_element_mastery_rank = '理論値';
+                critical_element_mastery_rank = '⭐️理論値';
             } else if (critical_element_mastery_value >= 45) {
-                critical_element_mastery_rank = '厳選ランクS';
+                critical_element_mastery_rank = '⭕️厳選ランクS';
             } else if (critical_element_mastery_value >= 40) {
                 critical_element_mastery_rank = '厳選ランクA';
             } else if (critical_element_mastery_value >= 30) {
@@ -1642,9 +1642,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('時の砂')) || (type_of_relics.includes('空の杯'))) {
             if (critical_element_mastery_value >= 45) {
-                critical_element_mastery_rank = '理論値';
+                critical_element_mastery_rank = '⭐️理論値';
             } else if (critical_element_mastery_value >= 40) {
-                critical_element_mastery_rank = '厳選ランクS';
+                critical_element_mastery_rank = '⭕️厳選ランクS';
             } else if (critical_element_mastery_value >= 35) {
                 critical_element_mastery_rank = '厳選ランクA';
             } else if (critical_element_mastery_value >= 25) {
@@ -1656,9 +1656,9 @@ client.on('messageCreate', async message => {
             }
           } else if ((type_of_relics.includes('理の冠'))) {
             if (critical_element_mastery_value >= 40) {
-                critical_element_mastery_rank = '理論値';
+                critical_element_mastery_rank = '⭐️理論値';
             } else if (critical_element_mastery_value >= 35) {
-                critical_element_mastery_rank = '厳選ランクS';
+                critical_element_mastery_rank = '⭕️厳選ランクS';
             } else if (critical_element_mastery_value >= 30) {
                 critical_element_mastery_rank = '厳選ランクA';
             } else if (critical_element_mastery_value >= 20) {

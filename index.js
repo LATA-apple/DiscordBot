@@ -3,7 +3,7 @@ const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES],
 });
 //オンライン時
 client.on("ready", () => {
@@ -18,34 +18,30 @@ client.on("ready", () => {
 });
 
 client.on('messageCreate', async message => {
-  console.log(message);
-  // Ignore messages from other bots
-  if (message.author.bot) return;
-  // 個人・パイモンのへそくり簿帳、 原神・パイモンのへそくり簿帳 のみ許可
-  if (message.channel.id !== '1220962303529193502' && message.channel.id !== '1220951521987133551') return;
-  if(!message.content.includes('\n')) return;
-  const parts = message.content.split("\n");
-  const title = parts[0];
-  const discription = parts[1];
-  message.delete();
-  const embed = new MessageEmbed()
-    .setColor('RANDOM')
-    .setTitle(title)
-    .setDescription(discription)
-  message.channel.send({ embeds: [embed] })
-});
-
-//キャラ情報Notion自動読み込み
-let databaseId = '';
-let url = '';
-
-client.on('messageCreate', async message => {
-  // Ignore messages from other bots
-  if (message.author.bot) return;
-  // 個人・原神-キャラ情報、 原神・キャラ情報 のみ許可
-  if (message.channel.id !== '1220800594369970266' && message.channel.id !== '1197742966777839718') return;
-  databaseId = '9403ad41aa344441951044a6656d0d9a';
-  url = `https://api.notion.com/v1/databases/${databaseId}/query`;
+  console.log(message.author.username);
+  console.log(message.channel.id);
+  console.log(message.content);
+  
+  // **********個人・パイモンのへそくり簿帳、 原神・パイモンのへそくり簿帳 のみ許可**********
+  if (message.channel.id == '1220962303529193502' || message.channel.id == '1220951521987133551') {
+    if (message.author.bot) return;
+    if(!message.content.includes('\n')) return;
+    const parts = message.content.split("\n");
+    const title = parts[0];
+    const discription = parts[1];
+    message.delete();
+    const embed = new MessageEmbed()
+      .setColor('RANDOM')
+      .setTitle(title)
+      .setDescription(discription)
+    message.channel.send({ embeds: [embed] })
+  };
+  
+  //**********キャラ情報Notion自動読み込み**********
+  if (message.channel.id == '1220800594369970266' || message.channel.id == '1197742966777839718') {
+    if (message.author.bot) return;
+    let databaseId = '9403ad41aa344441951044a6656d0d9a';
+  let url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   let charactername = message.content.replace(/[\s　()（）]/g, "").replace('(略)', "").replace('省略', "").replace('最優先ステータス', "").replace('優先ステータス', "").replace('推奨ステータス', "").replace('参照プロパティ', "").replace('推奨凸', "").replace('おすすめ武器', "").replace('おすすめ凸とその解説', "").replace('凸解説', "").replace('レア度', "").replace('元素', "").replace('武器種', "").replace('特産品', "").replace('強敵', "").replace('天賦本', "").replace('天賦素材', "").replace('週ボス', "").replace('育成優先度', "").replace('目標ステータス', "").replace('目標', "").replace('凸効果', "").toLowerCase();
   
   const headers = {
@@ -61,15 +57,12 @@ client.on('messageCreate', async message => {
       }
     }
   }
-  
   const requestOptions = {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(filterData)
   };
-  
   const notionurl = ''
-  
   const fields = [];
   console.log(message);
   console.log(charactername);
@@ -375,15 +368,12 @@ client.on('messageCreate', async message => {
       });  
     })
     .catch(error => console.error('Error:', error));
+  };
   
-});
-
-//天賦本Notion自動読み込み
-client.on('messageCreate', async message => {
-  // 個人・天賦本、 原神・天賦本 のみ許可
-  if (message.channel.id !== '1220800306829463643' && message.channel.id !== '1196351988967936111') return;
-  databaseId = '3b2844eb5a364e24946b96733728e559';
-  url = `https://api.notion.com/v1/databases/${databaseId}/query`;
+  //**********天賦本Notion自動読み込み**********
+  if (message.channel.id == '1220800306829463643' || message.channel.id == '1196351988967936111') {
+    let databaseId = '3b2844eb5a364e24946b96733728e559';
+  let url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   let searchtext = '';
   if (!message.content.includes('天賦本')) return;
   if ((message.content.includes('月曜日の天賦本'))||(message.content.includes('木曜日の天賦本'))){
@@ -450,15 +440,13 @@ client.on('messageCreate', async message => {
       });  
     })
     .catch(error => console.error('Error:', error));
-});
-
-//武器突破素材Notion自動読み込み
-client.on('messageCreate', async message => {
-  // 個人・武器突破素材、 原神・武器突破素材 のみ許可
-  if (message.channel.id !== '1220800335543533708' && message.channel.id !== '1197527073951072318') return;
-  let searchtext = '';
-  databaseId = '6741efb5c8064e2d9dbc0b21d08dfea3';
-  url = `https://api.notion.com/v1/databases/${databaseId}/query`;
+  };
+  
+  //武器突破素材Notion自動読み込み
+  if (message.channel.id == '1220800335543533708' || message.channel.id == '1197527073951072318') {
+    let searchtext = '';
+  let databaseId = '6741efb5c8064e2d9dbc0b21d08dfea3';
+  let url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   if (!message.content.includes('武器突破素材')) return;
   if ((message.content.includes('月曜日の武器突破素材'))||(message.content.includes('木曜日の武器突破素材'))){
     searchtext = '月曜日/木曜日/日曜日';
@@ -524,19 +512,14 @@ client.on('messageCreate', async message => {
       });  
     })
     .catch(error => console.error('Error:', error));
-});
-//*/
-//スタレ キャラ
-client.on('messageCreate', async message => {
-  // Ignore messages from other bots
-  if (message.author.bot) return;
-  // 個人・スタレキャラ、スタレツール・遺物評価 のみ許可
-  if (message.channel.id !== '1220799928692117605' && message.channel.id !== '1213488301991010354') return;
+  };
   
-  const embed = new MessageEmbed()
+  //**********スタレ キャラ**********
+  if (message.channel.id == '1220799928692117605' || message.channel.id == '1213488301991010354') {
+    if (message.author.bot) return;
+    const embed = new MessageEmbed()
     .setTitle('- 遺物評価 -')
     .setColor('RANDOM')
-  
   fetch('https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/2.0.0')
     .then(response => response.json())
     .then(scoreData => {
@@ -611,31 +594,59 @@ client.on('messageCreate', async message => {
         .catch(error => console.error('データの取得中にエラーが発生しました:', error));
     })
     .catch(error => console.error('スコアデータの取得中にエラーが発生しました:', error));
-});
-
-//聖遺物画像自動認識・自動スコア算出
-client.on('messageCreate', async message => {
-  
-  // Ignore messages from other bots
-  if (message.author.bot) return;
-  
-  console.log(message.author.username);
-  // lata19760401のみ許可
-  //if (message.author.username != 'lata19760401') return;
-  // Check if the message is from the specified channels
-  console.log(message.channel.id);
-  // 個人・聖遺物、 原神・自慢の聖遺物を貼っていけぇ！ のみ許可
-  if (message.channel.id !== '1220798423935221840' && message.channel.id !== '1196454920220586044') return;
-  
-  // Check if message contains attachments
-  if (message.attachments.size > 0) {
+  };
+  //**********聖遺物画像自動認識・自動スコア算出**********
+  if (message.channel.id == '1220798423935221840' || message.channel.id == '1196454920220586044') {
+    if (message.author.bot) return;
+    if (message.attachments.size > 0) {
     // Iterate over attachments
     for (const attachment of message.attachments.values()) {
       // Check if attachment is an image
       if (attachment.contentType.startsWith('image')) {
         try {
           // Send a message to indicate that the bot is processing the image
-          const processingMessage = await message.reply('画像から文字を抽出/スコアを計算中…\n(40秒程お待ちください…)');
+          
+          const imageUrls = [
+            'https://i.imgur.com/oc4vzUC.jpg',
+            'https://media.tenor.com/mVdQRR7IjkEAAAAM/mihoyo-genshin.gif',
+            'https://media.tenor.com/yMCfTxaVEeAAAAAM/paimon-shock-genshin-impact.gif',
+            'https://lh3.googleusercontent.com/proxy/YYPRYvUTCavpAIsJIeubO2COc-0AkL10WfHtPK-iCtFLyPTGcioLQzpu-ZWY4cqgPql772SV7_WTnhQLSk5kKZ9oOl1FnijQ8KE03LbNSyi8JA4RuizIFrkS5ygz1UipSV5d7g',
+            'https://i03piccdn.sogoucdn.com/bea013aca12e3598',
+            'https://img.gifmagazine.net/gifmagazine/images/4826756/original.gif',
+            'https://image.uc.cn/s/wemedia/s/upload/2021/7fd961c12a65cbac646a0bef3a60b930.gif',
+            'https://i.imgur.com/sNbl2uu.jpg',
+            'https://dyci7co52mbcc.cloudfront.net/store/e1db7731c634466de03cabde6f8cd8ee.gif',
+            'https://media.tenor.com/3qXkLZ6qf80AAAAM/原神.gif',
+            'https://media.tenor.com/AYE0sypnFJAAAAAM/genshin-impact-furina.gif',
+            'https://pic4.zhimg.com/v2-7ff7bd3bb8af78cc001d8db7030ccb3f_b.gif',
+            'https://genshin.gamers-labo.com/wp-content/uploads/2023/02/zxouDQr.gif',
+            'https://i02piccdn.sogoucdn.com/389d4505b641cf75',
+            'https://i02piccdn.sogoucdn.com/1441134b8c74bf6d',
+            'https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif',
+            'https://i.pinimg.com/originals/b3/c5/09/b3c509b3b8bf12b6367e8fc01a37d517.gif',
+            'https://media.tenor.com/KDTpMeAcsn0AAAAM/happyending.gif',
+            'https://upload-os-bbs.hoyolab.com/upload/2023/05/02/14245070/45d4a780039cd7a6682e202dd842254a_4208366935136527938.gif',
+            'https://upload-os-bbs.hoyolab.com/upload/2022/01/08/140058244/e97b796303fc06bcf5d75686068064f2_1949011461493255450.gif',
+            'https://upload-os-bbs.hoyolab.com/upload/2023/04/09/15976079/ba68fd55274d744e225cb15e813820b6_1145072033872672206.gif',
+            'https://lh3.googleusercontent.com/DExvEokwH7VqexVvwkDSjA2ExtBFPwh0_RvL1Di6N4oO2rcG_bFnOpF08k-iWo5OqFxC7BEmSVfREr4Tb_bVsNoFPSilP-BJ',
+            'https://usagif.com/wp-content/uploads/gify/paimon-genshin-impact-usagif.gif',
+            'https://usagif.com/wp-content/uploads/gify/30-iter-zhongli-shogun-raiden-venti-genshin-impact-usagif.gif',
+            'https://usagif.com/wp-content/uploads/gify/2-zhongli-venti-raiden-shogun-nahida-genshin-impact-usagif.gif',
+            'https://usagif.com/wp-content/uploads/gify/venti-4-genshin-impact-usagif.gif',
+            'https://dyci7co52mbcc.cloudfront.net/store/f0901a9ff4c9e23aef012d99b5177562.gif',
+            'https://dyci7co52mbcc.cloudfront.net/store/ab5b8e6e2084bdaf9f848a1e596e4e4e.gif'
+            // 他の画像のURLを追加
+          ];
+          // ランダムな画像を選択
+          const randomIndex = Math.floor(Math.random() * imageUrls.length);
+          const randomImageUrl = imageUrls[randomIndex];
+          const embed1 = new MessageEmbed()
+            .setColor('RANDOM')
+            .setTitle('画像から文字を抽出/スコアを計算中…')
+            .setDescription('40秒程お待ちください…')
+            .setImage(randomImageUrl)
+          const processingMessage = await message.reply({ embeds: [embed1] });
+          //const processingMessage = await message.reply('画像から文字を抽出/スコアを計算中…\n(40秒程お待ちください…)https://i.imgur.com/oc4vzUC.jpg');
           // Get image URL
           const url = attachment.url;
           console.log(url)
@@ -873,6 +884,7 @@ client.on('messageCreate', async message => {
               '37.3':'　(4or5回, 480%)',
               '36.5':'　(4or5回, 470%)',
               '35.8':'　(4or5回, 460%)',
+              '35.7':'　(4or5回, 460%)',
               '35':'　(4or5回, 450%)',
               '34.2':'　(4or5回, 440%)',
               '33.4':'　(4or5回, 430%)',
@@ -1729,15 +1741,6 @@ client.on('messageCreate', async message => {
           //console.log(cleanedText)
           // Terminate worker
           await worker.terminate();
-          // Reply with the recognized text
-          /*
-          let relic_value = (cleanedText)+'\n【スコア】\n会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n【会心ランク】\n'+(critical_rank)+'\n【会心＋攻撃力％ランク】\n'+(critical_attack_rank)
-          let error_value = (relic_value)+'\n(⚠️画像から正確にデータが読み取れなかった可能性があります。\nトリミングをして、もう一度お試しください。⚠️)'
-          if ((critical_value == 0)||(critical_attack_value == 0)) {
-              relic_value = error_value;
-            }
-          processingMessage.edit(relic_value)
-          */
           
           
             embed.addField('聖遺物情報','【'+type_of_relics+'】\n'+orthopedics_text)
@@ -1763,6 +1766,65 @@ client.on('messageCreate', async message => {
       }
     }
   }
+  };
+  
+  
+});
+
+client.on('voiceStateUpdate', (oldState, newState) => {
+  if (newState.member.user.bot) return; // ボットユーザーの状態変更は無視する
+//本番環境：1209947489243893874
+//テスト環境:1221440502352580758
+  let channelID = '';
+  if(newState.guild.name == '個人'){
+    channelID = '1221440502352580758';
+  }else{
+    channelID = '1209947489243893874';
+  }
+  let log = '1221440502352580758'
+  const logchannel = client.channels.cache.get(log);
+  const channel = client.channels.cache.get(channelID);
+  const oldMute = oldState.mute;
+  const newMute = newState.mute;
+  
+  console.log('oldstate'+oldMute);
+  console.log('newstate'+newMute);
+  
+  // ミュートでも反応してしまうので無視用
+  const statusChk =
+    oldState.serverDeaf === newState.serverDeaf &&
+    oldState.serverMute === newState.serverMute &&
+    oldState.selfDeaf === newState.selfDeaf &&
+    oldState.selfMute === newState.selfMute &&
+    oldState.selfVideo === newState.selfVideo &&
+    oldState.streaming === newState.streaming;
+  console.log('statusChk:'+statusChk);
+  console.log('oldState.serverDeaf:'+oldState.serverDeaf);
+  console.log('newState.channel:'+newState.channel);
+  console.log(newState);
+
+  if(((statusChk == true || oldState.serverDeaf == null) && newState.channel)){
+  //チャンネルに入ってきたときの処理
+    let enterMessage = '<@'+newState.member.id+'> が入室しました。';
+    channel.send({content: enterMessage,flags: [ 4096 ]});
+    if((oldMute)||(newMute)){
+      let attentionMessage = '<@'+newState.member.id+'> ミュート状態です。';
+      channel.send(attentionMessage);
+    }
+  } else if (statusChk && oldState.channel) {
+  // チャンネルから出たときの処理
+    let exsistMessage = '<@'+newState.member.id+'> が退室しました。';
+    channel.send({content: exsistMessage,flags: [ 4096 ]});
+  }
+  let logMessage = `<@${newState.member.id}> が`;
+  if((oldMute)&&(!newMute)){
+    logMessage += 'ミュートを解除しました。';
+    channel.send({content: logMessage,flags: [ 4096 ]});
+  }else if(oldMute !== null &&(!oldMute)&&(newMute)){
+    logMessage += 'ミュートしました。';
+    channel.send({content: logMessage,flags: [ 4096 ]});
+  }
+  
 });
 
 

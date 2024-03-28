@@ -3,7 +3,7 @@ const { createWorker } = require('tesseract.js');
 const fetch = require('node-fetch');
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES],
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_PRESENCES],
 });
 //オンライン時
 client.on("ready", () => {
@@ -11,16 +11,72 @@ client.on("ready", () => {
   client.user.setPresence({
     activity: {
     name: client.channels.cache.size+"サーバーに導入中"
-  },//status: dndにすると、Botのステータスが取り込み中に、idleにすると、退席中に、onlineにすると、オンラインに
+  },//status: dnd→取り込み中、idle→退席中、online→オンライン
     status: "online"
   });
   console.log('Bot is ready!');
 });
 
+let imageUrls = [
+            'https://i.imgur.com/oc4vzUC.gif',
+            'https://media.tenor.com/mVdQRR7IjkEAAAAM/mihoyo-genshin.gif',
+            'https://media.tenor.com/yMCfTxaVEeAAAAAM/paimon-shock-genshin-impact.gif',
+            'https://img.gifmagazine.net/gifmagazine/images/4826756/original.gif',
+            'https://image.uc.cn/s/wemedia/s/upload/2021/7fd961c12a65cbac646a0bef3a60b930.gif',
+            'https://i.imgur.com/sNbl2uu.gif',
+            'https://dyci7co52mbcc.cloudfront.net/store/e1db7731c634466de03cabde6f8cd8ee.gif',
+            'https://media.tenor.com/3qXkLZ6qf80AAAAM/原神.gif',
+            'https://media.tenor.com/AYE0sypnFJAAAAAM/genshin-impact-furina.gif',
+            'https://genshin.gamers-labo.com/wp-content/uploads/2023/02/zxouDQr.gif',
+            'https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif',
+            'https://i.pinimg.com/originals/b3/c5/09/b3c509b3b8bf12b6367e8fc01a37d517.gif',
+            'https://media.tenor.com/KDTpMeAcsn0AAAAM/happyending.gif',
+            'https://upload-os-bbs.hoyolab.com/upload/2023/05/02/14245070/45d4a780039cd7a6682e202dd842254a_4208366935136527938.gif',
+            'https://upload-os-bbs.hoyolab.com/upload/2022/01/08/140058244/e97b796303fc06bcf5d75686068064f2_1949011461493255450.gif',
+            'https://upload-os-bbs.hoyolab.com/upload/2023/04/09/15976079/ba68fd55274d744e225cb15e813820b6_1145072033872672206.gif',
+            'https://usagif.com/wp-content/uploads/gify/paimon-genshin-impact-usagif.gif',
+            'https://usagif.com/wp-content/uploads/gify/30-iter-zhongli-shogun-raiden-venti-genshin-impact-usagif.gif',
+            'https://usagif.com/wp-content/uploads/gify/2-zhongli-venti-raiden-shogun-nahida-genshin-impact-usagif.gif',
+            'https://usagif.com/wp-content/uploads/gify/venti-4-genshin-impact-usagif.gif',
+            'https://dyci7co52mbcc.cloudfront.net/store/f0901a9ff4c9e23aef012d99b5177562.gif',
+            'https://dyci7co52mbcc.cloudfront.net/store/ab5b8e6e2084bdaf9f848a1e596e4e4e.gif'
+            // 他の画像のURLを追加
+          ];
+
 client.on('messageCreate', async message => {
   console.log(message.author.username);
   console.log(message.channel.id);
   console.log(message.content);
+  
+  // **********個人・アチーブ、 原神・🏁アチーブ記録 のみ許可**********
+  if (message.channel.id == '1221888683775627346' || message.channel.id == '1221880515058073750') {
+    if (message.author.bot) return;
+    if(!message.content.includes('\n')) return;
+    const embed = new MessageEmbed()
+    if(message.content.includes('＊要日数＊')){
+      embed.setColor('#FF0000')
+    }else if(message.content.includes('＊デイリー＊')){
+      embed.setColor('#00FF00')
+    }
+    let lines = message.content.split('\n'); // テキストを行に分割
+    let title = lines.shift().trim(); // 最初の行をタイトルとして取得し、配列から削除
+    let content = lines.join('\n').trim(); // 残りの行を内容として結合
+    let imageUrl = null;
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        if (line.startsWith('https://')) {
+            imageUrl = line;
+            lines.splice(i, 1); // 画像URLを削除
+            content = lines.join('\n').trim(); // contentから画像URLを削除した残りを更新
+            break;
+        }
+    }
+    message.delete();
+    embed.setTitle(title)
+    embed.setDescription(content)
+    embed.setImage(imageUrl)
+    message.channel.send({ embeds: [embed] })
+  };
   
   // **********個人・パイモンのへそくり簿帳、 原神・パイモンのへそくり簿帳 のみ許可**********
   if (message.channel.id == '1220962303529193502' || message.channel.id == '1220951521987133551') {
@@ -47,7 +103,7 @@ client.on('messageCreate', async message => {
   const headers = {
     'Content-Type': 'application/json',
     'Notion-Version': '2022-06-28',
-    'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
+    'Authorization': process.env.NOTION_SEACRET
   };
   const filterData = {
     "filter": {
@@ -393,7 +449,7 @@ client.on('messageCreate', async message => {
   const headers2 = {
     'Content-Type': 'application/json',
     'Notion-Version': '2022-06-28',
-    'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
+    'Authorization': process.env.NOTION_SEACRET
   };
   const filterData2 = {
   "filter": {
@@ -465,7 +521,7 @@ client.on('messageCreate', async message => {
   const headers3 = {
     'Content-Type': 'application/json',
     'Notion-Version': '2022-06-28',
-    'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
+    'Authorization': process.env.NOTION_SEACRET
   };
   const filterData3 = {
   "filter": {
@@ -595,7 +651,538 @@ client.on('messageCreate', async message => {
     })
     .catch(error => console.error('スコアデータの取得中にエラーが発生しました:', error));
   };
-  //**********聖遺物画像自動認識・自動スコア算出**********
+  //**********スタレ 遺物画像自動認識・自動スコア算出**********
+  if (message.channel.id == '1222519957913604096') {
+    if (message.author.bot) return;
+    console.log(message.content);
+    if (message.attachments.size > 0) {
+    // Iterate over attachments
+      for (const attachment of message.attachments.values()) {
+      // Check if attachment is an image
+        if (attachment.contentType.startsWith('image')) {
+          try {
+          // Send a message to indicate that the bot is processing the image
+            // ランダムな画像を選択
+            const randomIndex = Math.floor(Math.random() * imageUrls.length);
+            const randomImageUrl = imageUrls[randomIndex];
+            console.log(randomImageUrl);
+            const embed1 = new MessageEmbed()
+              .setColor('RANDOM')
+              .setTitle('画像から文字を抽出/スコアを計算中…')
+              .setDescription('40秒程お待ちください…')
+              .setImage(randomImageUrl)
+            const processingMessage = await message.reply({ embeds: [embed1] });
+            
+            const url = attachment.url;
+            console.log(url)
+            
+            const embed = new MessageEmbed()
+              .setTitle('- 遺物スコア -')
+              .setColor('RANDOM')
+              .setImage(url)
+            
+             // Create Tesseract worker
+            const worker = await createWorker('jpn');
+            await worker.load();
+            await worker.loadLanguage('jpn');
+            await worker.initialize('jpn');
+            // Recognize text from image
+            const { data: { text } } = await worker.recognize(url);
+            const filteredText = text.replace(/[^\S\n]/g, '');
+            const logText = filteredText.replace(/^\s*[\r\n]/gm, '');
+            const channel = await client.channels.fetch('1207204533005189131');
+            const data_collection = await client.channels.fetch('1208468886517981195');
+            channel.send('----------\n['+ message.author.username + ']\n'+url+ '\n'+logText );
+            
+            const linesStartingWithBullet = filteredText.split('\n')
+            //追加→ || line.trim().startsWith('.') 
+            .filter(line => line.trim().startsWith('・') || line.trim().startsWith('*') || line.trim().startsWith('･') || line.trim().startsWith('＊'))
+            //追加→ |^.
+            .map(line => line.replace(/^・|^(\*)|^･|^＊/, ''));
+            const cleanedText = linesStartingWithBullet.join('\n');
+            // Extract values for specified patterns
+            let main = 0;
+            let main_percent = false;
+            let main_name = '';
+            let critical = 0;
+            let critical_hurt = 0;
+            let attack = 0;
+            let attack_num = 0;
+            let defense = 0;
+            let defense_num = 0;
+            let hp = 0;
+            let hp_num = 0;
+            let speed_num = 0;
+            let effectHit = 0;
+            let destructionSpecialAttack = 0;
+            let effectResistance = 0;
+            
+            filteredText.split('\n').forEach(line => {
+              if ((line.includes('会心率'))&&(line.includes('%'))) {
+                critical = parseFloat(line.replace(/[^\d.]/g, ''));
+                if(critical > 19.4){
+                  main_name = '会心率 ';
+                  main = critical;
+                  main_percent = true;
+                  critical = 0;
+                }
+              } else if ((line.includes('会心ダメージ'))&&(line.includes('%'))) {
+                critical_hurt = parseFloat(line.replace(/[^\d.]/g, ''));
+                if(critical_hurt > 38.8){
+                  main_name = '会心ダメージ ';
+                  main = critical_hurt;
+                  main_percent = true;
+                  critical_hurt = 0;
+                }
+              } else if (line.includes('攻撃力')) {
+                if (line.includes('%')) {
+                  attack = parseFloat(line.replace(/[^\d.]/g, ''));
+                  if(attack > 25.9){
+                    main_name = '攻撃力 ';
+                    main = attack;
+                    main_percent = true;
+                    attack = 0;
+                  }
+                } else {
+                  attack_num = parseFloat(line.replace(/[^\d.]/g, ''));
+                  if(attack_num > 126){
+                    main_name = '攻撃力 ';
+                    main = attack_num;
+                    attack_num = 0;
+                  }
+                }
+              } else if (line.includes('防御力')) {
+                if (line.includes('%')) {
+                  defense = parseFloat(line.replace(/[^\d.]/g, ''));
+                  if(defense > 32.4){
+                    main_name = '防御力 ';
+                    main = defense;
+                    main_percent = true;
+                    defense = 0;
+                  }
+                } else {
+                  defense_num = parseFloat(line.replace(/[^\d.]/g, ''));
+                }
+              } else if (line.includes('HP')) {
+                if (line.includes('%')) {
+                  hp = parseFloat(line.replace(/[^\d.]/g, ''));
+                  if(hp > 25.9){
+                    main_name = 'HP ';
+                    main_percent = true;
+                    main = hp;
+                    hp = 0;
+                  }
+                } else {
+                  hp_num = parseFloat(line.replace(/[^\d.]/g, ''));
+                  if(hp_num > 252){
+                    main_name = 'HP ';
+                    main = hp_num;
+                    hp_num = 0;
+                  }
+                }
+              } else if (line.includes('速度')) {
+                speed_num = parseFloat(line.replace(/[^\d.]/g, ''));
+                if(speed_num > 15.6){
+                  main_name = '速度 ';
+                  main = speed_num;
+                  speed_num = 0;
+                }
+              } else if ((line.includes('効果命中'))) {
+                effectHit = parseFloat(line.replace(/[^\d.]/g, ''));
+                if(effectHit > 25.9){
+                  main_name = '効果命中 ';
+                  main = effectHit;
+                  main_percent = true;
+                  effectHit = 0;
+                }
+              } else if ((line.includes('撃破特攻'))) {
+                destructionSpecialAttack = parseFloat(line.replace(/[^\d.]/g, ''));
+                if(destructionSpecialAttack > 38.8){
+                  main_name = '撃破特攻 ';
+                  main = destructionSpecialAttack;
+                  main_percent = true;
+                  destructionSpecialAttack = 0;
+                }
+              } else if ((line.includes('効果抵抗'))) {
+                effectResistance = parseFloat(line.replace(/[^\d.]/g, ''));
+                if(effectResistance > 25.9){
+                  main_name = '効果抵抗 ';
+                  main = effectResistance;
+                  main_percent = true;
+                  effectResistance = 0;
+                }
+              }
+            });
+            if(main == 0){
+              if(filteredText.includes('治癒量')){
+                main_name = '治癒量 ';
+                main = 34.5;
+              }else if(filteredText.includes('EP回復効率')){
+                main_name = 'EP回復効率 ';
+                main = 19.4;
+              }else if(filteredText.includes('与ダメージ')){
+                main = 38.8;
+                if(filteredText.includes('物理与ダメージ')){
+                  main_name = '物理与ダメージ ';
+                }else if(filteredText.includes('炎属性与ダメージ')){
+                  main_name = '炎属性与ダメージ ';
+                }else if(filteredText.includes('氷属性与ダメージ')){
+                  main_name = '氷属性与ダメージ ';
+                }else if(filteredText.includes('雷属性与ダメージ')){
+                  main_name = '雷属性与ダメージ ';
+                }else if(filteredText.includes('風属性与ダメージ')){
+                  main_name = '風属性与ダメージ ';
+                }else if(filteredText.includes('量子属性与ダメージ')){
+                  main_name = '量子属性与ダメージ ';
+                }else if(filteredText.includes('虚数属性与ダメージ')){
+                  main_name = '虚数属性与ダメージ ';
+                }
+              }
+              main_percent = true;
+            }
+            let main_text = '';
+            if (!main_percent){
+              main_text = main_name+main;
+            }else {
+              main_text = main_name+main+'%';
+            }
+            let critical_text = '会心率 '+critical+'%';
+            let critical_hurt_text = '会心ダメージ '+critical_hurt+'%';
+            let attack_text = '攻撃力 '+attack+'%';
+            let attack_num_text = '攻撃力 '+attack_num;
+            let defense_text = '防御力 '+defense+'%';
+            let defense_num_text = '防御力 '+defense_num;
+            let hp_text = 'HP '+hp+'%';
+            let hp_num_text = 'HP '+hp_num;
+            let speed_num_text = '速度 '+speed_num;
+            let effectHit_text = '効果命中 '+effectHit+'%';
+            let destructionSpecialAttack_text = '撃破特攻 '+destructionSpecialAttack+'%';
+            let effectResistance_text = '効果抵抗 '+effectResistance+'%';
+            
+            await worker.terminate();
+            
+            if(message.content != ''){
+              fetch('https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/2.0.0')
+              .then(response => response.json())
+              .then(scoreData => {
+                fetch('https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/jp/nickname.json')
+                  .then(response => response.json())
+                  .then(data => {
+                    const nickname = message.content;
+                    const characters = data.characters;
+                    let characterKey = null;
+                    for (const key in characters) {
+                      if (characters[key].includes(nickname)) {
+                        let icon = 'https://github.com/Mar-7th/StarRailRes/blob/master/icon/character/'+key+'.png?raw=true';
+                        console.log(icon);
+                        embed.setThumbnail(icon);
+                        characterKey = key;
+                        break;
+                      }
+                    }
+                    if (characterKey && scoreData[characterKey]) {
+                      console.log(scoreData[characterKey]); // characterKeyに対応するデータを出力
+                      let main_head_HPDelta = scoreData[characterKey].main.head.HPDelta;
+                      let main_hand_AttackDelta = scoreData[characterKey].main.hand.AttackDelta;
+                      let main_body_HPAddedRatio = scoreData[characterKey].main.body.HPAddedRatio;
+                      let main_body_AttackAddedRatio = scoreData[characterKey].main.body.AttackAddedRatio;
+                      let main_body_DefenceAddedRatio = scoreData[characterKey].main.body.DefenceAddedRatio;
+                      let main_body_CriticalChanceBase = scoreData[characterKey].main.body.CriticalChanceBase;
+                      let main_body_CriticalDamageBase = scoreData[characterKey].main.body.CriticalDamageBase
+                      let main_body_HealRatioBase = scoreData[characterKey].main.body.HealRatioBase;
+                      let main_body_StatusProbabilityBase = scoreData[characterKey].main.body.StatusProbabilityBase;
+                      let main_feet_HPAddedRatio = scoreData[characterKey].main.feet.HPAddedRatio;
+                      let main_feet_AttackAddedRatio = scoreData[characterKey].main.feet.AttackAddedRatio;
+                      let main_feet_DefenceAddedRatio = scoreData[characterKey].main.feet.DefenceAddedRatio;
+                      let main_feet_SpeedDelta = scoreData[characterKey].main.feet.SpeedDelta;
+                      let main_sphere_HPAddedRatio = scoreData[characterKey].main.sphere.HPAddedRatio;
+                      let main_sphere_AttackAddedRatio = scoreData[characterKey].main.sphere.AttackAddedRatio;
+                      let main_sphere_DefenceAddedRatio = scoreData[characterKey].main.sphere.DefenceAddedRatio;
+                      let main_sphere_PhysicalAddedRatio = scoreData[characterKey].main.sphere.PhysicalAddedRatio;
+                      let main_sphere_FireAddedRatio = scoreData[characterKey].main.sphere.FireAddedRatio;
+                      let main_sphere_IceAddedRatio = scoreData[characterKey].main.sphere.IceAddedRatio;
+                      let main_sphere_ThunderAddedRatio = scoreData[characterKey].main.sphere.ThunderAddedRatio;
+                      let main_sphere_WindAddedRatio = scoreData[characterKey].main.sphere.WindAddedRatio;
+                      let main_sphere_QuantumAddedRatio = scoreData[characterKey].main.sphere.QuantumAddedRatio;
+                      let main_sphere_ImaginaryAddedRatio = scoreData[characterKey].main.sphere.ImaginaryAddedRatio;
+                      let main_rope_HPAddedRatio = scoreData[characterKey].main.rope.HPAddedRatio;
+                      let main_rope_AttackAddedRatio = scoreData[characterKey].main.rope.AttackAddedRatio;
+                      let main_rope_DefenceAddedRatio = scoreData[characterKey].main.rope.DefenceAddedRatio;
+                      let main_rope_BreakDamageAddedRatioBase = scoreData[characterKey].main.rope.BreakDamageAddedRatioBase;
+                      let main_rope_SPRatioBase = scoreData[characterKey].main.rope.SPRatioBase;
+                      let sub_HPDelta = scoreData[characterKey].sub.HPDelta;
+                      let sub_HPAddedRatio = scoreData[characterKey].sub.HPAddedRatio;
+                      let sub_AttackAddedRatio = scoreData[characterKey].sub.AttackAddedRatio;
+                      let sub_AttackDelta = scoreData[characterKey].sub.AttackDelta;
+                      let sub_DefenceDelta = scoreData[characterKey].sub.DefenceDelta;
+                      let sub_DefenceAddedRatio = scoreData[characterKey].sub.DefenceAddedRatio;
+                      let sub_SpeedDelta = scoreData[characterKey].sub.SpeedDelta;
+                      let sub_CriticalChanceBase = scoreData[characterKey].sub.CriticalChanceBase;
+                      let sub_CriticalDamageBase = scoreData[characterKey].sub.CriticalDamageBase;
+                      let sub_StatusProbabilityBase = scoreData[characterKey].sub.StatusProbabilityBase;
+                      let sub_StatusResistanceBase = scoreData[characterKey].sub.StatusResistanceBase;
+                      let sub_BreakDamageAddedRatioBase = scoreData[characterKey].sub.BreakDamageAddedRatioBase;
+                      
+                      let main_HPDelta_Max = 705;
+                      let main_AttackDelta_Max = 352;
+                      let main_HPAddedRatio_Max = 43.2;
+                      let main_AttackAddedRatio_Max = 43.2;
+                      let main_DefenceAddedRatio_Max = 54.0;
+                      let main_CriticalChanceBase_Max = 32.4;
+                      let main_CriticalDamageBase_Max = 64.8;
+                      let main_HealRatioBase_Max = 34.5;
+                      let main_StatusProbabilityBase_Max = 43.2;
+                      let main_SpeedDelta_Max = 25;
+                      let main_PhysicalAddedRatio_Max = 38.8;
+                      let main_FireAddedRatio_Max = 38.8;
+                      let main_IceAddedRatio_Max = 38.8;
+                      let main_ThunderAddedRatio_Max = 38.8;
+                      let main_WindAddedRatio_Max = 38.8;
+                      let main_QuantumAddedRatio_Max = 38.8;
+                      let main_ImaginaryAddedRatio_Max = 38.8;
+                      let main_BreakDamageAddedRatioBase_Max = 64.8;
+                      let main_SPRatioBase_Max = 19.4;
+                      
+                      let main_score = 0;
+                      if(main_name == 'HP '){
+                        main_score = main_head_HPDelta * 50;
+                      }else if(main_name == '攻撃力 '){
+                        main_score = main_hand_AttackDelta * 50;
+                      }else if(main_name == '防御力 '){
+                        main_score = main_body_DefenceAddedRatio * 50;
+                      }else if(main_name == '会心率 '){
+                        main_score = main_body_CriticalChanceBase * 50;
+                      }else if(main_name == '会心ダメージ '){
+                        main_score = main_body_CriticalDamageBase * 50;
+                      }else if(main_name == '治癒量 '){
+                        main_score = main_body_HealRatioBase * 50;
+                      }else if(main_name == '効果命中 '){
+                        main_score = main_body_StatusProbabilityBase * 50;
+                      }else if(main_name == '速度 '){
+                        main_score = main_feet_SpeedDelta * 50;
+                      }else if(main_name == '物理与ダメージ '){
+                        main_score = main_sphere_PhysicalAddedRatio * 50;
+                      }else if(main_name == '炎属性与ダメージ '){
+                        main_score = main_sphere_FireAddedRatio * 50;
+                      }else if(main_name == '氷属性与ダメージ '){
+                        main_score = main_sphere_IceAddedRatio * 50;
+                      }else if(main_name == '雷属性与ダメージ '){
+                        main_score = main_sphere_ThunderAddedRatio * 50;
+                      }else if(main_name == '風属性与ダメージ '){
+                        main_score = main_sphere_WindAddedRatio * 50;
+                      }else if(main_name == '量子属性与ダメージ '){
+                        main_score = main_sphere_QuantumAddedRatio * 50;
+                      }else if(main_name == '虚数属性与ダメージ '){
+                        main_score = main_sphere_ImaginaryAddedRatio * 50;
+                      }else if(main_name == '撃破特攻 '){
+                        main_score = main_rope_BreakDamageAddedRatioBase * 50;
+                      }else if(main_name == 'EP回復効率 '){
+                        main_score = main_rope_SPRatioBase * 50;
+                      }
+                      
+                      main_text = main_text + '　(' + main_score + ')';
+                      
+                      let sub_HPDelta_Max = 252;
+                      let sub_HPAddedRatio_Max = 25.9;
+                      let sub_AttackDelta_Max = 126;
+                      let sub_AttackAddedRatio_Max = 25.9;
+                      let sub_DefenceDelta_Max = 126;
+                      let sub_DefenceAddedRatio_Max = 32.4;
+                      let sub_SpeedDelta_Max = 15.6;
+                      let sub_CriticalChanceBase_Max = 19.4;
+                      let sub_CriticalDamageBase_Max = 38.8;
+                      let sub_StatusProbabilityBase_Max = 25.9;
+                      let sub_StatusResistanceBase_Max = 25.9;
+                      let sub_BreakDamageAddedRatioBase_Max = 38.8;
+                      
+                      let orthopedics_text = '';
+                      
+                      let sub_score = 0;
+                      let sub_total_score = 0;
+                      if (critical !== 0) {
+                        sub_score = critical / sub_CriticalChanceBase_Max * sub_CriticalChanceBase * 50;
+                        orthopedics_text += critical_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (critical_hurt !== 0) {
+                        sub_score = critical_hurt / sub_CriticalDamageBase_Max * sub_CriticalDamageBase * 50;
+                        orthopedics_text += critical_hurt_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (hp_num !== 0) {
+                        sub_score = hp_num / sub_HPDelta_Max * sub_HPDelta * 50;
+                        orthopedics_text += critical_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (hp !== 0) {
+                        sub_score = hp / sub_HPAddedRatio_Max * sub_HPAddedRatio * 50;
+                        orthopedics_text += hp_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (attack_num !== 0) {
+                        sub_score = attack_num / sub_AttackDelta_Max * sub_AttackDelta * 50;
+                        orthopedics_text += attack_num_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (attack !== 0) {
+                        sub_score = attack / sub_AttackAddedRatio_Max * sub_AttackAddedRatio * 50;
+                        orthopedics_text += attack_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (defense_num !== 0) {
+                        sub_score = defense_num / sub_DefenceDelta_Max * sub_DefenceDelta * 50;
+                        orthopedics_text += defense_num_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (defense !== 0) {
+                        sub_score = defense / sub_DefenceAddedRatio_Max * sub_DefenceAddedRatio * 50;
+                        orthopedics_text += defense_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (speed_num !== 0) {
+                        sub_score = speed_num / sub_SpeedDelta_Max * sub_SpeedDelta * 50;
+                        orthopedics_text += speed_num_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (effectHit !== 0) {
+                        sub_score = effectHit / sub_StatusProbabilityBase_Max * sub_StatusProbabilityBase * 50;
+                        orthopedics_text += effectHit_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (destructionSpecialAttack !== 0) {
+                        sub_score = destructionSpecialAttack / sub_StatusResistanceBase_Max * sub_StatusResistanceBase * 50;
+                        orthopedics_text += destructionSpecialAttack_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      if (effectResistance !== 0) {
+                        sub_score = effectResistance / sub_BreakDamageAddedRatioBase_Max * sub_BreakDamageAddedRatioBase * 50;
+                        orthopedics_text += effectResistance + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                        sub_total_score += sub_score;
+                      }
+                      
+                      let total_score = 0;
+                      total_score = (parseInt((main_score + sub_total_score) * 10) / 10);
+                      var text_main_score = main_score.toString();
+                      var text_sub_score = sub_total_score.toString();
+                      var text_total_score = total_score.toString();
+                      embed.addField('聖遺物情報','【メインステータス】\n'+main_text+'\n【サブステータス】\n'+orthopedics_text);
+                      embed.addField('遺物スコア',text_main_score + ' + ' + text_sub_score + ' = ' + text_total_score);
+                      data_collection.send({embeds: [embed] });
+                      processingMessage.delete();
+                      message.reply({ embeds: [embed] })
+                      
+                      // ここで取得したデータを使用して追加の処理を行うことができます
+                    } else {
+                      console.log('キャラクターが見つかりませんでした');
+                    }
+                  })
+                  .catch(error => console.error('データの取得中にエラーが発生しました:', error));
+              })
+              .catch(error => console.error('スコアデータの取得中にエラーが発生しました:', error));
+            }else {
+              
+              let main_score = 50;
+              let orthopedics_text = '';
+              let sub_score = 0;
+              let sub_total_score = 0;
+              
+              let sub_HPDelta_Max = 252;
+              let sub_HPAddedRatio_Max = 25.9;
+              let sub_AttackDelta_Max = 126;
+              let sub_AttackAddedRatio_Max = 25.9;
+              let sub_DefenceDelta_Max = 126;
+              let sub_DefenceAddedRatio_Max = 32.4;
+              let sub_SpeedDelta_Max = 15.6;
+              let sub_CriticalChanceBase_Max = 19.4;
+              let sub_CriticalDamageBase_Max = 38.8;
+              let sub_StatusProbabilityBase_Max = 25.9;
+              let sub_StatusResistanceBase_Max = 25.9;
+              let sub_BreakDamageAddedRatioBase_Max = 38.8;
+              
+              if (critical !== 0) {
+                sub_score = critical / sub_CriticalChanceBase_Max * 50;
+                orthopedics_text += critical_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (critical_hurt !== 0) {
+                sub_score = critical_hurt / sub_CriticalDamageBase_Max * 50;
+                orthopedics_text += critical_hurt_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (hp_num !== 0) {
+                sub_score = hp_num / sub_HPDelta_Max * 50;
+                orthopedics_text += critical_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (hp !== 0) {
+                sub_score = hp / sub_HPAddedRatio_Max * 50;
+                orthopedics_text += hp_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (attack_num !== 0) {
+                sub_score = attack_num / sub_AttackDelta_Max * 50;
+                orthopedics_text += attack_num_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (attack !== 0) {
+                sub_score = attack / sub_AttackAddedRatio_Max * 50;
+                orthopedics_text += attack_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (defense_num !== 0) {
+                sub_score = defense_num / sub_DefenceDelta_Max * 50;
+                orthopedics_text += defense_num_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (defense !== 0) {
+                sub_score = defense / sub_DefenceAddedRatio_Max * 50;
+                orthopedics_text += defense_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (speed_num !== 0) {
+                sub_score = speed_num / sub_SpeedDelta_Max * 50;
+                orthopedics_text += speed_num_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (effectHit !== 0) {
+                sub_score = effectHit / sub_StatusProbabilityBase_Max * 50;
+                orthopedics_text += effectHit_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (destructionSpecialAttack !== 0) {
+                sub_score = destructionSpecialAttack / sub_StatusResistanceBase_Max * 50;
+                orthopedics_text += destructionSpecialAttack_text + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              if (effectResistance !== 0) {
+                sub_score = effectResistance / sub_BreakDamageAddedRatioBase_Max * 50;
+                orthopedics_text += effectResistance + '　(' + (parseInt((sub_score) * 10) / 10) + ')\n';
+                sub_total_score += sub_score;
+              }
+              
+              let total_score = 0;
+              total_score = (parseInt((main_score + sub_total_score) * 10) / 10);
+              var text_main_score = main_score.toString();
+              var text_sub_score = sub_total_score.toString();
+              var text_total_score = total_score.toString();
+              embed.addField('聖遺物情報','【メインステータス】\n'+main_text+'\n【サブステータス】\n'+orthopedics_text);
+              embed.addField('遺物スコア',text_main_score + ' + ' + text_sub_score + ' = ' + text_total_score);
+              data_collection.send({embeds: [embed] });
+              processingMessage.delete();
+              message.reply({ embeds: [embed] })
+              
+            }
+            
+          } catch (error) {
+            console.error('Error processing image:', error);
+            message.reply('<@691324906729898024>、エラーが発生しました。');
+          }
+        }
+      }
+    }
+  };
+  
+  //**********原神 聖遺物画像自動認識・自動スコア算出**********
   if (message.channel.id == '1220798423935221840' || message.channel.id == '1196454920220586044') {
     if (message.author.bot) return;
     if (message.attachments.size > 0) {
@@ -606,40 +1193,10 @@ client.on('messageCreate', async message => {
         try {
           // Send a message to indicate that the bot is processing the image
           
-          const imageUrls = [
-            'https://i.imgur.com/oc4vzUC.jpg',
-            'https://media.tenor.com/mVdQRR7IjkEAAAAM/mihoyo-genshin.gif',
-            'https://media.tenor.com/yMCfTxaVEeAAAAAM/paimon-shock-genshin-impact.gif',
-            'https://lh3.googleusercontent.com/proxy/YYPRYvUTCavpAIsJIeubO2COc-0AkL10WfHtPK-iCtFLyPTGcioLQzpu-ZWY4cqgPql772SV7_WTnhQLSk5kKZ9oOl1FnijQ8KE03LbNSyi8JA4RuizIFrkS5ygz1UipSV5d7g',
-            'https://i03piccdn.sogoucdn.com/bea013aca12e3598',
-            'https://img.gifmagazine.net/gifmagazine/images/4826756/original.gif',
-            'https://image.uc.cn/s/wemedia/s/upload/2021/7fd961c12a65cbac646a0bef3a60b930.gif',
-            'https://i.imgur.com/sNbl2uu.jpg',
-            'https://dyci7co52mbcc.cloudfront.net/store/e1db7731c634466de03cabde6f8cd8ee.gif',
-            'https://media.tenor.com/3qXkLZ6qf80AAAAM/原神.gif',
-            'https://media.tenor.com/AYE0sypnFJAAAAAM/genshin-impact-furina.gif',
-            'https://pic4.zhimg.com/v2-7ff7bd3bb8af78cc001d8db7030ccb3f_b.gif',
-            'https://genshin.gamers-labo.com/wp-content/uploads/2023/02/zxouDQr.gif',
-            'https://i02piccdn.sogoucdn.com/389d4505b641cf75',
-            'https://i02piccdn.sogoucdn.com/1441134b8c74bf6d',
-            'https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif',
-            'https://i.pinimg.com/originals/b3/c5/09/b3c509b3b8bf12b6367e8fc01a37d517.gif',
-            'https://media.tenor.com/KDTpMeAcsn0AAAAM/happyending.gif',
-            'https://upload-os-bbs.hoyolab.com/upload/2023/05/02/14245070/45d4a780039cd7a6682e202dd842254a_4208366935136527938.gif',
-            'https://upload-os-bbs.hoyolab.com/upload/2022/01/08/140058244/e97b796303fc06bcf5d75686068064f2_1949011461493255450.gif',
-            'https://upload-os-bbs.hoyolab.com/upload/2023/04/09/15976079/ba68fd55274d744e225cb15e813820b6_1145072033872672206.gif',
-            'https://lh3.googleusercontent.com/DExvEokwH7VqexVvwkDSjA2ExtBFPwh0_RvL1Di6N4oO2rcG_bFnOpF08k-iWo5OqFxC7BEmSVfREr4Tb_bVsNoFPSilP-BJ',
-            'https://usagif.com/wp-content/uploads/gify/paimon-genshin-impact-usagif.gif',
-            'https://usagif.com/wp-content/uploads/gify/30-iter-zhongli-shogun-raiden-venti-genshin-impact-usagif.gif',
-            'https://usagif.com/wp-content/uploads/gify/2-zhongli-venti-raiden-shogun-nahida-genshin-impact-usagif.gif',
-            'https://usagif.com/wp-content/uploads/gify/venti-4-genshin-impact-usagif.gif',
-            'https://dyci7co52mbcc.cloudfront.net/store/f0901a9ff4c9e23aef012d99b5177562.gif',
-            'https://dyci7co52mbcc.cloudfront.net/store/ab5b8e6e2084bdaf9f848a1e596e4e4e.gif'
-            // 他の画像のURLを追加
-          ];
           // ランダムな画像を選択
           const randomIndex = Math.floor(Math.random() * imageUrls.length);
           const randomImageUrl = imageUrls[randomIndex];
+          console.log(randomImageUrl);
           const embed1 = new MessageEmbed()
             .setColor('RANDOM')
             .setTitle('画像から文字を抽出/スコアを計算中…')
@@ -681,7 +1238,6 @@ client.on('messageCreate', async message => {
           } else {
             type_of_relics = '生の花'
           }
-          
           
           const linesStartingWithBullet = filteredText.split('\n')
           //追加→ || line.trim().startsWith('.') 
@@ -793,15 +1349,6 @@ client.on('messageCreate', async message => {
           let hp_num_text = 'HP+'+hp_num;
           let charge_efficiency_text = '元素チャージ効率+'+charge_efficiency+'%';
           let element_mastery_text = '元素熟知+'+element_mastery;
-          
-          //サブステ上昇値・上昇率検索
-          let search_url = '';
-          
-          const headers = {
-            'Content-Type': 'application/json',
-            'Notion-Version': '2022-06-28',
-            'Authorization': 'Bearer secret_yRXLwrnuBgXoquzA3L6j7dKMMIfbMSiacqMXdyFQjGV'
-          };
           
           let up_num = '';
           let up_percent = '';
@@ -1768,7 +2315,28 @@ client.on('messageCreate', async message => {
   }
   };
   
-  
+});
+
+client.on('presenceUpdate', (oldPresence, newPresence) => {
+  const channel = client.channels.cache.get('1207204533005189131');
+  const user = newPresence.member.user;
+  const oldstatus = oldPresence.status;
+  const newstatus = newPresence.status;
+  console.log(user.username+oldstatus+'→'+newstatus);
+  let status = '';
+  if (newPresence.status == 'online'){
+    status = 'オンライン';
+  }　else if (newPresence.status == 'offline'){
+    status = 'オフライン';
+  }　else if (newPresence.status == 'idle'){
+    status = '退席中';
+  }　else if (newPresence.status == 'dnd'){
+    status = '取り込み中';
+  }
+  if(!user.bot){
+    console.log(`${user.username}が${status}になりました`);
+    channel.send(`${user.username}が${status}になりました`);
+  }
 });
 
 client.on('voiceStateUpdate', (oldState, newState) => {
@@ -1784,9 +2352,14 @@ client.on('voiceStateUpdate', (oldState, newState) => {
   let log = '1221440502352580758'
   const logchannel = client.channels.cache.get(log);
   const channel = client.channels.cache.get(channelID);
+  const memberCount = channel.members.size;
   const oldMute = oldState.mute;
   const newMute = newState.mute;
-  
+  const currentTime = new Date();
+  //const timeString = `${currentTime.getHours()}時${currentTime.getMinutes()}分${currentTime.getSeconds()}秒`;
+  const options = { timeZone: 'Asia/Tokyo', hour12: false }; // 日本のタイムゾーンを指定し、24時間表記に設定
+  const timeString = currentTime.toLocaleString('ja-JP', options);
+  console.log(timeString);
   console.log('oldstate'+oldMute);
   console.log('newstate'+newMute);
   
@@ -1805,23 +2378,25 @@ client.on('voiceStateUpdate', (oldState, newState) => {
 
   if(((statusChk == true || oldState.serverDeaf == null) && newState.channel)){
   //チャンネルに入ってきたときの処理
-    let enterMessage = '<@'+newState.member.id+'> が入室しました。';
+    let enterMessage = newState.member.user.username+' が入室！('+timeString+')';
     channel.send({content: enterMessage,flags: [ 4096 ]});
+    
     if((oldMute)||(newMute)){
       let attentionMessage = '<@'+newState.member.id+'> ミュート状態です。';
       channel.send(attentionMessage);
     }
   } else if (statusChk && oldState.channel) {
   // チャンネルから出たときの処理
-    let exsistMessage = '<@'+newState.member.id+'> が退室しました。';
+    let exsistMessage = newState.member.user.username+' が退室･･･('+timeString+')';
     channel.send({content: exsistMessage,flags: [ 4096 ]});
+    
   }
-  let logMessage = `<@${newState.member.id}> が`;
+  let logMessage = `${newState.member.user.username} が`;
   if((oldMute)&&(!newMute)){
-    logMessage += 'ミュートを解除しました。';
+    logMessage += 'ミュートを解除！('+timeString+')';
     channel.send({content: logMessage,flags: [ 4096 ]});
   }else if(oldMute !== null &&(!oldMute)&&(newMute)){
-    logMessage += 'ミュートしました。';
+    logMessage += 'ミュートに･･･('+timeString+')';
     channel.send({content: logMessage,flags: [ 4096 ]});
   }
   

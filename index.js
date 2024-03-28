@@ -652,7 +652,7 @@ client.on('messageCreate', async message => {
     .catch(error => console.error('スコアデータの取得中にエラーが発生しました:', error));
   };
   //**********スタレ 遺物画像自動認識・自動スコア算出**********
-  if (message.channel.id == '1222519957913604096') {
+  if (message.channel.id == '1222519957913604096' || message.channel.id == '1222896997741236324') {
     if (message.author.bot) return;
     console.log(message.content);
     if (message.attachments.size > 0) {

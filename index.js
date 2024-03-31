@@ -17,31 +17,75 @@ client.on("ready", () => {
   console.log('Bot is ready!');
 });
 
-let imageUrls = [
-            'https://i.imgur.com/oc4vzUC.gif',
-            'https://media.tenor.com/mVdQRR7IjkEAAAAM/mihoyo-genshin.gif',
-            'https://media.tenor.com/yMCfTxaVEeAAAAAM/paimon-shock-genshin-impact.gif',
-            'https://img.gifmagazine.net/gifmagazine/images/4826756/original.gif',
-            'https://image.uc.cn/s/wemedia/s/upload/2021/7fd961c12a65cbac646a0bef3a60b930.gif',
-            'https://i.imgur.com/sNbl2uu.gif',
-            'https://dyci7co52mbcc.cloudfront.net/store/e1db7731c634466de03cabde6f8cd8ee.gif',
-            'https://media.tenor.com/3qXkLZ6qf80AAAAM/原神.gif',
-            'https://media.tenor.com/AYE0sypnFJAAAAAM/genshin-impact-furina.gif',
-            'https://genshin.gamers-labo.com/wp-content/uploads/2023/02/zxouDQr.gif',
-            'https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif',
-            'https://i.pinimg.com/originals/b3/c5/09/b3c509b3b8bf12b6367e8fc01a37d517.gif',
-            'https://media.tenor.com/KDTpMeAcsn0AAAAM/happyending.gif',
-            'https://upload-os-bbs.hoyolab.com/upload/2023/05/02/14245070/45d4a780039cd7a6682e202dd842254a_4208366935136527938.gif',
-            'https://upload-os-bbs.hoyolab.com/upload/2022/01/08/140058244/e97b796303fc06bcf5d75686068064f2_1949011461493255450.gif',
-            'https://upload-os-bbs.hoyolab.com/upload/2023/04/09/15976079/ba68fd55274d744e225cb15e813820b6_1145072033872672206.gif',
-            'https://usagif.com/wp-content/uploads/gify/paimon-genshin-impact-usagif.gif',
-            'https://usagif.com/wp-content/uploads/gify/30-iter-zhongli-shogun-raiden-venti-genshin-impact-usagif.gif',
-            'https://usagif.com/wp-content/uploads/gify/2-zhongli-venti-raiden-shogun-nahida-genshin-impact-usagif.gif',
-            'https://usagif.com/wp-content/uploads/gify/venti-4-genshin-impact-usagif.gif',
-            'https://dyci7co52mbcc.cloudfront.net/store/f0901a9ff4c9e23aef012d99b5177562.gif',
-            'https://dyci7co52mbcc.cloudfront.net/store/ab5b8e6e2084bdaf9f848a1e596e4e4e.gif'
-            // 他の画像のURLを追加
-          ];
+let starrail_version = '2.1.0';
+
+let genshin_imageUrls = [
+  'https://i.imgur.com/oc4vzUC.gif',
+  'https://media.tenor.com/mVdQRR7IjkEAAAAM/mihoyo-genshin.gif',
+  'https://media.tenor.com/yMCfTxaVEeAAAAAM/paimon-shock-genshin-impact.gif',
+  'https://img.gifmagazine.net/gifmagazine/images/4826756/original.gif',
+  'https://image.uc.cn/s/wemedia/s/upload/2021/7fd961c12a65cbac646a0bef3a60b930.gif',
+  'https://i.imgur.com/sNbl2uu.gif',
+  'https://dyci7co52mbcc.cloudfront.net/store/e1db7731c634466de03cabde6f8cd8ee.gif',
+  'https://media.tenor.com/3qXkLZ6qf80AAAAM/原神.gif',
+  'https://media.tenor.com/AYE0sypnFJAAAAAM/genshin-impact-furina.gif',
+  'https://genshin.gamers-labo.com/wp-content/uploads/2023/02/zxouDQr.gif',
+  'https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif',
+  'https://i.pinimg.com/originals/b3/c5/09/b3c509b3b8bf12b6367e8fc01a37d517.gif',
+  'https://media.tenor.com/KDTpMeAcsn0AAAAM/happyending.gif',
+  'https://upload-os-bbs.hoyolab.com/upload/2023/05/02/14245070/45d4a780039cd7a6682e202dd842254a_4208366935136527938.gif',
+  'https://upload-os-bbs.hoyolab.com/upload/2022/01/08/140058244/e97b796303fc06bcf5d75686068064f2_1949011461493255450.gif',
+  'https://upload-os-bbs.hoyolab.com/upload/2023/04/09/15976079/ba68fd55274d744e225cb15e813820b6_1145072033872672206.gif',
+  'https://usagif.com/wp-content/uploads/gify/paimon-genshin-impact-usagif.gif',
+  'https://usagif.com/wp-content/uploads/gify/30-iter-zhongli-shogun-raiden-venti-genshin-impact-usagif.gif',
+  'https://usagif.com/wp-content/uploads/gify/2-zhongli-venti-raiden-shogun-nahida-genshin-impact-usagif.gif',
+  'https://usagif.com/wp-content/uploads/gify/venti-4-genshin-impact-usagif.gif',
+  'https://dyci7co52mbcc.cloudfront.net/store/f0901a9ff4c9e23aef012d99b5177562.gif',
+  'https://dyci7co52mbcc.cloudfront.net/store/ab5b8e6e2084bdaf9f848a1e596e4e4e.gif',
+  'https://media.tenor.com/w-V4nFuEOa8AAAAM/genshin-impact-kunikuzushi.gif',
+  'https://media.tenor.com/fQbgbTiAzqsAAAAM/genshin-impact-sigewinne.gif',
+  'https://media.tenor.com/3bhdVhULQeIAAAAM/klee-genshin-impact.gif',
+  'https://media.tenor.com/Mang8NQquE8AAAAM/childe-tartaglia.gif',
+  'https://media.tenor.com/KiaSQ5LKVdcAAAAM/tartaglia-childe.gif',
+  'https://media.tenor.com/Dve1A6KGH08AAAAM/fontaine-wriothesely.gif',
+  'https://media.tenor.com/LA9eSer17pMAAAAM/genshin-impact-dance.gif',
+  'https://media.tenor.com/oXOu_UF0s6AAAAAM/genshin-impact-zhongli.gif',
+  'https://media.tenor.com/aHZCedRd04sAAAAM/genshin-impact-lyney.gif',
+  'https://media.tenor.com/kvuaAlOyB58AAAAM/原神-klee.gif',
+  'https://media.tenor.com/LxbOxRm9qI4AAAAM/genshin-impact-genshin.gif',
+  'https://media.tenor.com/V7LrLDCPoWwAAAAM/celesheep-venti.gif',
+  'https://media.tenor.com/PqzsbDgB_msAAAAM/genshin-impact-kadzuha.gif',
+  'https://media.tenor.com/owGjw2AJlvQAAAAM/genshin-impact-ayaka.gif',
+  'https://media.tenor.com/ziB_MlBVxhAAAAAM/qiqi-genshin-impact.gif',
+  'https://media.tenor.com/lNQYq36_ROQAAAAM/kazuha-kaedehara-kazuha.gif',
+  'https://media.tenor.com/ELlvHZCjoTgAAAAM/genshin-lynette.gif',
+  'https://media.tenor.com/AP1Q18LI-cEAAAAM/yoimiya-hu-tao.gif',
+  'https://media.tenor.com/ogDqNPssGIQAAAAM/raiden-shogun-雷神.gif',
+  'https://media.tenor.com/gOvMvFxuMnQAAAAM/hutao-dance.gif'
+];
+
+let starrail_imageUrls = [
+  'https://media.tenor.com/dGG4Zu8VyJIAAAAM/崩壊スターレイル-白露.gif',
+  'https://media.tenor.com/H5uOeo5pKpgAAAAM/stelle-trailblazer.gif',
+  'https://media.tenor.com/HnRjxkN6ItYAAAAM/pom-pom-honkai.gif',
+  'https://media.tenor.com/gDtijUj6nQgAAAAM/pom-pom-star-rail.gif',
+  'https://media.tenor.com/kvME68MlmrwAAAAM/스타레일.gif',
+  'https://media.tenor.com/yHYUXuJBN3EAAAAM/sparkle-hanabi.gif',
+  'https://media.tenor.com/L0p8hhQau2cAAAAM/star-rail-honkai.gif',
+  'https://media.tenor.com/drsG_116E9sAAAAM/senakins-honkai-star-rail.gif',
+  'https://media.tenor.com/hTknqDHrDa8AAAAM/seseren-honkai-star-rail.gif',
+  'https://media.tenor.com/c-gHoiemuGwAAAAM/pom-pom-honkai-star-rail.gif',
+  'https://media.tenor.com/vjYcO9lrAboAAAAM/卡芙卡-kafka.gif',
+  'https://media.tenor.com/ycdz82gt0XkAAAAM/herta-asta.gif',
+  'https://media.tenor.com/ir3rX3G5fDEAAAAM/huohuo-huo-huo.gif',
+  'https://media.tenor.com/C3SquzlygCYAAAAM/honkai-star-rail-pela.gif',
+  'https://media.tenor.com/fomryELb-sIAAAAM/kafka-spinning.gif',
+  'https://media.tenor.com/HBH9itCejo8AAAAM/topaz-numby.gif',
+  'https://media.tenor.com/bwxORd4jkmYAAAAM/jing-yuan-jing-yuan-cat.gif',
+  'https://media.tenor.com/6NLLv9Ppm8EAAAAM/silver-wolf-laughter.gif',
+  'https://media.tenor.com/mUl7IwzZeOQAAAAM/qingque-honkai-star-rail.gif',
+  'https://media.tenor.com/e3fK-Q5GBUUAAAAM/aventurine-kakavasha.gif'
+];
 
 client.on('messageCreate', async message => {
   console.log(message.author.username);
@@ -576,7 +620,7 @@ client.on('messageCreate', async message => {
     const embed = new MessageEmbed()
     .setTitle('- 遺物評価 -')
     .setColor('RANDOM')
-  fetch('https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/2.0.0')
+  fetch('https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/'+starrail_version)
     .then(response => response.json())
     .then(scoreData => {
       fetch('https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/jp/nickname.json')
@@ -663,8 +707,8 @@ client.on('messageCreate', async message => {
           try {
           // Send a message to indicate that the bot is processing the image
             // ランダムな画像を選択
-            const randomIndex = Math.floor(Math.random() * imageUrls.length);
-            const randomImageUrl = imageUrls[randomIndex];
+            const randomIndex = Math.floor(Math.random() * starrail_imageUrls.length);
+            const randomImageUrl = starrail_imageUrls[randomIndex];
             console.log(randomImageUrl);
             const embed1 = new MessageEmbed()
               .setColor('RANDOM')
@@ -862,7 +906,7 @@ client.on('messageCreate', async message => {
             await worker.terminate();
             
             if(message.content != ''){
-              fetch('https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/2.0.0')
+              fetch('https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/'+starrail_version)
               .then(response => response.json())
               .then(scoreData => {
                 fetch('https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/jp/nickname.json')
@@ -1165,7 +1209,7 @@ client.on('messageCreate', async message => {
               var text_main_score = main_score.toString();
               var text_sub_score = sub_total_score.toString();
               var text_total_score = total_score.toString();
-              embed.addField('聖遺物情報','【メインステータス】\n'+main_text+'\n【サブステータス】\n'+orthopedics_text);
+              embed.addField('遺物情報','【メインステータス】\n'+main_text+'\n【サブステータス】\n'+orthopedics_text);
               embed.addField('遺物スコア',text_main_score + ' + ' + text_sub_score + ' = ' + text_total_score);
               data_collection.send({embeds: [embed] });
               processingMessage.delete();
@@ -1194,8 +1238,8 @@ client.on('messageCreate', async message => {
           // Send a message to indicate that the bot is processing the image
           
           // ランダムな画像を選択
-          const randomIndex = Math.floor(Math.random() * imageUrls.length);
-          const randomImageUrl = imageUrls[randomIndex];
+          const randomIndex = Math.floor(Math.random() * genshin_imageUrls.length);
+          const randomImageUrl = genshin_imageUrls[randomIndex];
           console.log(randomImageUrl);
           const embed1 = new MessageEmbed()
             .setColor('RANDOM')
@@ -2318,6 +2362,8 @@ client.on('messageCreate', async message => {
 });
 
 client.on('presenceUpdate', (oldPresence, newPresence) => {
+  console.log(newPresence.guild.id);
+  if(newPresence.guild.id != '1195754332939894934') return;
   const channel = client.channels.cache.get('1207204533005189131');
   const user = newPresence.member.user;
   const oldstatus = oldPresence.status;

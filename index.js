@@ -137,6 +137,53 @@ client.on('messageCreate', async message => {
     message.channel.send({ embeds: [embed] })
   };
   
+  // **********個人・交換コード、 原神・交換コード のみ許可**********
+  if (message.channel.id == '1218795394834763807' || message.channel.id == '1224315125385793588') {
+    if (message.author.bot) return;
+    let title = '';
+    let url = '';
+    let effective_date = '';
+    if ((!message.content.includes('https://genshin.hoyoverse.com/m/ja/gift?code=')) && (!message.content.includes('https://hsr.hoyoverse.com/gift?code='))){
+      if ((message.content.includes('genshin'))||(message.content.includes('原神'))){
+        title = '原神 交換コード';
+        const parts = message.content.split("\n");
+        url = 'https://genshin.hoyoverse.com/m/ja/gift?code=' + parts[1];
+        effective_date = parts[2]||'';
+        
+      } else if ((message.content.includes('hsr'))||(message.content.includes('崩壊スターレイル'))||(message.content.includes('スタレ'))){
+        title = '崩壊スターレイル 交換コード';
+        const parts = message.content.split("\n");
+        url = 'https://hsr.hoyoverse.com/gift?code=' + parts[1];
+        effective_date = parts[2]||'';
+      }
+    }else {
+      if (message.content.includes('genshin')){
+        title = '原神 交換コード';
+      } else if (message.content.includes('hsr')){
+        title = '崩壊スターレイル 交換コード';
+      }
+      if(message.content.includes('\n')) {
+        const parts = message.content.split("\n");
+        url = parts[0];
+        effective_date = parts[1]||'';
+      }else {
+        url = message.content;
+      }
+    }
+    message.delete();
+    
+    const embed = new MessageEmbed()
+      .setTitle(title)
+      .setDescription(url)
+    if(effective_date != ''){
+      embed.addField('有効期限',effective_date);
+      embed.setColor('#FF0000');
+    }else{
+      embed.setColor('#C0CDDC');
+    }
+    message.channel.send({ embeds: [embed] })
+  };
+  
   //**********キャラ情報Notion自動読み込み**********
   if (message.channel.id == '1220800594369970266' || message.channel.id == '1197742966777839718') {
     if (message.author.bot) return;
@@ -1109,7 +1156,7 @@ client.on('messageCreate', async message => {
                       var text_main_score = main_score.toString();
                       var text_sub_score = sub_total_score.toString();
                       var text_total_score = total_score.toString();
-                      embed.addField('聖遺物情報','【メインステータス】\n'+main_text+'\n【サブステータス】\n'+orthopedics_text);
+                      embed.addField('遺物情報','【メインステータス】\n'+main_text+'\n【サブステータス】\n'+orthopedics_text);
                       embed.addField('遺物スコア',text_main_score + ' + ' + text_sub_score + ' = ' + text_total_score);
                       data_collection.send({embeds: [embed] });
                       processingMessage.delete();

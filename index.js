@@ -22,7 +22,7 @@ client.on("ready", () => {
   console.log("Bot is ready!");
 });
 
-let starrail_version = "2.1.0";
+let starrail_version = "latest_version";
 
 let genshin_imageUrls = [
   "https://i.imgur.com/oc4vzUC.gif",
@@ -96,7 +96,6 @@ client.on("messageCreate", async (message) => {
   console.log(message.author.username);
   console.log(message.channel.id);
   console.log(message.content);
-  console.log(message);
 
   // **********どこでも許可**********
   if (message.content == "壺助力" || message.content == "調度品助力") {
@@ -175,57 +174,22 @@ client.on("messageCreate", async (message) => {
     message.channel.id == "1224315125385793588"
   ) {
     if (message.author.bot) return;
-    let title = "";
-    let url = "";
-    let effective_date = "";
-    if (
-      !message.content.includes(
-        "https://genshin.hoyoverse.com/m/ja/gift?code="
-      ) &&
-      !message.content.includes("https://hsr.hoyoverse.com/gift?code=")
-    ) {
-      if (
-        message.content.includes("genshin") ||
-        message.content.includes("原神")
-      ) {
-        title = "原神 交換コード";
-        const parts = message.content.split("\n");
-        url = "https://genshin.hoyoverse.com/m/ja/gift?code=" + parts[1];
-        effective_date = parts[2] || "";
-      } else if (
-        message.content.includes("hsr") ||
-        message.content.includes("崩壊スターレイル") ||
-        message.content.includes("スタレ")
-      ) {
-        title = "崩壊スターレイル 交換コード";
-        const parts = message.content.split("\n");
-        url = "https://hsr.hoyoverse.com/gift?code=" + parts[1];
-        effective_date = parts[2] || "";
-      }
-    } else {
-      if (message.content.includes("genshin")) {
-        title = "原神 交換コード";
-      } else if (message.content.includes("hsr")) {
-        title = "崩壊スターレイル 交換コード";
-      }
-      if (message.content.includes("\n")) {
-        const parts = message.content.split("\n");
-        url = parts[0];
-        effective_date = parts[1] || "";
-      } else {
-        url = message.content;
-      }
-    }
-    message.delete();
-
-    const embed = new MessageEmbed().setTitle(title).setDescription(url);
-    if (effective_date != "") {
-      embed.addField("有効期限", effective_date);
-      embed.setColor("#FF0000");
-    } else {
-      embed.setColor("#C0CDDC");
-    }
-    message.channel.send({ embeds: [embed] });
+    
+    message.channel.send('【永遠の旅人】\n' + message.content);
+    
+    setTimeout(function() {
+      console.log("10 seconds have passed!");
+      
+      message.channel.send('【さね】\n' + message.content);
+      
+      setTimeout(function() {
+        console.log("10 seconds have passed!");
+        
+        message.channel.send('【あまえび】\n' + message.content);
+        
+      }, 10000);
+      
+    }, 10000);
   }
 
   //**********キャラ情報Notion自動読み込み**********
@@ -1898,18 +1862,24 @@ client.on("messageCreate", async (message) => {
               //値調整用ここから
               if (critical == 1.3) {
                 critical = 11.3;
+              }　else if (critical == 1.7) {
+                critical = 11.7;
               } else if (critical_hurt == 1.7) {
                 critical_hurt = 11.7;
               } else if (attack == 1.1) {
                 attack = 11.1;
+              } else if (attack == 1.7) {
+                attack = 11.7;
               } else if (defense == 1.7) {
                 defense = 11.7;
               } else if (hp == 1.0) {
-                hp = 11.0;
+                hp = 11.1;
               } else if (hp == 1.1) {
                 hp = 11.1;
               } else if (hp == 0.1) {
                 hp = 11.1;
+              } else if (hp == 1.7) {
+                hp = 11.7;
               } else if (charge_efficiency == 1.7) {
                 charge_efficiency = 11.7;
               }
@@ -2047,6 +2017,7 @@ client.on("messageCreate", async (message) => {
                   34.2: "　(4or5回, 440%)",
                   33.4: "　(4or5回, 430%)",
                   32.7: "　(4or5回, 420%)",
+                  32.6: "　(4or5回, 420%)",
                   31.9: "　(4回, 410%)",
                   31.1: "　(3or4回, 400%)",
                   30.3: "　(3or4回, 390%)",
@@ -2944,7 +2915,7 @@ client.on("messageCreate", async (message) => {
                   );
                 });
                 let option = "";
-                if (few_count == 4 && many_count == 4) {
+                if ((few_count == 4 && many_count == 4)||(many_count == 4)) {
                   growth_rate1 = all_percent / 8; //3
                   option = "3オプ";
                 } else if (few_count == 4 && many_count >= 5) {
@@ -3300,6 +3271,7 @@ client.on("messageCreate", async (message) => {
                 34.2: "　(4or5回, 440%)",
                 33.4: "　(4or5回, 430%)",
                 32.7: "　(4or5回, 420%)",
+                32.6: "　(4or5回, 420%)",
                 31.9: "　(4回, 410%)",
                 31.1: "　(3or4回, 400%)",
                 30.3: "　(3or4回, 390%)",
@@ -4172,7 +4144,7 @@ client.on("messageCreate", async (message) => {
                 );
               });
               let option = "";
-              if (few_count == 4 && many_count == 4) {
+              if ((few_count == 4 && many_count == 4)||(many_count == 4)) {
                 growth_rate1 = all_percent / 8; //3
                 option = "3オプ";
               } else if (few_count == 4 && many_count >= 5) {

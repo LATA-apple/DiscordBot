@@ -790,7 +790,7 @@ client.on("messageCreate", async (message) => {
   ) {
     if (message.author.bot) return;
     const embed = new MessageEmbed()
-      .setTitle("- 遺物評価 -")
+      .setTitle("- 遺物評価・" + message.content + " -")
       .setColor("RANDOM");
     fetch(
       "https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/" +
@@ -803,7 +803,10 @@ client.on("messageCreate", async (message) => {
         )
           .then((response) => response.json())
           .then((data) => {
-            const nickname = message.content;
+            let nickname = message.content;
+            if (message.content == 'トパーズ'){
+              nickname = 'トパーズ&カブ';
+            }
             const characters = data.characters;
             let characterKey = null;
             for (const key in characters) {

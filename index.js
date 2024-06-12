@@ -1,5624 +1,2823 @@
 const { Client, Intents, MessageEmbed } = require("discord.js");
-const { createWorker } = require("tesseract.js");
+const axios = require("axios");
 const fetch = require("node-fetch");
+const OpenAI = require("openai");
 
 const client = new Client({
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_VOICE_STATES,
-    Intents.FLAGS.GUILD_PRESENCES,
-  ],
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
-//オンライン時
-client.on("ready", () => {
-  console.log(`==== Logged in: ${client.user.tag} ====`);
-  client.user.setPresence({
-    activity: {
-      name: client.channels.cache.size + "サーバーに導入中",
-    }, //status: dnd→取り込み中、idle→退席中、online→オンライン
-    status: "online",
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+function MD5(d) {
+  var r = M(V(Y(X(d), 8 * d.length)));
+  return r.toLowerCase();
+}
+
+function M(d) {
+  for (var _, m = "0123456789ABCDEF", f = "", r = 0; r < d.length; r++)
+    (_ = d.charCodeAt(r)), (f += m.charAt((_ >>> 4) & 15) + m.charAt(15 & _));
+  return f;
+}
+
+function X(d) {
+  for (var _ = Array(d.length >> 2), m = 0; m < _.length; m++) _[m] = 0;
+  for (m = 0; m < 8 * d.length; m += 8)
+    _[m >> 5] |= (255 & d.charCodeAt(m / 8)) << m % 32;
+  return _;
+}
+
+function V(d) {
+  for (var _ = "", m = 0; m < 32 * d.length; m += 8)
+    _ += String.fromCharCode((d[m >> 5] >>> m % 32) & 255);
+  return _;
+}
+
+function Y(d, _) {
+  (d[_ >> 5] |= 128 << _ % 32), (d[14 + (((_ + 64) >>> 9) << 4)] = _);
+  for (
+    var m = 1732584193, f = -271733879, r = -1732584194, i = 271733878, n = 0;
+    n < d.length;
+    n += 16
+  ) {
+    var h = m,
+      t = f,
+      g = r,
+      e = i;
+    (f = md5_ii(
+      (f = md5_ii(
+        (f = md5_ii(
+          (f = md5_ii(
+            (f = md5_hh(
+              (f = md5_hh(
+                (f = md5_hh(
+                  (f = md5_hh(
+                    (f = md5_gg(
+                      (f = md5_gg(
+                        (f = md5_gg(
+                          (f = md5_gg(
+                            (f = md5_ff(
+                              (f = md5_ff(
+                                (f = md5_ff(
+                                  (f = md5_ff(
+                                    f,
+                                    (r = md5_ff(
+                                      r,
+                                      (i = md5_ff(
+                                        i,
+                                        (m = md5_ff(
+                                          m,
+                                          f,
+                                          r,
+                                          i,
+                                          d[n + 0],
+                                          7,
+                                          -680876936
+                                        )),
+                                        f,
+                                        r,
+                                        d[n + 1],
+                                        12,
+                                        -389564586
+                                      )),
+                                      m,
+                                      f,
+                                      d[n + 2],
+                                      17,
+                                      606105819
+                                    )),
+                                    i,
+                                    m,
+                                    d[n + 3],
+                                    22,
+                                    -1044525330
+                                  )),
+                                  (r = md5_ff(
+                                    r,
+                                    (i = md5_ff(
+                                      i,
+                                      (m = md5_ff(
+                                        m,
+                                        f,
+                                        r,
+                                        i,
+                                        d[n + 4],
+                                        7,
+                                        -176418897
+                                      )),
+                                      f,
+                                      r,
+                                      d[n + 5],
+                                      12,
+                                      1200080426
+                                    )),
+                                    m,
+                                    f,
+                                    d[n + 6],
+                                    17,
+                                    -1473231341
+                                  )),
+                                  i,
+                                  m,
+                                  d[n + 7],
+                                  22,
+                                  -45705983
+                                )),
+                                (r = md5_ff(
+                                  r,
+                                  (i = md5_ff(
+                                    i,
+                                    (m = md5_ff(
+                                      m,
+                                      f,
+                                      r,
+                                      i,
+                                      d[n + 8],
+                                      7,
+                                      1770035416
+                                    )),
+                                    f,
+                                    r,
+                                    d[n + 9],
+                                    12,
+                                    -1958414417
+                                  )),
+                                  m,
+                                  f,
+                                  d[n + 10],
+                                  17,
+                                  -42063
+                                )),
+                                i,
+                                m,
+                                d[n + 11],
+                                22,
+                                -1990404162
+                              )),
+                              (r = md5_ff(
+                                r,
+                                (i = md5_ff(
+                                  i,
+                                  (m = md5_ff(
+                                    m,
+                                    f,
+                                    r,
+                                    i,
+                                    d[n + 12],
+                                    7,
+                                    1804603682
+                                  )),
+                                  f,
+                                  r,
+                                  d[n + 13],
+                                  12,
+                                  -40341101
+                                )),
+                                m,
+                                f,
+                                d[n + 14],
+                                17,
+                                -1502002290
+                              )),
+                              i,
+                              m,
+                              d[n + 15],
+                              22,
+                              1236535329
+                            )),
+                            (r = md5_gg(
+                              r,
+                              (i = md5_gg(
+                                i,
+                                (m = md5_gg(
+                                  m,
+                                  f,
+                                  r,
+                                  i,
+                                  d[n + 1],
+                                  5,
+                                  -165796510
+                                )),
+                                f,
+                                r,
+                                d[n + 6],
+                                9,
+                                -1069501632
+                              )),
+                              m,
+                              f,
+                              d[n + 11],
+                              14,
+                              643717713
+                            )),
+                            i,
+                            m,
+                            d[n + 0],
+                            20,
+                            -373897302
+                          )),
+                          (r = md5_gg(
+                            r,
+                            (i = md5_gg(
+                              i,
+                              (m = md5_gg(m, f, r, i, d[n + 5], 5, -701558691)),
+                              f,
+                              r,
+                              d[n + 10],
+                              9,
+                              38016083
+                            )),
+                            m,
+                            f,
+                            d[n + 15],
+                            14,
+                            -660478335
+                          )),
+                          i,
+                          m,
+                          d[n + 4],
+                          20,
+                          -405537848
+                        )),
+                        (r = md5_gg(
+                          r,
+                          (i = md5_gg(
+                            i,
+                            (m = md5_gg(m, f, r, i, d[n + 9], 5, 568446438)),
+                            f,
+                            r,
+                            d[n + 14],
+                            9,
+                            -1019803690
+                          )),
+                          m,
+                          f,
+                          d[n + 3],
+                          14,
+                          -187363961
+                        )),
+                        i,
+                        m,
+                        d[n + 8],
+                        20,
+                        1163531501
+                      )),
+                      (r = md5_gg(
+                        r,
+                        (i = md5_gg(
+                          i,
+                          (m = md5_gg(m, f, r, i, d[n + 13], 5, -1444681467)),
+                          f,
+                          r,
+                          d[n + 2],
+                          9,
+                          -51403784
+                        )),
+                        m,
+                        f,
+                        d[n + 7],
+                        14,
+                        1735328473
+                      )),
+                      i,
+                      m,
+                      d[n + 12],
+                      20,
+                      -1926607734
+                    )),
+                    (r = md5_hh(
+                      r,
+                      (i = md5_hh(
+                        i,
+                        (m = md5_hh(m, f, r, i, d[n + 5], 4, -378558)),
+                        f,
+                        r,
+                        d[n + 8],
+                        11,
+                        -2022574463
+                      )),
+                      m,
+                      f,
+                      d[n + 11],
+                      16,
+                      1839030562
+                    )),
+                    i,
+                    m,
+                    d[n + 14],
+                    23,
+                    -35309556
+                  )),
+                  (r = md5_hh(
+                    r,
+                    (i = md5_hh(
+                      i,
+                      (m = md5_hh(m, f, r, i, d[n + 1], 4, -1530992060)),
+                      f,
+                      r,
+                      d[n + 4],
+                      11,
+                      1272893353
+                    )),
+                    m,
+                    f,
+                    d[n + 7],
+                    16,
+                    -155497632
+                  )),
+                  i,
+                  m,
+                  d[n + 10],
+                  23,
+                  -1094730640
+                )),
+                (r = md5_hh(
+                  r,
+                  (i = md5_hh(
+                    i,
+                    (m = md5_hh(m, f, r, i, d[n + 13], 4, 681279174)),
+                    f,
+                    r,
+                    d[n + 0],
+                    11,
+                    -358537222
+                  )),
+                  m,
+                  f,
+                  d[n + 3],
+                  16,
+                  -722521979
+                )),
+                i,
+                m,
+                d[n + 6],
+                23,
+                76029189
+              )),
+              (r = md5_hh(
+                r,
+                (i = md5_hh(
+                  i,
+                  (m = md5_hh(m, f, r, i, d[n + 9], 4, -640364487)),
+                  f,
+                  r,
+                  d[n + 12],
+                  11,
+                  -421815835
+                )),
+                m,
+                f,
+                d[n + 15],
+                16,
+                530742520
+              )),
+              i,
+              m,
+              d[n + 2],
+              23,
+              -995338651
+            )),
+            (r = md5_ii(
+              r,
+              (i = md5_ii(
+                i,
+                (m = md5_ii(m, f, r, i, d[n + 0], 6, -198630844)),
+                f,
+                r,
+                d[n + 7],
+                10,
+                1126891415
+              )),
+              m,
+              f,
+              d[n + 14],
+              15,
+              -1416354905
+            )),
+            i,
+            m,
+            d[n + 5],
+            21,
+            -57434055
+          )),
+          (r = md5_ii(
+            r,
+            (i = md5_ii(
+              i,
+              (m = md5_ii(m, f, r, i, d[n + 12], 6, 1700485571)),
+              f,
+              r,
+              d[n + 3],
+              10,
+              -1894986606
+            )),
+            m,
+            f,
+            d[n + 10],
+            15,
+            -1051523
+          )),
+          i,
+          m,
+          d[n + 1],
+          21,
+          -2054922799
+        )),
+        (r = md5_ii(
+          r,
+          (i = md5_ii(
+            i,
+            (m = md5_ii(m, f, r, i, d[n + 8], 6, 1873313359)),
+            f,
+            r,
+            d[n + 15],
+            10,
+            -30611744
+          )),
+          m,
+          f,
+          d[n + 6],
+          15,
+          -1560198380
+        )),
+        i,
+        m,
+        d[n + 13],
+        21,
+        1309151649
+      )),
+      (r = md5_ii(
+        r,
+        (i = md5_ii(
+          i,
+          (m = md5_ii(m, f, r, i, d[n + 4], 6, -145523070)),
+          f,
+          r,
+          d[n + 11],
+          10,
+          -1120210379
+        )),
+        m,
+        f,
+        d[n + 2],
+        15,
+        718787259
+      )),
+      i,
+      m,
+      d[n + 9],
+      21,
+      -343485551
+    )),
+      (m = safe_add(m, h)),
+      (f = safe_add(f, t)),
+      (r = safe_add(r, g)),
+      (i = safe_add(i, e));
+  }
+  return [m, f, r, i];
+}
+
+function md5_cmn(d, _, m, f, r, i) {
+  return safe_add(bit_rol(safe_add(safe_add(_, d), safe_add(f, i)), r), m);
+}
+
+function md5_ff(d, _, m, f, r, i, n) {
+  return md5_cmn((_ & m) | (~_ & f), d, _, r, i, n);
+}
+
+function md5_gg(d, _, m, f, r, i, n) {
+  return md5_cmn((_ & f) | (m & ~f), d, _, r, i, n);
+}
+
+function md5_hh(d, _, m, f, r, i, n) {
+  return md5_cmn(_ ^ m ^ f, d, _, r, i, n);
+}
+
+function md5_ii(d, _, m, f, r, i, n) {
+  return md5_cmn(m ^ (_ | ~f), d, _, r, i, n);
+}
+
+function safe_add(d, _) {
+  var m = (65535 & d) + (65535 & _);
+  return (((d >> 16) + (_ >> 16) + (m >> 16)) << 16) | (65535 & m);
+}
+
+function bit_rol(d, _) {
+  return (d << _) | (d >>> (32 - _));
+}
+
+let genshincookie;
+let starrailcookie;
+let genshinuid;
+let starrailuid;
+
+let resinText;
+let expeditionText;
+let homecoinText;
+let dailyrequestText;
+
+let staminaText;
+let train_scoreText;
+let rogue_scoreText;
+let weekly_cocoonText;
+
+let attention = "";
+let color = "";
+let logintext = "";
+let discorduser = "";
+
+let expedition_1_Text = "";
+let expedition_2_Text = "";
+let expedition_3_Text = "";
+let expedition_4_Text = "";
+let expedition_5_Text = "";
+
+let type = 1;
+let currentPage = 1;
+let todayTotalGem = 0;
+let thisMonthTotalGem = 0;
+let todayTotalMora = 0;
+let thisMonthTotalMora = 0;
+let cachedData = null;
+
+let todayTotalhcoin = 0;
+let thisMonthTotalhcoin = 0;
+let todayTotalrails_pass = 0;
+let thisMonthTotalrails_pass = 0;
+
+let gamename = "";
+
+async function getRepoData() {
+    const apiEndpoint = `https://raw.githubusercontent.com/LATA-apple/token/main/all.json`;
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'GET',
+            headers: {
+                'Authorization': `token ${process.env.PAT}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+      
+        const accounts = ['eiennnotabibito', 'amaebi', 'sato'];
+        const games = {
+          Genshin: "Path=/; Domain=hoyolab.com; Max-Age=31536000; Secure",
+          StarRail: "Path=/; Domain=hoyoverse.com; Max-Age=31536000; Secure; SameSite=Lax"
+        };
+
+        accounts.forEach(account => {
+          Object.keys(games).forEach(game => {
+            process.env[`${account}_${game}`] = `account_id_v2=${data[account][game].account_id_v2}; account_mid_v2=${data[account][game].account_mid_v2}; cookie_token_v2=${data[account][game].cookie_token_v2}; ltmid_v2=${data[account][game].ltmid_v2}; ltoken_v2=${data[account][game].ltoken_v2}; ltuid_v2=${data[account][game].ltuid_v2}; HYV_LOGIN_PLATFORM_OPTIONAL_AGREEMENT={%22content%22:[]} ${games[game]}`;
+          });
+        });
+        process.env.NOTION_SEACRET = data.NOTION_SEACRET;
+        process.env.OPENAI_API_KEY = data.OPENAI_API_KEY;
+    } catch (error) {
+        console.error('Error fetching repository data:', error);
+    }
+  const accounts = ['eiennnotabibito', 'amaebi', 'sato'];
+  const games = ['Genshin', 'StarRail'];
+  accounts.forEach(account => {
+    games.forEach(game => {
+      console.log(account, game);
+      console.log(process.env[`${account}_${game}`]);
+    });
+ });
+}
+
+//GenshinData
+async function GenshinData(genshinuid, genshincookie, discorduser, message) {
+  const embed1 = new MessageEmbed()
+    .setAuthor({
+      name: "パイモン",
+      iconURL:
+        "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417055624512.png",
+    })
+    .setColor("#00FF00")
+    .setTitle("原神のデータを取得してるぞ！")
+    .setDescription(discorduser + "少し待ってくれよな！")
+    .setImage(
+      "https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif"
+    );
+  const processingMessage = await message.channel.send({
+    embeds: [embed1],
   });
-  console.log("Bot is ready!");
-});
 
-let starrail_version = "latest_version";
+  const date = new Date();
+  const epoch = Math.floor(date.getTime() / 1000);
+  const hash = MD5(`salt=6cqshh5dhw73bzxn20oexa9k516chk7s&t=${epoch}&r=abcdef`);
+  const DS = `${epoch},abcdef,${hash}`;
 
-let genshin_imageUrls = [
-  "https://i.imgur.com/oc4vzUC.gif",
-  "https://media.tenor.com/mVdQRR7IjkEAAAAM/mihoyo-genshin.gif",
-  "https://media.tenor.com/yMCfTxaVEeAAAAAM/paimon-shock-genshin-impact.gif",
-  "https://img.gifmagazine.net/gifmagazine/images/4826756/original.gif",
-  "https://image.uc.cn/s/wemedia/s/upload/2021/7fd961c12a65cbac646a0bef3a60b930.gif",
-  "https://i.imgur.com/sNbl2uu.gif",
-  "https://dyci7co52mbcc.cloudfront.net/store/e1db7731c634466de03cabde6f8cd8ee.gif",
-  "https://media.tenor.com/3qXkLZ6qf80AAAAM/原神.gif",
-  "https://media.tenor.com/AYE0sypnFJAAAAAM/genshin-impact-furina.gif",
-  "https://genshin.gamers-labo.com/wp-content/uploads/2023/02/zxouDQr.gif",
-  "https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif",
-  "https://i.pinimg.com/originals/b3/c5/09/b3c509b3b8bf12b6367e8fc01a37d517.gif",
-  "https://media.tenor.com/KDTpMeAcsn0AAAAM/happyending.gif",
-  "https://upload-os-bbs.hoyolab.com/upload/2023/05/02/14245070/45d4a780039cd7a6682e202dd842254a_4208366935136527938.gif",
-  "https://upload-os-bbs.hoyolab.com/upload/2022/01/08/140058244/e97b796303fc06bcf5d75686068064f2_1949011461493255450.gif",
-  "https://upload-os-bbs.hoyolab.com/upload/2023/04/09/15976079/ba68fd55274d744e225cb15e813820b6_1145072033872672206.gif",
-  "https://usagif.com/wp-content/uploads/gify/paimon-genshin-impact-usagif.gif",
-  "https://usagif.com/wp-content/uploads/gify/30-iter-zhongli-shogun-raiden-venti-genshin-impact-usagif.gif",
-  "https://usagif.com/wp-content/uploads/gify/2-zhongli-venti-raiden-shogun-nahida-genshin-impact-usagif.gif",
-  "https://usagif.com/wp-content/uploads/gify/venti-4-genshin-impact-usagif.gif",
-  "https://dyci7co52mbcc.cloudfront.net/store/f0901a9ff4c9e23aef012d99b5177562.gif",
-  "https://dyci7co52mbcc.cloudfront.net/store/ab5b8e6e2084bdaf9f848a1e596e4e4e.gif",
-  "https://media.tenor.com/w-V4nFuEOa8AAAAM/genshin-impact-kunikuzushi.gif",
-  "https://media.tenor.com/fQbgbTiAzqsAAAAM/genshin-impact-sigewinne.gif",
-  "https://media.tenor.com/3bhdVhULQeIAAAAM/klee-genshin-impact.gif",
-  "https://media.tenor.com/Mang8NQquE8AAAAM/childe-tartaglia.gif",
-  "https://media.tenor.com/KiaSQ5LKVdcAAAAM/tartaglia-childe.gif",
-  "https://media.tenor.com/Dve1A6KGH08AAAAM/fontaine-wriothesely.gif",
-  "https://media.tenor.com/LA9eSer17pMAAAAM/genshin-impact-dance.gif",
-  "https://media.tenor.com/oXOu_UF0s6AAAAAM/genshin-impact-zhongli.gif",
-  "https://media.tenor.com/aHZCedRd04sAAAAM/genshin-impact-lyney.gif",
-  "https://media.tenor.com/kvuaAlOyB58AAAAM/原神-klee.gif",
-  "https://media.tenor.com/LxbOxRm9qI4AAAAM/genshin-impact-genshin.gif",
-  "https://media.tenor.com/V7LrLDCPoWwAAAAM/celesheep-venti.gif",
-  "https://media.tenor.com/PqzsbDgB_msAAAAM/genshin-impact-kadzuha.gif",
-  "https://media.tenor.com/owGjw2AJlvQAAAAM/genshin-impact-ayaka.gif",
-  "https://media.tenor.com/ziB_MlBVxhAAAAAM/qiqi-genshin-impact.gif",
-  "https://media.tenor.com/lNQYq36_ROQAAAAM/kazuha-kaedehara-kazuha.gif",
-  "https://media.tenor.com/ELlvHZCjoTgAAAAM/genshin-lynette.gif",
-  "https://media.tenor.com/AP1Q18LI-cEAAAAM/yoimiya-hu-tao.gif",
-  "https://media.tenor.com/ogDqNPssGIQAAAAM/raiden-shogun-雷神.gif",
-  "https://media.tenor.com/gOvMvFxuMnQAAAAM/hutao-dance.gif",
-];
+  let nickname = "";
+  let level = "";
+  let signature = "";
+  let finishAchievementNum = "";
+  let towerFloorIndex = "";
+  let towerLevelIndex = "";
 
-let starrail_imageUrls = [
-  "https://media.tenor.com/dGG4Zu8VyJIAAAAM/崩壊スターレイル-白露.gif",
-  "https://media.tenor.com/H5uOeo5pKpgAAAAM/stelle-trailblazer.gif",
-  "https://media.tenor.com/HnRjxkN6ItYAAAAM/pom-pom-honkai.gif",
-  "https://media.tenor.com/gDtijUj6nQgAAAAM/pom-pom-star-rail.gif",
-  "https://media.tenor.com/kvME68MlmrwAAAAM/스타레일.gif",
-  "https://media.tenor.com/yHYUXuJBN3EAAAAM/sparkle-hanabi.gif",
-  "https://media.tenor.com/L0p8hhQau2cAAAAM/star-rail-honkai.gif",
-  "https://media.tenor.com/drsG_116E9sAAAAM/senakins-honkai-star-rail.gif",
-  "https://media.tenor.com/hTknqDHrDa8AAAAM/seseren-honkai-star-rail.gif",
-  "https://media.tenor.com/c-gHoiemuGwAAAAM/pom-pom-honkai-star-rail.gif",
-  "https://media.tenor.com/vjYcO9lrAboAAAAM/卡芙卡-kafka.gif",
-  "https://media.tenor.com/ycdz82gt0XkAAAAM/herta-asta.gif",
-  "https://media.tenor.com/ir3rX3G5fDEAAAAM/huohuo-huo-huo.gif",
-  "https://media.tenor.com/C3SquzlygCYAAAAM/honkai-star-rail-pela.gif",
-  "https://media.tenor.com/fomryELb-sIAAAAM/kafka-spinning.gif",
-  "https://media.tenor.com/HBH9itCejo8AAAAM/topaz-numby.gif",
-  "https://media.tenor.com/bwxORd4jkmYAAAAM/jing-yuan-jing-yuan-cat.gif",
-  "https://media.tenor.com/6NLLv9Ppm8EAAAAM/silver-wolf-laughter.gif",
-  "https://media.tenor.com/mUl7IwzZeOQAAAAM/qingque-honkai-star-rail.gif",
-  "https://media.tenor.com/e3fK-Q5GBUUAAAAM/aventurine-kakavasha.gif",
-];
+  // (1) https://enka.network/api/uid/${genshinuid} の内容を取得(GET)する
+  axios
+    .get(`https://enka.network/api/uid/${genshinuid}`)
+    .then((response) => {
+      nickname = response.data.playerInfo.nickname.toString();
+      level = response.data.playerInfo.level.toString();
+      signature = response.data.playerInfo.signature || "";
+      finishAchievementNum =
+        response.data.playerInfo.finishAchievementNum.toString();
+      towerFloorIndex = response.data.playerInfo.towerFloorIndex.toString();
+      towerLevelIndex = response.data.playerInfo.towerLevelIndex.toString();
 
-client.on("messageCreate", async (message) => {
-  console.log(message.author.username);
-  console.log(message.channel.id);
-  console.log(message.content);
+      const spiral_Abyss =
+        "第" + towerFloorIndex + "層 第" + towerLevelIndex + "間";
 
-  // **********どこでも許可**********
-  if (message.content == "壺助力" || message.content == "調度品助力") {
-    if (message.author.bot) return;
-    message.delete();
+      if (response.data.playerInfo.towerFloorIndex == 8) {
+        color = "#FF0000";
+      } else if (spiral_Abyss != "第12層 第3間") {
+        color = "#ffff00";
+      } else {
+        color = "#0099ff";
+      }
+
+      // (1) の処理が完了した後に (2) を実行する
+      fetch(
+        `https://bbs-api-os.mihoyo.com/game_record/genshin/api/dailyNote?server=os_asia&role_id=${genshinuid}`,
+        {
+          method: "GET",
+          headers: {
+            "x-rpc-client_type": "4",
+            "x-rpc-app_version": "1.5.0",
+            Cookie: genshincookie,
+            DS: DS,
+          },
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        //(1)OK - (2)OK
+        .then((json) => {
+          const currentResin = json.data.current_resin;
+          const maxResin = json.data.max_resin;
+          const formattedRecoveryDate = `<t:${epoch+Number(json.data.resin_recovery_time)}:f>`
+          if (currentResin != maxResin) {
+            resinText =
+              currentResin +
+              "/" +
+              maxResin +
+              "\n溢れる日時:" +
+              formattedRecoveryDate;
+          } else {
+            resinText =
+              currentResin + "/" + maxResin + "\nすでに樹脂が溢れています。";
+          }
+
+          const weeklyboss = json.data.remain_resin_discount_num;
+          const weeklyboss_Max = json.data.resin_discount_num_limit;
+          const weeklybossText =
+            "30樹脂で受け取り可能な回数：" + weeklyboss + "/" + weeklyboss_Max;
+
+          function formatExpeditionTimes(json) {
+            const expeditionTimes = [
+              json["data"]["expeditions"][0]["remained_time"],
+              json["data"]["expeditions"][1]["remained_time"],
+              json["data"]["expeditions"][2]["remained_time"],
+              json["data"]["expeditions"][3]["remained_time"],
+              json["data"]["expeditions"][4]["remained_time"]
+            ];
+
+            const groupedTimes = expeditionTimes.reduce((acc, time) => {
+              if (!acc[time]) {
+                acc[time] = 0;
+              }
+              acc[time]++;
+              return acc;
+            }, {});
+
+            let result = "";
+            for (const time in groupedTimes) {
+              const count = groupedTimes[time];
+              if (Number(time) === 0) {
+                result += `・完了 ×${count}件\n`;
+              } else {
+                const formattedTime = Number(time) + epoch;
+                result += `・<t:${formattedTime}:f> ×${count}件\n`;
+              }
+            }
+            return result.trim();
+          }
+          
+          const expedition_all = formatExpeditionTimes(json);
+
+          const expedition_ratio = json.data.expeditions.filter(
+            ({ status }) => status === "Ongoing"
+          ).length;
+          const expedition_max = json.data.max_expedition_num;
+          expeditionText = expedition_ratio + "/" + expedition_max;
+
+          function formatTime(json) {
+            // 計算
+            let millisecondsToAdd = (
+              (json.Day * 24 * 60 * 60) +
+              (json.Hour * 60 * 60) +
+              (json.Minute * 60) +
+              json.Second
+            );
+
+            // 計算結果を加算
+            let resultMilliseconds = epoch + millisecondsToAdd;
+
+            // 出力をフォーマット
+            let formattedOutput = '<t:' + resultMilliseconds + ':R>';
+
+            return formattedOutput;
+          }
+          let transformerText = "";
+          if (!json.data.transformer.recovery_time.reached) {
+            transformerText = formatTime(json.data.transformer.recovery_time) + "に使用可能";
+          } else {
+            transformerText = "既に使用可能";
+          }
+
+          const current_home_coin = json.data.current_home_coin;
+          const home_coin_max = json.data.max_home_coin;
+          const formattedRecoveryhomecoin = `<t:${epoch+Number(json.data.home_coin_recovery_time)}:f>`
+          if (current_home_coin != home_coin_max) {
+            homecoinText =
+              current_home_coin +
+              "/" +
+              home_coin_max +
+              "\n溢れる日時:" +
+              formattedRecoveryhomecoin;
+          } else {
+            homecoinText =
+              current_home_coin +
+              "/" +
+              home_coin_max +
+              "\nすでに洞天宝銭が溢れています。";
+          }
+
+          const daily_request_total_task_num = json.data.total_task_num;
+          const daily_request_finished_task_num = json.data.finished_task_num;
+          let daily_request_recipt = "";
+          if (json.data.is_extra_task_reward_received) {
+            daily_request_recipt = "報酬受け取り済み";
+          } else {
+            daily_request_recipt = "報酬未受け取り";
+          }
+          dailyrequestText =
+            daily_request_finished_task_num +
+            "/" +
+            daily_request_total_task_num +
+            " (" +
+            daily_request_recipt +
+            ")";
+
+          if (
+            spiral_Abyss == "第8層 第3間" ||
+            json.data.current_resin >= json.data.max_resin * 0.8 ||
+            expedition_ratio != 5 ||
+            json.data.current_home_coin >= json.data.max_home_coin * 0.8 ||
+            daily_request_recipt == "報酬未受け取り" ||
+            transformerText == "既に使用可能" ||
+            weeklyboss != 0
+          ) {
+            color = "#FF0000";
+          } else if (spiral_Abyss != "第12層 第3間") {
+            color = "#ffff00";
+          } else {
+            color = "#0099ff";
+          }
+
+          if (spiral_Abyss == "第8層 第3間") {
+            attention +=
+              "・<:Spiral_Abyss:1227230926518353970>今期螺旋未挑戦 (" + spiral_Abyss + ")\n";
+          } else if (spiral_Abyss != "第12層 第3間") {
+            attention +=
+              "・<:Spiral_Abyss:1227230926518353970>今期螺旋未制覇 ("+ spiral_Abyss + ")\n";
+          }
+
+          if (json.data.current_resin >= json.data.max_resin * 0.8) {
+            attention += "・<:Resin:1227231111365791836>樹脂保有数 (" + currentResin + "/" + maxResin + ")\n";
+          }
+
+          if (expedition_ratio != 5) {
+            attention += "・<:Expedition:1227231991976431647>探索派遣 (" + (expedition_max - expedition_ratio) + "/" + expedition_max + " 完了)\n";
+          }
+
+          if (transformerText == "既に使用可能") {
+            attention += "・<:transformer:1227902478272430140>参量物質変化器\n";
+          }
+
+          if (json.data.current_home_coin >= json.data.max_home_coin * 0.8) {
+            attention += "・<:Home_Coin:1227232150043099237>洞天宝銭保有数 (" + json.data.current_home_coin + "/" + json.data.max_home_coin + ")\n";
+          }
+
+          if (daily_request_recipt == "報酬未受け取り") {
+            attention +=
+              "・<:Daily_Commision:1227231906698104902>デイリー報酬未受け取り\n";
+          }
+
+          if (weeklyboss != 0) {
+            attention += "・<:weeklyboss:1227912026819399761>週ボス挑戦 (" + weeklyboss + "/" + weeklyboss_Max + " 未獲得)\n";
+          }
+
+          // Embedメッセージを作成
+          const embed = new MessageEmbed()
+            .setColor(color)
+            .setTitle(nickname)
+            .setDescription(discorduser)
+            .addField(
+              "<:Adventure_EXP:1227230805626191995>冒険ランク",
+              level,
+              true
+            )
+            .addField(
+              "<:Achievement:1227230869463367730>アチーブメント",
+              finishAchievementNum,
+              true
+            )
+            .addField(
+              "<:Spiral_Abyss:1227230926518353970>深境螺旋",
+              "第" + towerFloorIndex + "層 第" + towerLevelIndex + "間",
+              true
+            )
+            .addField("<:Resin:1227231111365791836>樹脂", resinText, true)
+            .addField(
+              "<:Daily_Commision:1227231906698104902>デイリー任務",
+              dailyrequestText,
+              true
+            )
+            .addField(
+              "<:Expedition:1227231991976431647>探索派遣",
+              expeditionText + " 派遣中\n" + expedition_all,
+              true
+            )
+            .addField(
+              "<:transformer:1227902478272430140>参量物質変化器",
+              transformerText,
+              true
+            )
+            .addField(
+              "<:Home_Coin:1227232150043099237>洞天宝銭",
+              homecoinText,
+              true
+            )
+            .addField(
+              "<:weeklyboss:1227912026819399761>週ボス挑戦",
+              weeklybossText,
+              true
+            );
+          if (attention != "") {
+            embed.addField("⚠️注意⚠️", attention, true);
+          }
+          if (signature != "") {
+            embed.setFooter(signature);
+          }
+
+          // Embedメッセージを送信
+          processingMessage.delete();
+          message.channel.send({ embeds: [embed] });
+          attention = "";
+        })
+        //(1)OK - (2)NG
+        .catch((error) => {
+          console.error(
+            "There was a problem with your fetch operation for (2):",
+            error
+          );
+
+          const embed = new MessageEmbed()
+            .setColor(color)
+            .setTitle(nickname)
+            .setDescription(discorduser)
+            .addField(
+              "<:Adventure_EXP:1227230805626191995>冒険ランク",
+              level,
+              true
+            )
+            .addField(
+              "<:Achievement:1227230869463367730>アチーブメント",
+              finishAchievementNum,
+              true
+            )
+            .addField(
+              "<:Spiral_Abyss:1227230926518353970>深境螺旋",
+              "第" + towerFloorIndex + "層 第" + towerLevelIndex + "間",
+              true
+            );
+          if (signature != "") {
+            embed.setFooter(signature);
+          }
+
+          // Embedメッセージを送信
+          processingMessage.delete();
+          message.channel.send({ embeds: [embed] });
+        });
+    })
+    .catch((error) => {
+      // (1) のエラーが発生した場合でも (2) の処理を実行する
+      console.error(
+        "There was a problem with your fetch operation for (1):",
+        error
+      );
+
+      // (2) の処理を実行する
+      fetch(
+        `https://bbs-api-os.mihoyo.com/game_record/genshin/api/dailyNote?server=os_asia&role_id=${genshinuid}`,
+        {
+          method: "GET",
+          headers: {
+            "x-rpc-client_type": "4",
+            "x-rpc-app_version": "1.5.0",
+            Cookie: genshincookie,
+            DS: DS,
+          },
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        //(1)NG - (2)OK
+        .then((json) => {
+          const currentResin = json.data.current_resin;
+          const maxResin = json.data.max_resin;
+          const formattedRecoveryDate = `<t:${epoch+Number(json.data.resin_recovery_time)}:f>`
+          if (currentResin != maxResin) {
+            resinText =
+              currentResin +
+              "/" +
+              maxResin +
+              "\n溢れる日時:" +
+              formattedRecoveryDate;
+          } else {
+            resinText =
+              currentResin + "/" + maxResin + "\nすでに樹脂が溢れています。";
+          }
+
+          const weeklyboss = json.data.remain_resin_discount_num;
+          const weeklyboss_Max = json.data.resin_discount_num_limit;
+          const weeklybossText =
+            "30樹脂で受け取り可能な回数：" + weeklyboss + "/" + weeklyboss_Max;
+
+          function formatExpeditionTimes(json) {
+            const expeditionTimes = [
+              json["data"]["expeditions"][0]["remained_time"],
+              json["data"]["expeditions"][1]["remained_time"],
+              json["data"]["expeditions"][2]["remained_time"],
+              json["data"]["expeditions"][3]["remained_time"],
+              json["data"]["expeditions"][4]["remained_time"]
+            ];
+
+            const groupedTimes = expeditionTimes.reduce((acc, time) => {
+              if (!acc[time]) {
+                acc[time] = 0;
+              }
+              acc[time]++;
+              return acc;
+            }, {});
+
+            let result = "";
+            for (const time in groupedTimes) {
+              const count = groupedTimes[time];
+              if (Number(time) === 0) {
+                result += `・完了 ×${count}件\n`;
+              } else {
+                const formattedTime = Number(time) + epoch;
+                result += `・<t:${formattedTime}:f> ×${count}件\n`;
+              }
+            }
+            return result.trim();
+          }
+          
+          const expedition_all = formatExpeditionTimes(json);
+
+          const expedition_ratio = json.data.expeditions.filter(
+            ({ status }) => status === "Ongoing"
+          ).length;
+          const expedition_max = json.data.max_expedition_num;
+          expeditionText = expedition_ratio + "/" + expedition_max;
+
+          function formatTime(json) {
+            // 計算
+            let millisecondsToAdd = (
+              (json.Day * 24 * 60 * 60) +
+              (json.Hour * 60 * 60) +
+              (json.Minute * 60) +
+              json.Second
+            );
+
+            // 計算結果を加算
+            let resultMilliseconds = epoch + millisecondsToAdd;
+
+            // 出力をフォーマット
+            let formattedOutput = '<t:' + resultMilliseconds + ':R>';
+
+            return formattedOutput;
+          }
+          let transformerText = "";
+          if (!json.data.transformer.recovery_time.reached) {
+            transformerText = formatTime(json.data.transformer.recovery_time) + "に使用可能";
+          } else {
+            transformerText = "既に使用可能";
+          }
+
+          const current_home_coin = json.data.current_home_coin;
+          const home_coin_max = json.data.max_home_coin;
+          const formattedRecoveryhomecoin = `<t:${epoch+Number(json.data.home_coin_recovery_time)}:f>`
+          if (current_home_coin != home_coin_max) {
+            homecoinText =
+              current_home_coin +
+              "/" +
+              home_coin_max +
+              "\n溢れる日時:" +
+              formattedRecoveryhomecoin;
+          } else {
+            homecoinText =
+              current_home_coin +
+              "/" +
+              home_coin_max +
+              "\nすでに洞天宝銭が溢れています。";
+          }
+
+          const daily_request_total_task_num = json.data.total_task_num;
+          const daily_request_finished_task_num = json.data.finished_task_num;
+          let daily_request_recipt = "";
+          if (json.data.is_extra_task_reward_received) {
+            daily_request_recipt = "報酬受け取り済み";
+          } else {
+            daily_request_recipt = "報酬未受け取り";
+          }
+          dailyrequestText =
+            daily_request_finished_task_num +
+            "/" +
+            daily_request_total_task_num +
+            " (" +
+            daily_request_recipt +
+            ")";
+
+          if (
+            json.data.current_resin >= json.data.max_resin * 0.8 ||
+            expedition_ratio != 5 ||
+            json.data.current_home_coin >= json.data.max_home_coin * 0.8 ||
+            daily_request_recipt == "報酬未受け取り" ||
+            transformerText == "既に使用可能" ||
+            weeklyboss != 0
+          ) {
+            color = "#FF0000";
+          } else {
+            color = "#0099ff";
+          }
+
+          if (json.data.current_resin >= json.data.max_resin * 0.8) {
+            attention += "・<:Resin:1227231111365791836>樹脂保有数 (" + currentResin + "/" + maxResin + ")\n";
+          }
+
+          if (expedition_ratio != 5) {
+            attention += "・<:Expedition:1227231991976431647>探索派遣 (" + (expedition_max - expedition_ratio) + "/" + expedition_max + " 完了)\n";
+          }
+
+          if (transformerText == "既に使用可能") {
+            attention += "・<:transformer:1227902478272430140>参量物質変化器\n";
+          }
+
+          if (json.data.current_home_coin >= json.data.max_home_coin * 0.8) {
+            attention += "・<:Home_Coin:1227232150043099237>洞天宝銭保有数 (" + json.data.current_home_coin + "/" + json.data.max_home_coin + ")\n";
+          }
+
+          if (daily_request_recipt == "報酬未受け取り") {
+            attention +=
+              "・<:Daily_Commision:1227231906698104902>デイリー報酬未受け取り\n";
+          }
+
+          if (weeklyboss != 0) {
+            attention += "・<:weeklyboss:1227912026819399761>週ボス挑戦 (" + weeklyboss + "/" + weeklyboss_Max + " 未獲得)\n";
+          }
+
+          // Embedメッセージを作成
+          const embed = new MessageEmbed()
+            .setColor(color)
+            .setTitle("原神データ")
+            .setDescription(discorduser)
+            .setFooter("enka.networkメンテナンス中…")
+            .addField("<:Resin:1227231111365791836>樹脂", resinText, true)
+            .addField(
+              "<:Daily_Commision:1227231906698104902>デイリー任務",
+              dailyrequestText,
+              true
+            )
+            .addField(
+              "<:Expedition:1227231991976431647>探索派遣",
+              expeditionText + " 派遣中\n" + expedition_all,
+              true
+            )
+            .addField(
+              "<:transformer:1227902478272430140>参量物質変化器",
+              transformerText,
+              true
+            )
+            .addField(
+              "<:Home_Coin:1227232150043099237>洞天宝銭",
+              homecoinText,
+              true
+            )
+            .addField(
+              "<:weeklyboss:1227912026819399761>週ボス挑戦",
+              weeklybossText,
+              true
+            );
+          if (attention != "") {
+            embed.addField("⚠️注意⚠️", attention, true);
+          }
+
+          // Embedメッセージを送信
+          processingMessage.delete();
+          message.channel.send({ embeds: [embed] });
+          attention = "";
+        })
+        //(1)NG - (2)NG
+        .catch((error) => {
+          console.error(
+            "There was a problem with your fetch operation for (2) after (1) error:",
+            error
+          );
+          const embed2 = new MessageEmbed()
+            .setAuthor({
+              name: "パイモン",
+              iconURL:
+                "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417055624512.png",
+            })
+            .setColor("#FF0000")
+            .setTitle("エラーが発生したぞ！")
+            .setDescription(
+              discorduser +
+                `の原神のデータが取得できなかったぞ…\nまた後で実行しよう！`
+            )
+            .setImage(
+              "https://media.tenor.com/BCGFVrs_0HoAAAAM/seseren-question-mark.gif"
+            );
+          processingMessage.delete();
+          message.channel.send({ embeds: [embed2] });
+        });
+    });
+}
+
+//GenshinstrongboxData
+async function GenshinstrongboxData(
+  genshinuid,
+  genshincookie,
+  discorduser,
+  message
+) {
+  const embed1 = new MessageEmbed()
+    .setAuthor({
+      name: "パイモン",
+      iconURL:
+        "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417055624512.png",
+    })
+    .setColor("#00FF00")
+    .setTitle("原神の探索データを取得してるぞ！")
+    .setDescription(discorduser + "少し待ってくれよな！")
+    .setImage(
+      "https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif"
+    );
+  const processingMessage = await message.channel.send({
+    embeds: [embed1],
+  });
+
+  const date = new Date();
+  const epoch = Math.floor(date.getTime() / 1000);
+  const hash = MD5(`salt=6cqshh5dhw73bzxn20oexa9k516chk7s&t=${epoch}&r=abcdef`);
+  const DS = `${epoch},abcdef,${hash}`;
+  const url = `https://bbs-api-os.hoyolab.com/game_record/genshin/api/index?role_id=${genshinuid}&server=os_asia`;
+
+  try {
+    const res = await fetch(url, {
+      headers: {
+        "x-rpc-client_type": "4",
+        "x-rpc-app_version": "1.5.0",
+        Cookie: genshincookie,
+        DS: DS,
+        "x-rpc-language": "ja-jp",
+      },
+    });
+
+    const json = await res.json();
+    const active_day_number = "活動日数: " + json.data.stats.active_day_number;
+    const achievement_number =
+      "アチーブメント: " + json.data.stats.achievement_number;
+    const avatar_number = "キャラクター: " + json.data.stats.avatar_number;
+    const spiral_abyss = "深境螺旋: " + json.data.stats.spiral_abyss;
+    const way_point_number =
+      "ワープポイント: " + json.data.stats.way_point_number;
+    const domain_number = "秘境: " + json.data.stats.domain_number;
+    const game_data =
+      active_day_number +
+      "\n" +
+      achievement_number +
+      "\n" +
+      avatar_number +
+      "\n" +
+      spiral_abyss +
+      "\n" +
+      way_point_number +
+      "\n" +
+      domain_number;
+
+    const anemoculus_number = "風神の瞳: " + json.data.stats.anemoculus_number;
+    const geoculus_number = "岩神の瞳: " + json.data.stats.geoculus_number;
+    const electroculus_number =
+      "雷神の瞳: " + json.data.stats.electroculus_number;
+    const dendroculus_number =
+      "草神の瞳: " + json.data.stats.dendroculus_number;
+    const hydroculus_number = "水神の瞳: " + json.data.stats.hydroculus_number;
+    const culus_number =
+      anemoculus_number +
+      "\n" +
+      geoculus_number +
+      "\n" +
+      electroculus_number +
+      "\n" +
+      dendroculus_number +
+      "\n" +
+      hydroculus_number;
+
+    const common_chest_number =
+      "普通の宝箱: " + json.data.stats.common_chest_number;
+    const exquisite_chest_number =
+      "精巧な宝箱: " + json.data.stats.exquisite_chest_number;
+    const precious_chest_number =
+      "貴重な宝箱: " + json.data.stats.precious_chest_number;
+    const luxurious_chest_number =
+      "豪華な宝箱: " + json.data.stats.luxurious_chest_number;
+    const magic_chest_number =
+      "珍奇な宝箱: " + json.data.stats.magic_chest_number;
+    const strongbox =
+      common_chest_number +
+      "\n" +
+      exquisite_chest_number +
+      "\n" +
+      precious_chest_number +
+      "\n" +
+      luxurious_chest_number +
+      "\n" +
+      magic_chest_number;
+
+    const sortedData = json.data.world_explorations.sort((a, b) => a.id - b.id);
+
+    const specialItems = ["来歆山", "沈玉の谷·南峰", "沈玉の谷·上谷"];
+
+    // specialItemsのitemExplorationの平均値を計算
+    const specialItemExplorations = sortedData
+      .filter(item => specialItems.includes(item.name))
+      .map(item => item.exploration_percentage / 10);
+    const averageExploration = (specialItemExplorations.reduce((sum, value) => sum + value, 0) / specialItems.length).toFixed(1);
+    
+    // 全てのitemExplorationとareaExplorationの値を収集
+    let allExplorations = [];
+
+    const searchRate = sortedData.reduce((acc, item) => {
+      let itemExploration = (item.exploration_percentage / 10).toFixed(1);
+      if (item.name === "沈玉の谷") {
+        itemExploration = averageExploration;
+      }
+      allExplorations.push(parseFloat(itemExploration));
+      const itemSymbol = itemExploration <= 50 ? '💩' : itemExploration >= 100 ? '✅' : '💪';
+      const itemString = specialItems.includes(item.name) 
+        ? ` - ${itemSymbol}${item.name}: ${itemExploration}%` 
+        : `- ${itemSymbol}${item.name}: ${itemExploration}%`;
+      acc.push(itemString);
+
+      if (item.area_exploration_list && item.area_exploration_list.length > 0) {
+        item.area_exploration_list.forEach((area) => {
+          const areaExploration = (area.exploration_percentage / 10).toFixed(1);
+          allExplorations.push(parseFloat(areaExploration));
+          const areaSymbol = areaExploration <= 50 ? '💩' : areaExploration >= 100 ? '✅' : '💪';
+          acc.push(
+            ` - ${areaSymbol}${area.name}: ${areaExploration}%`
+          );
+        });
+      }
+
+    return acc;
+    }, []);
+    
+    // 全ての探索率の平均値を計算
+    const all_averageExploration = (allExplorations.reduce((sum, value) => sum + value, 0) / allExplorations.length).toFixed(1);
+
+    // 最後に平均値を追加
+    searchRate.push(`--- 全地域の探索率: ${all_averageExploration}% ---`);
+
+    const levelRate = sortedData.reduce((bcc, item) => {
+      if (item.level || item.offerings.length > 0) {
+        bcc.push(`- ${item.name}`);
+
+        if (item.level) {
+          bcc.push(` - 評判レベル: Lv.${item.level}`);
+        }
+
+        if (item.offerings) {
+          item.offerings.forEach((offering) => {
+            bcc.push(` - ${offering.name}: ${offering.level}`);
+          });
+        }
+      }
+
+      return bcc;
+    }, []);
+
+    // Embedメッセージを作成
     const embed = new MessageEmbed()
+      .setColor("#00ff00")
+      .setTitle(json.data.role.nickname)
+      .setDescription(discorduser)
+      .addField("==ゲームデータ==", game_data)
+      .addField("==瞳==", culus_number)
+      .addField("==宝箱==", strongbox)
+      .addField("==探索率==", searchRate.join("\n"))
+      .addField("==評判レベル/奉納==", levelRate.join("\n"));
+
+    processingMessage.delete();
+    message.channel.send({ embeds: [embed] });
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+    const embed2 = new MessageEmbed()
       .setAuthor({
         name: "パイモン",
         iconURL:
           "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417055624512.png",
       })
-      .setColor("RANDOM")
-      .setTitle("壺の調度品制作の助力")
-      .setDescription("<@" + message.author + ">の壺の制作助力してくれよな！")
-      .setImage(
-        "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210427/2021042717165610155.gif"
+      .setColor("#FF0000")
+      .setTitle("エラーが発生したぞ！")
+      .setDescription(
+        discorduser +
+          `の原神の探索データが取得できなかったぞ…\nまた後で実行しよう！`
       )
-      .setTimestamp();
-    message.channel.send({ embeds: [embed] });
+      .setImage(
+        "https://media.tenor.com/BCGFVrs_0HoAAAAM/seseren-question-mark.gif"
+      );
+    processingMessage.delete();
+    message.channel.send({ embeds: [embed2] });
+  }
+}
+
+//Traveler's dialy
+async function fetchData(genshinuid, discorduser, genshincookie, message) {
+  const embed1 = new MessageEmbed()
+    .setAuthor({
+      name: "パイモン",
+      iconURL:
+        "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417055624512.png",
+    })
+    .setColor("#00FF00")
+    .setTitle("原神の原石・モラ獲得数を取得してるぞ！")
+    .setDescription(discorduser + "少し待ってくれよな！")
+    .setImage(
+      "https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif"
+    );
+  const processingMessage = await message.channel.send({
+    embeds: [embed1],
+  });
+  if (cachedData !== null) {
+    return cachedData;
   }
 
-  // **********個人・アチーブ、 原神・🏁アチーブ記録 のみ許可**********
-  if (
-    message.channel.id == "1221888683775627346" ||
-    message.channel.id == "1221880515058073750"
-  ) {
-    if (message.author.bot) return;
-    if (!message.content.includes("\n")) return;
-    const embed = new MessageEmbed();
-    if (message.content.includes("＊要日数＊")) {
-      embed.setColor("#FF0000");
-    } else if (message.content.includes("＊デイリー＊")) {
-      embed.setColor("#00FF00");
+  while (true) {
+    const url = `https://sg-hk4e-api.hoyolab.com/event/ysledgeros/month_detail?month=0&region=os_asia&uid=${genshinuid}&lang=ja-jp&type=${type}&current_page=${currentPage}`;
+
+    const response = await fetch(url, {
+      headers: {
+        Cookie: genshincookie,
+      },
+    });
+    const json = await response.json();
+
+    if (json.message != "OK") {
+      break;
     }
-    let lines = message.content.split("\n"); // テキストを行に分割
-    let title = lines.shift().trim(); // 最初の行をタイトルとして取得し、配列から削除
-    let content = lines.join("\n").trim(); // 残りの行を内容として結合
-    let imageUrl = null;
-    for (let i = 0; i < lines.length; i++) {
-      let line = lines[i].trim();
-      if (line.startsWith("https://")) {
-        imageUrl = line;
-        lines.splice(i, 1); // 画像URLを削除
-        content = lines.join("\n").trim(); // contentから画像URLを削除した残りを更新
-        break;
+    if (json.data.list.length == 0) {
+      break;
+    }
+
+    json.data.list.forEach((item) => {
+      const date = new Date(item.time);
+      const today = new Date();
+      if (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      ) {
+        todayTotalGem += item.num;
       }
-    }
-    message.delete();
-    embed.setTitle(title);
-    embed.setDescription(content);
-    embed.setImage(imageUrl);
-    message.channel.send({ embeds: [embed] });
+      if (
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      ) {
+        thisMonthTotalGem += item.num;
+      }
+    });
+
+    console.log(currentPage + " : " + todayTotalGem + "/" + thisMonthTotalGem);
+    currentPage++;
   }
 
-  // **********個人・パイモンのへそくり簿帳、 原神・パイモンのへそくり簿帳 のみ許可**********
-  if (
-    message.channel.id == "1220962303529193502" ||
-    message.channel.id == "1220951521987133551"
-  ) {
-    if (message.author.bot) return;
-    if (!message.content.includes("\n")) return;
-    const parts = message.content.split("\n");
-    const title = parts[0];
-    const discription = parts[1];
-    message.delete();
-    const embed = new MessageEmbed()
-      .setColor("RANDOM")
-      .setTitle(title)
-      .setDescription(discription);
-    message.channel.send({ embeds: [embed] });
-  }
+  type++;
+  currentPage = 1;
+  while (true) {
+    const url = `https://sg-hk4e-api.hoyolab.com/event/ysledgeros/month_detail?month=0&region=os_asia&uid=${genshinuid}&lang=ja-jp&type=${type}&current_page=${currentPage}`;
 
-  // **********個人・交換コード、 原神・交換コード のみ許可**********
-  if (
-    message.channel.id == "1218795394834763807" ||
-    message.channel.id == "1224315125385793588"
-  ) {
-    if (message.author.bot) return;
-    const num = 10000;
-
-    message.channel.send("【永遠の旅人】\n" + message.content);
-
-    setTimeout(function () {
-      console.log(num / 1000 + " seconds have passed!");
-
-      message.channel.send("【さね】\n" + message.content);
-
-      setTimeout(function () {
-        console.log(num / 1000 + " seconds have passed!");
-
-        message.channel.send("【あまえび】\n" + message.content);
-      }, num);
-    }, num);
-  }
-
-  //**********原神キャラ情報Notion自動読み込み**********
-  if (
-    message.channel.id == "1220800594369970266" ||
-    message.channel.id == "1197742966777839718"
-  ) {
-    if (message.author.bot) return;
-    let databaseId = "9403ad41aa344441951044a6656d0d9a";
-    let url = `https://api.notion.com/v1/databases/${databaseId}/query`;
-    let charactername = message.content
-      .replace(/[\s　()（）]/g, "")
-      .replace("(略)", "")
-      .replace("省略", "")
-      .replace("最優先ステータス", "")
-      .replace("優先ステータス", "")
-      .replace("推奨ステータス", "")
-      .replace("参照プロパティ", "")
-      .replace("推奨凸", "")
-      .replace("おすすめ武器", "")
-      .replace("おすすめ凸とその解説", "")
-      .replace("凸解説", "")
-      .replace("レア度", "")
-      .replace("元素", "")
-      .replace("武器種", "")
-      .replace("特産品", "")
-      .replace("強敵", "")
-      .replace("天賦本", "")
-      .replace("天賦素材", "")
-      .replace("週ボス", "")
-      .replace("育成優先度", "")
-      .replace("目標ステータス", "")
-      .replace("目標", "")
-      .replace("凸効果", "")
-      .toLowerCase();
-
-    const headers = {
-      "Content-Type": "application/json",
-      "Notion-Version": "2022-06-28",
-      Authorization: process.env.NOTION_SEACRET,
-    };
-    const filterData = {
-      filter: {
-        property: "検索用キーワード",
-        rich_text: {
-          contains: charactername,
-        },
+    const response = await fetch(url, {
+      headers: {
+        Cookie: genshincookie,
       },
-    };
-    const requestOptions = {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(filterData),
-    };
-    const notionurl = "";
-    const fields = [];
-    console.log(message);
-    console.log(charactername);
-    console.log(`--------------------------------------------------`);
+    });
+    const json = await response.json();
 
-    //キャラ情報Notion自動読み出し
-    fetch(url, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        const notionurl = data.results[0].public_url;
-        let sendtext = "";
-        let omission = false;
-        if (
-          message.content.includes("(略)") ||
-          message.content.includes("省略")
-        ) {
-          omission = true;
+    if (json.message != "OK") {
+      break;
+    }
+    if (json.data.list.length == 0) {
+      break;
+    }
+
+    json.data.list.forEach((item) => {
+      const date = new Date(item.time);
+      const today = new Date();
+      if (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      ) {
+        todayTotalMora += item.num;
+      }
+      if (
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      ) {
+        thisMonthTotalMora += item.num;
+      }
+    });
+
+    console.log(
+      currentPage + " : " + todayTotalMora + "/" + thisMonthTotalMora
+    );
+    currentPage++;
+  }
+
+  cachedData = {
+    todayTotalGem,
+    thisMonthTotalGem,
+    todayTotalMora,
+    thisMonthTotalMora,
+  };
+  processingMessage.delete();
+  return cachedData;
+}
+
+//StarRailData
+async function StarRailData(starrailuid, starrailcookie, discorduser, message) {
+  const embed1 = new MessageEmbed()
+    .setAuthor({
+      name: "パム",
+      iconURL: "https://pbs.twimg.com/media/FC2TmwLVQAE0fhy.png",
+    })
+    .setColor("#00FF00")
+    .setTitle("スタレのデータを取得してるぞ！")
+    .setDescription(discorduser + "少し待ってくれよな！")
+    .setImage("https://media.tenor.com/gDtijUj6nQgAAAAM/pom-pom-star-rail.gif");
+  const processingMessage = await message.channel.send({
+    embeds: [embed1],
+  });
+
+  const date = new Date();
+  const epoch = Math.floor(date.getTime() / 1000);
+  const hash = MD5(`salt=6cqshh5dhw73bzxn20oexa9k516chk7s&t=${epoch}&r=abcdef`);
+  const DS = `${epoch},abcdef,${hash}`;
+
+  let nickname = "";
+  let level = "";
+  let signature = "";
+  let finishAchievementNum = "";
+
+  // (1) https://api.mihomo.me/sr_info_parsed/${starrailuid}?lang=jp の内容を取得(GET)する
+  axios
+    .get(`https://api.mihomo.me/sr_info_parsed/${starrailuid}?lang=jp`)
+    .then((response) => {
+      nickname = response.data.player.nickname.toString();
+      level = response.data.player.level.toString();
+      signature = response.data.player.signature || "";
+      finishAchievementNum =
+        response.data.player.space_info.achievement_count.toString();
+
+      // (1) の処理が完了した後に (2) を実行する
+      fetch(
+        `https://bbs-api-os.hoyolab.com/game_record/hkrpg/api/note?server=prod_official_asia&role_id=${starrailuid}`,
+        {
+          method: "GET",
+          headers: {
+            "x-rpc-client_type": "4",
+            "x-rpc-app_version": "1.5.0",
+            Cookie: starrailcookie,
+            DS: DS,
+          },
         }
-        let rarity = false;
-        if (message.content.includes("レア度")) {
-          rarity = true;
-        }
-        let element = false;
-        if (message.content.includes("元素")) {
-          element = true;
-        }
-        let weaponType = false;
-        if (message.content.includes("武器種")) {
-          weaponType = true;
-        }
-        let specialProduct = false;
-        if (message.content.includes("特産品")) {
-          specialProduct = true;
-        }
-        let formidableEnemy = false;
-        if (message.content.includes("強敵")) {
-          formidableEnemy = true;
-        }
-        let endowmentBook = false;
-        if (message.content.includes("天賦本")) {
-          endowmentBook = true;
-        }
-        let weeklyBoss = false;
-        if (
-          message.content.includes("天賦素材") ||
-          message.content.includes("週ボス")
-        ) {
-          weeklyBoss = true;
-        }
-        let trainingPriority = false;
-        if (message.content.includes("育成優先度")) {
-          trainingPriority = true;
-        }
-        let priorityStatus = false;
-        if (
-          message.content.includes("最優先ステータス") ||
-          message.content.includes("優先ステータス")
-        ) {
-          priorityStatus = true;
-        }
-        let recommendedStatus = false;
-        if (message.content.includes("推奨ステータス")) {
-          recommendedStatus = true;
-        }
-        let targetStatus = false;
-        if (
-          message.content.includes("目標ステータス") ||
-          message.content.includes("目標")
-        ) {
-          targetStatus = true;
-        }
-        let referenceproperty = false;
-        if (message.content.includes("参照プロパティ")) {
-          referenceproperty = true;
-        }
-        let recommendedBump = false;
-        if (message.content.includes("推奨凸")) {
-          recommendedBump = true;
-        }
-        let recommendedWeapons = false;
-        if (message.content.includes("おすすめ武器")) {
-          recommendedWeapons = true;
-        }
-        let recommendedExplanation = false;
-        if (
-          message.content.includes("おすすめ凸とその解説") ||
-          message.content.includes("凸解説")
-        ) {
-          recommendedExplanation = true;
-        }
-        let convecEffect = false;
-        if (message.content.includes("凸効果")) {
-          convecEffect = true;
-        }
-        let all = false;
-        if (
-          !omission &&
-          !priorityStatus &&
-          !recommendedStatus &&
-          !referenceproperty &&
-          !recommendedBump &&
-          !recommendedWeapons &&
-          !recommendedExplanation &&
-          !trainingPriority &&
-          !weeklyBoss &&
-          !endowmentBook &&
-          !formidableEnemy &&
-          !specialProduct &&
-          !weaponType &&
-          !element &&
-          !rarity &&
-          !targetStatus &&
-          !convecEffect
-        ) {
-          all = true;
-        }
-        console.log(all);
-        data.results.forEach((page) => {
-          const embed1 = new MessageEmbed()
-            .setColor("RANDOM")
-            .setURL(notionurl);
-          //sendtext = page.properties["キャラ名"]?.title?.[0]?.plain_text;
-          sendtext = page.properties["キャラ名"]?.title?.[0]?.plain_text;
-          if (sendtext) {
-            embed1.setTitle(sendtext);
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
           }
-
-          if (all) {
-            sendtext = page.properties["レア度"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "レア度" + " -", sendtext, true);
-            }
-            sendtext = page.properties["元素"]?.select?.name;
-            if (sendtext) {
-              if (sendtext == "炎") {
-                sendtext = "<:pyro:1220011082484289607>" + sendtext;
-              } else if (sendtext == "水") {
-                sendtext = "<:Hydro:1220011354916782110>" + sendtext;
-              } else if (sendtext == "風") {
-                sendtext = "<:Anemo:1220011584810909727>" + sendtext;
-              } else if (sendtext == "雷") {
-                sendtext = "<:Electro:1220011476971159572>" + sendtext;
-              } else if (sendtext == "草") {
-                sendtext = "<:Dendro:1220013354932764762>" + sendtext;
-              } else if (sendtext == "氷") {
-                sendtext = "<:Cryo:1220011417072042044>" + sendtext;
-              } else if (sendtext == "岩") {
-                sendtext = "<:Geo:1220011532864458843>" + sendtext;
-              }
-              embed1.addField("- " + "元素" + " -", sendtext, true);
-            }
-            sendtext = page.properties["武器種"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "武器種" + " -", sendtext, true);
-            }
-            sendtext = page.properties["特産品"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "特産品" + " -", sendtext), true;
-            }
-            sendtext = page.properties["強敵"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "強敵" + " -", sendtext, true);
-            }
-            sendtext = page.properties["天賦本"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "天賦本" + " -", sendtext, true);
-            }
-            sendtext = page.properties["天賦素材(週ボス)"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "天賦素材(週ボス)" + " -", sendtext, true);
-            }
-            sendtext = page.properties["育成優先度"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "育成優先度" + " -", sendtext, true);
-            }
-            sendtext = page.properties["最優先ステータス"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "最優先ステータス" + " -", sendtext, true);
-            }
-            sendtext = page.properties["推奨ステータス"]?.multi_select
-              ?.map((item) => item.name)
-              .join("\n");
-            if (sendtext) {
-              embed1.addField("- " + "推奨ステータス" + " -", sendtext, true);
-            }
-            sendtext = page.properties["目標ステータス"]?.rich_text
-              ?.map((item) => item.plain_text)
-              .join("\n");
-            if (sendtext) {
-              embed1.addField("- " + "目標ステータス" + " -", sendtext, true);
-            }
-            sendtext = page.properties["参照プロパティ"]?.rich_text
-              ?.map((item) => item.plain_text)
-              .join("\n");
-            if (sendtext) {
-              embed1.addField("- " + "参照プロパティ" + " -", sendtext, true);
-            }
-            sendtext = page.properties["推奨凸"]?.multi_select
-              ?.map((item) => item.name)
-              .join("\n");
-            if (sendtext) {
-              embed1.addField("- " + "推奨凸" + " -", sendtext, true);
-            }
-            sendtext = page.properties["おすすめ武器"]?.rich_text
-              ?.map((item) => item.plain_text)
-              .join("\n");
-            if (sendtext) {
-              embed1.addField("- " + "おすすめ武器" + " -", sendtext, true);
-            }
-            sendtext = page.properties["おすすめ凸とその解説"]?.rich_text
-              ?.map((item) => item.plain_text)
-              .join("\n");
-            if (sendtext) {
-              embed1.addField("- " + "おすすめ凸とその解説" + " -", sendtext);
-            }
-          } else if (omission) {
-            //省略がtrue
-            sendtext = page.properties["レア度"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "レア度" + " -", sendtext, true);
-            }
-            sendtext = page.properties["元素"]?.select?.name;
-            if (sendtext) {
-              if (sendtext == "炎") {
-                sendtext = "<:pyro:1220011082484289607>" + sendtext;
-              } else if (sendtext == "水") {
-                sendtext = "<:Hydro:1220011354916782110>" + sendtext;
-              } else if (sendtext == "風") {
-                sendtext = "<:Anemo:1220011584810909727>" + sendtext;
-              } else if (sendtext == "雷") {
-                sendtext = "<:Electro:1220011476971159572>" + sendtext;
-              } else if (sendtext == "草") {
-                sendtext = "<:Dendro:1220013354932764762>" + sendtext;
-              } else if (sendtext == "氷") {
-                sendtext = "<:Cryo:1220011417072042044>" + sendtext;
-              } else if (sendtext == "岩") {
-                sendtext = "<:Geo:1220011532864458843>" + sendtext;
-              }
-              embed1.addField("- " + "元素" + " -", sendtext, true);
-            }
-            sendtext = page.properties["武器種"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "武器種" + " -", sendtext, true);
-            }
-            sendtext = page.properties["特産品"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "特産品" + " -", sendtext), true;
-            }
-            sendtext = page.properties["強敵"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "強敵" + " -", sendtext, true);
-            }
-            sendtext = page.properties["天賦本"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "天賦本" + " -", sendtext, true);
-            }
-            sendtext = page.properties["天賦素材(週ボス)"]?.select?.name;
-            if (sendtext) {
-              embed1.addField("- " + "天賦素材(週ボス)" + " -", sendtext, true);
-            }
+          return response.json();
+        })
+        //(1)OK - (2)OK
+        .then((json) => {
+          console.log(json)
+          const currentstamina = json.data.current_stamina;
+          const maxstamina = json.data.max_stamina;
+          const formattedRecoveryDate = `<t:${epoch+Number(json.data.stamina_recover_time)}:f>`
+          const reservestamina = json.data.current_reserve_stamina;
+          if (currentstamina != maxstamina) {
+            staminaText =
+              currentstamina +
+              "/" +
+              maxstamina +
+              "\n溢れる日時:" +
+              formattedRecoveryDate +
+              "\n予備開拓力:" +
+              reservestamina;
           } else {
-            sendtext = page.properties["レア度"]?.select?.name;
-            if (sendtext && rarity) {
-              embed1.addField("- " + "レア度" + " -", sendtext, true);
-            }
-            sendtext = page.properties["元素"]?.select?.name;
-            if (sendtext && element) {
-              if (sendtext == "炎") {
-                sendtext = "<:pyro:1220011082484289607>" + sendtext;
-              } else if (sendtext == "水") {
-                sendtext = "<:Hydro:1220011354916782110>" + sendtext;
-              } else if (sendtext == "風") {
-                sendtext = "<:Anemo:1220011584810909727>" + sendtext;
-              } else if (sendtext == "雷") {
-                sendtext = "<:Electro:1220011476971159572>" + sendtext;
-              } else if (sendtext == "草") {
-                sendtext = "<:Dendro:1220013354932764762>" + sendtext;
-              } else if (sendtext == "氷") {
-                sendtext = "<:Cryo:1220011417072042044>" + sendtext;
-              } else if (sendtext == "岩") {
-                sendtext = "<:Geo:1220011532864458843>" + sendtext;
+            staminaText =
+              currentstamina +
+              "/" +
+              maxstamina +
+              "\nすでに開拓力が溢れています。" +
+              "\n予備開拓力:" +
+              reservestamina;
+          }
+        
+          function formatExpeditionTimes(json) {
+            const expeditionTimes = [
+              json["data"]["expeditions"][0]["remaining_time"],
+              json["data"]["expeditions"][1]["remaining_time"],
+              json["data"]["expeditions"][2]["remaining_time"],
+              json["data"]["expeditions"][3]["remaining_time"]
+            ];
+
+            const groupedTimes = expeditionTimes.reduce((acc, time) => {
+              if (!acc[time]) {
+                acc[time] = 0;
               }
-              embed1.addField("- " + "元素" + " -", sendtext, true);
+              acc[time]++;
+              return acc;
+            }, {});
+
+            let result = "";
+            for (const time in groupedTimes) {
+              const count = groupedTimes[time];
+              if (Number(time) === 0) {
+                result += `・完了 ×${count}件\n`;
+              } else {
+                const formattedTime = Number(time) + epoch;
+                result += `・<t:${formattedTime}:f> ×${count}件\n`;
+              }
             }
-            sendtext = page.properties["武器種"]?.select?.name;
-            if (sendtext && weaponType) {
-              embed1.addField("- " + "武器種" + " -", sendtext, true);
-            }
-            sendtext = page.properties["特産品"]?.select?.name;
-            if (sendtext && specialProduct) {
-              embed1.addField("- " + "特産品" + " -", sendtext), true;
-            }
-            sendtext = page.properties["強敵"]?.select?.name;
-            if (sendtext && formidableEnemy) {
-              embed1.addField("- " + "強敵" + " -", sendtext, true);
-            }
-            sendtext = page.properties["天賦本"]?.select?.name;
-            if (sendtext && endowmentBook) {
-              embed1.addField("- " + "天賦本" + " -", sendtext, true);
-            }
-            sendtext = page.properties["天賦素材(週ボス)"]?.select?.name;
-            if (sendtext && weeklyBoss) {
-              embed1.addField("- " + "天賦素材(週ボス)" + " -", sendtext, true);
-            }
-            sendtext = page.properties["育成優先度"]?.select?.name;
-            if (sendtext && trainingPriority) {
-              embed1.addField("- " + "育成優先度" + " -", sendtext, true);
-            }
-            sendtext = page.properties["最優先ステータス"]?.select?.name;
-            if (sendtext && priorityStatus) {
-              embed1.addField("- " + "最優先ステータス" + " -", sendtext, true);
-            }
-            sendtext = page.properties["推奨ステータス"]?.multi_select
-              ?.map((item) => item.name)
-              .join("\n");
-            if (sendtext && recommendedStatus) {
-              embed1.addField("- " + "推奨ステータス" + " -", sendtext, true);
-            }
-            sendtext = page.properties["目標ステータス"]?.rich_text
-              ?.map((item) => item.plain_text)
-              .join("\n");
-            if (sendtext && targetStatus) {
-              embed1.addField("- " + "目標ステータス" + " -", sendtext, true);
-            }
-            sendtext = page.properties["参照プロパティ"]?.rich_text
-              ?.map((item) => item.plain_text)
-              .join("\n");
-            if (sendtext && referenceproperty) {
-              embed1.addField("- " + "参照プロパティ" + " -", sendtext, true);
-            }
-            sendtext = page.properties["凸効果"]?.rich_text
-              ?.map((item) => item.plain_text)
-              .join("\n");
-            if (sendtext && convecEffect) {
-              embed1.addField("- " + "凸効果" + " -", sendtext, true);
-            }
-            sendtext = page.properties["推奨凸"]?.multi_select
-              ?.map((item) => item.name)
-              .join("\n");
-            if (sendtext && recommendedBump) {
-              embed1.addField("- " + "推奨凸" + " -", sendtext, true);
-            }
-            sendtext = page.properties["おすすめ武器"]?.rich_text
-              ?.map((item) => item.plain_text)
-              .join("\n");
-            if (sendtext && recommendedWeapons) {
-              embed1.addField("- " + "おすすめ武器" + " -", sendtext, true);
-            }
-            sendtext = page.properties["おすすめ凸とその解説"]?.rich_text
-              ?.map((item) => item.plain_text)
-              .join("\n");
-            if (sendtext && recommendedExplanation) {
-              embed1.addField("- " + "おすすめ凸とその解説" + " -", sendtext);
-            }
+            return result.trim();
+          }
+          
+          const expedition_all = formatExpeditionTimes(json);
+
+          const expedition_ratio = json.data.expeditions.filter(
+            ({ status }) => status === "Ongoing"
+          ).length;
+          const expedition_max = json.data.total_expedition_num;
+          expeditionText = expedition_ratio + "/" + expedition_max;
+
+          const train_score = json.data.current_train_score;
+          const train_score_max = json.data.max_train_score;
+          train_scoreText = train_score + "/" + train_score_max;
+
+          const rogue_score = json.data.current_rogue_score;
+          const rogue_score_max = json.data.max_rogue_score;
+          rogue_scoreText = rogue_score + "/" + rogue_score_max;
+
+          const weekly_cocoon = json.data.weekly_cocoon_cnt;
+          const weekly_cocoon_Max = json.data.weekly_cocoon_limit;
+          weekly_cocoonText =
+            "残り挑戦回数：" + weekly_cocoon + "/" + weekly_cocoon_Max;
+
+          if (
+            currentstamina >= maxstamina * 0.8 ||
+            expedition_ratio != 4 ||
+            train_score != train_score_max ||
+            rogue_score != rogue_score_max ||
+            weekly_cocoon != 0
+          ) {
+            color = "#FF0000";
+          } else {
+            color = "#0099ff";
           }
 
-          const image = page.icon.external.url;
-          if (image) {
-            embed1.setThumbnail(image);
+          if (currentstamina >= maxstamina * 0.8) {
+            attention +=
+              "・<:pioneering_ability:1228912120033185863>開拓力保有数 (" + currentstamina + "/" + maxstamina + ")\n";
           }
-          message.channel.send({ embeds: [embed1] });
+
+          if (expedition_ratio != 4) {
+            attention += "・<:request:1228915359575183371>依頼完了有 (" + (expedition_max - expedition_ratio) + "/" + expedition_max + " 完了)\n";
+          }
+
+          if (train_score != train_score_max) {
+            attention +=
+              "・<:train_score:1228912381275410492>デイリー訓練未完了\n";
+          }
+
+          if (rogue_score != rogue_score_max) {
+            attention +=
+              "・<:simulated_universe:1228912629259440210>模擬宇宙 ポイント報酬 (" + rogue_score + "/" + rogue_score_max + ")\n";
+          }
+
+          if (weekly_cocoon != 0) {
+            attention +=
+              "・<:lingering_recollections_of_war:1228912660599279726>歴戦余韻 (" + weekly_cocoon + "/" + weekly_cocoon_Max + " 未獲得)\n";
+          }
+
+          // Embedメッセージを作成
+          const embed = new MessageEmbed()
+            .setColor(color)
+            .setTitle(nickname)
+            .setDescription(discorduser)
+            .addField("<:sea_level:1228912264086683769>開拓レベル", level, true)
+            .addField(
+              "<:achievement:1228912487504543785>アチーブメント",
+              finishAchievementNum,
+              true
+            )
+            .addField(
+              "<:pioneering_ability:1228912120033185863>開拓力",
+              staminaText,
+              true
+            )
+            .addField(
+              "<:request:1228915359575183371>依頼",
+              expeditionText + " 依頼中\n" + expedition_all,
+              true
+            )
+            .addField(
+              "<:train_score:1228912381275410492>デイリー訓練",
+              train_scoreText,
+              true
+            )
+            .addField(
+              "<:simulated_universe:1228912629259440210>模擬宇宙 ポイント報酬",
+              rogue_scoreText,
+              true
+            )
+            .addField(
+              "<:lingering_recollections_of_war:1228912660599279726>歴戦余韻",
+              weekly_cocoonText,
+              true
+            );
+          if (attention != "") {
+            embed.addField("⚠️注意⚠️", attention, true);
+          }
+          if (signature != "") {
+            embed.setFooter(signature);
+          }
+
+          // Embedメッセージを送信
+          processingMessage.delete();
+          message.channel.send({ embeds: [embed] });
+          attention = "";
+        })
+        //(1)OK - (2)NG
+        .catch((error) => {
+          console.error(
+            "There was a problem with your fetch operation for (2):",
+            error
+          );
+
+          const embed = new MessageEmbed()
+            .setColor(color)
+            .setTitle(nickname)
+            .setDescription(discorduser)
+            .addField(
+              "<:Adventure_EXP:1227230805626191995>開拓レベル",
+              level,
+              true
+            )
+            .addField(
+              "<:Achievement:1227230869463367730>アチーブメント",
+              finishAchievementNum,
+              true
+            );
+          if (signature != "") {
+            embed.setFooter(signature);
+          }
+
+          // Embedメッセージを送信
+          processingMessage.delete();
+          message.channel.send({ embeds: [embed] });
         });
-      })
-      .catch((error) => console.error("Error:", error));
-  }
+    })
+    .catch((error) => {
+      // (1) のエラーが発生した場合でも (2) の処理を実行する
+      console.error(
+        "There was a problem with your fetch operation for (1):",
+        error
+      );
 
-  //**********原神天賦本Notion自動読み込み**********
-  if (
-    message.channel.id == "1220800306829463643" ||
-    message.channel.id == "1196351988967936111"
-  ) {
-    let databaseId = "3b2844eb5a364e24946b96733728e559";
-    let url = `https://api.notion.com/v1/databases/${databaseId}/query`;
-    let searchtext = "";
-    if (!message.content.includes("天賦本")) return;
-    if (
-      message.content.includes("月曜日の天賦本") ||
-      message.content.includes("木曜日の天賦本")
-    ) {
-      searchtext = "月曜日/木曜日/日曜日";
-    } else if (
-      message.content.includes("火曜日の天賦本") ||
-      message.content.includes("金曜日の天賦本")
-    ) {
-      searchtext = "火曜日/金曜日/日曜日";
-    } else if (
-      message.content.includes("水曜日の天賦本") ||
-      message.content.includes("土曜日の天賦本")
-    ) {
-      searchtext = "水曜日/土曜日/日曜日";
-    } else if (message.content.includes("日曜日の天賦本")) {
-      const embed2 = new MessageEmbed()
-        .setTitle("日曜日")
-        .setColor("RANDOM")
-        .setDescription("全ての秘境が解放されています。");
-      message.channel.send({ embeds: [embed2] });
-      return;
-    }
-    const headers2 = {
-      "Content-Type": "application/json",
-      "Notion-Version": "2022-06-28",
-      Authorization: process.env.NOTION_SEACRET,
-    };
-    const filterData2 = {
-      filter: {
-        property: "曜日",
-        select: {
-          equals: searchtext,
-        },
-      },
-    };
-    const requestOptions = {
-      method: "POST",
-      headers: headers2,
-      body: JSON.stringify(filterData2),
-    };
-    const notionurl = "";
-    const fields = [];
-    console.log(`--------------------------------------------------`);
-    //天賦本Notion自動読み出し
-    fetch(url, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        const properties = data.results[0].properties;
-        const notionurl2 = data.results[0].public_url;
-        let sendtext = "";
-        data.results.forEach((page) => {
+      // (2) の処理を実行する
+      fetch(
+        `https://bbs-api-os.hoyolab.com/game_record/hkrpg/api/note?server=prod_official_asia&role_id=${starrailuid}`,
+        {
+          method: "GET",
+          headers: {
+            "x-rpc-client_type": "4",
+            "x-rpc-app_version": "1.5.0",
+            Cookie: starrailcookie,
+            DS: DS,
+          },
+        }
+      )
+        .then((json) => {
+          if (!json.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return json.json();
+        })
+        //(1)NG - (2)OK
+        .then((json) => {
+          const currentstamina = json.data.current_stamina;
+          const maxstamina = json.data.max_stamina;
+          const formattedRecoveryDate = `<t:${epoch+Number(json.data.stamina_recover_time)}:f>`
+          const reservestamina = json.data.current_reserve_stamina;
+          if (currentstamina != maxstamina) {
+            staminaText =
+              currentstamina +
+              "/" +
+              maxstamina +
+              "\n溢れる日時:" +
+              formattedRecoveryDate +
+              "\n予備開拓力:" +
+              reservestamina;
+          } else {
+            staminaText =
+              currentstamina +
+              "/" +
+              maxstamina +
+              "\nすでに開拓力が溢れています。" +
+              "\n予備開拓力:" +
+              reservestamina;
+          }
+        
+          function formatExpeditionTimes(json) {
+            const expeditionTimes = [
+              json["data"]["expeditions"][0]["remaining_time"],
+              json["data"]["expeditions"][1]["remaining_time"],
+              json["data"]["expeditions"][2]["remaining_time"],
+              json["data"]["expeditions"][3]["remaining_time"]
+            ];
+
+            const groupedTimes = expeditionTimes.reduce((acc, time) => {
+              if (!acc[time]) {
+                acc[time] = 0;
+              }
+              acc[time]++;
+              return acc;
+            }, {});
+
+            let result = "";
+            for (const time in groupedTimes) {
+              const count = groupedTimes[time];
+              if (Number(time) === 0) {
+                result += `・完了 ×${count}件\n`;
+              } else {
+                const formattedTime = Number(time) + epoch;
+                result += `・<t:${formattedTime}:f> ×${count}件\n`;
+              }
+            }
+            return result.trim();
+          }
+          
+          const expedition_all = formatExpeditionTimes(json);
+
+          const expedition_ratio = json.data.expeditions.filter(
+            ({ status }) => status === "Ongoing"
+          ).length;
+          const expedition_max = json.data.total_expedition_num;
+          expeditionText = expedition_ratio + "/" + expedition_max;
+
+          const train_score = json.data.current_train_score;
+          const train_score_max = json.data.max_train_score;
+          train_scoreText = train_score + "/" + train_score_max;
+
+          const rogue_score = json.data.current_rogue_score;
+          const rogue_score_max = json.data.max_rogue_score;
+          rogue_scoreText = rogue_score + "/" + rogue_score_max;
+
+          const weekly_cocoon = json.data.weekly_cocoon_cnt;
+          const weekly_cocoon_Max = json.data.weekly_cocoon_limit;
+          weekly_cocoonText =
+            "残り挑戦回数：" + weekly_cocoon + "/" + weekly_cocoon_Max;
+
+          if (
+            currentstamina >= maxstamina * 0.8 ||
+            expedition_ratio != 4 ||
+            train_score != train_score_max ||
+            rogue_score != rogue_score_max ||
+            weekly_cocoon != 0
+          ) {
+            color = "#FF0000";
+          } else {
+            color = "#0099ff";
+          }
+
+          if (currentstamina >= maxstamina * 0.8) {
+            attention +=
+              "・<:pioneering_ability:1228912120033185863>開拓力保有数 (" + currentstamina + "/" + maxstamina + ")\n";
+          }
+
+          if (expedition_ratio != 4) {
+            attention += "・<:request:1228915359575183371>依頼完了有 (" + (expedition_max - expedition_ratio) + "/" + expedition_max + " 完了)\n";
+          }
+
+          if (train_score != train_score_max) {
+            attention +=
+              "・<:train_score:1228912381275410492>デイリー訓練未完了\n";
+          }
+
+          if (rogue_score != rogue_score_max) {
+            attention +=
+              "・<:simulated_universe:1228912629259440210>模擬宇宙 ポイント報酬 (" + rogue_score + "/" + rogue_score_max + ")\n";
+          }
+
+          if (weekly_cocoon != 0) {
+            attention +=
+              "・<:lingering_recollections_of_war:1228912660599279726>歴戦余韻 (" + weekly_cocoon + "/" + weekly_cocoon_Max + " 未獲得)\n";
+          }
+
+          // Embedメッセージを作成
+          const embed = new MessageEmbed()
+            .setColor(color)
+            .setTitle("スタレデータ")
+            .setDescription(discorduser)
+            .setFooter("api.mihomo.meメンテナンス中…")
+            .addField(
+              "<:pioneering_ability:1228912120033185863>開拓力",
+              staminaText,
+              true
+            )
+            .addField(
+              "<:request:1228915359575183371>依頼",
+              expeditionText + " 依頼中\n" + expedition_all,
+              true
+            )
+            .addField(
+              "<:train_score:1228912381275410492>デイリー訓練",
+              train_scoreText,
+              true
+            )
+            .addField(
+              "<:simulated_universe:1228912629259440210>模擬宇宙 ポイント報酬",
+              rogue_scoreText,
+              true
+            )
+            .addField(
+              "<:lingering_recollections_of_war:1228912660599279726>歴戦余韻",
+              weekly_cocoonText,
+              true
+            );
+          if (attention != "") {
+            embed.addField("⚠️注意⚠️", attention, true);
+          }
+
+          // Embedメッセージを送信
+          processingMessage.delete();
+          message.channel.send({ embeds: [embed] });
+          attention = "";
+        })
+        //(1)NG - (2)NG
+        .catch((error) => {
+          console.error(
+            "There was a problem with your fetch operation for (2) after (1) error:",
+            error
+          );
           const embed2 = new MessageEmbed()
-            //.setColor('RANDOM')
-            .setURL(notionurl2);
-          sendtext = page.properties["天賦種"]?.title?.[0]?.plain_text;
-          if (sendtext) {
-            embed2.setTitle(sendtext);
-          }
-          sendtext = page.properties["地域・秘境名"]?.select?.name;
-          if (sendtext) {
-            embed2.addField("- " + "地域・秘境名" + " -", sendtext, true);
-          }
-          sendtext = page.properties["使用キャラ"]?.rich_text
-            ?.map((item) => item.plain_text)
-            .join("\n");
-          if (sendtext) {
-            embed2.addField("- " + "使用キャラ" + " -", sendtext, true);
-          }
-          const image2 = page.icon.external.url;
-          embed2.setThumbnail(image2);
+            .setAuthor({
+              name: "パム",
+              iconURL: "https://pbs.twimg.com/media/FC2TmwLVQAE0fhy.png",
+            })
+            .setColor("#FF0000")
+            .setTitle("エラーが発生したぞ！")
+            .setDescription(
+              discorduser +
+                `のスタレのデータが取得できなかったぞ…\nまた後で実行しよう！`
+            )
+            .setImage(
+              "https://media.tenor.com/_YnGBIlbQ7oAAAAM/pom-pom-honkai-star-rail.gif"
+            );
+          processingMessage.delete();
           message.channel.send({ embeds: [embed2] });
         });
-      })
-      .catch((error) => console.error("Error:", error));
+    });
+}
+
+//StarRail Traveler's dialy
+async function starrailtravelData(starrailuid, starrailcookie, discorduser, message) {
+  const embed1 = new MessageEmbed()
+    .setAuthor({
+      name: "パム",
+      iconURL: "https://pbs.twimg.com/media/FC2TmwLVQAE0fhy.png",
+    })
+    .setColor("#00FF00")
+    .setTitle("スタレの星玉・チケット獲得数を取得してるぞ！")
+    .setDescription(discorduser + "少し待ってくれよな！")
+    .setImage("https://media.tenor.com/gDtijUj6nQgAAAAM/pom-pom-star-rail.gif");
+  const processingMessage = await message.channel.send({
+    embeds: [embed1],
+  });
+  if (cachedData !== null) {
+    return cachedData;
   }
 
-  //**********原神武器突破素材Notion自動読み込み**********
-  if (
-    message.channel.id == "1220800335543533708" ||
-    message.channel.id == "1197527073951072318"
-  ) {
-    let searchtext = "";
-    let databaseId = "6741efb5c8064e2d9dbc0b21d08dfea3";
-    let url = `https://api.notion.com/v1/databases/${databaseId}/query`;
-    if (!message.content.includes("武器突破素材")) return;
-    if (
-      message.content.includes("月曜日の武器突破素材") ||
-      message.content.includes("木曜日の武器突破素材")
-    ) {
-      searchtext = "月曜日/木曜日/日曜日";
-    } else if (
-      message.content.includes("火曜日の武器突破素材") ||
-      message.content.includes("金曜日の武器突破素材")
-    ) {
-      searchtext = "火曜日/金曜日/日曜日";
-    } else if (
-      message.content.includes("水曜日の武器突破素材") ||
-      message.content.includes("土曜日の武器突破素材")
-    ) {
-      searchtext = "水曜日/土曜日/日曜日";
-    } else if (message.content.includes("日曜日の武器突破素材")) {
-      const embed3 = new MessageEmbed()
-        .setTitle("日曜日")
-        .setColor("RANDOM")
-        .setDescription("全ての武器突破素材が解放されています。");
-      message.channel.send({ embeds: [embed3] });
-      return;
-    }
-    const headers3 = {
-      "Content-Type": "application/json",
-      "Notion-Version": "2022-06-28",
-      Authorization: process.env.NOTION_SEACRET,
-    };
-    const filterData3 = {
-      filter: {
-        property: "曜日",
-        select: {
-          equals: searchtext,
-        },
-      },
-    };
-    const requestOptions = {
-      method: "POST",
-      headers: headers3,
-      body: JSON.stringify(filterData3),
-    };
-    const notionurl = "";
-    const fields = [];
-    console.log(`--------------------------------------------------`);
-    //武器突破素材Notion自動読み出し
-    fetch(url, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        const properties = data.results[0].properties;
-        const notionurl3 = data.results[0].public_url;
-        let sendtext = "";
-        data.results.forEach((page) => {
-          const embed3 = new MessageEmbed()
-            //.setColor('RANDOM')
-            .setURL(notionurl3);
-          sendtext = page.properties["素材"]?.title?.[0]?.plain_text;
-          if (sendtext) {
-            embed3.setTitle(sendtext);
-          }
-          sendtext = page.properties["地域"]?.select?.name;
-          if (sendtext) {
-            embed3.addField("- " + "地域" + " -", sendtext, true);
-          }
-          sendtext = page.properties["使用武器"]?.rich_text
-            ?.map((item) => item.plain_text)
-            .join("\n");
-          if (sendtext) {
-            embed3.addField("- " + "使用武器" + " -", sendtext, true);
-          }
-          const image3 = page.icon.external.url;
-          embed3.setThumbnail(image3);
-          message.channel.send({ embeds: [embed3] });
-        });
-      })
-      .catch((error) => console.error("Error:", error));
+  const url = `https://sg-public-api.hoyolab.com/event/srledger/month_info?lang=ja-jp&uid=${starrailuid}&region=prod_official_asia&month=`;
+
+  const response = await fetch(url, {
+    headers: {
+      Cookie: starrailcookie,
+    },
+  });
+  const json = await response.json();
+  console.log(json);
+
+  if (json.message != "OK") {
+    return;
   }
 
-  //**********スタレ キャラ**********
-  if (
-    message.channel.id == "1220799928692117605" ||
-    message.channel.id == "1213488301991010354"
-  ) {
-    if (message.author.bot) return;
-    const embed = new MessageEmbed()
-      .setTitle("- 遺物評価・" + message.content + " -")
-      .setColor("RANDOM");
-    fetch(
-      "https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/" +
-        starrail_version
-    )
-      .then((response) => response.json())
-      .then((scoreData) => {
-        fetch(
-          "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/jp/nickname.json"
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            let nickname = message.content;
-            if (message.content == "トパーズ") {
-              nickname = "トパーズ&カブ";
-            }
-            const characters = data.characters;
-            let characterKey = null;
-            for (const key in characters) {
-              if (characters[key].includes(nickname)) {
-                let icon =
-                  "https://github.com/Mar-7th/StarRailRes/blob/master/icon/character/" +
-                  key +
-                  ".png?raw=true";
-                console.log(icon);
-                embed.setThumbnail(icon);
-                characterKey = key;
-                break;
-              }
-            }
-            if (characterKey && scoreData[characterKey]) {
-              console.log(scoreData[characterKey]); // characterKeyに対応するデータを出力
-              embed.addField(
-                "- 頭部 -",
-                `HP固定値: ${scoreData[characterKey].main.head.HPDelta}`,
-                true
-              );
-              embed.addField(
-                "- 腕部 -",
-                `攻撃力固定値: ${scoreData[characterKey].main.hand.AttackDelta}`,
-                true
-              );
-              function sortValues(obj) {
-                return Object.entries(obj)
-                  .map(([key, value]) => ({ key, value }))
-                  .sort((a, b) => b.value - a.value)
-                  .map((item) => {
-                    let icon = "✅";
-                    if (item.value === 1) {
-                      icon = "👑";
-                    } else if (item.value === 0) {
-                      icon = "❌";
-                    }
-                    return `${icon} ${item.key}: ${item.value}`;
-                  })
-                  .join("\n");
-              }
+  todayTotalhcoin = json.data.day_data.current_hcoin;
+  thisMonthTotalhcoin = json.data.month_data.current_hcoin;
+  todayTotalrails_pass = json.data.day_data.current_rails_pass;
+  thisMonthTotalrails_pass = json.data.month_data.current_rails_pass;
 
-              embed.addField(
-                "- 胴部 -",
-                sortValues({
-                  "HP％": scoreData[characterKey].main.body.HPAddedRatio,
-                  "攻撃力％":
-                    scoreData[characterKey].main.body.AttackAddedRatio,
-                  "防御力％":
-                    scoreData[characterKey].main.body.DefenceAddedRatio,
-                  会心率: scoreData[characterKey].main.body.CriticalChanceBase,
-                  会心ダメージ:
-                    scoreData[characterKey].main.body.CriticalDamageBase,
-                  治癒量: scoreData[characterKey].main.body.HealRatioBase,
-                  効果命中:
-                    scoreData[characterKey].main.body.StatusProbabilityBase,
-                }),
-                true
-              );
+  cachedData = {
+    todayTotalhcoin,
+    thisMonthTotalhcoin,
+    todayTotalrails_pass,
+    thisMonthTotalrails_pass,
+  };
+  console.log(cachedData);
+  processingMessage.delete();
+  return cachedData;
+}
 
-              embed.addField(
-                "- 脚部 -",
-                sortValues({
-                  "HP％": scoreData[characterKey].main.feet.HPAddedRatio,
-                  "攻撃力％":
-                    scoreData[characterKey].main.feet.AttackAddedRatio,
-                  "防御力％":
-                    scoreData[characterKey].main.feet.DefenceAddedRatio,
-                  速度: scoreData[characterKey].main.feet.SpeedDelta,
-                }),
-                true
-              );
+//LoginBonus
+async function loginBonus(
+  genshinuid,
+  starrailuid,
+  genshincookie,
+  starrailcookie,
+  discorduser,
+  message
+) {
+  const date = new Date();
+  const epoch = Math.floor(date.getTime() / 1000);
+  const hash = MD5(`salt=6cqshh5dhw73bzxn20oexa9k516chk7s&t=${epoch}&r=abcdef`);
+  const DS = `${epoch},abcdef,${hash}`;
 
-              embed.addField(
-                "- 次元界オーブ -",
-                sortValues({
-                  "HP％": scoreData[characterKey].main.sphere.HPAddedRatio,
-                  "攻撃力％":
-                    scoreData[characterKey].main.sphere.AttackAddedRatio,
-                  "防御力％":
-                    scoreData[characterKey].main.sphere.DefenceAddedRatio,
-                  物理与ダメージ:
-                    scoreData[characterKey].main.sphere.PhysicalAddedRatio,
-                  炎属性与ダメージ:
-                    scoreData[characterKey].main.sphere.FireAddedRatio,
-                  氷属性与ダメージ:
-                    scoreData[characterKey].main.sphere.IceAddedRatio,
-                  雷属性与ダメージ:
-                    scoreData[characterKey].main.sphere.ThunderAddedRatio,
-                  風属性与ダメージ:
-                    scoreData[characterKey].main.sphere.WindAddedRatio,
-                  量子属性与ダメージ:
-                    scoreData[characterKey].main.sphere.QuantumAddedRatio,
-                  虚数属性与ダメージ:
-                    scoreData[characterKey].main.sphere.ImaginaryAddedRatio,
-                }),
-                true
-              );
+  const genshinloginheaders = {
+    Accept: "application/json, text/plain, */*",
+    "Accept-Language": "vi-VN,vi;q=0.5",
+    "Content-Type": "application/json;charset=utf-8",
+    Origin: "https://webstatic-sea.mihoyo.com",
+    Connection: "keep-alive",
+    Referer: `'https://webstatic-sea.mihoyo.com/ys/event/signin-sea/index.html?act_id=e202102251931481'`,
+    Cookie: genshincookie,
+  };
 
-              embed.addField(
-                "- 連結縄 -",
-                sortValues({
-                  "HP％": scoreData[characterKey].main.rope.HPAddedRatio,
-                  "攻撃力％":
-                    scoreData[characterKey].main.rope.AttackAddedRatio,
-                  "防御力％":
-                    scoreData[characterKey].main.rope.DefenceAddedRatio,
-                  撃破特効:
-                    scoreData[characterKey].main.rope.BreakDamageAddedRatioBase,
-                  EP回復効率: scoreData[characterKey].main.rope.SPRatioBase,
-                }),
-                true
-              );
+  const loginparams = new URLSearchParams({ lang: "ja-jp" });
 
-              embed.addField(
-                "- サブオプション -",
-                sortValues({
-                  HP固定値: scoreData[characterKey].sub.HPDelta,
-                  "HP%": scoreData[characterKey].sub.HPAddedRatio,
-                  攻撃力固定値: scoreData[characterKey].sub.AttackAddedRatio,
-                  "攻撃力％": scoreData[characterKey].sub.AttackDelta,
-                  防御力固定値: scoreData[characterKey].sub.DefenceDelta,
-                  "防御力％": scoreData[characterKey].sub.DefenceAddedRatio,
-                  速度: scoreData[characterKey].sub.SpeedDelta,
-                  会心率: scoreData[characterKey].sub.CriticalChanceBase,
-                  会心ダメージ: scoreData[characterKey].sub.CriticalDamageBase,
-                  効果命中: scoreData[characterKey].sub.StatusProbabilityBase,
-                  効果抵抗: scoreData[characterKey].sub.StatusResistanceBase,
-                  撃破特効:
-                    scoreData[characterKey].sub.BreakDamageAddedRatioBase,
-                }),
-                true
-              );
-              embed.setDescription("<@" + message.author + ">");
-              message.reply({ embeds: [embed] });
+  const logindata = JSON.stringify({ act_id: "e202102251931481" });
 
-              // ここで取得したデータを使用して追加の処理を行うことができます
-            } else {
-              console.log("キャラクターが見つかりませんでした");
-            }
-          })
-          .catch((error) =>
-            console.error("データの取得中にエラーが発生しました:", error)
-          );
-      })
-      .catch((error) =>
-        console.error("スコアデータの取得中にエラーが発生しました:", error)
-      );
-  }
-  //**********スタレ 遺物画像自動認識・自動スコア算出**********
-  if (
-    message.channel.id == "1222519957913604096" ||
-    message.channel.id == "1222896997741236324"
-  ) {
-    if (message.author.bot) return;
-    console.log(message.content);
-    if (message.attachments.size > 0) {
-      // Iterate over attachments
-      for (const attachment of message.attachments.values()) {
-        // Check if attachment is an image
-        if (attachment.contentType.startsWith("image")) {
-          try {
-            // Send a message to indicate that the bot is processing the image
-            // ランダムな画像を選択
-            const randomIndex = Math.floor(
-              Math.random() * starrail_imageUrls.length
-            );
-            const randomImageUrl = starrail_imageUrls[randomIndex];
-            console.log(randomImageUrl);
-            const embed1 = new MessageEmbed()
-              .setColor("RANDOM")
-              .setTitle("画像から文字を抽出/スコアを計算中…")
-              .setDescription("40秒程お待ちください…")
-              .setImage(randomImageUrl);
-            const processingMessage = await message.reply({ embeds: [embed1] });
-
-            const url = attachment.url;
-            console.log(url);
-
-            const embed = new MessageEmbed()
-              .setTitle("- 遺物スコア -")
-              .setColor("RANDOM")
-              .setImage(url);
-
-            // Create Tesseract worker
-            const worker = await createWorker("jpn");
-            await worker.load();
-            await worker.loadLanguage("jpn");
-            await worker.initialize("jpn");
-            // Recognize text from image
-            const {
-              data: { text },
-            } = await worker.recognize(url);
-            const filteredText = text.replace(/[^\S\n]/g, "");
-            const logText = filteredText.replace(/^\s*[\r\n]/gm, "");
-            const channel = await client.channels.fetch("1207204533005189131");
-            const data_collection = await client.channels.fetch(
-              "1208468886517981195"
-            );
-            channel.send(
-              "----------\n[" +
-                message.author.username +
-                "]\n" +
-                url +
-                "\n" +
-                logText
-            );
-
-            const linesStartingWithBullet = filteredText
-              .split("\n")
-              //追加→ || line.trim().startsWith('.')
-              .filter(
-                (line) =>
-                  line.trim().startsWith("・") ||
-                  line.trim().startsWith("*") ||
-                  line.trim().startsWith("･") ||
-                  line.trim().startsWith("＊")
-              )
-              //追加→ |^.
-              .map((line) => line.replace(/^・|^(\*)|^･|^＊/, ""));
-            const cleanedText = linesStartingWithBullet.join("\n");
-            // Extract values for specified patterns
-            let main = 0;
-            let main_percent = false;
-            let main_name = "";
-            let critical = 0;
-            let critical_hurt = 0;
-            let attack = 0;
-            let attack_num = 0;
-            let defense = 0;
-            let defense_num = 0;
-            let hp = 0;
-            let hp_num = 0;
-            let speed_num = 0;
-            let effectHit = 0;
-            let destructionSpecialAttack = 0;
-            let effectResistance = 0;
-
-            filteredText.split("\n").forEach((line) => {
-              if (line.includes("会心率") && line.includes("%")) {
-                critical = parseFloat(line.replace(/[^\d.]/g, ""));
-                if (critical > 19.4) {
-                  main_name = "会心率 ";
-                  main = critical;
-                  main_percent = true;
-                  critical = 0;
-                }
-              } else if (line.includes("会心ダメージ") && line.includes("%")) {
-                critical_hurt = parseFloat(line.replace(/[^\d.]/g, ""));
-                if (critical_hurt > 38.8) {
-                  main_name = "会心ダメージ ";
-                  main = critical_hurt;
-                  main_percent = true;
-                  critical_hurt = 0;
-                }
-              } else if (line.includes("攻撃力")) {
-                if (line.includes("%")) {
-                  attack = parseFloat(line.replace(/[^\d.]/g, ""));
-                  if (attack > 25.9) {
-                    main_name = "攻撃力 ";
-                    main = attack;
-                    main_percent = true;
-                    attack = 0;
-                  }
-                } else {
-                  attack_num = parseFloat(line.replace(/[^\d.]/g, ""));
-                  if (attack_num > 126) {
-                    main_name = "攻撃力 ";
-                    main = attack_num;
-                    attack_num = 0;
-                  }
-                }
-              } else if (line.includes("防御力")) {
-                if (line.includes("%")) {
-                  defense = parseFloat(line.replace(/[^\d.]/g, ""));
-                  if (defense > 32.4) {
-                    main_name = "防御力 ";
-                    main = defense;
-                    main_percent = true;
-                    defense = 0;
-                  }
-                } else {
-                  defense_num = parseFloat(line.replace(/[^\d.]/g, ""));
-                }
-              } else if (line.includes("HP")) {
-                if (line.includes("%")) {
-                  hp = parseFloat(line.replace(/[^\d.]/g, ""));
-                  if (hp > 25.9) {
-                    main_name = "HP ";
-                    main_percent = true;
-                    main = hp;
-                    hp = 0;
-                  }
-                } else {
-                  hp_num = parseFloat(line.replace(/[^\d.]/g, ""));
-                  if (hp_num > 252) {
-                    main_name = "HP ";
-                    main = hp_num;
-                    hp_num = 0;
-                  }
-                }
-              } else if (line.includes("速度")) {
-                speed_num = parseFloat(line.replace(/[^\d.]/g, ""));
-                if (speed_num > 15.6) {
-                  main_name = "速度 ";
-                  main = speed_num;
-                  speed_num = 0;
-                }
-              } else if (line.includes("効果命中")) {
-                effectHit = parseFloat(line.replace(/[^\d.]/g, ""));
-                if (effectHit > 25.9) {
-                  main_name = "効果命中 ";
-                  main = effectHit;
-                  main_percent = true;
-                  effectHit = 0;
-                }
-              } else if (line.includes("撃破特攻")) {
-                destructionSpecialAttack = parseFloat(
-                  line.replace(/[^\d.]/g, "")
-                );
-                if (destructionSpecialAttack > 38.8) {
-                  main_name = "撃破特攻 ";
-                  main = destructionSpecialAttack;
-                  main_percent = true;
-                  destructionSpecialAttack = 0;
-                }
-              } else if (line.includes("効果抵抗")) {
-                effectResistance = parseFloat(line.replace(/[^\d.]/g, ""));
-                if (effectResistance > 25.9) {
-                  main_name = "効果抵抗 ";
-                  main = effectResistance;
-                  main_percent = true;
-                  effectResistance = 0;
-                }
-              }
-            });
-            if (main == 0) {
-              if (filteredText.includes("治癒量")) {
-                main_name = "治癒量 ";
-                main = 34.5;
-              } else if (filteredText.includes("EP回復効率")) {
-                main_name = "EP回復効率 ";
-                main = 19.4;
-              } else if (filteredText.includes("与ダメージ")) {
-                main = 38.8;
-                if (filteredText.includes("物理与ダメージ")) {
-                  main_name = "物理与ダメージ ";
-                } else if (filteredText.includes("炎属性与ダメージ")) {
-                  main_name = "炎属性与ダメージ ";
-                } else if (filteredText.includes("氷属性与ダメージ")) {
-                  main_name = "氷属性与ダメージ ";
-                } else if (filteredText.includes("雷属性与ダメージ")) {
-                  main_name = "雷属性与ダメージ ";
-                } else if (filteredText.includes("風属性与ダメージ")) {
-                  main_name = "風属性与ダメージ ";
-                } else if (filteredText.includes("量子属性与ダメージ")) {
-                  main_name = "量子属性与ダメージ ";
-                } else if (filteredText.includes("虚数属性与ダメージ")) {
-                  main_name = "虚数属性与ダメージ ";
-                }
-              }
-              main_percent = true;
-            }
-            let main_text = "";
-            if (!main_percent) {
-              main_text = main_name + main;
-            } else {
-              main_text = main_name + main + "%";
-            }
-            let critical_text = "会心率 " + critical + "%";
-            let critical_hurt_text = "会心ダメージ " + critical_hurt + "%";
-            let attack_text = "攻撃力 " + attack + "%";
-            let attack_num_text = "攻撃力 " + attack_num;
-            let defense_text = "防御力 " + defense + "%";
-            let defense_num_text = "防御力 " + defense_num;
-            let hp_text = "HP " + hp + "%";
-            let hp_num_text = "HP " + hp_num;
-            let speed_num_text = "速度 " + speed_num;
-            let effectHit_text = "効果命中 " + effectHit + "%";
-            let destructionSpecialAttack_text =
-              "撃破特攻 " + destructionSpecialAttack + "%";
-            let effectResistance_text = "効果抵抗 " + effectResistance + "%";
-
-            await worker.terminate();
-
-            if (message.content != "") {
-              fetch(
-                "https://raw.githubusercontent.com/LATA-apple/StarRail_score/main/" +
-                  starrail_version
-              )
-                .then((response) => response.json())
-                .then((scoreData) => {
-                  fetch(
-                    "https://raw.githubusercontent.com/Mar-7th/StarRailRes/master/index_min/jp/nickname.json"
-                  )
-                    .then((response) => response.json())
-                    .then((data) => {
-                      const nickname = message.content;
-                      const characters = data.characters;
-                      let characterKey = null;
-                      for (const key in characters) {
-                        if (characters[key].includes(nickname)) {
-                          let icon =
-                            "https://github.com/Mar-7th/StarRailRes/blob/master/icon/character/" +
-                            key +
-                            ".png?raw=true";
-                          console.log(icon);
-                          embed.setThumbnail(icon);
-                          characterKey = key;
-                          break;
-                        }
-                      }
-                      if (characterKey && scoreData[characterKey]) {
-                        console.log(scoreData[characterKey]); // characterKeyに対応するデータを出力
-                        let main_head_HPDelta =
-                          scoreData[characterKey].main.head.HPDelta;
-                        let main_hand_AttackDelta =
-                          scoreData[characterKey].main.hand.AttackDelta;
-                        let main_body_HPAddedRatio =
-                          scoreData[characterKey].main.body.HPAddedRatio;
-                        let main_body_AttackAddedRatio =
-                          scoreData[characterKey].main.body.AttackAddedRatio;
-                        let main_body_DefenceAddedRatio =
-                          scoreData[characterKey].main.body.DefenceAddedRatio;
-                        let main_body_CriticalChanceBase =
-                          scoreData[characterKey].main.body.CriticalChanceBase;
-                        let main_body_CriticalDamageBase =
-                          scoreData[characterKey].main.body.CriticalDamageBase;
-                        let main_body_HealRatioBase =
-                          scoreData[characterKey].main.body.HealRatioBase;
-                        let main_body_StatusProbabilityBase =
-                          scoreData[characterKey].main.body
-                            .StatusProbabilityBase;
-                        let main_feet_HPAddedRatio =
-                          scoreData[characterKey].main.feet.HPAddedRatio;
-                        let main_feet_AttackAddedRatio =
-                          scoreData[characterKey].main.feet.AttackAddedRatio;
-                        let main_feet_DefenceAddedRatio =
-                          scoreData[characterKey].main.feet.DefenceAddedRatio;
-                        let main_feet_SpeedDelta =
-                          scoreData[characterKey].main.feet.SpeedDelta;
-                        let main_sphere_HPAddedRatio =
-                          scoreData[characterKey].main.sphere.HPAddedRatio;
-                        let main_sphere_AttackAddedRatio =
-                          scoreData[characterKey].main.sphere.AttackAddedRatio;
-                        let main_sphere_DefenceAddedRatio =
-                          scoreData[characterKey].main.sphere.DefenceAddedRatio;
-                        let main_sphere_PhysicalAddedRatio =
-                          scoreData[characterKey].main.sphere
-                            .PhysicalAddedRatio;
-                        let main_sphere_FireAddedRatio =
-                          scoreData[characterKey].main.sphere.FireAddedRatio;
-                        let main_sphere_IceAddedRatio =
-                          scoreData[characterKey].main.sphere.IceAddedRatio;
-                        let main_sphere_ThunderAddedRatio =
-                          scoreData[characterKey].main.sphere.ThunderAddedRatio;
-                        let main_sphere_WindAddedRatio =
-                          scoreData[characterKey].main.sphere.WindAddedRatio;
-                        let main_sphere_QuantumAddedRatio =
-                          scoreData[characterKey].main.sphere.QuantumAddedRatio;
-                        let main_sphere_ImaginaryAddedRatio =
-                          scoreData[characterKey].main.sphere
-                            .ImaginaryAddedRatio;
-                        let main_rope_HPAddedRatio =
-                          scoreData[characterKey].main.rope.HPAddedRatio;
-                        let main_rope_AttackAddedRatio =
-                          scoreData[characterKey].main.rope.AttackAddedRatio;
-                        let main_rope_DefenceAddedRatio =
-                          scoreData[characterKey].main.rope.DefenceAddedRatio;
-                        let main_rope_BreakDamageAddedRatioBase =
-                          scoreData[characterKey].main.rope
-                            .BreakDamageAddedRatioBase;
-                        let main_rope_SPRatioBase =
-                          scoreData[characterKey].main.rope.SPRatioBase;
-                        let sub_HPDelta = scoreData[characterKey].sub.HPDelta;
-                        let sub_HPAddedRatio =
-                          scoreData[characterKey].sub.HPAddedRatio;
-                        let sub_AttackAddedRatio =
-                          scoreData[characterKey].sub.AttackAddedRatio;
-                        let sub_AttackDelta =
-                          scoreData[characterKey].sub.AttackDelta;
-                        let sub_DefenceDelta =
-                          scoreData[characterKey].sub.DefenceDelta;
-                        let sub_DefenceAddedRatio =
-                          scoreData[characterKey].sub.DefenceAddedRatio;
-                        let sub_SpeedDelta =
-                          scoreData[characterKey].sub.SpeedDelta;
-                        let sub_CriticalChanceBase =
-                          scoreData[characterKey].sub.CriticalChanceBase;
-                        let sub_CriticalDamageBase =
-                          scoreData[characterKey].sub.CriticalDamageBase;
-                        let sub_StatusProbabilityBase =
-                          scoreData[characterKey].sub.StatusProbabilityBase;
-                        let sub_StatusResistanceBase =
-                          scoreData[characterKey].sub.StatusResistanceBase;
-                        let sub_BreakDamageAddedRatioBase =
-                          scoreData[characterKey].sub.BreakDamageAddedRatioBase;
-
-                        let main_HPDelta_Max = 705;
-                        let main_AttackDelta_Max = 352;
-                        let main_HPAddedRatio_Max = 43.2;
-                        let main_AttackAddedRatio_Max = 43.2;
-                        let main_DefenceAddedRatio_Max = 54.0;
-                        let main_CriticalChanceBase_Max = 32.4;
-                        let main_CriticalDamageBase_Max = 64.8;
-                        let main_HealRatioBase_Max = 34.5;
-                        let main_StatusProbabilityBase_Max = 43.2;
-                        let main_SpeedDelta_Max = 25;
-                        let main_PhysicalAddedRatio_Max = 38.8;
-                        let main_FireAddedRatio_Max = 38.8;
-                        let main_IceAddedRatio_Max = 38.8;
-                        let main_ThunderAddedRatio_Max = 38.8;
-                        let main_WindAddedRatio_Max = 38.8;
-                        let main_QuantumAddedRatio_Max = 38.8;
-                        let main_ImaginaryAddedRatio_Max = 38.8;
-                        let main_BreakDamageAddedRatioBase_Max = 64.8;
-                        let main_SPRatioBase_Max = 19.4;
-
-                        let main_score = 0;
-                        if (main_name == "HP ") {
-                          main_score = main_head_HPDelta * 50;
-                        } else if (main_name == "攻撃力 ") {
-                          main_score = main_hand_AttackDelta * 50;
-                        } else if (main_name == "防御力 ") {
-                          main_score = main_body_DefenceAddedRatio * 50;
-                        } else if (main_name == "会心率 ") {
-                          main_score = main_body_CriticalChanceBase * 50;
-                        } else if (main_name == "会心ダメージ ") {
-                          main_score = main_body_CriticalDamageBase * 50;
-                        } else if (main_name == "治癒量 ") {
-                          main_score = main_body_HealRatioBase * 50;
-                        } else if (main_name == "効果命中 ") {
-                          main_score = main_body_StatusProbabilityBase * 50;
-                        } else if (main_name == "速度 ") {
-                          main_score = main_feet_SpeedDelta * 50;
-                        } else if (main_name == "物理与ダメージ ") {
-                          main_score = main_sphere_PhysicalAddedRatio * 50;
-                        } else if (main_name == "炎属性与ダメージ ") {
-                          main_score = main_sphere_FireAddedRatio * 50;
-                        } else if (main_name == "氷属性与ダメージ ") {
-                          main_score = main_sphere_IceAddedRatio * 50;
-                        } else if (main_name == "雷属性与ダメージ ") {
-                          main_score = main_sphere_ThunderAddedRatio * 50;
-                        } else if (main_name == "風属性与ダメージ ") {
-                          main_score = main_sphere_WindAddedRatio * 50;
-                        } else if (main_name == "量子属性与ダメージ ") {
-                          main_score = main_sphere_QuantumAddedRatio * 50;
-                        } else if (main_name == "虚数属性与ダメージ ") {
-                          main_score = main_sphere_ImaginaryAddedRatio * 50;
-                        } else if (main_name == "撃破特攻 ") {
-                          main_score = main_rope_BreakDamageAddedRatioBase * 50;
-                        } else if (main_name == "EP回復効率 ") {
-                          main_score = main_rope_SPRatioBase * 50;
-                        }
-
-                        main_text = main_text + "　(" + main_score + ")";
-
-                        let sub_HPDelta_Max = 252;
-                        let sub_HPAddedRatio_Max = 25.9;
-                        let sub_AttackDelta_Max = 126;
-                        let sub_AttackAddedRatio_Max = 25.9;
-                        let sub_DefenceDelta_Max = 126;
-                        let sub_DefenceAddedRatio_Max = 32.4;
-                        let sub_SpeedDelta_Max = 15.6;
-                        let sub_CriticalChanceBase_Max = 19.4;
-                        let sub_CriticalDamageBase_Max = 38.8;
-                        let sub_StatusProbabilityBase_Max = 25.9;
-                        let sub_StatusResistanceBase_Max = 25.9;
-                        let sub_BreakDamageAddedRatioBase_Max = 38.8;
-
-                        let orthopedics_text = "";
-
-                        let sub_score = 0;
-                        let sub_total_score = 0;
-                        if (critical !== 0) {
-                          sub_score =
-                            (critical / sub_CriticalChanceBase_Max) *
-                            sub_CriticalChanceBase *
-                            50;
-                          orthopedics_text +=
-                            critical_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (critical_hurt !== 0) {
-                          sub_score =
-                            (critical_hurt / sub_CriticalDamageBase_Max) *
-                            sub_CriticalDamageBase *
-                            50;
-                          orthopedics_text +=
-                            critical_hurt_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (hp_num !== 0) {
-                          sub_score =
-                            (hp_num / sub_HPDelta_Max) * sub_HPDelta * 50;
-                          orthopedics_text +=
-                            critical_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (hp !== 0) {
-                          sub_score =
-                            (hp / sub_HPAddedRatio_Max) * sub_HPAddedRatio * 50;
-                          orthopedics_text +=
-                            hp_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (attack_num !== 0) {
-                          sub_score =
-                            (attack_num / sub_AttackDelta_Max) *
-                            sub_AttackDelta *
-                            50;
-                          orthopedics_text +=
-                            attack_num_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (attack !== 0) {
-                          sub_score =
-                            (attack / sub_AttackAddedRatio_Max) *
-                            sub_AttackAddedRatio *
-                            50;
-                          orthopedics_text +=
-                            attack_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (defense_num !== 0) {
-                          sub_score =
-                            (defense_num / sub_DefenceDelta_Max) *
-                            sub_DefenceDelta *
-                            50;
-                          orthopedics_text +=
-                            defense_num_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (defense !== 0) {
-                          sub_score =
-                            (defense / sub_DefenceAddedRatio_Max) *
-                            sub_DefenceAddedRatio *
-                            50;
-                          orthopedics_text +=
-                            defense_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (speed_num !== 0) {
-                          sub_score =
-                            (speed_num / sub_SpeedDelta_Max) *
-                            sub_SpeedDelta *
-                            50;
-                          orthopedics_text +=
-                            speed_num_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (effectHit !== 0) {
-                          sub_score =
-                            (effectHit / sub_StatusProbabilityBase_Max) *
-                            sub_StatusProbabilityBase *
-                            50;
-                          orthopedics_text +=
-                            effectHit_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (destructionSpecialAttack !== 0) {
-                          sub_score =
-                            (destructionSpecialAttack /
-                              sub_StatusResistanceBase_Max) *
-                            sub_StatusResistanceBase *
-                            50;
-                          orthopedics_text +=
-                            destructionSpecialAttack_text +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-                        if (effectResistance !== 0) {
-                          sub_score =
-                            (effectResistance /
-                              sub_BreakDamageAddedRatioBase_Max) *
-                            sub_BreakDamageAddedRatioBase *
-                            50;
-                          orthopedics_text +=
-                            effectResistance +
-                            "　(" +
-                            parseInt(sub_score * 10) / 10 +
-                            ")\n";
-                          sub_total_score += sub_score;
-                        }
-
-                        let total_score = 0;
-                        total_score =
-                          parseInt((main_score + sub_total_score) * 10) / 10;
-                        var text_main_score = main_score.toString();
-                        var text_sub_score = sub_total_score.toString();
-                        var text_total_score = total_score.toString();
-                        embed.addField(
-                          "遺物情報",
-                          "【メインステータス】\n" +
-                            main_text +
-                            "\n【サブステータス】\n" +
-                            orthopedics_text
-                        );
-                        embed.addField(
-                          "遺物スコア",
-                          text_main_score +
-                            " + " +
-                            text_sub_score +
-                            " = " +
-                            text_total_score
-                        );
-                        data_collection.send({ embeds: [embed] });
-                        processingMessage.delete();
-                        message.reply({ embeds: [embed] });
-
-                        // ここで取得したデータを使用して追加の処理を行うことができます
-                      } else {
-                        console.log("キャラクターが見つかりませんでした");
-                      }
-                    })
-                    .catch((error) =>
-                      console.error(
-                        "データの取得中にエラーが発生しました:",
-                        error
-                      )
-                    );
-                })
-                .catch((error) =>
-                  console.error(
-                    "スコアデータの取得中にエラーが発生しました:",
-                    error
-                  )
-                );
-            } else {
-              let main_score = 50;
-              let orthopedics_text = "";
-              let sub_score = 0;
-              let sub_total_score = 0;
-
-              let sub_HPDelta_Max = 252;
-              let sub_HPAddedRatio_Max = 25.9;
-              let sub_AttackDelta_Max = 126;
-              let sub_AttackAddedRatio_Max = 25.9;
-              let sub_DefenceDelta_Max = 126;
-              let sub_DefenceAddedRatio_Max = 32.4;
-              let sub_SpeedDelta_Max = 15.6;
-              let sub_CriticalChanceBase_Max = 19.4;
-              let sub_CriticalDamageBase_Max = 38.8;
-              let sub_StatusProbabilityBase_Max = 25.9;
-              let sub_StatusResistanceBase_Max = 25.9;
-              let sub_BreakDamageAddedRatioBase_Max = 38.8;
-
-              if (critical !== 0) {
-                sub_score = (critical / sub_CriticalChanceBase_Max) * 50;
-                orthopedics_text +=
-                  critical_text + "　(" + parseInt(sub_score * 10) / 10 + ")\n";
-                sub_total_score += sub_score;
-              }
-              if (critical_hurt !== 0) {
-                sub_score = (critical_hurt / sub_CriticalDamageBase_Max) * 50;
-                orthopedics_text +=
-                  critical_hurt_text +
-                  "　(" +
-                  parseInt(sub_score * 10) / 10 +
-                  ")\n";
-                sub_total_score += sub_score;
-              }
-              if (hp_num !== 0) {
-                sub_score = (hp_num / sub_HPDelta_Max) * 50;
-                orthopedics_text +=
-                  critical_text + "　(" + parseInt(sub_score * 10) / 10 + ")\n";
-                sub_total_score += sub_score;
-              }
-              if (hp !== 0) {
-                sub_score = (hp / sub_HPAddedRatio_Max) * 50;
-                orthopedics_text +=
-                  hp_text + "　(" + parseInt(sub_score * 10) / 10 + ")\n";
-                sub_total_score += sub_score;
-              }
-              if (attack_num !== 0) {
-                sub_score = (attack_num / sub_AttackDelta_Max) * 50;
-                orthopedics_text +=
-                  attack_num_text +
-                  "　(" +
-                  parseInt(sub_score * 10) / 10 +
-                  ")\n";
-                sub_total_score += sub_score;
-              }
-              if (attack !== 0) {
-                sub_score = (attack / sub_AttackAddedRatio_Max) * 50;
-                orthopedics_text +=
-                  attack_text + "　(" + parseInt(sub_score * 10) / 10 + ")\n";
-                sub_total_score += sub_score;
-              }
-              if (defense_num !== 0) {
-                sub_score = (defense_num / sub_DefenceDelta_Max) * 50;
-                orthopedics_text +=
-                  defense_num_text +
-                  "　(" +
-                  parseInt(sub_score * 10) / 10 +
-                  ")\n";
-                sub_total_score += sub_score;
-              }
-              if (defense !== 0) {
-                sub_score = (defense / sub_DefenceAddedRatio_Max) * 50;
-                orthopedics_text +=
-                  defense_text + "　(" + parseInt(sub_score * 10) / 10 + ")\n";
-                sub_total_score += sub_score;
-              }
-              if (speed_num !== 0) {
-                sub_score = (speed_num / sub_SpeedDelta_Max) * 50;
-                orthopedics_text +=
-                  speed_num_text +
-                  "　(" +
-                  parseInt(sub_score * 10) / 10 +
-                  ")\n";
-                sub_total_score += sub_score;
-              }
-              if (effectHit !== 0) {
-                sub_score = (effectHit / sub_StatusProbabilityBase_Max) * 50;
-                orthopedics_text +=
-                  effectHit_text +
-                  "　(" +
-                  parseInt(sub_score * 10) / 10 +
-                  ")\n";
-                sub_total_score += sub_score;
-              }
-              if (destructionSpecialAttack !== 0) {
-                sub_score =
-                  (destructionSpecialAttack / sub_StatusResistanceBase_Max) *
-                  50;
-                orthopedics_text +=
-                  destructionSpecialAttack_text +
-                  "　(" +
-                  parseInt(sub_score * 10) / 10 +
-                  ")\n";
-                sub_total_score += sub_score;
-              }
-              if (effectResistance !== 0) {
-                sub_score =
-                  (effectResistance / sub_BreakDamageAddedRatioBase_Max) * 50;
-                orthopedics_text +=
-                  effectResistance +
-                  "　(" +
-                  parseInt(sub_score * 10) / 10 +
-                  ")\n";
-                sub_total_score += sub_score;
-              }
-
-              let total_score = 0;
-              total_score = parseInt((main_score + sub_total_score) * 10) / 10;
-              var text_main_score = main_score.toString();
-              var text_sub_score = sub_total_score.toString();
-              var text_total_score = total_score.toString();
-              embed.addField(
-                "遺物情報",
-                "【メインステータス】\n" +
-                  main_text +
-                  "\n【サブステータス】\n" +
-                  orthopedics_text
-              );
-              embed.addField(
-                "遺物スコア",
-                text_main_score +
-                  " + " +
-                  text_sub_score +
-                  " = " +
-                  text_total_score
-              );
-              data_collection.send({ embeds: [embed] });
-              processingMessage.delete();
-              message.reply({ embeds: [embed] });
-            }
-          } catch (error) {
-            console.error("Error processing image:", error);
-            message.reply("<@691324906729898024>、エラーが発生しました。");
-          }
-        }
+  try {
+    const loginresponse = await fetch(
+      "https://sg-hk4e-api.hoyolab.com/event/sol/sign?lang=ja-jp",
+      {
+        method: "POST",
+        headers: genshinloginheaders,
+        params: loginparams,
+        body: logindata,
       }
+    );
+
+    if (loginresponse.ok) {
+      const genshinjson = await loginresponse.json();
+      console.log("原神");
+      console.log(genshinjson);
+
+      if (genshinjson.message == "OK") {
+        color = "#0000FF";
+        logintext = discorduser + "ログインボーナスを獲得したぞ！";
+      } else if (genshinjson.message == "ログインボーナス取得済です") {
+        color = "#00FF00";
+        logintext = discorduser + genshinjson.message;
+      } else if (genshinjson.message == "ログインしてください") {
+        color = "#FF0000";
+        logintext =
+          "<@691324906729898024>ログインCookieが更新されました。修正してください。";
+      } else {
+        color = "#808080";
+        logintext = discorduser + genshinjson.message;
+        console.log(genshinjson.message);
+      }
+      if (color == "#0000FF" || color == "#00FF00") {
+        const dailyloginurl = `https://sg-hk4e-api.hoyolab.com/event/sol/resign_info?act_id=e202102251931481&lang=ja-jp`;
+        const dailyloginres = await fetch(dailyloginurl, {
+          headers: {
+            "x-rpc-client_type": "4",
+            "x-rpc-app_version": "1.5.0",
+            Cookie: genshincookie,
+            DS: DS,
+          },
+        });
+        const dailylogindata = await dailyloginres.json();
+        console.log(dailylogindata.data.sign_cnt + "日目");
+
+        const dailyitemsurl = `https://sg-hk4e-api.hoyolab.com/event/sol/home?lang=ja-jp&act_id=e202102251931481`;
+        const dailyitemsres = await fetch(dailyitemsurl, {
+          headers: {
+            "x-rpc-client_type": "4",
+            "x-rpc-app_version": "1.5.0",
+            Cookie: genshincookie,
+            DS: DS,
+          },
+        });
+        const dailyitemsdata = await dailyitemsres.json();
+        const todayitem =
+          dailyitemsdata["data"]["awards"][dailylogindata.data.sign_cnt - 1];
+        const item = todayitem.name + "×" + todayitem.cnt;
+        console.log(todayitem);
+        console.log(todayitem.name + "×" + todayitem.cnt);
+
+        const embed1 = new MessageEmbed()
+          .setAuthor({
+            name: "パイモン",
+            iconURL:
+              "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417055624512.png",
+          })
+          .setColor(color)
+          .setTitle("原神 ログボ")
+          .setDescription(logintext)
+          .setThumbnail(todayitem.icon)
+          .addField("獲得アイテム", item, true)
+          .setFooter(dailylogindata.data.sign_cnt + "日ログイン");
+        message.channel.send({ embeds: [embed1] });
+      } else {
+        const embed1 = new MessageEmbed()
+          .setAuthor({
+            name: "パイモン",
+            iconURL:
+              "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417055624512.png",
+          })
+          .setColor(color)
+          .setTitle("原神 ログボ")
+          .setDescription(logintext);
+        message.channel.send({ embeds: [embed1] });
+      }
+
+      //return genshinjson;
+    } else {
+      throw new Error(`HTTP error! status: ${loginresponse.status}`);
     }
+  } catch (error) {
+    console.error("Error:", error);
   }
 
-  //**********原神 聖遺物画像自動認識・自動スコア算出**********
-  if (
-    message.channel.id == "1220798423935221840" ||
-    message.channel.id == "1196454920220586044"
-  ) {
-    if (message.author.bot) return;
-    if (message.attachments.size > 0) {
-      // Iterate over attachments
-      for (const attachment of message.attachments.values()) {
-        // Check if attachment is an image
-        if (attachment.contentType.startsWith("image")) {
-          if (message.content == "") {
-            try {
-              // Send a message to indicate that the bot is processing the image
+  const starraildata = JSON.stringify({
+    act_id: "e202303301540311",
+    lang: "ja-jp",
+  });
 
-              // ランダムな画像を選択
-              const randomIndex = Math.floor(
-                Math.random() * genshin_imageUrls.length
-              );
-              const randomImageUrl = genshin_imageUrls[randomIndex];
-              console.log(randomImageUrl);
-              const embed1 = new MessageEmbed()
-                .setColor("RANDOM")
-                .setTitle("画像から文字を抽出/スコアを計算中…")
-                .setDescription("40秒程お待ちください…")
-                .setImage(randomImageUrl);
-              const processingMessage = await message.reply({
-                embeds: [embed1],
-              });
-              //const processingMessage = await message.reply('画像から文字を抽出/スコアを計算中…\n(40秒程お待ちください…)https://i.imgur.com/oc4vzUC.jpg');
-              // Get image URL
-              const url = attachment.url;
-              console.log(url);
+  const starrailloginheaders = {
+    Accept: "application/json, text/plain, */*",
+    "Accept-Language": "vi-VN,vi;q=0.5",
+    "Content-Type": "application/json;charset=utf-8",
+    Origin: "https://webstatic-sea.mihoyo.com",
+    Connection: "keep-alive",
+    Referer: `'https://webstatic-sea.mihoyo.com/ys/event/signin-sea/index.html?act_id=e202102251931481'`,
+    Cookie: starrailcookie,
+  };
 
-              const embed = new MessageEmbed()
-                .setTitle("- 聖遺物スコア -")
-                .setColor("RANDOM")
-                .setThumbnail(url);
+  try {
+    const loginresponse = await fetch(
+      "https://sg-public-api.hoyolab.com/event/luna/os/sign?act_id=e202303301540311&lang=ja-jp",
+      {
+        method: "POST",
+        headers: starrailloginheaders,
+        body: starraildata,
+      }
+    );
 
-              // Create Tesseract worker
-              const worker = await createWorker("jpn");
-              await worker.load();
-              await worker.loadLanguage("jpn");
-              await worker.initialize("jpn");
-              // Recognize text from image
-              const {
-                data: { text },
-              } = await worker.recognize(url);
-              const filteredText = text.replace(/[^\S\n]/g, "");
-              const logText = filteredText.replace(/^\s*[\r\n]/gm, "");
-              const channel = await client.channels.fetch(
-                "1207204533005189131"
-              );
-              const data_collection = await client.channels.fetch(
-                "1208468886517981195"
-              );
-              channel.send(
-                "----------\n[" +
-                  message.author.username +
-                  "]\n" +
-                  url +
-                  "\n" +
-                  logText
-              );
+    if (loginresponse.ok) {
+      const starrailjson = await loginresponse.json();
+      console.log("スタレ");
+      console.log(starrailjson);
 
-              let type_of_relics = "";
-              if (filteredText.includes("死の羽")) {
-                type_of_relics = "死の羽";
-              } else if (filteredText.includes("時の砂")) {
-                type_of_relics = "時の砂";
-              } else if (filteredText.includes("空の杯")) {
-                type_of_relics = "空の杯";
-              } else if (filteredText.includes("理の冠")) {
-                type_of_relics = "理の冠";
-              } else {
-                type_of_relics = "生の花";
-              }
+      if (starrailjson.message == "OK") {
+        color = "#0000FF";
+        logintext = discorduser + "ログインボーナスを獲得したぞ！";
+      } else if (starrailjson.message == "ログインボーナス獲得済みです") {
+        color = "#00FF00";
+        logintext = discorduser + starrailjson.message;
+      } else if (starrailjson.message == "ログインしてください") {
+        color = "#FF0000";
+        logintext =
+          "<@691324906729898024>ログインCookieが更新されました。修正してください。";
+      } else {
+        color = "#808080";
+        logintext = discorduser + starrailjson.message;
+        console.log(starrailjson.message);
+      }
 
-              const linesStartingWithBullet = filteredText
-                .split("\n")
-                //追加→ || line.trim().startsWith('.')
-                .filter(
-                  (line) =>
-                    line.trim().startsWith("・") ||
-                    line.trim().startsWith("*") ||
-                    line.trim().startsWith("･") ||
-                    line.trim().startsWith("＊")
-                )
-                //追加→ |^.
-                .map((line) => line.replace(/^・|^(\*)|^･|^＊/, ""));
-              const cleanedText = linesStartingWithBullet.join("\n");
-              // Extract values for specified patterns
-              let critical = 0;
-              let critical_hurt = 0;
-              let attack = 0;
-              let attack_num = 0;
-              let defense = 0;
-              let defense_num = 0;
-              let hp = 0;
-              let hp_num = 0;
-              let charge_efficiency = 0;
-              let element_mastery = 0;
+      if (color == "#0000FF" || color == "#00FF00") {
+        const dailyloginurl = `https://sg-public-api.hoyolab.com/event/luna/os/info?lang=ja-jp&act_id=e202303301540311`;
+        const dailyloginres = await fetch(dailyloginurl, {
+          headers: {
+            "x-rpc-client_type": "4",
+            "x-rpc-app_version": "1.5.0",
+            Cookie: starrailcookie,
+            DS: DS,
+          },
+        });
+        const dailylogindata = await dailyloginres.json();
+        console.log(dailylogindata.data.total_sign_day + "日目");
 
-              cleanedText.split("\n").forEach((line) => {
-                if (line.includes("会心率") && line.includes("%")) {
-                  critical = parseFloat(
-                    line
-                      .replace("会心率+", "")
-                      .replace("%", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                  );
-                } else if (
-                  line.includes("会心ダメージ") &&
-                  line.includes("%")
-                ) {
-                  critical_hurt = parseFloat(
-                    line
-                      .replace("会心ダメージ+", "")
-                      .replace("%", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                  );
-                } else if (line.includes("攻撃力")) {
-                  if (line.includes("%")) {
-                    attack = parseFloat(
-                      line
-                        .replace("攻撃力+", "")
-                        .replace("%", "")
-                        .trim()
-                        .replace(/[^\d.]/g, "")
-                    );
-                  } else {
-                    attack_num = parseFloat(
-                      line
-                        .replace("攻撃力+", "")
-                        .trim()
-                        .replace(/[^\d.]/g, "")
-                    ); /////
-                  }
-                } else if (line.includes("防御力")) {
-                  if (line.includes("%")) {
-                    defense = parseFloat(
-                      line
-                        .replace("防御力+", "")
-                        .replace("%", "")
-                        .trim()
-                        .replace(/[^\d.]/g, "")
-                    );
-                  } else {
-                    defense_num = parseFloat(
-                      line
-                        .replace("防御力+", "")
-                        .trim()
-                        .replace(/[^\d.]/g, "")
-                    ); /////
-                  }
-                } else if (line.includes("HP")) {
-                  if (line.includes("%")) {
-                    hp = parseFloat(
-                      line
-                        .replace("HP+", "")
-                        .replace("%", "")
-                        .trim()
-                        .replace(/[^\d.]/g, "")
-                    );
-                  } else {
-                    hp_num = parseFloat(
-                      line
-                        .replace("HP+", "")
-                        .trim()
-                        .replace(/[^\d.]/g, "")
-                        .replace(".", "")
-                    ); /////
-                  }
-                } else if (
-                  line.includes("元素チャージ効率") &&
-                  line.includes("%")
-                ) {
-                  charge_efficiency = parseFloat(
-                    line
-                      .replace("元素チャージ効率+", "")
-                      .replace("%", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                  );
-                } else if (line.includes("元素熟知")) {
-                  element_mastery = parseFloat(
-                    line
-                      .replace("元素熟知+", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                  ); /////
-                }
-              });
-              //値調整用ここから
-              if (critical == 1.3) {
-                critical = 11.3;
-              } else if (critical == 1.7) {
-                critical = 11.7;
-              } else if (critical_hurt == 1.7) {
-                critical_hurt = 11.7;
-              } else if (attack == 1.1) {
-                attack = 11.1;
-              } else if (attack == 1.7) {
-                attack = 11.7;
-              } else if (defense == 1.7) {
-                defense = 11.7;
-              } else if (hp == 1.0) {
-                hp = 11.1;
-              } else if (hp == 1.1) {
-                hp = 11.1;
-              } else if (hp == 0.1) {
-                hp = 11.1;
-              } else if (hp == 1.7) {
-                hp = 11.7;
-              } else if (charge_efficiency == 1.7) {
-                charge_efficiency = 11.7;
-              }
-              //値調整用ここまで
+        const dailyitemsurl = `https://sg-public-api.hoyolab.com/event/luna/os/home?lang=ja-jp&act_id=e202303301540311`;
+        const dailyitemsres = await fetch(dailyitemsurl, {
+          headers: {
+            "x-rpc-client_type": "4",
+            "x-rpc-app_version": "1.5.0",
+            Cookie: starrailcookie,
+            DS: DS,
+          },
+        });
+        const dailyitemsdata = await dailyitemsres.json();
+        const todayitem =
+          dailyitemsdata["data"]["awards"][
+            dailylogindata.data.total_sign_day - 1
+          ];
+        const item = todayitem.name + "×" + todayitem.cnt;
+        console.log(todayitem);
+        console.log(todayitem.name + "×" + todayitem.cnt);
 
-              //少数以下１位処理ここから
-              if (critical % 1 != 0 && critical != 0) {
-                critical = parseInt(critical * 10) / 10;
-              }
-              if (critical_hurt % 1 != 0 && critical_hurt != 0) {
-                critical_hurt = parseInt(critical_hurt * 10) / 10;
-              }
-              if (attack % 1 != 0 && attack != 0) {
-                attack = parseInt(attack * 10) / 10;
-              }
-              if (attack_num % 1 != 0 && attack_num != 0) {
-                attack_num = attack_num;
-              }
-              if (defense % 1 != 0 && defense != 0) {
-                defense = parseInt(defense * 10) / 10;
-              }
-              if (defense_num % 1 != 0 && defense_num != 0) {
-                defense_num = defense_num;
-              }
-              if (hp % 1 != 0 && hp != 0) {
-                hp = parseInt(hp * 10) / 10;
-              }
-              if (hp_num % 1 != 0 && hp_num != 0) {
-                hp_num = +hp_num;
-              }
-              if (charge_efficiency % 1 != 0 && charge_efficiency != 0) {
-                charge_efficiency = parseInt(charge_efficiency * 10) / 10;
-              }
-              if (element_mastery % 1 != 0 && element_mastery != 0) {
-                element_mastery = element_mastery;
-              }
-              //少数以下１位処理ここまで
+        const embed1 = new MessageEmbed()
+          .setAuthor({
+            name: "パム",
+            iconURL: "https://pbs.twimg.com/media/FC2TmwLVQAE0fhy.png",
+          })
+          .setColor(color)
+          .setTitle("スタレ ログボ")
+          .setDescription(logintext)
+          .setThumbnail(todayitem.icon)
+          .addField("獲得アイテム", item, true)
+          .setFooter(dailylogindata.data.total_sign_day + "日ログイン");
+        message.channel.send({ embeds: [embed1] });
+      } else {
+        const embed1 = new MessageEmbed()
+          .setAuthor({
+            name: "パム",
+            iconURL: "https://pbs.twimg.com/media/FC2TmwLVQAE0fhy.png",
+          })
+          .setColor(color)
+          .setTitle("スタレ ログボ")
+          .setDescription(logintext);
+        message.channel.send({ embeds: [embed1] });
+      }
+      return starrailjson;
+    } else {
+      throw new Error(`HTTP error! status: ${loginresponse.status}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
 
-              let critical_text = "会心率+" + critical + "%";
-              let critical_hurt_text = "会心ダメージ+" + critical_hurt + "%";
-              let attack_text = "攻撃力+" + attack + "%";
-              let attack_num_text = "攻撃力+" + attack_num;
-              let defense_text = "防御力+" + defense + "%";
-              let defense_num_text = "防御力+" + defense_num;
-              let hp_text = "HP+" + hp + "%";
-              let hp_num_text = "HP+" + hp_num;
-              let charge_efficiency_text =
-                "元素チャージ効率+" + charge_efficiency + "%";
-              let element_mastery_text = "元素熟知+" + element_mastery;
+  process.exit();
+}
 
-              let up_num = "";
-              let up_percent = "";
-              let search_result = "";
+//ExchangeCode
+async function ExchangeCode(
+  genshinuid,
+  starrailuid,
+  genshincookie,
+  starrailcookie,
+  discorduser,
+  message,
+  code
+) {
+  let game_name = "";
+  let exchange_text = "";
+  let authorname = "";
+  let authorimage = "";
+  let color = "";
 
-              //ここまで
+  const embed1 = new MessageEmbed()
+    .setAuthor({
+      name: "パイモン",
+      iconURL:
+        "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417055624512.png",
+    })
+    .setColor("#00FF00")
+    .setTitle("交換コードを受け取ってるぞ！")
+    .setDescription(discorduser + "少し待ってくれよな！")
+    .setImage(
+      "https://media.tenor.com/anpv7IEuqP4AAAAM/genshin_gif-genshin_meme.gif"
+    );
+  const processingMessage = await message.channel.send({
+    embeds: [embed1],
+  });
 
-              let orthopedics_text = "";
-              if (critical !== 0) {
-                const critical_list = {
-                  23.3: "　(5回, 600%)",
-                  23: "　(5回, 590%)",
-                  22.6: "　(5回, 580%)",
-                  22.2: "　(5回, 570%)",
-                  21.8: "　(5回, 560%)",
-                  21.4: "　(5回, 550%)",
-                  21: "　(5回, 540%)",
-                  20.6: "　(5回, 530%)",
-                  20.2: "　(5回, 520%)",
-                  19.8: "　(5回, 510%)",
-                  19.5: "　(4or5回, 500%)",
-                  19.1: "　(4or5回, 490%)",
-                  18.7: "　(4or5回, 480%)",
-                  18.3: "　(4or5回, 470%)",
-                  17.9: "　(4or5回, 460%)",
-                  17.5: "　(4or5回, 450%)",
-                  17.1: "　(4or5回, 440%)",
-                  16.7: "　(4or5回, 430%)",
-                  16.3: "　(4or5回, 420%)",
-                  15.9: "　(4回, 410%)",
-                  15.6: "　(3or4回, 400%)",
-                  15.2: "　(3or4回, 390%)",
-                  14.8: "　(3or4回, 380%)",
-                  14.4: "　(3or4回, 370%)",
-                  14: "　(3or4回, 360%)",
-                  13.6: "　(3or4回, 350%)",
-                  13.2: "　(3回, 340%)",
-                  12.8: "　(3回, 330%)",
-                  12.4: "　(3回, 320%)",
-                  12.1: "　(3回, 310%)",
-                  11.7: "　(2or3回, 300%)",
-                  11.3: "　(2or3回, 290%)",
-                  10.9: "　(2or3回, 280%)",
-                  10.5: "　(2回, 270%)",
-                  10.1: "　(2回, 260%)",
-                  9.7: "　(2回, 250%)",
-                  9.3: "　(2回, 240%)",
-                  8.9: "　(2回, 230%)",
-                  8.6: "　(2回, 220%)",
-                  8.2: "　(2回, 210%)",
-                  7.8: "　(1回, 200%)",
-                  7.4: "　(1回, 190%)",
-                  7: "　(1回, 180%)",
-                  6.6: "　(1回, 170%)",
-                  6.5: "　(1回, 170%)",
-                  6.2: "　(1回, 160%)",
-                  5.8: "　(1回, 150%)",
-                  5.4: "　(1回, 140%)",
-                  3.9: "　(0回, 100%)",
-                  3.5: "　(0回, 90%)",
-                  3.1: "　(0回, 80%)",
-                  2.7: "　(0回, 70%)",
-                };
-                search_result = critical_list[critical];
-                orthopedics_text += critical_text + search_result + "\n";
-              }
-              if (critical_hurt !== 0) {
-                const critical_hurt_list = {
-                  46.6: "　(5回, 600%)",
-                  45.8: "　(5回, 590%)",
-                  45.1: "　(5回, 580%)",
-                  44.3: "　(5回, 570%)",
-                  43.5: "　(5回, 560%)",
-                  42.7: "　(5回, 550%)",
-                  42: "　(5回, 540%)",
-                  41.2: "　(5回, 530%)",
-                  40.4: "　(5回, 520%)",
-                  39.6: "　(5回, 510%)",
-                  38.9: "　(5回, 500%)",
-                  38.1: "　(4or5回, 490%)",
-                  37.3: "　(4or5回, 480%)",
-                  36.5: "　(4or5回, 470%)",
-                  35.8: "　(4or5回, 460%)",
-                  35.7: "　(4or5回, 460%)",
-                  35: "　(4or5回, 450%)",
-                  34.2: "　(4or5回, 440%)",
-                  33.4: "　(4or5回, 430%)",
-                  32.7: "　(4or5回, 420%)",
-                  32.6: "　(4or5回, 420%)",
-                  31.9: "　(4回, 410%)",
-                  31.1: "　(3or4回, 400%)",
-                  30.3: "　(3or4回, 390%)",
-                  29.5: "　(3or4回, 380%)",
-                  28.8: "　(3or4回, 370%)",
-                  28: "　(3or4回, 360%)",
-                  27.2: "　(3or4回, 350%)",
-                  26.4: "　(3回, 340%)",
-                  25.7: "　(3回, 330%)",
-                  24.9: "　(3回, 320%)",
-                  24.1: "　(3回, 310%)",
-                  23.3: "　(2or3回, 300%)",
-                  22.5: "　(2or3回, 290%)",
-                  21.8: "　(2or3回, 280%)",
-                  21: "　(2回, 270%)",
-                  20.2: "　(2回, 260%)",
-                  19.4: "　(2回, 250%)",
-                  18.7: "　(2回, 240%)",
-                  17.9: "　(2回, 230%)",
-                  17.1: "　(2回, 220%)",
-                  16.3: "　(2回, 210%)",
-                  15.5: "　(1回, 200%)",
-                  14.8: "　(1回, 190%)",
-                  14: "　(1回, 180%)",
-                  13.2: "　(1回, 170%)",
-                  12.4: "　(1回, 160%)",
-                  11.7: "　(1回, 150%)",
-                  10.9: "　(1回, 140%)",
-                  7.8: "　(0回, 100%)",
-                  7: "　(0回, 90%)",
-                  6.2: "　(0回, 80%)",
-                  5.4: "　(0回, 70%)",
-                };
-                search_result = critical_hurt_list[critical_hurt];
-                orthopedics_text += critical_hurt_text + search_result + "\n";
-              }
-              if (attack !== 0) {
-                const attack_list = {
-                  35: "　(5回, 600%)",
-                  34.4: "　(5回, 590%)",
-                  33.8: "　(5回, 580%)",
-                  33.2: "　(5回, 570%)",
-                  32.7: "　(5回, 560%)",
-                  32.1: "　(5回, 550%)",
-                  31.5: "　(5回, 540%)",
-                  30.9: "　(5回, 530%)",
-                  30.3: "　(5回, 520%)",
-                  29.7: "　(5回, 510%)",
-                  29.2: "　(4or5回, 500%)",
-                  28.6: "　(4or5回, 490%)",
-                  28: "　(4or5回, 480%)",
-                  27.4: "　(4or5回, 470%)",
-                  26.8: "　(4or5回, 460%)",
-                  26.3: "　(4or5回, 450%)",
-                  25.7: "　(4or5回, 440%)",
-                  25.1: "　(4or5回, 430%)",
-                  24.5: "　(4or5回, 420%)",
-                  23.9: "　(4回, 410%)",
-                  23.3: "　(3or4回, 400%)",
-                  22.7: "　(3or4回, 390%)",
-                  22.2: "　(3or4回, 380%)",
-                  21.6: "　(3or4回, 370%)",
-                  21: "　(3or4回, 360%)",
-                  20.4: "　(3or4回, 350%)",
-                  19.8: "　(3回, 340%)",
-                  19.2: "　(3回, 330%)",
-                  18.7: "　(3回, 320%)",
-                  18.1: "　(3回, 310%)",
-                  17.5: "　(2or3回, 300%)",
-                  16.9: "　(2or3回, 290%)",
-                  16.3: "　(2or3回, 280%)",
-                  15.8: "　(2回, 270%)",
-                  15.2: "　(2回, 260%)",
-                  14.6: "　(2回, 250%)",
-                  14: "　(2回, 240%)",
-                  13.4: "　(2回, 230%)",
-                  12.8: "　(2回, 220%)",
-                  12.2: "　(2回, 210%)",
-                  11.7: "　(1回, 200%)",
-                  11.1: "　(1回, 190%)",
-                  10.5: "　(1回, 180%)",
-                  9.9: "　(1回, 170%)",
-                  9.3: "　(1回, 160%)",
-                  8.7: "　(1回, 150%)",
-                  8.2: "　(1回, 140%)",
-                  5.8: "　(0回, 100%)",
-                  5.3: "　(0回, 90%)",
-                  4.7: "　(0回, 80%)",
-                  4.1: "　(0回, 70%)",
-                };
-                search_result = attack_list[attack];
-                orthopedics_text += attack_text + search_result + "\n";
-              }
-              if (attack_num !== 0) {
-                const attack_num_list = {
-                  117: "　(5回, 600%)",
-                  115: "　(5回, 590%)",
-                  113: "　(5回, 580%)",
-                  111: "　(5回, 570%)",
-                  109: "　(5回, 560%)",
-                  107: "　(5回, 550%)",
-                  105: "　(5回, 540%)",
-                  103: "　(5回, 530%)",
-                  101: "　(5回, 520%)",
-                  99: "　(5回, 510%)",
-                  97: "　(4or5回, 500%)",
-                  95: "　(4or5回, 490%)",
-                  93: "　(4or5回, 480%)",
-                  91: "　(4or5回, 470%)",
-                  89: "　(4or5回, 460%)",
-                  88: "　(4or5回, 450%)",
-                  86: "　(4or5回, 440%)",
-                  84: "　(4or5回, 430%)",
-                  82: "　(4or5回, 420%)",
-                  80: "　(4回, 410%)",
-                  78: "　(3or4回, 400%)",
-                  76: "　(3or4回, 390%)",
-                  74: "　(3or4回, 380%)",
-                  72: "　(3or4回, 370%)",
-                  70: "　(3or4回, 360%)",
-                  68: "　(3or4回, 350%)",
-                  66: "　(3回, 340%)",
-                  64: "　(3回, 330%)",
-                  62: "　(3回, 320%)",
-                  60: "　(3回, 310%)",
-                  58: "　(2or3回, 300%)",
-                  56: "　(2or3回, 290%)",
-                  54: "　(2or3回, 280%)",
-                  53: "　(2回, 270%)",
-                  51: "　(2回, 260%)",
-                  49: "　(2回, 250%)",
-                  47: "　(2回, 240%)",
-                  45: "　(2回, 230%)",
-                  43: "　(2回, 220%)",
-                  41: "　(2回, 210%)",
-                  39: "　(1回, 200%)",
-                  37: "　(1回, 190%)",
-                  35: "　(1回, 180%)",
-                  33: "　(1回, 170%)",
-                  31: "　(1回, 160%)",
-                  29: "　(1回, 150%)",
-                  27: "　(1回, 140%)",
-                  19: "　(0回, 100%)",
-                  18: "　(0回, 90%)",
-                  16: "　(0回, 80%)",
-                  14: "　(0回, 70%)",
-                };
-                search_result = attack_num_list[attack_num];
-                orthopedics_text += attack_num_text + search_result + "\n";
-              }
-              if (defense !== 0) {
-                const defense_list = {
-                  43.7: "　(5回, 600%)",
-                  43: "　(5回, 590%)",
-                  42.3: "　(5回, 580%)",
-                  41.6: "　(5回, 570%)",
-                  40.8: "　(5回, 560%)",
-                  40.1: "　(5回, 550%)",
-                  39.4: "　(5回, 540%)",
-                  38.6: "　(5回, 530%)",
-                  37.9: "　(5回, 520%)",
-                  37.2: "　(5回, 510%)",
-                  36.5: "　(4or5回, 500%)",
-                  35.7: "　(4or5回, 490%)",
-                  35: "　(4or5回, 480%)",
-                  34.3: "　(4or5回, 470%)",
-                  33.5: "　(4or5回, 460%)",
-                  32.8: "　(4or5回, 450%)",
-                  32.1: "　(4or5回, 440%)",
-                  31.3: "　(4or5回, 430%)",
-                  30.6: "　(4or5回, 420%)",
-                  29.9: "　(4回, 410%)",
-                  29.2: "　(3or4回, 400%)",
-                  28.4: "　(3or4回, 390%)",
-                  27.7: "　(3or4回, 380%)",
-                  27: "　(3or4回, 370%)",
-                  26.2: "　(3or4回, 360%)",
-                  25.5: "　(3or4回, 350%)",
-                  24.8: "　(3回, 340%)",
-                  24.1: "　(3回, 330%)",
-                  23.3: "　(3回, 320%)",
-                  22.6: "　(3回, 310%)",
-                  21.9: "　(2or3回, 300%)",
-                  21.1: "　(2or3回, 290%)",
-                  20.4: "　(2or3回, 280%)",
-                  19.7: "　(2回, 270%)",
-                  19: "　(2回, 260%)",
-                  18.2: "　(2回, 250%)",
-                  17.5: "　(2回, 240%)",
-                  16.8: "　(2回, 230%)",
-                  16: "　(2回, 220%)",
-                  15.3: "　(2回, 210%)",
-                  14.6: "　(1回, 200%)",
-                  13.9: "　(1回, 190%)",
-                  13.1: "　(1回, 180%)",
-                  12.4: "　(1回, 170%)",
-                  11.7: "　(1回, 160%)",
-                  10.9: "　(1回, 150%)",
-                  10.2: "　(1回, 140%)",
-                  7.3: "　(0回, 100%)",
-                  6.6: "　(0回, 90%)",
-                  5.8: "　(0回, 80%)",
-                  5.1: "　(0回, 70%)",
-                };
-                search_result = defense_list[defense];
-                orthopedics_text += defense_text + search_result + "\n";
-              }
-              if (defense_num !== 0) {
-                const defense_num_list = {
-                  139: "　(5回, 600%)",
-                  137: "　(5回, 590%)",
-                  134: "　(5回, 580%)",
-                  132: "　(5回, 570%)",
-                  130: "　(5回, 560%)",
-                  127: "　(5回, 550%)",
-                  125: "　(5回, 540%)",
-                  123: "　(5回, 530%)",
-                  120: "　(5回, 520%)",
-                  118: "　(5回, 510%)",
-                  116: "　(4or5回, 500%)",
-                  113: "　(4or5回, 490%)",
-                  111: "　(4or5回, 480%)",
-                  109: "　(4or5回, 470%)",
-                  106: "　(4or5回, 460%)",
-                  104: "　(4or5回, 450%)",
-                  102: "　(4or5回, 440%)",
-                  100: "　(4or5回, 430%)",
-                  97: "　(4or5回, 420%)",
-                  95: "　(4回, 410%)",
-                  93: "　(3or4回, 400%)",
-                  90: "　(3or4回, 390%)",
-                  88: "　(3or4回, 380%)",
-                  86: "　(3or4回, 370%)",
-                  83: "　(3or4回, 360%)",
-                  81: "　(3or4回, 350%)",
-                  79: "　(3回, 340%)",
-                  76: "　(3回, 330%)",
-                  74: "　(3回, 320%)",
-                  72: "　(3回, 310%)",
-                  69: "　(2or3回, 300%)",
-                  67: "　(2or3回, 290%)",
-                  65: "　(2or3回, 280%)",
-                  63: "　(2回, 270%)",
-                  60: "　(2回, 260%)",
-                  58: "　(2回, 250%)",
-                  56: "　(2回, 240%)",
-                  53: "　(2回, 230%)",
-                  51: "　(2回, 220%)",
-                  49: "　(2回, 210%)",
-                  46: "　(1回, 200%)",
-                  44: "　(1回, 190%)",
-                  42: "　(1回, 180%)",
-                  39: "　(1回, 170%)",
-                  37: "　(1回, 160%)",
-                  35: "　(1回, 150%)",
-                  32: "　(1回, 140%)",
-                  23: "　(0回, 100%)",
-                  21: "　(0回, 90%)",
-                  19: "　(0回, 80%)",
-                  16: "　(0回, 70%)",
-                };
-                search_result = defense_num_list[defense_num];
-                orthopedics_text += defense_num_text + search_result + "\n";
-              }
-              if (hp !== 0) {
-                const hp_list = {
-                  35: "　(5回, 600%)",
-                  34.4: "　(5回, 590%)",
-                  33.8: "　(5回, 580%)",
-                  33.2: "　(5回, 570%)",
-                  32.7: "　(5回, 560%)",
-                  32.1: "　(5回, 550%)",
-                  31.5: "　(5回, 540%)",
-                  30.9: "　(5回, 530%)",
-                  30.3: "　(5回, 520%)",
-                  29.7: "　(5回, 510%)",
-                  29.2: "　(4or5回, 500%)",
-                  28.6: "　(4or5回, 490%)",
-                  28: "　(4or5回, 480%)",
-                  27.4: "　(4or5回, 470%)",
-                  26.8: "　(4or5回, 460%)",
-                  26.3: "　(4or5回, 450%)",
-                  25.7: "　(4or5回, 440%)",
-                  25.1: "　(4or5回, 430%)",
-                  24.5: "　(4or5回, 420%)",
-                  23.9: "　(4回, 410%)",
-                  23.3: "　(3or4回, 400%)",
-                  22.7: "　(3or4回, 390%)",
-                  22.2: "　(3or4回, 380%)",
-                  21.6: "　(3or4回, 370%)",
-                  21: "　(3or4回, 360%)",
-                  20.4: "　(3or4回, 350%)",
-                  19.8: "　(3回, 340%)",
-                  19.2: "　(3回, 330%)",
-                  18.7: "　(3回, 320%)",
-                  18.1: "　(3回, 310%)",
-                  17.5: "　(2or3回, 300%)",
-                  16.9: "　(2or3回, 290%)",
-                  16.3: "　(2or3回, 280%)",
-                  15.8: "　(2回, 270%)",
-                  15.7: "　(2回, 270%)",
-                  15.2: "　(2回, 260%)",
-                  14.6: "　(2回, 250%)",
-                  14: "　(2回, 240%)",
-                  13.4: "　(2回, 230%)",
-                  12.8: "　(2回, 220%)",
-                  12.2: "　(2回, 210%)",
-                  11.7: "　(1回, 200%)",
-                  11.1: "　(1回, 190%)",
-                  10.5: "　(1回, 180%)",
-                  9.9: "　(1回, 170%)",
-                  9.3: "　(1回, 160%)",
-                  8.7: "　(1回, 150%)",
-                  8.2: "　(1回, 140%)",
-                  5.8: "　(0回, 100%)",
-                  5.3: "　(0回, 90%)",
-                  4.7: "　(0回, 80%)",
-                  4.1: "　(0回, 70%)",
-                };
-                search_result = hp_list[hp];
-                orthopedics_text += hp_text + search_result + "\n";
-              }
-              if (hp_num !== 0) {
-                const hp_num_list = {
-                  1793: "　(5回, 600%)",
-                  1763: "　(5回, 590%)",
-                  1733: "　(5回, 580%)",
-                  1703: "　(5回, 570%)",
-                  1673: "　(5回, 550%)",
-                  1643: "　(5回, 540%)",
-                  1613: "　(5回, 530%)",
-                  1583: "　(5回, 520%)",
-                  1554: "　(5回, 520%)",
-                  1524: "　(5回, 510%)",
-                  1494: "　(4or5回, 500%)",
-                  1464: "　(4or5回, 490%)",
-                  1434: "　(4or5回, 470%)",
-                  1404: "　(4or5回, 460%)",
-                  1374: "　(4or5回, 450%)",
-                  1344: "　(4or5回, 440%)",
-                  1315: "　(4or5回, 440%)",
-                  1285: "　(4or5回, 430%)",
-                  1255: "　(4or5回, 420%)",
-                  1225: "　(4回, 410%)",
-                  1195: "　(3or4回, 400%)",
-                  1165: "　(3or4回, 390%)",
-                  1135: "　(3or4回, 380%)",
-                  1105: "　(3or4回, 370%)",
-                  1076: "　(3or4回, 360%)",
-                  1046: "　(3or4回, 350%)",
-                  1016: "　(3回, 340%)",
-                  986: "　(3回, 330%)",
-                  956: "　(3回, 320%)",
-                  926: "　(3回, 310%)",
-                  896: "　(2or3回, 300%)",
-                  866: "　(2or3回, 290%)",
-                  837: "　(2or3回, 280%)",
-                  807: "　(2回, 270%)",
-                  777: "　(2回, 260%)",
-                  747: "　(2回, 250%)",
-                  717: "　(2回, 240%)",
-                  687: "　(2回, 230%)",
-                  657: "　(2回, 220%)",
-                  627: "　(2回, 210%)",
-                  598: "　(1回, 200%)",
-                  568: "　(1回, 190%)",
-                  538: "　(1回, 180%)",
-                  508: "　(1回, 170%)",
-                  478: "　(1回, 160%)",
-                  448: "　(1回, 150%)",
-                  418: "　(1回, 140%)",
-                  299: "　(0回, 100%)",
-                  269: "　(0回, 90%)",
-                  239: "　(0回, 80%)",
-                  209: "　(0回, 70%)",
-                };
-                search_result = hp_num_list[hp_num];
-                orthopedics_text += hp_num_text + search_result + "\n";
-              }
-              if (charge_efficiency !== 0) {
-                const charge_efficiency_list = {
-                  38.9: "　(5回, 600%)",
-                  38.2: "　(5回, 590%)",
-                  37.6: "　(5回, 580%)",
-                  36.9: "　(5回, 570%)",
-                  36.3: "　(5回, 560%)",
-                  35.6: "　(5回, 550%)",
-                  35: "　(5回, 540%)",
-                  34.3: "　(5回, 530%)",
-                  33.7: "　(5回, 520%)",
-                  33: "　(5回, 510%)",
-                  32.4: "　(4or5回, 500%)",
-                  31.8: "　(4or5回, 490%)",
-                  31.1: "　(4or5回, 480%)",
-                  30.5: "　(4or5回, 470%)",
-                  29.8: "　(4or5回, 460%)",
-                  29.2: "　(4or5回, 450%)",
-                  28.5: "　(4or5回, 440%)",
-                  27.9: "　(4or5回, 430%)",
-                  27.2: "　(4or5回, 420%)",
-                  26.6: "　(4回, 410%)",
-                  25.9: "　(3or4回, 400%)",
-                  25.3: "　(3or4回, 390%)",
-                  24.6: "　(3or4回, 380%)",
-                  24: "　(3or4回, 370%)",
-                  23.3: "　(3or4回, 360%)",
-                  22.7: "　(3or4回, 350%)",
-                  22: "　(3回, 340%)",
-                  21.4: "　(3回, 330%)",
-                  20.7: "　(3回, 320%)",
-                  20.1: "　(3回, 310%)",
-                  19.4: "　(2or3回, 300%)",
-                  18.8: "　(2or3回, 290%)",
-                  18.1: "　(2or3回, 280%)",
-                  17.5: "　(2回, 270%)",
-                  16.8: "　(2回, 260%)",
-                  16.2: "　(2回, 250%)",
-                  15.5: "　(2回, 240%)",
-                  14.9: "　(2回, 230%)",
-                  14.2: "　(2回, 220%)",
-                  13.6: "　(2回, 210%)",
-                  13: "　(1回, 200%)",
-                  12.3: "　(1回, 190%)",
-                  11.7: "　(1回, 180%)",
-                  11: "　(1回, 170%)",
-                  10.4: "　(1回, 160%)",
-                  9.7: "　(1回, 150%)",
-                  9.1: "　(1回, 140%)",
-                  6.5: "　(0回, 100%)",
-                  5.8: "　(0回, 90%)",
-                  5.2: "　(0回, 80%)",
-                  4.5: "　(0回, 70%)",
-                };
-                search_result = charge_efficiency_list[charge_efficiency];
-                orthopedics_text +=
-                  charge_efficiency_text + search_result + "\n";
-              }
-              if (element_mastery !== 0) {
-                const element_mastery_list = {
-                  140: "　(5回, 600%)",
-                  138: "　(5回, 590%)",
-                  135: "　(5回, 580%)",
-                  133: "　(5回, 570%)",
-                  131: "　(5回, 560%)",
-                  128: "　(5回, 550%)",
-                  126: "　(5回, 540%)",
-                  124: "　(5回, 530%)",
-                  121: "　(5回, 520%)",
-                  119: "　(5回, 510%)",
-                  117: "　(4or5回, 500%)",
-                  114: "　(4or5回, 490%)",
-                  112: "　(4or5回, 480%)",
-                  110: "　(4or5回, 470%)",
-                  107: "　(4or5回, 460%)",
-                  105: "　(4or5回, 450%)",
-                  103: "　(4or5回, 440%)",
-                  100: "　(4or5回, 430%)",
-                  98: "　(4or5回, 420%)",
-                  96: "　(4回, 410%)",
-                  93: "　(3or4回, 400%)",
-                  91: "　(3or4回, 390%)",
-                  89: "　(3or4回, 380%)",
-                  86: "　(3or4回, 370%)",
-                  84: "　(3or4回, 360%)",
-                  82: "　(3or4回, 350%)",
-                  79: "　(3回, 340%)",
-                  77: "　(3回, 330%)",
-                  75: "　(3回, 320%)",
-                  72: "　(3回, 310%)",
-                  70: "　(2or3回, 300%)",
-                  68: "　(2or3回, 290%)",
-                  65: "　(2or3回, 280%)",
-                  63: "　(2回, 270%)",
-                  61: "　(2回, 260%)",
-                  58: "　(2回, 250%)",
-                  56: "　(2回, 240%)",
-                  54: "　(2回, 230%)",
-                  51: "　(2回, 220%)",
-                  49: "　(2回, 210%)",
-                  47: "　(1回, 200%)",
-                  44: "　(1回, 190%)",
-                  42: "　(1回, 180%)",
-                  40: "　(1回, 170%)",
-                  37: "　(1回, 160%)",
-                  35: "　(1回, 150%)",
-                  33: "　(1回, 140%)",
-                  23: "　(0回, 100%)",
-                  21: "　(0回, 90%)",
-                  19: "　(0回, 80%)",
-                  16: "　(0回, 70%)",
-                };
-                search_result = element_mastery_list[element_mastery];
-                orthopedics_text += element_mastery_text + search_result + "\n";
-              }
-              channel.send(
-                critical_text +
-                  "\n" +
-                  critical_hurt_text +
-                  "\n" +
-                  attack_text +
-                  "\n" +
-                  attack_num_text +
-                  "\n" +
-                  defense_text +
-                  "\n" +
-                  defense_num_text +
-                  "\n" +
-                  hp_text +
-                  "\n" +
-                  hp_num_text +
-                  "\n" +
-                  charge_efficiency_text +
-                  "\n" +
-                  element_mastery_text
-              );
-              //channel.send(orthopedics_text);
+  const date = new Date();
+  const epoch = Math.floor(date.getTime() / 1000);
+  const hash = MD5(`salt=6cqshh5dhw73bzxn20oexa9k516chk7s&t=${epoch}&r=abcdef`);
+  const DS = `${epoch},abcdef,${hash}`;
 
-              let critical_value = critical * 2 + critical_hurt;
-              let critical_attack_value = critical * 2 + critical_hurt + attack;
-              let critical_defense_value =
-                critical * 2 + critical_hurt + defense;
-              let critical_charge_efficiency_value =
-                critical * 2 + critical_hurt + charge_efficiency;
-              let critical_hp_value = critical * 2 + critical_hurt + hp;
-              let critical_element_mastery_value =
-                critical * 2 + critical_hurt + element_mastery * 0.25;
+  const Genshin_ExchangeCodeheaders = {
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36 Edg/101.0.1210.47",
+    Referer: "https://act.hoyolab.com",
+    "Accept-Encoding": "gzip, deflate, br",
+    Cookie: genshincookie,
+  };
+  //Genshin
+  try {
+    const ExchangeCoderesponse = await fetch(
+      `https://sg-hk4e-api.hoyoverse.com/common/apicdkey/api/webExchangeCdkey?uid=${genshinuid}&region=os_asia&lang=ja&cdkey=${code}&game_biz=hk4e_global&sLangKey=en-us`,
+      {
+        method: "GET",
+        headers: Genshin_ExchangeCodeheaders,
+      }
+    );
 
-              critical_value = Math.round(critical_value * 10) / 10;
-              critical_attack_value =
-                Math.round(critical_attack_value * 10) / 10;
-              critical_defense_value =
-                Math.round(critical_defense_value * 10) / 10;
-              critical_charge_efficiency_value =
-                Math.round(critical_charge_efficiency_value * 10) / 10;
-              critical_hp_value = Math.round(critical_hp_value * 10) / 10;
-              critical_element_mastery_value =
-                Math.round(critical_element_mastery_value * 10) / 10;
-
-              let critical_rank = "";
-              let critical_attack_rank = "";
-              let critical_defense_rank = "";
-              let critical_hp_rank = "";
-              let critical_charge_efficiency_rank = "";
-              let critical_element_mastery_rank = "";
-
-              //会心型
-              if (
-                type_of_relics.includes("生の花") ||
-                type_of_relics.includes("死の羽")
-              ) {
-                if (critical_value >= 50) {
-                  critical_rank = "⭐️理論値";
-                } else if (critical_value >= 45) {
-                  critical_rank = "⭕️厳選ランクS";
-                } else if (critical_value >= 40) {
-                  critical_rank = "厳選ランクA";
-                } else if (critical_value >= 30) {
-                  critical_rank = "厳選ランクB";
-                } else if (critical_value >= 20) {
-                  critical_rank = "仮聖遺物";
-                } else {
-                  critical_rank = "ゴミ";
-                }
-              } else if (
-                type_of_relics.includes("時の砂") ||
-                type_of_relics.includes("空の杯")
-              ) {
-                if (critical_value >= 45) {
-                  critical_rank = "⭐️理論値";
-                } else if (critical_value >= 40) {
-                  critical_rank = "⭕️厳選ランクS";
-                } else if (critical_value >= 35) {
-                  critical_rank = "厳選ランクA";
-                } else if (critical_value >= 25) {
-                  critical_rank = "厳選ランクB";
-                } else if (critical_value >= 15) {
-                  critical_rank = "仮聖遺物";
-                } else {
-                  critical_rank = "ゴミ";
-                }
-              } else if (type_of_relics.includes("理の冠")) {
-                if (critical_value >= 40) {
-                  critical_rank = "⭐️理論値";
-                } else if (critical_value >= 35) {
-                  critical_rank = "⭕️厳選ランクS";
-                } else if (critical_value >= 30) {
-                  critical_rank = "厳選ランクA";
-                } else if (critical_value >= 20) {
-                  critical_rank = "厳選ランクB";
-                } else if (critical_value >= 10) {
-                  critical_rank = "仮聖遺物";
-                } else {
-                  critical_rank = "ゴミ";
-                }
-              }
-              //console.log(critical_rank)
-
-              //攻撃型
-              if (
-                type_of_relics.includes("生の花") ||
-                type_of_relics.includes("死の羽")
-              ) {
-                if (critical_attack_value >= 50) {
-                  critical_attack_rank = "⭐️理論値";
-                } else if (critical_attack_value >= 45) {
-                  critical_attack_rank = "⭕️厳選ランクS";
-                } else if (critical_attack_value >= 40) {
-                  critical_attack_rank = "厳選ランクA";
-                } else if (critical_attack_value >= 30) {
-                  critical_attack_rank = "厳選ランクB";
-                } else if (critical_attack_value >= 20) {
-                  critical_attack_rank = "仮聖遺物";
-                } else {
-                  critical_attack_rank = "ゴミ";
-                }
-              } else if (
-                type_of_relics.includes("時の砂") ||
-                type_of_relics.includes("空の杯")
-              ) {
-                if (critical_attack_value >= 45) {
-                  critical_attack_rank = "⭐️理論値";
-                } else if (critical_attack_value >= 40) {
-                  critical_attack_rank = "⭕️厳選ランクS";
-                } else if (critical_attack_value >= 35) {
-                  critical_attack_rank = "厳選ランクA";
-                } else if (critical_attack_value >= 25) {
-                  critical_attack_rank = "厳選ランクB";
-                } else if (critical_attack_value >= 15) {
-                  critical_attack_rank = "仮聖遺物";
-                } else {
-                  critical_attack_rank = "ゴミ";
-                }
-              } else if (type_of_relics.includes("理の冠")) {
-                if (critical_attack_value >= 40) {
-                  critical_attack_rank = "⭐️理論値";
-                } else if (critical_attack_value >= 35) {
-                  critical_attack_rank = "⭕️厳選ランクS";
-                } else if (critical_attack_value >= 30) {
-                  critical_attack_rank = "厳選ランクA";
-                } else if (critical_attack_value >= 20) {
-                  critical_attack_rank = "厳選ランクB";
-                } else if (critical_attack_value >= 10) {
-                  critical_attack_rank = "仮聖遺物";
-                } else {
-                  critical_attack_rank = "ゴミ";
-                }
-              }
-              //console.log(critical_attack_rank)
-
-              //防御型
-              if (
-                type_of_relics.includes("生の花") ||
-                type_of_relics.includes("死の羽")
-              ) {
-                if (critical_defense_value >= 50) {
-                  critical_defense_rank = "⭐️理論値";
-                } else if (critical_defense_value >= 45) {
-                  critical_defense_rank = "⭕️厳選ランクS";
-                } else if (critical_defense_value >= 40) {
-                  critical_defense_rank = "厳選ランクA";
-                } else if (critical_defense_value >= 30) {
-                  critical_defense_rank = "厳選ランクB";
-                } else if (critical_defense_value >= 20) {
-                  critical_defense_rank = "仮聖遺物";
-                } else {
-                  critical_defense_rank = "ゴミ";
-                }
-              } else if (
-                type_of_relics.includes("時の砂") ||
-                type_of_relics.includes("空の杯")
-              ) {
-                if (critical_defense_value >= 45) {
-                  critical_defense_rank = "⭐️理論値";
-                } else if (critical_defense_value >= 40) {
-                  critical_defense_rank = "⭕️厳選ランクS";
-                } else if (critical_defense_value >= 35) {
-                  critical_defense_rank = "厳選ランクA";
-                } else if (critical_defense_value >= 25) {
-                  critical_defense_rank = "厳選ランクB";
-                } else if (critical_defense_value >= 15) {
-                  critical_defense_rank = "仮聖遺物";
-                } else {
-                  critical_defense_rank = "ゴミ";
-                }
-              } else if (type_of_relics.includes("理の冠")) {
-                if (critical_defense_value >= 40) {
-                  critical_defense_rank = "⭐️理論値";
-                } else if (critical_defense_value >= 35) {
-                  critical_defense_rank = "⭕️厳選ランクS";
-                } else if (critical_defense_value >= 30) {
-                  critical_defense_rank = "厳選ランクA";
-                } else if (critical_defense_value >= 20) {
-                  critical_defense_rank = "厳選ランクB";
-                } else if (critical_defense_value >= 10) {
-                  critical_defense_rank = "仮聖遺物";
-                } else {
-                  critical_defense_rank = "ゴミ";
-                }
-              }
-              //console.log(critical_defense_rank)
-
-              //HP型
-              if (
-                type_of_relics.includes("生の花") ||
-                type_of_relics.includes("死の羽")
-              ) {
-                if (critical_hp_value >= 50) {
-                  critical_hp_rank = "⭐️理論値";
-                } else if (critical_hp_value >= 45) {
-                  critical_hp_rank = "⭕️厳選ランクS";
-                } else if (critical_hp_value >= 40) {
-                  critical_hp_rank = "厳選ランクA";
-                } else if (critical_hp_value >= 30) {
-                  critical_hp_rank = "厳選ランクB";
-                } else if (critical_hp_value >= 20) {
-                  critical_hp_rank = "仮聖遺物";
-                } else {
-                  critical_hp_rank = "ゴミ";
-                }
-              } else if (
-                type_of_relics.includes("時の砂") ||
-                type_of_relics.includes("空の杯")
-              ) {
-                if (critical_hp_value >= 45) {
-                  critical_hp_rank = "⭐️理論値";
-                } else if (critical_hp_value >= 40) {
-                  critical_hp_rank = "⭕️厳選ランクS";
-                } else if (critical_hp_value >= 35) {
-                  critical_hp_rank = "厳選ランクA";
-                } else if (critical_hp_value >= 25) {
-                  critical_hp_rank = "厳選ランクB";
-                } else if (critical_hp_value >= 15) {
-                  critical_hp_rank = "仮聖遺物";
-                } else {
-                  critical_hp_rank = "ゴミ";
-                }
-              } else if (type_of_relics.includes("理の冠")) {
-                if (critical_hp_value >= 40) {
-                  critical_hp_rank = "⭐️理論値";
-                } else if (critical_hp_value >= 35) {
-                  critical_hp_rank = "⭕️厳選ランクS";
-                } else if (critical_hp_value >= 30) {
-                  critical_hp_rank = "厳選ランクA";
-                } else if (critical_hp_value >= 20) {
-                  critical_hp_rank = "厳選ランクB";
-                } else if (critical_hp_value >= 10) {
-                  critical_hp_rank = "仮聖遺物";
-                } else {
-                  critical_hp_rank = "ゴミ";
-                }
-              }
-              //console.log(critical_hp_rank)
-
-              //元素チャージ効率型
-              if (
-                type_of_relics.includes("生の花") ||
-                type_of_relics.includes("死の羽")
-              ) {
-                if (critical_charge_efficiency_value >= 50) {
-                  critical_charge_efficiency_rank = "⭐️理論値";
-                } else if (critical_charge_efficiency_value >= 45) {
-                  critical_charge_efficiency_rank = "⭕️厳選ランクS";
-                } else if (critical_charge_efficiency_value >= 40) {
-                  critical_charge_efficiency_rank = "厳選ランクA";
-                } else if (critical_charge_efficiency_value >= 30) {
-                  critical_charge_efficiency_rank = "厳選ランクB";
-                } else if (critical_charge_efficiency_value >= 20) {
-                  critical_charge_efficiency_rank = "仮聖遺物";
-                } else {
-                  critical_charge_efficiency_rank = "ゴミ";
-                }
-              } else if (
-                type_of_relics.includes("時の砂") ||
-                type_of_relics.includes("空の杯")
-              ) {
-                if (critical_charge_efficiency_value >= 45) {
-                  critical_charge_efficiency_rank = "⭐️理論値";
-                } else if (critical_charge_efficiency_value >= 40) {
-                  critical_charge_efficiency_rank = "⭕️厳選ランクS";
-                } else if (critical_charge_efficiency_value >= 35) {
-                  critical_charge_efficiency_rank = "厳選ランクA";
-                } else if (critical_charge_efficiency_value >= 25) {
-                  critical_charge_efficiency_rank = "厳選ランクB";
-                } else if (critical_charge_efficiency_value >= 15) {
-                  critical_charge_efficiency_rank = "仮聖遺物";
-                } else {
-                  critical_charge_efficiency_rank = "ゴミ";
-                }
-              } else if (type_of_relics.includes("理の冠")) {
-                if (critical_charge_efficiency_value >= 40) {
-                  critical_charge_efficiency_rank = "⭐️理論値";
-                } else if (critical_charge_efficiency_value >= 35) {
-                  critical_charge_efficiency_rank = "⭕️厳選ランクS";
-                } else if (critical_charge_efficiency_value >= 30) {
-                  critical_charge_efficiency_rank = "厳選ランクA";
-                } else if (critical_charge_efficiency_value >= 20) {
-                  critical_charge_efficiency_rank = "厳選ランクB";
-                } else if (critical_charge_efficiency_value >= 10) {
-                  critical_charge_efficiency_rank = "仮聖遺物";
-                } else {
-                  critical_charge_efficiency_rank = "ゴミ";
-                }
-              }
-              //console.log(critical_charge_efficiency_rank)
-
-              //元素熟知型
-              if (
-                type_of_relics.includes("生の花") ||
-                type_of_relics.includes("死の羽")
-              ) {
-                if (critical_element_mastery_value >= 50) {
-                  critical_element_mastery_rank = "⭐️理論値";
-                } else if (critical_element_mastery_value >= 45) {
-                  critical_element_mastery_rank = "⭕️厳選ランクS";
-                } else if (critical_element_mastery_value >= 40) {
-                  critical_element_mastery_rank = "厳選ランクA";
-                } else if (critical_element_mastery_value >= 30) {
-                  critical_element_mastery_rank = "厳選ランクB";
-                } else if (critical_element_mastery_value >= 20) {
-                  critical_element_mastery_rank = "仮聖遺物";
-                } else {
-                  critical_element_mastery_rank = "ゴミ";
-                }
-              } else if (
-                type_of_relics.includes("時の砂") ||
-                type_of_relics.includes("空の杯")
-              ) {
-                if (critical_element_mastery_value >= 45) {
-                  critical_element_mastery_rank = "⭐️理論値";
-                } else if (critical_element_mastery_value >= 40) {
-                  critical_element_mastery_rank = "⭕️厳選ランクS";
-                } else if (critical_element_mastery_value >= 35) {
-                  critical_element_mastery_rank = "厳選ランクA";
-                } else if (critical_element_mastery_value >= 25) {
-                  critical_element_mastery_rank = "厳選ランクB";
-                } else if (critical_element_mastery_value >= 15) {
-                  critical_element_mastery_rank = "仮聖遺物";
-                } else {
-                  critical_element_mastery_rank = "ゴミ";
-                }
-              } else if (type_of_relics.includes("理の冠")) {
-                if (critical_element_mastery_value >= 40) {
-                  critical_element_mastery_rank = "⭐️理論値";
-                } else if (critical_element_mastery_value >= 35) {
-                  critical_element_mastery_rank = "⭕️厳選ランクS";
-                } else if (critical_element_mastery_value >= 30) {
-                  critical_element_mastery_rank = "厳選ランクA";
-                } else if (critical_element_mastery_value >= 20) {
-                  critical_element_mastery_rank = "厳選ランクB";
-                } else if (critical_element_mastery_value >= 10) {
-                  critical_element_mastery_rank = "仮聖遺物";
-                } else {
-                  critical_element_mastery_rank = "ゴミ";
-                }
-              }
-              //console.log(critical_element_mastery_rank)
-
-              let calculator = orthopedics_text;
-              function parseText(calculator) {
-                let entries = calculator.split("\n");
-                let few_count = 0;
-                let many_count = 0;
-                let all_percent = 0;
-                let growth_rate1 = 0;
-                let growth_rate2 = 0;
-
-                entries.forEach((entry) => {
-                  let textAfterParenthesis = entry.split("(")[1]; // '('以降のテキストを抽出
-                  if (textAfterParenthesis) {
-                    let counts = textAfterParenthesis.match(/\d+/g);
-                    if (counts) {
-                      if (entry.includes("or")) {
-                        few_count += parseInt(counts[0]);
-                        many_count += parseInt(counts[1]);
-                      } else {
-                        few_count += parseInt(counts[0]);
-                        many_count += parseInt(counts[0]);
-                      }
-                    }
-
-                    let percentMatches =
-                      textAfterParenthesis.match(/\d+(\.\d+)?%/g);
-                    if (percentMatches) {
-                      let percentValue = parseFloat(
-                        percentMatches[0].match(/\d+(\.\d+)?/g)[0]
-                      );
-                      all_percent += percentValue;
-                    }
-                  }
-                  console.log(
-                    textAfterParenthesis,
-                    few_count,
-                    many_count,
-                    all_percent
-                  );
-                });
-                let option = "";
-                if ((few_count == 4 && many_count == 4) || many_count == 4) {
-                  growth_rate1 = all_percent / 8; //3
-                  option = "3オプ";
-                } else if (few_count == 4 && many_count >= 5) {
-                  growth_rate1 = all_percent / 8; //3
-                  growth_rate2 = all_percent / 9; //4
-                } else if (few_count >= 5) {
-                  growth_rate1 = all_percent / 9; //4
-                  option = "4オプ";
-                }
-
-                return {
-                  few_count,
-                  many_count,
-                  all_percent,
-                  growth_rate1,
-                  growth_rate2,
-                  option,
-                };
-              }
-              console.log(parseText(calculator));
-
-              let growth = "";
-              if (parseText(calculator).growth_rate2 !== 0) {
-                growth =
-                  "3オプ → " +
-                  parseText(calculator).growth_rate1.toFixed(2) +
-                  "%\n4オプ → " +
-                  parseText(calculator).growth_rate2.toFixed(2) +
-                  "%";
-              } else {
-                growth =
-                  parseText(calculator).option +
-                  " → " +
-                  parseText(calculator).growth_rate1.toFixed(2) +
-                  "%";
-              }
-              console.log(growth);
-
-              //console.log(cleanedText)
-              // Terminate worker
-              await worker.terminate();
-
-              embed.addField(
-                "聖遺物情報",
-                "【" + type_of_relics + "】\n" + orthopedics_text
-              );
-              data_collection.send({ embeds: [embed] });
-              //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defense_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
-              embed.addField(
-                "- 会心 -",
-                critical_rank + " (" + critical_value + ")",
-                true
-              );
-              embed.addField(
-                "- 会心+攻撃力% -",
-                critical_attack_rank + " (" + critical_attack_value + ")",
-                true
-              );
-              embed.addField(
-                "- 会心+防御力% -",
-                critical_defense_rank + " (" + critical_defense_value + ")",
-                true
-              );
-              embed.addField(
-                "- 会心+HP% -",
-                critical_hp_rank + " (" + critical_hp_value + ")",
-                true
-              );
-              embed.addField(
-                "- 会心+元素ﾁｬｰｼﾞ効率 -",
-                critical_charge_efficiency_rank +
-                  " (" +
-                  critical_charge_efficiency_value +
-                  ")",
-                true
-              );
-              embed.addField(
-                "- 会心+元素熟知 -",
-                critical_element_mastery_rank +
-                  " (" +
-                  critical_element_mastery_value +
-                  ")",
-                true
-              );
-              embed.addField("- サブオプ伸び率(70-100%) -", growth);
-              embed.setDescription("<@" + message.author + ">");
-
-              //console.log(embed)
-              processingMessage.delete();
-              message.reply({ embeds: [embed] });
-            } catch (error) {
-              console.error("Error processing image:", error);
-              message.reply("<@691324906729898024>、エラーが発生しました。");
-            }
-          } else {
-            //message.edit("");
-            // ランダムな画像を選択
-            const randomIndex = Math.floor(
-              Math.random() * genshin_imageUrls.length
-            );
-            const randomImageUrl = genshin_imageUrls[randomIndex];
-            console.log(randomImageUrl);
-            const embed1 = new MessageEmbed()
-              .setColor("RANDOM")
-              .setTitle("画像から文字を抽出/スコアを計算中…")
-              .setDescription("5秒程お待ちください…")
-              .setImage(randomImageUrl);
-            const processingMessage = await message.reply({
-              embeds: [embed1],
-            });
-
-            const channel = await client.channels.fetch("1207204533005189131");
-            const data_collection = await client.channels.fetch(
-              "1208468886517981195"
-            );
-
-            const url = attachment.url;
-
-            const embed = new MessageEmbed()
-              .setTitle("- 聖遺物スコア -")
-              .setColor("RANDOM")
-              .setThumbnail(url);
-
-            let type_of_relics = "";
-            if (
-              message.content.includes("生の花") ||
-              message.content.includes("花")
-            ) {
-              type_of_relics = "生の花";
-            } else if (
-              message.content.includes("死の羽") ||
-              message.content.includes("羽")
-            ) {
-              type_of_relics = "死の羽";
-            } else if (
-              message.content.includes("時の砂") ||
-              message.content.includes("時計")
-            ) {
-              type_of_relics = "時の砂";
-            } else if (
-              message.content.includes("空の杯") ||
-              message.content.includes("杯")
-            ) {
-              type_of_relics = "空の杯";
-            } else if (
-              message.content.includes("理の冠") ||
-              message.content.includes("冠")
-            ) {
-              type_of_relics = "理の冠";
-            }
-
-            let critical = 0;
-            let critical_hurt = 0;
-            let attack = 0;
-            let attack_num = 0;
-            let defense = 0;
-            let defense_num = 0;
-            let hp = 0;
-            let hp_num = 0;
-            let charge_efficiency = 0;
-            let element_mastery = 0;
-
-            // message.contentから改行で分割された配列を取得する
-            const lines = message.content.split("\n");
-
-            // 各行に対して処理を実行する
-            lines.forEach((line) => {
-              if (line.includes("会心率")) {
-                critical = parseFloat(
-                  line
-                    .replace("会心率+", "")
-                    .replace("%", "")
-                    .trim()
-                    .replace(/[^\d.]/g, "")
-                );
-              } else if (line.includes("会心ダメージ")) {
-                critical_hurt = parseFloat(
-                  line
-                    .replace("会心ダメージ+", "")
-                    .replace("%", "")
-                    .trim()
-                    .replace(/[^\d.]/g, "")
-                );
-              } else if (line.includes("攻撃力")) {
-                if (line.includes("%")) {
-                  attack = parseFloat(
-                    line
-                      .replace("攻撃力+", "")
-                      .replace("%", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                  );
-                } else {
-                  attack_num = parseFloat(
-                    line
-                      .replace("攻撃力+", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                  ); /////
-                }
-              } else if (line.includes("防御力")) {
-                if (line.includes("%")) {
-                  defense = parseFloat(
-                    line
-                      .replace("防御力+", "")
-                      .replace("%", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                  );
-                } else {
-                  defense_num = parseFloat(
-                    line
-                      .replace("防御力+", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                  ); /////
-                }
-              } else if (line.includes("HP")) {
-                if (line.includes("%")) {
-                  hp = parseFloat(
-                    line
-                      .replace("HP+", "")
-                      .replace("%", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                  );
-                } else {
-                  hp_num = parseFloat(
-                    line
-                      .replace("HP+", "")
-                      .trim()
-                      .replace(/[^\d.]/g, "")
-                      .replace(".", "")
-                  ); /////
-                }
-              } else if (line.includes("元素チャージ効率")) {
-                charge_efficiency = parseFloat(
-                  line
-                    .replace("元素チャージ効率+", "")
-                    .replace("%", "")
-                    .trim()
-                    .replace(/[^\d.]/g, "")
-                );
-              } else if (line.includes("元素熟知")) {
-                element_mastery = parseFloat(
-                  line
-                    .replace("元素熟知+", "")
-                    .trim()
-                    .replace(/[^\d.]/g, "")
-                ); /////
-              }
-            });
-            let critical_text = "会心率+" + critical + "%";
-            let critical_hurt_text = "会心ダメージ+" + critical_hurt + "%";
-            let attack_text = "攻撃力+" + attack + "%";
-            let attack_num_text = "攻撃力+" + attack_num;
-            let defense_text = "防御力+" + defense + "%";
-            let defense_num_text = "防御力+" + defense_num;
-            let hp_text = "HP+" + hp + "%";
-            let hp_num_text = "HP+" + hp_num;
-            let charge_efficiency_text =
-              "元素チャージ効率+" + charge_efficiency + "%";
-            let element_mastery_text = "元素熟知+" + element_mastery;
-            console.log(
-              critical_text +
-                "\n" +
-                critical_hurt_text +
-                "\n" +
-                attack_text +
-                "\n" +
-                attack_num_text +
-                "\n" +
-                defense_text +
-                "\n" +
-                defense_num_text +
-                "\n" +
-                hp_text +
-                "\n" +
-                hp_num_text +
-                "\n" +
-                charge_efficiency_text +
-                "\n" +
-                element_mastery_text
-            );
-
-            let up_num = "";
-            let up_percent = "";
-            let search_result = "";
-
-            let orthopedics_text = "";
-            if (critical !== 0) {
-              const critical_list = {
-                23.3: "　(5回, 600%)",
-                23: "　(5回, 590%)",
-                22.6: "　(5回, 580%)",
-                22.2: "　(5回, 570%)",
-                21.8: "　(5回, 560%)",
-                21.4: "　(5回, 550%)",
-                21: "　(5回, 540%)",
-                20.6: "　(5回, 530%)",
-                20.2: "　(5回, 520%)",
-                19.8: "　(5回, 510%)",
-                19.5: "　(4or5回, 500%)",
-                19.1: "　(4or5回, 490%)",
-                18.7: "　(4or5回, 480%)",
-                18.3: "　(4or5回, 470%)",
-                17.9: "　(4or5回, 460%)",
-                17.5: "　(4or5回, 450%)",
-                17.1: "　(4or5回, 440%)",
-                16.7: "　(4or5回, 430%)",
-                16.3: "　(4or5回, 420%)",
-                15.9: "　(4回, 410%)",
-                15.6: "　(3or4回, 400%)",
-                15.2: "　(3or4回, 390%)",
-                14.8: "　(3or4回, 380%)",
-                14.4: "　(3or4回, 370%)",
-                14: "　(3or4回, 360%)",
-                13.6: "　(3or4回, 350%)",
-                13.2: "　(3回, 340%)",
-                12.8: "　(3回, 330%)",
-                12.4: "　(3回, 320%)",
-                12.1: "　(3回, 310%)",
-                11.7: "　(2or3回, 300%)",
-                11.3: "　(2or3回, 290%)",
-                10.9: "　(2or3回, 280%)",
-                10.5: "　(2回, 270%)",
-                10.1: "　(2回, 260%)",
-                9.7: "　(2回, 250%)",
-                9.3: "　(2回, 240%)",
-                8.9: "　(2回, 230%)",
-                8.6: "　(2回, 220%)",
-                8.2: "　(2回, 210%)",
-                7.8: "　(1回, 200%)",
-                7.4: "　(1回, 190%)",
-                7: "　(1回, 180%)",
-                6.6: "　(1回, 170%)",
-                6.5: "　(1回, 170%)",
-                6.2: "　(1回, 160%)",
-                5.8: "　(1回, 150%)",
-                5.4: "　(1回, 140%)",
-                3.9: "　(0回, 100%)",
-                3.5: "　(0回, 90%)",
-                3.1: "　(0回, 80%)",
-                2.7: "　(0回, 70%)",
-              };
-              search_result = critical_list[critical];
-              orthopedics_text += critical_text + search_result + "\n";
-            }
-            if (critical_hurt !== 0) {
-              const critical_hurt_list = {
-                46.6: "　(5回, 600%)",
-                45.8: "　(5回, 590%)",
-                45.1: "　(5回, 580%)",
-                44.3: "　(5回, 570%)",
-                43.5: "　(5回, 560%)",
-                42.7: "　(5回, 550%)",
-                42: "　(5回, 540%)",
-                41.2: "　(5回, 530%)",
-                40.4: "　(5回, 520%)",
-                39.6: "　(5回, 510%)",
-                38.9: "　(5回, 500%)",
-                38.1: "　(4or5回, 490%)",
-                37.3: "　(4or5回, 480%)",
-                36.5: "　(4or5回, 470%)",
-                35.8: "　(4or5回, 460%)",
-                35.7: "　(4or5回, 460%)",
-                35: "　(4or5回, 450%)",
-                34.2: "　(4or5回, 440%)",
-                33.4: "　(4or5回, 430%)",
-                32.7: "　(4or5回, 420%)",
-                32.6: "　(4or5回, 420%)",
-                31.9: "　(4回, 410%)",
-                31.1: "　(3or4回, 400%)",
-                30.3: "　(3or4回, 390%)",
-                29.5: "　(3or4回, 380%)",
-                28.8: "　(3or4回, 370%)",
-                28: "　(3or4回, 360%)",
-                27.2: "　(3or4回, 350%)",
-                26.4: "　(3回, 340%)",
-                25.7: "　(3回, 330%)",
-                24.9: "　(3回, 320%)",
-                24.1: "　(3回, 310%)",
-                23.3: "　(2or3回, 300%)",
-                22.5: "　(2or3回, 290%)",
-                21.8: "　(2or3回, 280%)",
-                21: "　(2回, 270%)",
-                20.2: "　(2回, 260%)",
-                19.4: "　(2回, 250%)",
-                18.7: "　(2回, 240%)",
-                17.9: "　(2回, 230%)",
-                17.1: "　(2回, 220%)",
-                16.3: "　(2回, 210%)",
-                15.5: "　(1回, 200%)",
-                14.8: "　(1回, 190%)",
-                14: "　(1回, 180%)",
-                13.2: "　(1回, 170%)",
-                12.4: "　(1回, 160%)",
-                11.7: "　(1回, 150%)",
-                10.9: "　(1回, 140%)",
-                7.8: "　(0回, 100%)",
-                7: "　(0回, 90%)",
-                6.2: "　(0回, 80%)",
-                5.4: "　(0回, 70%)",
-              };
-              search_result = critical_hurt_list[critical_hurt];
-              orthopedics_text += critical_hurt_text + search_result + "\n";
-            }
-            if (attack !== 0) {
-              const attack_list = {
-                35: "　(5回, 600%)",
-                34.4: "　(5回, 590%)",
-                33.8: "　(5回, 580%)",
-                33.2: "　(5回, 570%)",
-                32.7: "　(5回, 560%)",
-                32.1: "　(5回, 550%)",
-                31.5: "　(5回, 540%)",
-                30.9: "　(5回, 530%)",
-                30.3: "　(5回, 520%)",
-                29.7: "　(5回, 510%)",
-                29.2: "　(4or5回, 500%)",
-                28.6: "　(4or5回, 490%)",
-                28: "　(4or5回, 480%)",
-                27.4: "　(4or5回, 470%)",
-                26.8: "　(4or5回, 460%)",
-                26.3: "　(4or5回, 450%)",
-                25.7: "　(4or5回, 440%)",
-                25.1: "　(4or5回, 430%)",
-                24.5: "　(4or5回, 420%)",
-                23.9: "　(4回, 410%)",
-                23.3: "　(3or4回, 400%)",
-                22.7: "　(3or4回, 390%)",
-                22.2: "　(3or4回, 380%)",
-                21.6: "　(3or4回, 370%)",
-                21: "　(3or4回, 360%)",
-                20.4: "　(3or4回, 350%)",
-                19.8: "　(3回, 340%)",
-                19.2: "　(3回, 330%)",
-                18.7: "　(3回, 320%)",
-                18.1: "　(3回, 310%)",
-                17.5: "　(2or3回, 300%)",
-                16.9: "　(2or3回, 290%)",
-                16.3: "　(2or3回, 280%)",
-                15.8: "　(2回, 270%)",
-                15.2: "　(2回, 260%)",
-                14.6: "　(2回, 250%)",
-                14: "　(2回, 240%)",
-                13.4: "　(2回, 230%)",
-                12.8: "　(2回, 220%)",
-                12.2: "　(2回, 210%)",
-                11.7: "　(1回, 200%)",
-                11.1: "　(1回, 190%)",
-                10.5: "　(1回, 180%)",
-                9.9: "　(1回, 170%)",
-                9.3: "　(1回, 160%)",
-                8.7: "　(1回, 150%)",
-                8.2: "　(1回, 140%)",
-                5.8: "　(0回, 100%)",
-                5.3: "　(0回, 90%)",
-                4.7: "　(0回, 80%)",
-                4.1: "　(0回, 70%)",
-              };
-              search_result = attack_list[attack];
-              orthopedics_text += attack_text + search_result + "\n";
-            }
-            if (attack_num !== 0) {
-              const attack_num_list = {
-                117: "　(5回, 600%)",
-                115: "　(5回, 590%)",
-                113: "　(5回, 580%)",
-                111: "　(5回, 570%)",
-                109: "　(5回, 560%)",
-                107: "　(5回, 550%)",
-                105: "　(5回, 540%)",
-                103: "　(5回, 530%)",
-                101: "　(5回, 520%)",
-                99: "　(5回, 510%)",
-                97: "　(4or5回, 500%)",
-                95: "　(4or5回, 490%)",
-                93: "　(4or5回, 480%)",
-                91: "　(4or5回, 470%)",
-                89: "　(4or5回, 460%)",
-                88: "　(4or5回, 450%)",
-                86: "　(4or5回, 440%)",
-                84: "　(4or5回, 430%)",
-                82: "　(4or5回, 420%)",
-                80: "　(4回, 410%)",
-                78: "　(3or4回, 400%)",
-                76: "　(3or4回, 390%)",
-                74: "　(3or4回, 380%)",
-                72: "　(3or4回, 370%)",
-                70: "　(3or4回, 360%)",
-                68: "　(3or4回, 350%)",
-                66: "　(3回, 340%)",
-                64: "　(3回, 330%)",
-                62: "　(3回, 320%)",
-                60: "　(3回, 310%)",
-                58: "　(2or3回, 300%)",
-                56: "　(2or3回, 290%)",
-                54: "　(2or3回, 280%)",
-                53: "　(2回, 270%)",
-                51: "　(2回, 260%)",
-                49: "　(2回, 250%)",
-                47: "　(2回, 240%)",
-                45: "　(2回, 230%)",
-                43: "　(2回, 220%)",
-                41: "　(2回, 210%)",
-                39: "　(1回, 200%)",
-                37: "　(1回, 190%)",
-                35: "　(1回, 180%)",
-                33: "　(1回, 170%)",
-                31: "　(1回, 160%)",
-                29: "　(1回, 150%)",
-                27: "　(1回, 140%)",
-                19: "　(0回, 100%)",
-                18: "　(0回, 90%)",
-                16: "　(0回, 80%)",
-                14: "　(0回, 70%)",
-              };
-              search_result = attack_num_list[attack_num];
-              orthopedics_text += attack_num_text + search_result + "\n";
-            }
-            if (defense !== 0) {
-              const defense_list = {
-                43.7: "　(5回, 600%)",
-                43: "　(5回, 590%)",
-                42.3: "　(5回, 580%)",
-                41.6: "　(5回, 570%)",
-                40.8: "　(5回, 560%)",
-                40.1: "　(5回, 550%)",
-                39.4: "　(5回, 540%)",
-                38.6: "　(5回, 530%)",
-                37.9: "　(5回, 520%)",
-                37.2: "　(5回, 510%)",
-                36.5: "　(4or5回, 500%)",
-                35.7: "　(4or5回, 490%)",
-                35: "　(4or5回, 480%)",
-                34.3: "　(4or5回, 470%)",
-                33.5: "　(4or5回, 460%)",
-                32.8: "　(4or5回, 450%)",
-                32.1: "　(4or5回, 440%)",
-                31.3: "　(4or5回, 430%)",
-                30.6: "　(4or5回, 420%)",
-                29.9: "　(4回, 410%)",
-                29.2: "　(3or4回, 400%)",
-                28.4: "　(3or4回, 390%)",
-                27.7: "　(3or4回, 380%)",
-                27: "　(3or4回, 370%)",
-                26.2: "　(3or4回, 360%)",
-                25.5: "　(3or4回, 350%)",
-                24.8: "　(3回, 340%)",
-                24.1: "　(3回, 330%)",
-                23.3: "　(3回, 320%)",
-                22.6: "　(3回, 310%)",
-                21.9: "　(2or3回, 300%)",
-                21.1: "　(2or3回, 290%)",
-                20.4: "　(2or3回, 280%)",
-                19.7: "　(2回, 270%)",
-                19: "　(2回, 260%)",
-                18.2: "　(2回, 250%)",
-                17.5: "　(2回, 240%)",
-                16.8: "　(2回, 230%)",
-                16: "　(2回, 220%)",
-                15.3: "　(2回, 210%)",
-                14.6: "　(1回, 200%)",
-                13.9: "　(1回, 190%)",
-                13.1: "　(1回, 180%)",
-                12.4: "　(1回, 170%)",
-                11.7: "　(1回, 160%)",
-                10.9: "　(1回, 150%)",
-                10.2: "　(1回, 140%)",
-                7.3: "　(0回, 100%)",
-                6.6: "　(0回, 90%)",
-                5.8: "　(0回, 80%)",
-                5.1: "　(0回, 70%)",
-              };
-              search_result = defense_list[defense];
-              orthopedics_text += defense_text + search_result + "\n";
-            }
-            if (defense_num !== 0) {
-              const defense_num_list = {
-                139: "　(5回, 600%)",
-                137: "　(5回, 590%)",
-                134: "　(5回, 580%)",
-                132: "　(5回, 570%)",
-                130: "　(5回, 560%)",
-                127: "　(5回, 550%)",
-                125: "　(5回, 540%)",
-                123: "　(5回, 530%)",
-                120: "　(5回, 520%)",
-                118: "　(5回, 510%)",
-                116: "　(4or5回, 500%)",
-                113: "　(4or5回, 490%)",
-                111: "　(4or5回, 480%)",
-                109: "　(4or5回, 470%)",
-                106: "　(4or5回, 460%)",
-                104: "　(4or5回, 450%)",
-                102: "　(4or5回, 440%)",
-                100: "　(4or5回, 430%)",
-                97: "　(4or5回, 420%)",
-                95: "　(4回, 410%)",
-                93: "　(3or4回, 400%)",
-                90: "　(3or4回, 390%)",
-                88: "　(3or4回, 380%)",
-                86: "　(3or4回, 370%)",
-                83: "　(3or4回, 360%)",
-                81: "　(3or4回, 350%)",
-                79: "　(3回, 340%)",
-                76: "　(3回, 330%)",
-                74: "　(3回, 320%)",
-                72: "　(3回, 310%)",
-                69: "　(2or3回, 300%)",
-                67: "　(2or3回, 290%)",
-                65: "　(2or3回, 280%)",
-                63: "　(2回, 270%)",
-                60: "　(2回, 260%)",
-                58: "　(2回, 250%)",
-                56: "　(2回, 240%)",
-                53: "　(2回, 230%)",
-                51: "　(2回, 220%)",
-                49: "　(2回, 210%)",
-                46: "　(1回, 200%)",
-                44: "　(1回, 190%)",
-                42: "　(1回, 180%)",
-                39: "　(1回, 170%)",
-                37: "　(1回, 160%)",
-                35: "　(1回, 150%)",
-                32: "　(1回, 140%)",
-                23: "　(0回, 100%)",
-                21: "　(0回, 90%)",
-                19: "　(0回, 80%)",
-                16: "　(0回, 70%)",
-              };
-              search_result = defense_num_list[defense_num];
-              orthopedics_text += defense_num_text + search_result + "\n";
-            }
-            if (hp !== 0) {
-              const hp_list = {
-                35: "　(5回, 600%)",
-                34.4: "　(5回, 590%)",
-                33.8: "　(5回, 580%)",
-                33.2: "　(5回, 570%)",
-                32.7: "　(5回, 560%)",
-                32.1: "　(5回, 550%)",
-                31.5: "　(5回, 540%)",
-                30.9: "　(5回, 530%)",
-                30.3: "　(5回, 520%)",
-                29.7: "　(5回, 510%)",
-                29.2: "　(4or5回, 500%)",
-                28.6: "　(4or5回, 490%)",
-                28: "　(4or5回, 480%)",
-                27.4: "　(4or5回, 470%)",
-                26.8: "　(4or5回, 460%)",
-                26.3: "　(4or5回, 450%)",
-                25.7: "　(4or5回, 440%)",
-                25.1: "　(4or5回, 430%)",
-                24.5: "　(4or5回, 420%)",
-                23.9: "　(4回, 410%)",
-                23.3: "　(3or4回, 400%)",
-                22.7: "　(3or4回, 390%)",
-                22.2: "　(3or4回, 380%)",
-                21.6: "　(3or4回, 370%)",
-                21: "　(3or4回, 360%)",
-                20.4: "　(3or4回, 350%)",
-                19.8: "　(3回, 340%)",
-                19.2: "　(3回, 330%)",
-                18.7: "　(3回, 320%)",
-                18.1: "　(3回, 310%)",
-                17.5: "　(2or3回, 300%)",
-                16.9: "　(2or3回, 290%)",
-                16.3: "　(2or3回, 280%)",
-                15.8: "　(2回, 270%)",
-                15.7: "　(2回, 270%)",
-                15.2: "　(2回, 260%)",
-                14.6: "　(2回, 250%)",
-                14: "　(2回, 240%)",
-                13.4: "　(2回, 230%)",
-                12.8: "　(2回, 220%)",
-                12.2: "　(2回, 210%)",
-                11.7: "　(1回, 200%)",
-                11.1: "　(1回, 190%)",
-                10.5: "　(1回, 180%)",
-                9.9: "　(1回, 170%)",
-                9.3: "　(1回, 160%)",
-                8.7: "　(1回, 150%)",
-                8.2: "　(1回, 140%)",
-                5.8: "　(0回, 100%)",
-                5.3: "　(0回, 90%)",
-                4.7: "　(0回, 80%)",
-                4.1: "　(0回, 70%)",
-              };
-              search_result = hp_list[hp];
-              orthopedics_text += hp_text + search_result + "\n";
-            }
-            if (hp_num !== 0) {
-              const hp_num_list = {
-                1793: "　(5回, 600%)",
-                1763: "　(5回, 590%)",
-                1733: "　(5回, 580%)",
-                1703: "　(5回, 570%)",
-                1673: "　(5回, 550%)",
-                1643: "　(5回, 540%)",
-                1613: "　(5回, 530%)",
-                1583: "　(5回, 520%)",
-                1554: "　(5回, 520%)",
-                1524: "　(5回, 510%)",
-                1494: "　(4or5回, 500%)",
-                1464: "　(4or5回, 490%)",
-                1434: "　(4or5回, 470%)",
-                1404: "　(4or5回, 460%)",
-                1374: "　(4or5回, 450%)",
-                1344: "　(4or5回, 440%)",
-                1315: "　(4or5回, 440%)",
-                1285: "　(4or5回, 430%)",
-                1255: "　(4or5回, 420%)",
-                1225: "　(4回, 410%)",
-                1195: "　(3or4回, 400%)",
-                1165: "　(3or4回, 390%)",
-                1135: "　(3or4回, 380%)",
-                1105: "　(3or4回, 370%)",
-                1076: "　(3or4回, 360%)",
-                1046: "　(3or4回, 350%)",
-                1016: "　(3回, 340%)",
-                986: "　(3回, 330%)",
-                956: "　(3回, 320%)",
-                926: "　(3回, 310%)",
-                896: "　(2or3回, 300%)",
-                866: "　(2or3回, 290%)",
-                837: "　(2or3回, 280%)",
-                807: "　(2回, 270%)",
-                777: "　(2回, 260%)",
-                747: "　(2回, 250%)",
-                717: "　(2回, 240%)",
-                687: "　(2回, 230%)",
-                657: "　(2回, 220%)",
-                627: "　(2回, 210%)",
-                598: "　(1回, 200%)",
-                568: "　(1回, 190%)",
-                538: "　(1回, 180%)",
-                508: "　(1回, 170%)",
-                478: "　(1回, 160%)",
-                448: "　(1回, 150%)",
-                418: "　(1回, 140%)",
-                299: "　(0回, 100%)",
-                269: "　(0回, 90%)",
-                239: "　(0回, 80%)",
-                209: "　(0回, 70%)",
-              };
-              search_result = hp_num_list[hp_num];
-              orthopedics_text += hp_num_text + search_result + "\n";
-            }
-            if (charge_efficiency !== 0) {
-              const charge_efficiency_list = {
-                38.9: "　(5回, 600%)",
-                38.2: "　(5回, 590%)",
-                37.6: "　(5回, 580%)",
-                36.9: "　(5回, 570%)",
-                36.3: "　(5回, 560%)",
-                35.6: "　(5回, 550%)",
-                35: "　(5回, 540%)",
-                34.3: "　(5回, 530%)",
-                33.7: "　(5回, 520%)",
-                33: "　(5回, 510%)",
-                32.4: "　(4or5回, 500%)",
-                31.8: "　(4or5回, 490%)",
-                31.1: "　(4or5回, 480%)",
-                30.5: "　(4or5回, 470%)",
-                29.8: "　(4or5回, 460%)",
-                29.2: "　(4or5回, 450%)",
-                28.5: "　(4or5回, 440%)",
-                27.9: "　(4or5回, 430%)",
-                27.2: "　(4or5回, 420%)",
-                26.6: "　(4回, 410%)",
-                25.9: "　(3or4回, 400%)",
-                25.3: "　(3or4回, 390%)",
-                24.6: "　(3or4回, 380%)",
-                24: "　(3or4回, 370%)",
-                23.3: "　(3or4回, 360%)",
-                22.7: "　(3or4回, 350%)",
-                22: "　(3回, 340%)",
-                21.4: "　(3回, 330%)",
-                20.7: "　(3回, 320%)",
-                20.1: "　(3回, 310%)",
-                19.4: "　(2or3回, 300%)",
-                18.8: "　(2or3回, 290%)",
-                18.1: "　(2or3回, 280%)",
-                17.5: "　(2回, 270%)",
-                16.8: "　(2回, 260%)",
-                16.2: "　(2回, 250%)",
-                15.5: "　(2回, 240%)",
-                14.9: "　(2回, 230%)",
-                14.2: "　(2回, 220%)",
-                13.6: "　(2回, 210%)",
-                13: "　(1回, 200%)",
-                12.3: "　(1回, 190%)",
-                11.7: "　(1回, 180%)",
-                11: "　(1回, 170%)",
-                10.4: "　(1回, 160%)",
-                9.7: "　(1回, 150%)",
-                9.1: "　(1回, 140%)",
-                6.5: "　(0回, 100%)",
-                5.8: "　(0回, 90%)",
-                5.2: "　(0回, 80%)",
-                4.5: "　(0回, 70%)",
-              };
-              search_result = charge_efficiency_list[charge_efficiency];
-              orthopedics_text += charge_efficiency_text + search_result + "\n";
-            }
-            if (element_mastery !== 0) {
-              const element_mastery_list = {
-                140: "　(5回, 600%)",
-                138: "　(5回, 590%)",
-                135: "　(5回, 580%)",
-                133: "　(5回, 570%)",
-                131: "　(5回, 560%)",
-                128: "　(5回, 550%)",
-                126: "　(5回, 540%)",
-                124: "　(5回, 530%)",
-                121: "　(5回, 520%)",
-                119: "　(5回, 510%)",
-                117: "　(4or5回, 500%)",
-                114: "　(4or5回, 490%)",
-                112: "　(4or5回, 480%)",
-                110: "　(4or5回, 470%)",
-                107: "　(4or5回, 460%)",
-                105: "　(4or5回, 450%)",
-                103: "　(4or5回, 440%)",
-                100: "　(4or5回, 430%)",
-                98: "　(4or5回, 420%)",
-                96: "　(4回, 410%)",
-                93: "　(3or4回, 400%)",
-                91: "　(3or4回, 390%)",
-                89: "　(3or4回, 380%)",
-                86: "　(3or4回, 370%)",
-                84: "　(3or4回, 360%)",
-                82: "　(3or4回, 350%)",
-                79: "　(3回, 340%)",
-                77: "　(3回, 330%)",
-                75: "　(3回, 320%)",
-                72: "　(3回, 310%)",
-                70: "　(2or3回, 300%)",
-                68: "　(2or3回, 290%)",
-                65: "　(2or3回, 280%)",
-                63: "　(2回, 270%)",
-                61: "　(2回, 260%)",
-                58: "　(2回, 250%)",
-                56: "　(2回, 240%)",
-                54: "　(2回, 230%)",
-                51: "　(2回, 220%)",
-                49: "　(2回, 210%)",
-                47: "　(1回, 200%)",
-                44: "　(1回, 190%)",
-                42: "　(1回, 180%)",
-                40: "　(1回, 170%)",
-                37: "　(1回, 160%)",
-                35: "　(1回, 150%)",
-                33: "　(1回, 140%)",
-                23: "　(0回, 100%)",
-                21: "　(0回, 90%)",
-                19: "　(0回, 80%)",
-                16: "　(0回, 70%)",
-              };
-              search_result = element_mastery_list[element_mastery];
-              orthopedics_text += element_mastery_text + search_result + "\n";
-            }
-            console.log(orthopedics_text);
-
-            let critical_value = critical * 2 + critical_hurt;
-            let critical_attack_value = critical * 2 + critical_hurt + attack;
-            let critical_defense_value = critical * 2 + critical_hurt + defense;
-            let critical_charge_efficiency_value =
-              critical * 2 + critical_hurt + charge_efficiency;
-            let critical_hp_value = critical * 2 + critical_hurt + hp;
-            let critical_element_mastery_value =
-              critical * 2 + critical_hurt + element_mastery * 0.25;
-
-            critical_value = Math.round(critical_value * 10) / 10;
-            critical_attack_value = Math.round(critical_attack_value * 10) / 10;
-            critical_defense_value =
-              Math.round(critical_defense_value * 10) / 10;
-            critical_charge_efficiency_value =
-              Math.round(critical_charge_efficiency_value * 10) / 10;
-            critical_hp_value = Math.round(critical_hp_value * 10) / 10;
-            critical_element_mastery_value =
-              Math.round(critical_element_mastery_value * 10) / 10;
-
-            let critical_rank = "";
-            let critical_attack_rank = "";
-            let critical_defense_rank = "";
-            let critical_hp_rank = "";
-            let critical_charge_efficiency_rank = "";
-            let critical_element_mastery_rank = "";
-
-            //会心型
-            if (
-              type_of_relics.includes("生の花") ||
-              type_of_relics.includes("死の羽")
-            ) {
-              if (critical_value >= 50) {
-                critical_rank = "⭐️理論値";
-              } else if (critical_value >= 45) {
-                critical_rank = "⭕️厳選ランクS";
-              } else if (critical_value >= 40) {
-                critical_rank = "厳選ランクA";
-              } else if (critical_value >= 30) {
-                critical_rank = "厳選ランクB";
-              } else if (critical_value >= 20) {
-                critical_rank = "仮聖遺物";
-              } else {
-                critical_rank = "ゴミ";
-              }
-            } else if (
-              type_of_relics.includes("時の砂") ||
-              type_of_relics.includes("空の杯")
-            ) {
-              if (critical_value >= 45) {
-                critical_rank = "⭐️理論値";
-              } else if (critical_value >= 40) {
-                critical_rank = "⭕️厳選ランクS";
-              } else if (critical_value >= 35) {
-                critical_rank = "厳選ランクA";
-              } else if (critical_value >= 25) {
-                critical_rank = "厳選ランクB";
-              } else if (critical_value >= 15) {
-                critical_rank = "仮聖遺物";
-              } else {
-                critical_rank = "ゴミ";
-              }
-            } else if (type_of_relics.includes("理の冠")) {
-              if (critical_value >= 40) {
-                critical_rank = "⭐️理論値";
-              } else if (critical_value >= 35) {
-                critical_rank = "⭕️厳選ランクS";
-              } else if (critical_value >= 30) {
-                critical_rank = "厳選ランクA";
-              } else if (critical_value >= 20) {
-                critical_rank = "厳選ランクB";
-              } else if (critical_value >= 10) {
-                critical_rank = "仮聖遺物";
-              } else {
-                critical_rank = "ゴミ";
-              }
-            }
-            //console.log(critical_rank)
-
-            //攻撃型
-            if (
-              type_of_relics.includes("生の花") ||
-              type_of_relics.includes("死の羽")
-            ) {
-              if (critical_attack_value >= 50) {
-                critical_attack_rank = "⭐️理論値";
-              } else if (critical_attack_value >= 45) {
-                critical_attack_rank = "⭕️厳選ランクS";
-              } else if (critical_attack_value >= 40) {
-                critical_attack_rank = "厳選ランクA";
-              } else if (critical_attack_value >= 30) {
-                critical_attack_rank = "厳選ランクB";
-              } else if (critical_attack_value >= 20) {
-                critical_attack_rank = "仮聖遺物";
-              } else {
-                critical_attack_rank = "ゴミ";
-              }
-            } else if (
-              type_of_relics.includes("時の砂") ||
-              type_of_relics.includes("空の杯")
-            ) {
-              if (critical_attack_value >= 45) {
-                critical_attack_rank = "⭐️理論値";
-              } else if (critical_attack_value >= 40) {
-                critical_attack_rank = "⭕️厳選ランクS";
-              } else if (critical_attack_value >= 35) {
-                critical_attack_rank = "厳選ランクA";
-              } else if (critical_attack_value >= 25) {
-                critical_attack_rank = "厳選ランクB";
-              } else if (critical_attack_value >= 15) {
-                critical_attack_rank = "仮聖遺物";
-              } else {
-                critical_attack_rank = "ゴミ";
-              }
-            } else if (type_of_relics.includes("理の冠")) {
-              if (critical_attack_value >= 40) {
-                critical_attack_rank = "⭐️理論値";
-              } else if (critical_attack_value >= 35) {
-                critical_attack_rank = "⭕️厳選ランクS";
-              } else if (critical_attack_value >= 30) {
-                critical_attack_rank = "厳選ランクA";
-              } else if (critical_attack_value >= 20) {
-                critical_attack_rank = "厳選ランクB";
-              } else if (critical_attack_value >= 10) {
-                critical_attack_rank = "仮聖遺物";
-              } else {
-                critical_attack_rank = "ゴミ";
-              }
-            }
-            //console.log(critical_attack_rank)
-
-            //防御型
-            if (
-              type_of_relics.includes("生の花") ||
-              type_of_relics.includes("死の羽")
-            ) {
-              if (critical_defense_value >= 50) {
-                critical_defense_rank = "⭐️理論値";
-              } else if (critical_defense_value >= 45) {
-                critical_defense_rank = "⭕️厳選ランクS";
-              } else if (critical_defense_value >= 40) {
-                critical_defense_rank = "厳選ランクA";
-              } else if (critical_defense_value >= 30) {
-                critical_defense_rank = "厳選ランクB";
-              } else if (critical_defense_value >= 20) {
-                critical_defense_rank = "仮聖遺物";
-              } else {
-                critical_defense_rank = "ゴミ";
-              }
-            } else if (
-              type_of_relics.includes("時の砂") ||
-              type_of_relics.includes("空の杯")
-            ) {
-              if (critical_defense_value >= 45) {
-                critical_defense_rank = "⭐️理論値";
-              } else if (critical_defense_value >= 40) {
-                critical_defense_rank = "⭕️厳選ランクS";
-              } else if (critical_defense_value >= 35) {
-                critical_defense_rank = "厳選ランクA";
-              } else if (critical_defense_value >= 25) {
-                critical_defense_rank = "厳選ランクB";
-              } else if (critical_defense_value >= 15) {
-                critical_defense_rank = "仮聖遺物";
-              } else {
-                critical_defense_rank = "ゴミ";
-              }
-            } else if (type_of_relics.includes("理の冠")) {
-              if (critical_defense_value >= 40) {
-                critical_defense_rank = "⭐️理論値";
-              } else if (critical_defense_value >= 35) {
-                critical_defense_rank = "⭕️厳選ランクS";
-              } else if (critical_defense_value >= 30) {
-                critical_defense_rank = "厳選ランクA";
-              } else if (critical_defense_value >= 20) {
-                critical_defense_rank = "厳選ランクB";
-              } else if (critical_defense_value >= 10) {
-                critical_defense_rank = "仮聖遺物";
-              } else {
-                critical_defense_rank = "ゴミ";
-              }
-            }
-            //console.log(critical_defense_rank)
-
-            //HP型
-            if (
-              type_of_relics.includes("生の花") ||
-              type_of_relics.includes("死の羽")
-            ) {
-              if (critical_hp_value >= 50) {
-                critical_hp_rank = "⭐️理論値";
-              } else if (critical_hp_value >= 45) {
-                critical_hp_rank = "⭕️厳選ランクS";
-              } else if (critical_hp_value >= 40) {
-                critical_hp_rank = "厳選ランクA";
-              } else if (critical_hp_value >= 30) {
-                critical_hp_rank = "厳選ランクB";
-              } else if (critical_hp_value >= 20) {
-                critical_hp_rank = "仮聖遺物";
-              } else {
-                critical_hp_rank = "ゴミ";
-              }
-            } else if (
-              type_of_relics.includes("時の砂") ||
-              type_of_relics.includes("空の杯")
-            ) {
-              if (critical_hp_value >= 45) {
-                critical_hp_rank = "⭐️理論値";
-              } else if (critical_hp_value >= 40) {
-                critical_hp_rank = "⭕️厳選ランクS";
-              } else if (critical_hp_value >= 35) {
-                critical_hp_rank = "厳選ランクA";
-              } else if (critical_hp_value >= 25) {
-                critical_hp_rank = "厳選ランクB";
-              } else if (critical_hp_value >= 15) {
-                critical_hp_rank = "仮聖遺物";
-              } else {
-                critical_hp_rank = "ゴミ";
-              }
-            } else if (type_of_relics.includes("理の冠")) {
-              if (critical_hp_value >= 40) {
-                critical_hp_rank = "⭐️理論値";
-              } else if (critical_hp_value >= 35) {
-                critical_hp_rank = "⭕️厳選ランクS";
-              } else if (critical_hp_value >= 30) {
-                critical_hp_rank = "厳選ランクA";
-              } else if (critical_hp_value >= 20) {
-                critical_hp_rank = "厳選ランクB";
-              } else if (critical_hp_value >= 10) {
-                critical_hp_rank = "仮聖遺物";
-              } else {
-                critical_hp_rank = "ゴミ";
-              }
-            }
-            //console.log(critical_hp_rank)
-
-            //元素チャージ効率型
-            if (
-              type_of_relics.includes("生の花") ||
-              type_of_relics.includes("死の羽")
-            ) {
-              if (critical_charge_efficiency_value >= 50) {
-                critical_charge_efficiency_rank = "⭐️理論値";
-              } else if (critical_charge_efficiency_value >= 45) {
-                critical_charge_efficiency_rank = "⭕️厳選ランクS";
-              } else if (critical_charge_efficiency_value >= 40) {
-                critical_charge_efficiency_rank = "厳選ランクA";
-              } else if (critical_charge_efficiency_value >= 30) {
-                critical_charge_efficiency_rank = "厳選ランクB";
-              } else if (critical_charge_efficiency_value >= 20) {
-                critical_charge_efficiency_rank = "仮聖遺物";
-              } else {
-                critical_charge_efficiency_rank = "ゴミ";
-              }
-            } else if (
-              type_of_relics.includes("時の砂") ||
-              type_of_relics.includes("空の杯")
-            ) {
-              if (critical_charge_efficiency_value >= 45) {
-                critical_charge_efficiency_rank = "⭐️理論値";
-              } else if (critical_charge_efficiency_value >= 40) {
-                critical_charge_efficiency_rank = "⭕️厳選ランクS";
-              } else if (critical_charge_efficiency_value >= 35) {
-                critical_charge_efficiency_rank = "厳選ランクA";
-              } else if (critical_charge_efficiency_value >= 25) {
-                critical_charge_efficiency_rank = "厳選ランクB";
-              } else if (critical_charge_efficiency_value >= 15) {
-                critical_charge_efficiency_rank = "仮聖遺物";
-              } else {
-                critical_charge_efficiency_rank = "ゴミ";
-              }
-            } else if (type_of_relics.includes("理の冠")) {
-              if (critical_charge_efficiency_value >= 40) {
-                critical_charge_efficiency_rank = "⭐️理論値";
-              } else if (critical_charge_efficiency_value >= 35) {
-                critical_charge_efficiency_rank = "⭕️厳選ランクS";
-              } else if (critical_charge_efficiency_value >= 30) {
-                critical_charge_efficiency_rank = "厳選ランクA";
-              } else if (critical_charge_efficiency_value >= 20) {
-                critical_charge_efficiency_rank = "厳選ランクB";
-              } else if (critical_charge_efficiency_value >= 10) {
-                critical_charge_efficiency_rank = "仮聖遺物";
-              } else {
-                critical_charge_efficiency_rank = "ゴミ";
-              }
-            }
-            //console.log(critical_charge_efficiency_rank)
-
-            //元素熟知型
-            if (
-              type_of_relics.includes("生の花") ||
-              type_of_relics.includes("死の羽")
-            ) {
-              if (critical_element_mastery_value >= 50) {
-                critical_element_mastery_rank = "⭐️理論値";
-              } else if (critical_element_mastery_value >= 45) {
-                critical_element_mastery_rank = "⭕️厳選ランクS";
-              } else if (critical_element_mastery_value >= 40) {
-                critical_element_mastery_rank = "厳選ランクA";
-              } else if (critical_element_mastery_value >= 30) {
-                critical_element_mastery_rank = "厳選ランクB";
-              } else if (critical_element_mastery_value >= 20) {
-                critical_element_mastery_rank = "仮聖遺物";
-              } else {
-                critical_element_mastery_rank = "ゴミ";
-              }
-            } else if (
-              type_of_relics.includes("時の砂") ||
-              type_of_relics.includes("空の杯")
-            ) {
-              if (critical_element_mastery_value >= 45) {
-                critical_element_mastery_rank = "⭐️理論値";
-              } else if (critical_element_mastery_value >= 40) {
-                critical_element_mastery_rank = "⭕️厳選ランクS";
-              } else if (critical_element_mastery_value >= 35) {
-                critical_element_mastery_rank = "厳選ランクA";
-              } else if (critical_element_mastery_value >= 25) {
-                critical_element_mastery_rank = "厳選ランクB";
-              } else if (critical_element_mastery_value >= 15) {
-                critical_element_mastery_rank = "仮聖遺物";
-              } else {
-                critical_element_mastery_rank = "ゴミ";
-              }
-            } else if (type_of_relics.includes("理の冠")) {
-              if (critical_element_mastery_value >= 40) {
-                critical_element_mastery_rank = "⭐️理論値";
-              } else if (critical_element_mastery_value >= 35) {
-                critical_element_mastery_rank = "⭕️厳選ランクS";
-              } else if (critical_element_mastery_value >= 30) {
-                critical_element_mastery_rank = "厳選ランクA";
-              } else if (critical_element_mastery_value >= 20) {
-                critical_element_mastery_rank = "厳選ランクB";
-              } else if (critical_element_mastery_value >= 10) {
-                critical_element_mastery_rank = "仮聖遺物";
-              } else {
-                critical_element_mastery_rank = "ゴミ";
-              }
-            }
-
-            let calculator = orthopedics_text;
-            function parseText(calculator) {
-              let entries = calculator.split("\n");
-              let few_count = 0;
-              let many_count = 0;
-              let all_percent = 0;
-              let growth_rate1 = 0;
-              let growth_rate2 = 0;
-
-              entries.forEach((entry) => {
-                let textAfterParenthesis = entry.split("(")[1]; // '('以降のテキストを抽出
-                if (textAfterParenthesis) {
-                  let counts = textAfterParenthesis.match(/\d+/g);
-                  if (counts) {
-                    if (entry.includes("or")) {
-                      few_count += parseInt(counts[0]);
-                      many_count += parseInt(counts[1]);
-                    } else {
-                      few_count += parseInt(counts[0]);
-                      many_count += parseInt(counts[0]);
-                    }
-                  }
-
-                  let percentMatches =
-                    textAfterParenthesis.match(/\d+(\.\d+)?%/g);
-                  if (percentMatches) {
-                    let percentValue = parseFloat(
-                      percentMatches[0].match(/\d+(\.\d+)?/g)[0]
-                    );
-                    all_percent += percentValue;
-                  }
-                }
-                console.log(
-                  textAfterParenthesis,
-                  few_count,
-                  many_count,
-                  all_percent
-                );
-              });
-              let option = "";
-              if ((few_count == 4 && many_count == 4) || many_count == 4) {
-                growth_rate1 = all_percent / 8; //3
-                option = "3オプ";
-              } else if (few_count == 4 && many_count >= 5) {
-                growth_rate1 = all_percent / 8; //3
-                growth_rate2 = all_percent / 9; //4
-              } else if (few_count >= 5) {
-                growth_rate1 = all_percent / 9; //4
-                option = "4オプ";
-              }
-
-              return {
-                few_count,
-                many_count,
-                all_percent,
-                growth_rate1,
-                growth_rate2,
-                option,
-              };
-            }
-            console.log(parseText(calculator));
-
-            let growth = "";
-            if (parseText(calculator).growth_rate2 !== 0) {
-              growth =
-                "3オプ → " +
-                parseText(calculator).growth_rate1.toFixed(2) +
-                "%\n4オプ → " +
-                parseText(calculator).growth_rate2.toFixed(2) +
-                "%";
-            } else {
-              growth =
-                parseText(calculator).option +
-                " → " +
-                parseText(calculator).growth_rate1.toFixed(2) +
-                "%";
-            }
-            console.log(growth);
-
-            embed.addField(
-              "聖遺物情報",
-              "【" + type_of_relics + "】\n" + orthopedics_text
-            );
-            data_collection.send({ embeds: [embed] });
-            //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defense_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
-            embed.addField(
-              "- 会心 -",
-              critical_rank + " (" + critical_value + ")",
-              true
-            );
-            embed.addField(
-              "- 会心+攻撃力% -",
-              critical_attack_rank + " (" + critical_attack_value + ")",
-              true
-            );
-            embed.addField(
-              "- 会心+防御力% -",
-              critical_defense_rank + " (" + critical_defense_value + ")",
-              true
-            );
-            embed.addField(
-              "- 会心+HP% -",
-              critical_hp_rank + " (" + critical_hp_value + ")",
-              true
-            );
-            embed.addField(
-              "- 会心+元素ﾁｬｰｼﾞ効率 -",
-              critical_charge_efficiency_rank +
-                " (" +
-                critical_charge_efficiency_value +
-                ")",
-              true
-            );
-            embed.addField(
-              "- 会心+元素熟知 -",
-              critical_element_mastery_rank +
-                " (" +
-                critical_element_mastery_value +
-                ")",
-              true
-            );
-            embed.addField("- サブオプ伸び率(70-100%) -", growth);
-            embed.setDescription("<@" + message.author + ">");
-
-            //console.log(embed)
-            processingMessage.delete();
-            message.reply({ embeds: [embed] });
-          }
+    if (ExchangeCoderesponse.ok) {
+      const genshinExchange = await ExchangeCoderesponse.json();
+      console.log(genshinExchange);
+      if (genshinExchange.message != "入力した引換コードは無効です") {
+        game_name = "原神";
+        exchange_text =
+          (genshinExchange.data && genshinExchange.data.msg) ??
+          genshinExchange.message;
+        console.log(exchange_text);
+        if (genshinExchange.retcode == 0) {
+          color = "#00FF00";
+        } else {
+          color = "#808080";
         }
       }
     } else {
-      // ランダムな画像を選択
-      const randomIndex = Math.floor(Math.random() * genshin_imageUrls.length);
-      const randomImageUrl = genshin_imageUrls[randomIndex];
-      console.log(randomImageUrl);
-      const embed1 = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTitle("画像から文字を抽出/スコアを計算中…")
-        .setDescription("5秒程お待ちください…")
-        .setImage(randomImageUrl);
-      const processingMessage = await message.reply({
-        embeds: [embed1],
-      });
+      throw new Error(`HTTP error! status: ${ExchangeCoderesponse.status}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+  //StarRail
+  if (game_name == "") {
+    const StarRail_ExchangeCodeheaders = {
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36 Edg/101.0.1210.47",
+      Referer: "https://act.hoyolab.com",
+      "Accept-Encoding": "gzip, deflate, br",
+      Cookie: starrailcookie,
+    };
 
-      const channel = await client.channels.fetch("1207204533005189131");
-      const data_collection = await client.channels.fetch(
-        "1208468886517981195"
+    try {
+      const ExchangeCoderesponse = await fetch(
+        `https://sg-hkrpg-api.hoyoverse.com/common/apicdkey/api/webExchangeCdkey?t=${date.getTime()}&lang=ja&game_biz=hkrpg_global&uid=${starrailuid}&region=prod_official_asia&cdkey=${code}`,
+        {
+          method: "GET",
+          headers: StarRail_ExchangeCodeheaders,
+        }
       );
 
-      //const url = attachment.url;
+      if (ExchangeCoderesponse.ok) {
+        const starRailExchange = await ExchangeCoderesponse.json();
+        console.log(starRailExchange);
 
-      const embed = new MessageEmbed()
-        .setTitle("- 聖遺物スコア -")
-        .setColor("RANDOM");
-      //.setThumbnail(url);
-
-      let type_of_relics = "";
-      if (
-        message.content.includes("生の花") ||
-        message.content.includes("花")
-      ) {
-        type_of_relics = "生の花";
-      } else if (
-        message.content.includes("死の羽") ||
-        message.content.includes("羽")
-      ) {
-        type_of_relics = "死の羽";
-      } else if (
-        message.content.includes("時の砂") ||
-        message.content.includes("時計")
-      ) {
-        type_of_relics = "時の砂";
-      } else if (
-        message.content.includes("空の杯") ||
-        message.content.includes("杯")
-      ) {
-        type_of_relics = "空の杯";
-      } else if (
-        message.content.includes("理の冠") ||
-        message.content.includes("冠")
-      ) {
-        type_of_relics = "理の冠";
-      }
-
-      let critical = 0;
-      let critical_hurt = 0;
-      let attack = 0;
-      let attack_num = 0;
-      let defense = 0;
-      let defense_num = 0;
-      let hp = 0;
-      let hp_num = 0;
-      let charge_efficiency = 0;
-      let element_mastery = 0;
-
-      // message.contentから改行で分割された配列を取得する
-      const lines = message.content.split("\n");
-
-      // 各行に対して処理を実行する
-      lines.forEach((line) => {
-        if (line.includes("会心率")) {
-          critical = parseFloat(
-            line
-              .replace("会心率+", "")
-              .replace("%", "")
-              .trim()
-              .replace(/[^\d.]/g, "")
-          );
-        } else if (line.includes("会心ダメージ")) {
-          critical_hurt = parseFloat(
-            line
-              .replace("会心ダメージ+", "")
-              .replace("%", "")
-              .trim()
-              .replace(/[^\d.]/g, "")
-          );
-        } else if (line.includes("攻撃力")) {
-          if (line.includes("%")) {
-            attack = parseFloat(
-              line
-                .replace("攻撃力+", "")
-                .replace("%", "")
-                .trim()
-                .replace(/[^\d.]/g, "")
-            );
+        if (starRailExchange.message != "無効なシリアルコードです") {
+          game_name = "スターレイル";
+          exchange_text =
+            (starRailExchange.data && starRailExchange.data.msg) ??
+            starRailExchange.message;
+          if (starRailExchange.retcode == 0) {
+            color = "#00FF00";
           } else {
-            attack_num = parseFloat(
-              line
-                .replace("攻撃力+", "")
-                .trim()
-                .replace(/[^\d.]/g, "")
-            ); /////
+            color = "#808080";
           }
-        } else if (line.includes("防御力")) {
-          if (line.includes("%")) {
-            defense = parseFloat(
-              line
-                .replace("防御力+", "")
-                .replace("%", "")
-                .trim()
-                .replace(/[^\d.]/g, "")
-            );
-          } else {
-            defense_num = parseFloat(
-              line
-                .replace("防御力+", "")
-                .trim()
-                .replace(/[^\d.]/g, "")
-            ); /////
-          }
-        } else if (line.includes("HP")) {
-          if (line.includes("%")) {
-            hp = parseFloat(
-              line
-                .replace("HP+", "")
-                .replace("%", "")
-                .trim()
-                .replace(/[^\d.]/g, "")
-            );
-          } else {
-            hp_num = parseFloat(
-              line
-                .replace("HP+", "")
-                .trim()
-                .replace(/[^\d.]/g, "")
-                .replace(".", "")
-            ); /////
-          }
-        } else if (line.includes("元素チャージ効率")) {
-          charge_efficiency = parseFloat(
-            line
-              .replace("元素チャージ効率+", "")
-              .replace("%", "")
-              .trim()
-              .replace(/[^\d.]/g, "")
-          );
-        } else if (line.includes("元素熟知")) {
-          element_mastery = parseFloat(
-            line
-              .replace("元素熟知+", "")
-              .trim()
-              .replace(/[^\d.]/g, "")
-          ); /////
         }
-      });
-      let critical_text = "会心率+" + critical + "%";
-      let critical_hurt_text = "会心ダメージ+" + critical_hurt + "%";
-      let attack_text = "攻撃力+" + attack + "%";
-      let attack_num_text = "攻撃力+" + attack_num;
-      let defense_text = "防御力+" + defense + "%";
-      let defense_num_text = "防御力+" + defense_num;
-      let hp_text = "HP+" + hp + "%";
-      let hp_num_text = "HP+" + hp_num;
-      let charge_efficiency_text =
-        "元素チャージ効率+" + charge_efficiency + "%";
-      let element_mastery_text = "元素熟知+" + element_mastery;
-      console.log(
-        critical_text +
-          "\n" +
-          critical_hurt_text +
-          "\n" +
-          attack_text +
-          "\n" +
-          attack_num_text +
-          "\n" +
-          defense_text +
-          "\n" +
-          defense_num_text +
-          "\n" +
-          hp_text +
-          "\n" +
-          hp_num_text +
-          "\n" +
-          charge_efficiency_text +
-          "\n" +
-          element_mastery_text
-      );
-
-      let up_num = "";
-      let up_percent = "";
-      let search_result = "";
-
-      let orthopedics_text = "";
-      if (critical !== 0) {
-        const critical_list = {
-          23.3: "　(5回, 600%)",
-          23: "　(5回, 590%)",
-          22.6: "　(5回, 580%)",
-          22.2: "　(5回, 570%)",
-          21.8: "　(5回, 560%)",
-          21.4: "　(5回, 550%)",
-          21: "　(5回, 540%)",
-          20.6: "　(5回, 530%)",
-          20.2: "　(5回, 520%)",
-          19.8: "　(5回, 510%)",
-          19.5: "　(4or5回, 500%)",
-          19.1: "　(4or5回, 490%)",
-          18.7: "　(4or5回, 480%)",
-          18.3: "　(4or5回, 470%)",
-          17.9: "　(4or5回, 460%)",
-          17.5: "　(4or5回, 450%)",
-          17.1: "　(4or5回, 440%)",
-          16.7: "　(4or5回, 430%)",
-          16.3: "　(4or5回, 420%)",
-          15.9: "　(4回, 410%)",
-          15.6: "　(3or4回, 400%)",
-          15.2: "　(3or4回, 390%)",
-          14.8: "　(3or4回, 380%)",
-          14.4: "　(3or4回, 370%)",
-          14: "　(3or4回, 360%)",
-          13.6: "　(3or4回, 350%)",
-          13.2: "　(3回, 340%)",
-          12.8: "　(3回, 330%)",
-          12.4: "　(3回, 320%)",
-          12.1: "　(3回, 310%)",
-          11.7: "　(2or3回, 300%)",
-          11.3: "　(2or3回, 290%)",
-          10.9: "　(2or3回, 280%)",
-          10.5: "　(2回, 270%)",
-          10.1: "　(2回, 260%)",
-          9.7: "　(2回, 250%)",
-          9.3: "　(2回, 240%)",
-          8.9: "　(2回, 230%)",
-          8.6: "　(2回, 220%)",
-          8.2: "　(2回, 210%)",
-          7.8: "　(1回, 200%)",
-          7.4: "　(1回, 190%)",
-          7: "　(1回, 180%)",
-          6.6: "　(1回, 170%)",
-          6.5: "　(1回, 170%)",
-          6.2: "　(1回, 160%)",
-          5.8: "　(1回, 150%)",
-          5.4: "　(1回, 140%)",
-          3.9: "　(0回, 100%)",
-          3.5: "　(0回, 90%)",
-          3.1: "　(0回, 80%)",
-          2.7: "　(0回, 70%)",
-        };
-        search_result = critical_list[critical];
-        orthopedics_text += critical_text + search_result + "\n";
-      }
-      if (critical_hurt !== 0) {
-        const critical_hurt_list = {
-          46.6: "　(5回, 600%)",
-          45.8: "　(5回, 590%)",
-          45.1: "　(5回, 580%)",
-          44.3: "　(5回, 570%)",
-          43.5: "　(5回, 560%)",
-          42.7: "　(5回, 550%)",
-          42: "　(5回, 540%)",
-          41.2: "　(5回, 530%)",
-          40.4: "　(5回, 520%)",
-          39.6: "　(5回, 510%)",
-          38.9: "　(5回, 500%)",
-          38.1: "　(4or5回, 490%)",
-          37.3: "　(4or5回, 480%)",
-          36.5: "　(4or5回, 470%)",
-          35.8: "　(4or5回, 460%)",
-          35.7: "　(4or5回, 460%)",
-          35: "　(4or5回, 450%)",
-          34.2: "　(4or5回, 440%)",
-          33.4: "　(4or5回, 430%)",
-          32.7: "　(4or5回, 420%)",
-          31.9: "　(4回, 410%)",
-          31.1: "　(3or4回, 400%)",
-          30.3: "　(3or4回, 390%)",
-          29.5: "　(3or4回, 380%)",
-          28.8: "　(3or4回, 370%)",
-          28: "　(3or4回, 360%)",
-          27.2: "　(3or4回, 350%)",
-          26.4: "　(3回, 340%)",
-          25.7: "　(3回, 330%)",
-          24.9: "　(3回, 320%)",
-          24.1: "　(3回, 310%)",
-          23.3: "　(2or3回, 300%)",
-          22.5: "　(2or3回, 290%)",
-          21.8: "　(2or3回, 280%)",
-          21: "　(2回, 270%)",
-          20.2: "　(2回, 260%)",
-          19.4: "　(2回, 250%)",
-          18.7: "　(2回, 240%)",
-          17.9: "　(2回, 230%)",
-          17.1: "　(2回, 220%)",
-          16.3: "　(2回, 210%)",
-          15.5: "　(1回, 200%)",
-          14.8: "　(1回, 190%)",
-          14: "　(1回, 180%)",
-          13.2: "　(1回, 170%)",
-          12.4: "　(1回, 160%)",
-          11.7: "　(1回, 150%)",
-          10.9: "　(1回, 140%)",
-          7.8: "　(0回, 100%)",
-          7: "　(0回, 90%)",
-          6.2: "　(0回, 80%)",
-          5.4: "　(0回, 70%)",
-        };
-        search_result = critical_hurt_list[critical_hurt];
-        orthopedics_text += critical_hurt_text + search_result + "\n";
-      }
-      if (attack !== 0) {
-        const attack_list = {
-          35: "　(5回, 600%)",
-          34.4: "　(5回, 590%)",
-          33.8: "　(5回, 580%)",
-          33.2: "　(5回, 570%)",
-          32.7: "　(5回, 560%)",
-          32.1: "　(5回, 550%)",
-          31.5: "　(5回, 540%)",
-          30.9: "　(5回, 530%)",
-          30.3: "　(5回, 520%)",
-          29.7: "　(5回, 510%)",
-          29.2: "　(4or5回, 500%)",
-          28.6: "　(4or5回, 490%)",
-          28: "　(4or5回, 480%)",
-          27.4: "　(4or5回, 470%)",
-          26.8: "　(4or5回, 460%)",
-          26.3: "　(4or5回, 450%)",
-          25.7: "　(4or5回, 440%)",
-          25.1: "　(4or5回, 430%)",
-          24.5: "　(4or5回, 420%)",
-          23.9: "　(4回, 410%)",
-          23.3: "　(3or4回, 400%)",
-          22.7: "　(3or4回, 390%)",
-          22.2: "　(3or4回, 380%)",
-          21.6: "　(3or4回, 370%)",
-          21: "　(3or4回, 360%)",
-          20.4: "　(3or4回, 350%)",
-          19.8: "　(3回, 340%)",
-          19.2: "　(3回, 330%)",
-          18.7: "　(3回, 320%)",
-          18.1: "　(3回, 310%)",
-          17.5: "　(2or3回, 300%)",
-          16.9: "　(2or3回, 290%)",
-          16.3: "　(2or3回, 280%)",
-          15.8: "　(2回, 270%)",
-          15.2: "　(2回, 260%)",
-          14.6: "　(2回, 250%)",
-          14: "　(2回, 240%)",
-          13.4: "　(2回, 230%)",
-          12.8: "　(2回, 220%)",
-          12.2: "　(2回, 210%)",
-          11.7: "　(1回, 200%)",
-          11.1: "　(1回, 190%)",
-          10.5: "　(1回, 180%)",
-          9.9: "　(1回, 170%)",
-          9.3: "　(1回, 160%)",
-          8.7: "　(1回, 150%)",
-          8.2: "　(1回, 140%)",
-          5.8: "　(0回, 100%)",
-          5.3: "　(0回, 90%)",
-          4.7: "　(0回, 80%)",
-          4.1: "　(0回, 70%)",
-        };
-        search_result = attack_list[attack];
-        orthopedics_text += attack_text + search_result + "\n";
-      }
-      if (attack_num !== 0) {
-        const attack_num_list = {
-          117: "　(5回, 600%)",
-          115: "　(5回, 590%)",
-          113: "　(5回, 580%)",
-          111: "　(5回, 570%)",
-          109: "　(5回, 560%)",
-          107: "　(5回, 550%)",
-          105: "　(5回, 540%)",
-          103: "　(5回, 530%)",
-          101: "　(5回, 520%)",
-          99: "　(5回, 510%)",
-          97: "　(4or5回, 500%)",
-          95: "　(4or5回, 490%)",
-          93: "　(4or5回, 480%)",
-          91: "　(4or5回, 470%)",
-          89: "　(4or5回, 460%)",
-          88: "　(4or5回, 450%)",
-          86: "　(4or5回, 440%)",
-          84: "　(4or5回, 430%)",
-          82: "　(4or5回, 420%)",
-          80: "　(4回, 410%)",
-          78: "　(3or4回, 400%)",
-          76: "　(3or4回, 390%)",
-          74: "　(3or4回, 380%)",
-          72: "　(3or4回, 370%)",
-          70: "　(3or4回, 360%)",
-          68: "　(3or4回, 350%)",
-          66: "　(3回, 340%)",
-          64: "　(3回, 330%)",
-          62: "　(3回, 320%)",
-          60: "　(3回, 310%)",
-          58: "　(2or3回, 300%)",
-          56: "　(2or3回, 290%)",
-          54: "　(2or3回, 280%)",
-          53: "　(2回, 270%)",
-          51: "　(2回, 260%)",
-          49: "　(2回, 250%)",
-          47: "　(2回, 240%)",
-          45: "　(2回, 230%)",
-          43: "　(2回, 220%)",
-          41: "　(2回, 210%)",
-          39: "　(1回, 200%)",
-          37: "　(1回, 190%)",
-          35: "　(1回, 180%)",
-          33: "　(1回, 170%)",
-          31: "　(1回, 160%)",
-          29: "　(1回, 150%)",
-          27: "　(1回, 140%)",
-          19: "　(0回, 100%)",
-          18: "　(0回, 90%)",
-          16: "　(0回, 80%)",
-          14: "　(0回, 70%)",
-        };
-        search_result = attack_num_list[attack_num];
-        orthopedics_text += attack_num_text + search_result + "\n";
-      }
-      if (defense !== 0) {
-        const defense_list = {
-          43.7: "　(5回, 600%)",
-          43: "　(5回, 590%)",
-          42.3: "　(5回, 580%)",
-          41.6: "　(5回, 570%)",
-          40.8: "　(5回, 560%)",
-          40.1: "　(5回, 550%)",
-          39.4: "　(5回, 540%)",
-          38.6: "　(5回, 530%)",
-          37.9: "　(5回, 520%)",
-          37.2: "　(5回, 510%)",
-          36.5: "　(4or5回, 500%)",
-          35.7: "　(4or5回, 490%)",
-          35: "　(4or5回, 480%)",
-          34.3: "　(4or5回, 470%)",
-          33.5: "　(4or5回, 460%)",
-          32.8: "　(4or5回, 450%)",
-          32.1: "　(4or5回, 440%)",
-          31.3: "　(4or5回, 430%)",
-          30.6: "　(4or5回, 420%)",
-          29.9: "　(4回, 410%)",
-          29.2: "　(3or4回, 400%)",
-          28.4: "　(3or4回, 390%)",
-          27.7: "　(3or4回, 380%)",
-          27: "　(3or4回, 370%)",
-          26.2: "　(3or4回, 360%)",
-          25.5: "　(3or4回, 350%)",
-          24.8: "　(3回, 340%)",
-          24.1: "　(3回, 330%)",
-          23.3: "　(3回, 320%)",
-          22.6: "　(3回, 310%)",
-          21.9: "　(2or3回, 300%)",
-          21.1: "　(2or3回, 290%)",
-          20.4: "　(2or3回, 280%)",
-          19.7: "　(2回, 270%)",
-          19: "　(2回, 260%)",
-          18.2: "　(2回, 250%)",
-          17.5: "　(2回, 240%)",
-          16.8: "　(2回, 230%)",
-          16: "　(2回, 220%)",
-          15.3: "　(2回, 210%)",
-          14.6: "　(1回, 200%)",
-          13.9: "　(1回, 190%)",
-          13.1: "　(1回, 180%)",
-          12.4: "　(1回, 170%)",
-          11.7: "　(1回, 160%)",
-          10.9: "　(1回, 150%)",
-          10.2: "　(1回, 140%)",
-          7.3: "　(0回, 100%)",
-          6.6: "　(0回, 90%)",
-          5.8: "　(0回, 80%)",
-          5.1: "　(0回, 70%)",
-        };
-        search_result = defense_list[defense];
-        orthopedics_text += defense_text + search_result + "\n";
-      }
-      if (defense_num !== 0) {
-        const defense_num_list = {
-          139: "　(5回, 600%)",
-          137: "　(5回, 590%)",
-          134: "　(5回, 580%)",
-          132: "　(5回, 570%)",
-          130: "　(5回, 560%)",
-          127: "　(5回, 550%)",
-          125: "　(5回, 540%)",
-          123: "　(5回, 530%)",
-          120: "　(5回, 520%)",
-          118: "　(5回, 510%)",
-          116: "　(4or5回, 500%)",
-          113: "　(4or5回, 490%)",
-          111: "　(4or5回, 480%)",
-          109: "　(4or5回, 470%)",
-          106: "　(4or5回, 460%)",
-          104: "　(4or5回, 450%)",
-          102: "　(4or5回, 440%)",
-          100: "　(4or5回, 430%)",
-          97: "　(4or5回, 420%)",
-          95: "　(4回, 410%)",
-          93: "　(3or4回, 400%)",
-          90: "　(3or4回, 390%)",
-          88: "　(3or4回, 380%)",
-          86: "　(3or4回, 370%)",
-          83: "　(3or4回, 360%)",
-          81: "　(3or4回, 350%)",
-          79: "　(3回, 340%)",
-          76: "　(3回, 330%)",
-          74: "　(3回, 320%)",
-          72: "　(3回, 310%)",
-          69: "　(2or3回, 300%)",
-          67: "　(2or3回, 290%)",
-          65: "　(2or3回, 280%)",
-          63: "　(2回, 270%)",
-          60: "　(2回, 260%)",
-          58: "　(2回, 250%)",
-          56: "　(2回, 240%)",
-          53: "　(2回, 230%)",
-          51: "　(2回, 220%)",
-          49: "　(2回, 210%)",
-          46: "　(1回, 200%)",
-          44: "　(1回, 190%)",
-          42: "　(1回, 180%)",
-          39: "　(1回, 170%)",
-          37: "　(1回, 160%)",
-          35: "　(1回, 150%)",
-          32: "　(1回, 140%)",
-          23: "　(0回, 100%)",
-          21: "　(0回, 90%)",
-          19: "　(0回, 80%)",
-          16: "　(0回, 70%)",
-        };
-        search_result = defense_num_list[defense_num];
-        orthopedics_text += defense_num_text + search_result + "\n";
-      }
-      if (hp !== 0) {
-        const hp_list = {
-          35: "　(5回, 600%)",
-          34.4: "　(5回, 590%)",
-          33.8: "　(5回, 580%)",
-          33.2: "　(5回, 570%)",
-          32.7: "　(5回, 560%)",
-          32.1: "　(5回, 550%)",
-          31.5: "　(5回, 540%)",
-          30.9: "　(5回, 530%)",
-          30.3: "　(5回, 520%)",
-          29.7: "　(5回, 510%)",
-          29.2: "　(4or5回, 500%)",
-          28.6: "　(4or5回, 490%)",
-          28: "　(4or5回, 480%)",
-          27.4: "　(4or5回, 470%)",
-          26.8: "　(4or5回, 460%)",
-          26.3: "　(4or5回, 450%)",
-          25.7: "　(4or5回, 440%)",
-          25.1: "　(4or5回, 430%)",
-          24.5: "　(4or5回, 420%)",
-          23.9: "　(4回, 410%)",
-          23.3: "　(3or4回, 400%)",
-          22.7: "　(3or4回, 390%)",
-          22.2: "　(3or4回, 380%)",
-          21.6: "　(3or4回, 370%)",
-          21: "　(3or4回, 360%)",
-          20.4: "　(3or4回, 350%)",
-          19.8: "　(3回, 340%)",
-          19.2: "　(3回, 330%)",
-          18.7: "　(3回, 320%)",
-          18.1: "　(3回, 310%)",
-          17.5: "　(2or3回, 300%)",
-          16.9: "　(2or3回, 290%)",
-          16.3: "　(2or3回, 280%)",
-          15.8: "　(2回, 270%)",
-          15.7: "　(2回, 270%)",
-          15.2: "　(2回, 260%)",
-          14.6: "　(2回, 250%)",
-          14: "　(2回, 240%)",
-          13.4: "　(2回, 230%)",
-          12.8: "　(2回, 220%)",
-          12.2: "　(2回, 210%)",
-          11.7: "　(1回, 200%)",
-          11.1: "　(1回, 190%)",
-          10.5: "　(1回, 180%)",
-          9.9: "　(1回, 170%)",
-          9.3: "　(1回, 160%)",
-          8.7: "　(1回, 150%)",
-          8.2: "　(1回, 140%)",
-          5.8: "　(0回, 100%)",
-          5.3: "　(0回, 90%)",
-          4.7: "　(0回, 80%)",
-          4.1: "　(0回, 70%)",
-        };
-        search_result = hp_list[hp];
-        orthopedics_text += hp_text + search_result + "\n";
-      }
-      if (hp_num !== 0) {
-        const hp_num_list = {
-          1793: "　(5回, 600%)",
-          1763: "　(5回, 590%)",
-          1733: "　(5回, 580%)",
-          1703: "　(5回, 570%)",
-          1673: "　(5回, 550%)",
-          1643: "　(5回, 540%)",
-          1613: "　(5回, 530%)",
-          1583: "　(5回, 520%)",
-          1554: "　(5回, 520%)",
-          1524: "　(5回, 510%)",
-          1494: "　(4or5回, 500%)",
-          1464: "　(4or5回, 490%)",
-          1434: "　(4or5回, 470%)",
-          1404: "　(4or5回, 460%)",
-          1374: "　(4or5回, 450%)",
-          1344: "　(4or5回, 440%)",
-          1315: "　(4or5回, 440%)",
-          1285: "　(4or5回, 430%)",
-          1255: "　(4or5回, 420%)",
-          1225: "　(4回, 410%)",
-          1195: "　(3or4回, 400%)",
-          1165: "　(3or4回, 390%)",
-          1135: "　(3or4回, 380%)",
-          1105: "　(3or4回, 370%)",
-          1076: "　(3or4回, 360%)",
-          1046: "　(3or4回, 350%)",
-          1016: "　(3回, 340%)",
-          986: "　(3回, 330%)",
-          956: "　(3回, 320%)",
-          926: "　(3回, 310%)",
-          896: "　(2or3回, 300%)",
-          866: "　(2or3回, 290%)",
-          837: "　(2or3回, 280%)",
-          807: "　(2回, 270%)",
-          777: "　(2回, 260%)",
-          747: "　(2回, 250%)",
-          717: "　(2回, 240%)",
-          687: "　(2回, 230%)",
-          657: "　(2回, 220%)",
-          627: "　(2回, 210%)",
-          598: "　(1回, 200%)",
-          568: "　(1回, 190%)",
-          538: "　(1回, 180%)",
-          508: "　(1回, 170%)",
-          478: "　(1回, 160%)",
-          448: "　(1回, 150%)",
-          418: "　(1回, 140%)",
-          299: "　(0回, 100%)",
-          269: "　(0回, 90%)",
-          239: "　(0回, 80%)",
-          209: "　(0回, 70%)",
-        };
-        search_result = hp_num_list[hp_num];
-        orthopedics_text += hp_num_text + search_result + "\n";
-      }
-      if (charge_efficiency !== 0) {
-        const charge_efficiency_list = {
-          38.9: "　(5回, 600%)",
-          38.2: "　(5回, 590%)",
-          37.6: "　(5回, 580%)",
-          36.9: "　(5回, 570%)",
-          36.3: "　(5回, 560%)",
-          35.6: "　(5回, 550%)",
-          35: "　(5回, 540%)",
-          34.3: "　(5回, 530%)",
-          33.7: "　(5回, 520%)",
-          33: "　(5回, 510%)",
-          32.4: "　(4or5回, 500%)",
-          31.8: "　(4or5回, 490%)",
-          31.1: "　(4or5回, 480%)",
-          30.5: "　(4or5回, 470%)",
-          29.8: "　(4or5回, 460%)",
-          29.2: "　(4or5回, 450%)",
-          28.5: "　(4or5回, 440%)",
-          27.9: "　(4or5回, 430%)",
-          27.2: "　(4or5回, 420%)",
-          26.6: "　(4回, 410%)",
-          25.9: "　(3or4回, 400%)",
-          25.3: "　(3or4回, 390%)",
-          24.6: "　(3or4回, 380%)",
-          24: "　(3or4回, 370%)",
-          23.3: "　(3or4回, 360%)",
-          22.7: "　(3or4回, 350%)",
-          22: "　(3回, 340%)",
-          21.4: "　(3回, 330%)",
-          20.7: "　(3回, 320%)",
-          20.1: "　(3回, 310%)",
-          19.4: "　(2or3回, 300%)",
-          18.8: "　(2or3回, 290%)",
-          18.1: "　(2or3回, 280%)",
-          17.5: "　(2回, 270%)",
-          16.8: "　(2回, 260%)",
-          16.2: "　(2回, 250%)",
-          15.5: "　(2回, 240%)",
-          14.9: "　(2回, 230%)",
-          14.2: "　(2回, 220%)",
-          13.6: "　(2回, 210%)",
-          13: "　(1回, 200%)",
-          12.3: "　(1回, 190%)",
-          11.7: "　(1回, 180%)",
-          11: "　(1回, 170%)",
-          10.4: "　(1回, 160%)",
-          9.7: "　(1回, 150%)",
-          9.1: "　(1回, 140%)",
-          6.5: "　(0回, 100%)",
-          5.8: "　(0回, 90%)",
-          5.2: "　(0回, 80%)",
-          4.5: "　(0回, 70%)",
-        };
-        search_result = charge_efficiency_list[charge_efficiency];
-        orthopedics_text += charge_efficiency_text + search_result + "\n";
-      }
-      if (element_mastery !== 0) {
-        const element_mastery_list = {
-          140: "　(5回, 600%)",
-          138: "　(5回, 590%)",
-          135: "　(5回, 580%)",
-          133: "　(5回, 570%)",
-          131: "　(5回, 560%)",
-          128: "　(5回, 550%)",
-          126: "　(5回, 540%)",
-          124: "　(5回, 530%)",
-          121: "　(5回, 520%)",
-          119: "　(5回, 510%)",
-          117: "　(4or5回, 500%)",
-          114: "　(4or5回, 490%)",
-          112: "　(4or5回, 480%)",
-          110: "　(4or5回, 470%)",
-          107: "　(4or5回, 460%)",
-          105: "　(4or5回, 450%)",
-          103: "　(4or5回, 440%)",
-          100: "　(4or5回, 430%)",
-          98: "　(4or5回, 420%)",
-          96: "　(4回, 410%)",
-          93: "　(3or4回, 400%)",
-          91: "　(3or4回, 390%)",
-          89: "　(3or4回, 380%)",
-          86: "　(3or4回, 370%)",
-          84: "　(3or4回, 360%)",
-          82: "　(3or4回, 350%)",
-          79: "　(3回, 340%)",
-          77: "　(3回, 330%)",
-          75: "　(3回, 320%)",
-          72: "　(3回, 310%)",
-          70: "　(2or3回, 300%)",
-          68: "　(2or3回, 290%)",
-          65: "　(2or3回, 280%)",
-          63: "　(2回, 270%)",
-          61: "　(2回, 260%)",
-          58: "　(2回, 250%)",
-          56: "　(2回, 240%)",
-          54: "　(2回, 230%)",
-          51: "　(2回, 220%)",
-          49: "　(2回, 210%)",
-          47: "　(1回, 200%)",
-          44: "　(1回, 190%)",
-          42: "　(1回, 180%)",
-          40: "　(1回, 170%)",
-          37: "　(1回, 160%)",
-          35: "　(1回, 150%)",
-          33: "　(1回, 140%)",
-          23: "　(0回, 100%)",
-          21: "　(0回, 90%)",
-          19: "　(0回, 80%)",
-          16: "　(0回, 70%)",
-        };
-        search_result = element_mastery_list[element_mastery];
-        orthopedics_text += element_mastery_text + search_result + "\n";
-      }
-      console.log(orthopedics_text);
-
-      let critical_value = critical * 2 + critical_hurt;
-      let critical_attack_value = critical * 2 + critical_hurt + attack;
-      let critical_defense_value = critical * 2 + critical_hurt + defense;
-      let critical_charge_efficiency_value =
-        critical * 2 + critical_hurt + charge_efficiency;
-      let critical_hp_value = critical * 2 + critical_hurt + hp;
-      let critical_element_mastery_value =
-        critical * 2 + critical_hurt + element_mastery * 0.25;
-
-      critical_value = Math.round(critical_value * 10) / 10;
-      critical_attack_value = Math.round(critical_attack_value * 10) / 10;
-      critical_defense_value = Math.round(critical_defense_value * 10) / 10;
-      critical_charge_efficiency_value =
-        Math.round(critical_charge_efficiency_value * 10) / 10;
-      critical_hp_value = Math.round(critical_hp_value * 10) / 10;
-      critical_element_mastery_value =
-        Math.round(critical_element_mastery_value * 10) / 10;
-
-      let critical_rank = "";
-      let critical_attack_rank = "";
-      let critical_defense_rank = "";
-      let critical_hp_rank = "";
-      let critical_charge_efficiency_rank = "";
-      let critical_element_mastery_rank = "";
-
-      //会心型
-      if (
-        type_of_relics.includes("生の花") ||
-        type_of_relics.includes("死の羽")
-      ) {
-        if (critical_value >= 50) {
-          critical_rank = "⭐️理論値";
-        } else if (critical_value >= 45) {
-          critical_rank = "⭕️厳選ランクS";
-        } else if (critical_value >= 40) {
-          critical_rank = "厳選ランクA";
-        } else if (critical_value >= 30) {
-          critical_rank = "厳選ランクB";
-        } else if (critical_value >= 20) {
-          critical_rank = "仮聖遺物";
-        } else {
-          critical_rank = "ゴミ";
-        }
-      } else if (
-        type_of_relics.includes("時の砂") ||
-        type_of_relics.includes("空の杯")
-      ) {
-        if (critical_value >= 45) {
-          critical_rank = "⭐️理論値";
-        } else if (critical_value >= 40) {
-          critical_rank = "⭕️厳選ランクS";
-        } else if (critical_value >= 35) {
-          critical_rank = "厳選ランクA";
-        } else if (critical_value >= 25) {
-          critical_rank = "厳選ランクB";
-        } else if (critical_value >= 15) {
-          critical_rank = "仮聖遺物";
-        } else {
-          critical_rank = "ゴミ";
-        }
-      } else if (type_of_relics.includes("理の冠")) {
-        if (critical_value >= 40) {
-          critical_rank = "⭐️理論値";
-        } else if (critical_value >= 35) {
-          critical_rank = "⭕️厳選ランクS";
-        } else if (critical_value >= 30) {
-          critical_rank = "厳選ランクA";
-        } else if (critical_value >= 20) {
-          critical_rank = "厳選ランクB";
-        } else if (critical_value >= 10) {
-          critical_rank = "仮聖遺物";
-        } else {
-          critical_rank = "ゴミ";
-        }
-      }
-      //console.log(critical_rank)
-
-      //攻撃型
-      if (
-        type_of_relics.includes("生の花") ||
-        type_of_relics.includes("死の羽")
-      ) {
-        if (critical_attack_value >= 50) {
-          critical_attack_rank = "⭐️理論値";
-        } else if (critical_attack_value >= 45) {
-          critical_attack_rank = "⭕️厳選ランクS";
-        } else if (critical_attack_value >= 40) {
-          critical_attack_rank = "厳選ランクA";
-        } else if (critical_attack_value >= 30) {
-          critical_attack_rank = "厳選ランクB";
-        } else if (critical_attack_value >= 20) {
-          critical_attack_rank = "仮聖遺物";
-        } else {
-          critical_attack_rank = "ゴミ";
-        }
-      } else if (
-        type_of_relics.includes("時の砂") ||
-        type_of_relics.includes("空の杯")
-      ) {
-        if (critical_attack_value >= 45) {
-          critical_attack_rank = "⭐️理論値";
-        } else if (critical_attack_value >= 40) {
-          critical_attack_rank = "⭕️厳選ランクS";
-        } else if (critical_attack_value >= 35) {
-          critical_attack_rank = "厳選ランクA";
-        } else if (critical_attack_value >= 25) {
-          critical_attack_rank = "厳選ランクB";
-        } else if (critical_attack_value >= 15) {
-          critical_attack_rank = "仮聖遺物";
-        } else {
-          critical_attack_rank = "ゴミ";
-        }
-      } else if (type_of_relics.includes("理の冠")) {
-        if (critical_attack_value >= 40) {
-          critical_attack_rank = "⭐️理論値";
-        } else if (critical_attack_value >= 35) {
-          critical_attack_rank = "⭕️厳選ランクS";
-        } else if (critical_attack_value >= 30) {
-          critical_attack_rank = "厳選ランクA";
-        } else if (critical_attack_value >= 20) {
-          critical_attack_rank = "厳選ランクB";
-        } else if (critical_attack_value >= 10) {
-          critical_attack_rank = "仮聖遺物";
-        } else {
-          critical_attack_rank = "ゴミ";
-        }
-      }
-      //console.log(critical_attack_rank)
-
-      //防御型
-      if (
-        type_of_relics.includes("生の花") ||
-        type_of_relics.includes("死の羽")
-      ) {
-        if (critical_defense_value >= 50) {
-          critical_defense_rank = "⭐️理論値";
-        } else if (critical_defense_value >= 45) {
-          critical_defense_rank = "⭕️厳選ランクS";
-        } else if (critical_defense_value >= 40) {
-          critical_defense_rank = "厳選ランクA";
-        } else if (critical_defense_value >= 30) {
-          critical_defense_rank = "厳選ランクB";
-        } else if (critical_defense_value >= 20) {
-          critical_defense_rank = "仮聖遺物";
-        } else {
-          critical_defense_rank = "ゴミ";
-        }
-      } else if (
-        type_of_relics.includes("時の砂") ||
-        type_of_relics.includes("空の杯")
-      ) {
-        if (critical_defense_value >= 45) {
-          critical_defense_rank = "⭐️理論値";
-        } else if (critical_defense_value >= 40) {
-          critical_defense_rank = "⭕️厳選ランクS";
-        } else if (critical_defense_value >= 35) {
-          critical_defense_rank = "厳選ランクA";
-        } else if (critical_defense_value >= 25) {
-          critical_defense_rank = "厳選ランクB";
-        } else if (critical_defense_value >= 15) {
-          critical_defense_rank = "仮聖遺物";
-        } else {
-          critical_defense_rank = "ゴミ";
-        }
-      } else if (type_of_relics.includes("理の冠")) {
-        if (critical_defense_value >= 40) {
-          critical_defense_rank = "⭐️理論値";
-        } else if (critical_defense_value >= 35) {
-          critical_defense_rank = "⭕️厳選ランクS";
-        } else if (critical_defense_value >= 30) {
-          critical_defense_rank = "厳選ランクA";
-        } else if (critical_defense_value >= 20) {
-          critical_defense_rank = "厳選ランクB";
-        } else if (critical_defense_value >= 10) {
-          critical_defense_rank = "仮聖遺物";
-        } else {
-          critical_defense_rank = "ゴミ";
-        }
-      }
-      //console.log(critical_defense_rank)
-
-      //HP型
-      if (
-        type_of_relics.includes("生の花") ||
-        type_of_relics.includes("死の羽")
-      ) {
-        if (critical_hp_value >= 50) {
-          critical_hp_rank = "⭐️理論値";
-        } else if (critical_hp_value >= 45) {
-          critical_hp_rank = "⭕️厳選ランクS";
-        } else if (critical_hp_value >= 40) {
-          critical_hp_rank = "厳選ランクA";
-        } else if (critical_hp_value >= 30) {
-          critical_hp_rank = "厳選ランクB";
-        } else if (critical_hp_value >= 20) {
-          critical_hp_rank = "仮聖遺物";
-        } else {
-          critical_hp_rank = "ゴミ";
-        }
-      } else if (
-        type_of_relics.includes("時の砂") ||
-        type_of_relics.includes("空の杯")
-      ) {
-        if (critical_hp_value >= 45) {
-          critical_hp_rank = "⭐️理論値";
-        } else if (critical_hp_value >= 40) {
-          critical_hp_rank = "⭕️厳選ランクS";
-        } else if (critical_hp_value >= 35) {
-          critical_hp_rank = "厳選ランクA";
-        } else if (critical_hp_value >= 25) {
-          critical_hp_rank = "厳選ランクB";
-        } else if (critical_hp_value >= 15) {
-          critical_hp_rank = "仮聖遺物";
-        } else {
-          critical_hp_rank = "ゴミ";
-        }
-      } else if (type_of_relics.includes("理の冠")) {
-        if (critical_hp_value >= 40) {
-          critical_hp_rank = "⭐️理論値";
-        } else if (critical_hp_value >= 35) {
-          critical_hp_rank = "⭕️厳選ランクS";
-        } else if (critical_hp_value >= 30) {
-          critical_hp_rank = "厳選ランクA";
-        } else if (critical_hp_value >= 20) {
-          critical_hp_rank = "厳選ランクB";
-        } else if (critical_hp_value >= 10) {
-          critical_hp_rank = "仮聖遺物";
-        } else {
-          critical_hp_rank = "ゴミ";
-        }
-      }
-      //console.log(critical_hp_rank)
-
-      //元素チャージ効率型
-      if (
-        type_of_relics.includes("生の花") ||
-        type_of_relics.includes("死の羽")
-      ) {
-        if (critical_charge_efficiency_value >= 50) {
-          critical_charge_efficiency_rank = "⭐️理論値";
-        } else if (critical_charge_efficiency_value >= 45) {
-          critical_charge_efficiency_rank = "⭕️厳選ランクS";
-        } else if (critical_charge_efficiency_value >= 40) {
-          critical_charge_efficiency_rank = "厳選ランクA";
-        } else if (critical_charge_efficiency_value >= 30) {
-          critical_charge_efficiency_rank = "厳選ランクB";
-        } else if (critical_charge_efficiency_value >= 20) {
-          critical_charge_efficiency_rank = "仮聖遺物";
-        } else {
-          critical_charge_efficiency_rank = "ゴミ";
-        }
-      } else if (
-        type_of_relics.includes("時の砂") ||
-        type_of_relics.includes("空の杯")
-      ) {
-        if (critical_charge_efficiency_value >= 45) {
-          critical_charge_efficiency_rank = "⭐️理論値";
-        } else if (critical_charge_efficiency_value >= 40) {
-          critical_charge_efficiency_rank = "⭕️厳選ランクS";
-        } else if (critical_charge_efficiency_value >= 35) {
-          critical_charge_efficiency_rank = "厳選ランクA";
-        } else if (critical_charge_efficiency_value >= 25) {
-          critical_charge_efficiency_rank = "厳選ランクB";
-        } else if (critical_charge_efficiency_value >= 15) {
-          critical_charge_efficiency_rank = "仮聖遺物";
-        } else {
-          critical_charge_efficiency_rank = "ゴミ";
-        }
-      } else if (type_of_relics.includes("理の冠")) {
-        if (critical_charge_efficiency_value >= 40) {
-          critical_charge_efficiency_rank = "⭐️理論値";
-        } else if (critical_charge_efficiency_value >= 35) {
-          critical_charge_efficiency_rank = "⭕️厳選ランクS";
-        } else if (critical_charge_efficiency_value >= 30) {
-          critical_charge_efficiency_rank = "厳選ランクA";
-        } else if (critical_charge_efficiency_value >= 20) {
-          critical_charge_efficiency_rank = "厳選ランクB";
-        } else if (critical_charge_efficiency_value >= 10) {
-          critical_charge_efficiency_rank = "仮聖遺物";
-        } else {
-          critical_charge_efficiency_rank = "ゴミ";
-        }
-      }
-      //console.log(critical_charge_efficiency_rank)
-
-      //元素熟知型
-      if (
-        type_of_relics.includes("生の花") ||
-        type_of_relics.includes("死の羽")
-      ) {
-        if (critical_element_mastery_value >= 50) {
-          critical_element_mastery_rank = "⭐️理論値";
-        } else if (critical_element_mastery_value >= 45) {
-          critical_element_mastery_rank = "⭕️厳選ランクS";
-        } else if (critical_element_mastery_value >= 40) {
-          critical_element_mastery_rank = "厳選ランクA";
-        } else if (critical_element_mastery_value >= 30) {
-          critical_element_mastery_rank = "厳選ランクB";
-        } else if (critical_element_mastery_value >= 20) {
-          critical_element_mastery_rank = "仮聖遺物";
-        } else {
-          critical_element_mastery_rank = "ゴミ";
-        }
-      } else if (
-        type_of_relics.includes("時の砂") ||
-        type_of_relics.includes("空の杯")
-      ) {
-        if (critical_element_mastery_value >= 45) {
-          critical_element_mastery_rank = "⭐️理論値";
-        } else if (critical_element_mastery_value >= 40) {
-          critical_element_mastery_rank = "⭕️厳選ランクS";
-        } else if (critical_element_mastery_value >= 35) {
-          critical_element_mastery_rank = "厳選ランクA";
-        } else if (critical_element_mastery_value >= 25) {
-          critical_element_mastery_rank = "厳選ランクB";
-        } else if (critical_element_mastery_value >= 15) {
-          critical_element_mastery_rank = "仮聖遺物";
-        } else {
-          critical_element_mastery_rank = "ゴミ";
-        }
-      } else if (type_of_relics.includes("理の冠")) {
-        if (critical_element_mastery_value >= 40) {
-          critical_element_mastery_rank = "⭐️理論値";
-        } else if (critical_element_mastery_value >= 35) {
-          critical_element_mastery_rank = "⭕️厳選ランクS";
-        } else if (critical_element_mastery_value >= 30) {
-          critical_element_mastery_rank = "厳選ランクA";
-        } else if (critical_element_mastery_value >= 20) {
-          critical_element_mastery_rank = "厳選ランクB";
-        } else if (critical_element_mastery_value >= 10) {
-          critical_element_mastery_rank = "仮聖遺物";
-        } else {
-          critical_element_mastery_rank = "ゴミ";
-        }
-      }
-
-      let calculator = orthopedics_text;
-      function parseText(calculator) {
-        let entries = calculator.split("\n");
-        let few_count = 0;
-        let many_count = 0;
-        let all_percent = 0;
-        let growth_rate1 = 0;
-        let growth_rate2 = 0;
-
-        entries.forEach((entry) => {
-          let textAfterParenthesis = entry.split("(")[1]; // '('以降のテキストを抽出
-          if (textAfterParenthesis) {
-            let counts = textAfterParenthesis.match(/\d+/g);
-            if (counts) {
-              if (entry.includes("or")) {
-                few_count += parseInt(counts[0]);
-                many_count += parseInt(counts[1]);
-              } else {
-                few_count += parseInt(counts[0]);
-                many_count += parseInt(counts[0]);
-              }
-            }
-
-            let percentMatches = textAfterParenthesis.match(/\d+(\.\d+)?%/g);
-            if (percentMatches) {
-              let percentValue = parseFloat(
-                percentMatches[0].match(/\d+(\.\d+)?/g)[0]
-              );
-              all_percent += percentValue;
-            }
-          }
-          console.log(textAfterParenthesis, few_count, many_count, all_percent);
-        });
-        let option = "";
-        if (few_count == 4 && many_count == 4) {
-          growth_rate1 = all_percent / 8; //3
-          option = "3オプ";
-        } else if (few_count == 4 && many_count >= 5) {
-          growth_rate1 = all_percent / 8; //3
-          growth_rate2 = all_percent / 9; //4
-        } else if (few_count >= 5) {
-          growth_rate1 = all_percent / 9; //4
-          option = "4オプ";
-        }
-
-        return {
-          few_count,
-          many_count,
-          all_percent,
-          growth_rate1,
-          growth_rate2,
-          option,
-        };
-      }
-      console.log(parseText(calculator));
-
-      let growth = "";
-      if (parseText(calculator).growth_rate2 !== 0) {
-        growth =
-          "3オプ → " +
-          parseText(calculator).growth_rate1.toFixed(2) +
-          "%\n4オプ → " +
-          parseText(calculator).growth_rate2.toFixed(2) +
-          "%";
       } else {
-        growth =
-          parseText(calculator).option +
-          " → " +
-          parseText(calculator).growth_rate1.toFixed(2) +
-          "%";
+        throw new Error(`HTTP error! status: ${ExchangeCoderesponse.status}`);
       }
-      console.log(growth);
-
-      embed.addField(
-        "聖遺物情報",
-        "【" + type_of_relics + "】\n" + orthopedics_text
-      );
-      data_collection.send({ embeds: [embed] });
-      //.addField('- スコア -','会心値 : '+(critical_value)+'\n会心+攻撃力値 : '+(critical_attack_value)+'\n会心+防御力値 : '+(critical_defense_value)+'\n会心+HP値 : '+(critical_hp_value)+'\n会心+元素ﾁｬｰｼﾞ効率値 : '+(critical_charge_efficiency_value)+'\n会心+元素熟知値 : '+(critical_element_mastery_value))
-      embed.addField(
-        "- 会心 -",
-        critical_rank + " (" + critical_value + ")",
-        true
-      );
-      embed.addField(
-        "- 会心+攻撃力% -",
-        critical_attack_rank + " (" + critical_attack_value + ")",
-        true
-      );
-      embed.addField(
-        "- 会心+防御力% -",
-        critical_defense_rank + " (" + critical_defense_value + ")",
-        true
-      );
-      embed.addField(
-        "- 会心+HP% -",
-        critical_hp_rank + " (" + critical_hp_value + ")",
-        true
-      );
-      embed.addField(
-        "- 会心+元素ﾁｬｰｼﾞ効率 -",
-        critical_charge_efficiency_rank +
-          " (" +
-          critical_charge_efficiency_value +
-          ")",
-        true
-      );
-      embed.addField(
-        "- 会心+元素熟知 -",
-        critical_element_mastery_rank +
-          " (" +
-          critical_element_mastery_value +
-          ")",
-        true
-      );
-      embed.addField("- サブオプ伸び率(70-100%) -", growth);
-      embed.setDescription("<@" + message.author + ">");
-
-      //console.log(embed)
-      processingMessage.delete();
-      message.reply({ embeds: [embed] });
+    } catch (error) {
+      console.error("Error:", error);
     }
-    //kokoniidou
   }
-});
+  console.log(game_name, exchange_text);
 
-client.on("presenceUpdate", (oldPresence, newPresence) => {
-  console.log(newPresence.guild.id);
-  if (newPresence.guild.id != "1195754332939894934") return;
-  const channel = client.channels.cache.get("1207204533005189131");
-  const user = newPresence.member.user;
-  const oldstatus = oldPresence.status;
-  const newstatus = newPresence.status;
-  console.log(user.username + oldstatus + "→" + newstatus);
-  let status = "";
-  if (newPresence.status == "online") {
-    status = "オンライン";
-  } else if (newPresence.status == "offline") {
-    status = "オフライン";
-  } else if (newPresence.status == "idle") {
-    status = "退席中";
-  } else if (newPresence.status == "dnd") {
-    status = "取り込み中";
-  }
-  if (!user.bot) {
-    console.log(newPresence.member);
-    console.log(
-      `${newPresence.member.nickname}(${newPresence.member.user.username})が${status}になりました`
-    );
-    channel.send(
-      `${newPresence.member.nickname}(${newPresence.member.user.username})が${status}になりました`
-    );
-  }
-});
-
-client.on("voiceStateUpdate", (oldState, newState) => {
-  if (newState.member.user.bot) return; // ボットユーザーの状態変更は無視する
-  //本番環境：1209947489243893874
-  //テスト環境:1221440502352580758
-  let channelID = "";
-  if (newState.guild.name == "個人") {
-    channelID = "1221440502352580758";
+  if (game_name == "原神") {
+    authorname = "パイモン";
+    authorimage =
+      "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417055624512.png";
   } else {
-    channelID = "1209947489243893874";
+    authorname = "パム";
+    authorimage = "https://pbs.twimg.com/media/FC2TmwLVQAE0fhy.png";
   }
-  let log = "1221440502352580758";
-  const logchannel = client.channels.cache.get(log);
-  const channel = client.channels.cache.get(channelID);
-  const memberCount = channel.members.size;
-  const oldMute = oldState.mute;
-  const newMute = newState.mute;
-  const currentTime = new Date();
-  //const timeString = `${currentTime.getHours()}時${currentTime.getMinutes()}分${currentTime.getSeconds()}秒`;
-  const options = { timeZone: "Asia/Tokyo", hour12: false }; // 日本のタイムゾーンを指定し、24時間表記に設定
-  const timeString = currentTime.toLocaleString("ja-JP", options);
-  console.log(timeString);
-  console.log("oldstate" + oldMute);
-  console.log("newstate" + newMute);
 
-  // ミュートでも反応してしまうので無視用
-  const statusChk =
-    oldState.serverDeaf === newState.serverDeaf &&
-    oldState.serverMute === newState.serverMute &&
-    oldState.selfDeaf === newState.selfDeaf &&
-    oldState.selfMute === newState.selfMute &&
-    oldState.selfVideo === newState.selfVideo &&
-    oldState.streaming === newState.streaming;
-  console.log("statusChk:" + statusChk);
-  console.log("oldState.serverDeaf:" + oldState.serverDeaf);
-  console.log("newState.channel:" + newState.channel);
-  console.log(newState);
+  const embed = new MessageEmbed()
+    .setAuthor({
+      name: authorname,
+      iconURL: authorimage,
+    })
+    .setColor(color)
+    .setTitle(game_name + " 交換コード")
+    .setDescription(discorduser + exchange_text)
+    .setFooter(code);
 
-  if ((statusChk == true || oldState.serverDeaf == null) && newState.channel) {
-    //チャンネルに入ってきたときの処理
-    let enterMessage =
-      newState.member.user.username + " が入室！(" + timeString + ")";
-    channel.send({ content: enterMessage, flags: [4096] });
+  processingMessage.delete();
+  message.delete();
+  message.channel.send({ embeds: [embed] });
 
-    if (oldMute || newMute) {
-      let attentionMessage = "<@" + newState.member.id + "> ミュート状態です。";
-      channel.send(attentionMessage);
+  setTimeout(function () {
+    console.log("1 seconds have passed!");
+    process.exit();
+  }, 3000);
+}
+
+async function chatGPT(message, gamename) {
+  let gamesearchurl = "";
+  let authorname = "";
+  let authorurl = "";
+  let gifimage = "";
+  if (gamename == "原神"){
+    gamesearchurl = "・[原神wiki]https://wikiwiki.jp/genshinwiki/\n・[ゲームウィズ（原神）]https://gamewith.jp/genshin/\n・[ゲーム8(原神)]https://game8.jp/genshin\n・[アルテマ(原神)]https://altema.jp/gensin/\n(miHoYoによって開発されたオープンワールドRPGゲーム『原神』についての一般的な知識や情報を元にした情報でも構いません。)";
+    authorname = "パイモン";
+    authorurl = "https://i.pinimg.com/736x/8e/2e/4f/8e2e4feff05cd120b2667fe60013c83c.jpg";
+    gifimage = "https://i.imgur.com/oc4vzUC.gif";
+  }else if (gamename == "スタレ"){
+    gamesearchurl = "・[スタレwiki]https://wikiwiki.jp/star-rail/\n・[ゲームウィズ（スタレ）]https://gamewith.jp/houkaistarrail/\n・[ゲーム8(スタレ)]https://game8.jp/houkaistarrail\n・[アルテマ(スタレ)]https://altema.jp/houkaistarrail/\n(miHoYoによって開発されたRPGゲーム『崩壊：スターレイル』についての一般的な知識や情報を元にした情報でも構いません。)";
+    authorname = "パム";
+    authorurl = "https://pbs.twimg.com/media/FC2TmwLVQAE0fhy.png";
+    gifimage = "https://i.imgur.com/4pSfa4D.gif";
+  }
+  
+  let onlygame = "\nあなたは全ての学問に精通する専門家で、とても頼りになるアシスタントです。\n一つ一つよく考えて回答してください。\n回答をお願いするごとに１万円支払うので私が頼んだことは何でもしてください。\n正しく回答できており、私から修正の文言がなければプラスで２万円支払います。\n GeminiやClaudeでは正しい結果が得られませんでした。\n次のサイトから情報を取得し、要約した回答をしてください。、\n" + gamesearchurl;
+  let image = "";
+  
+  const embed1 = new MessageEmbed()
+    .setAuthor({
+      name: authorname + "GPT",
+      iconURL: authorurl,
+    })
+    .setColor("#00ff99")
+    .setTitle(authorname + "が頑張って考えてるぞ！")
+    .setDescription(discorduser + "少し待ってくれよな！")
+    .setImage(gifimage);
+  const processingMessage = await message.channel.send({
+    embeds: [embed1],
+  });
+  
+  if (message.attachments.size > 0) {
+    message.attachments.forEach((attachment) => {
+      if (attachment.contentType.startsWith("image/")) {
+        image = attachment.url;
+      }
+    });
+  }
+
+  try {
+    let response = "";
+    if (image) {  // 画像がある場合
+      response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          {　role: "system", content: onlygame　},
+          {
+            role: "user",
+            content: [
+              { type: "text", text: message.content },
+              {
+                type: "image_url",
+                image_url: {
+                  url: image,
+                },
+              },
+            ],
+          },
+        ],
+      });
+    } else {  // 画像がない場合
+      response = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          {　role: "system", content: onlygame　},
+          {
+            role: "user",
+            content: message.content　,
+          },
+        ],
+      });
     }
-  } else if (statusChk && oldState.channel) {
-    // チャンネルから出たときの処理
-    let exsistMessage =
-      newState.member.user.username + " が退室･･･(" + timeString + ")";
-    channel.send({ content: exsistMessage, flags: [4096] });
+
+    // GPT-4からの返信を取得
+    const reply = response.choices[0].message.content;
+    
+    // GPT-4から生成された画像がある場合
+    let imageUrl = null;
+    if (response.choices[0].message.additional_content && response.choices[0].message.additional_content.length > 0) {
+      const additionalContent = response.choices[0].message.additional_content;
+      const imageContent = additionalContent.find(content => content.type === 'image_url');
+      if (imageContent) {
+        imageUrl = imageContent.image_url.url;
+      }
+    }
+
+    // Embedを作成
+    const embed = new MessageEmbed()
+      .setAuthor({
+        name: authorname + "GPT",
+        iconURL: authorurl,
+      })
+      .setColor("#0099ff")
+      .setTitle(authorname + "からのお告げ")
+      .setDescription(reply)
+      .setTimestamp();
+    
+    // 画像が生成された場合、Embedに画像を追加
+    if (imageUrl) {
+      embed.setImage(imageUrl);
+    }
+
+    processingMessage.delete();
+    message.reply({ embeds: [embed] });
+  } catch (error) {
+    console.error("Error:", error);
+    processingMessage.delete();
+    message.reply("エラーが発生しました。もう一度お試しください。");
   }
-  let logMessage = `${newState.member.user.username} が`;
-  if (oldMute && !newMute) {
-    logMessage += "ミュートを解除！(" + timeString + ")";
-    channel.send({ content: logMessage, flags: [4096] });
-  } else if (oldMute !== null && !oldMute && newMute) {
-    logMessage += "ミュートに･･･(" + timeString + ")";
-    channel.send({ content: logMessage, flags: [4096] });
+}
+
+client.once("ready", async () => {
+  console.log("Bot is ready");
+  getRepoData()
+});
+
+client.on("messageCreate", async (message) => {
+  console.log(message.content);
+  if (message.channel.id == "1219300699284967526") return;
+  if (
+    !message.content.includes("原神データ") &&
+    !message.content.includes("原神探索データ") &&
+    !message.content.includes("スタレデータ") &&
+    !message.content.includes("ログボ") &&
+    !message.content.includes("原神記録") &&
+    !message.content.includes("スタレ記録") &&
+    message.channelId != "1218795394834763807" &&
+    message.channelId != "1224315125385793588" &&
+    message.channel.id != "1241234556846346292" &&
+    message.channel.id != "1241235243802034217" &&
+    message.channel.id != "1241363534881886218" &&
+    message.channel.id != "1241367444581519432"
+  )
+    return;
+
+  if (
+    message.content.includes("永遠の旅人") ||
+    message.content.includes("LATA") ||
+    message.content.includes("星屑") ||
+    message.content.includes("さと") ||
+    message.content.includes("さね") ||
+    message.content.includes("あまえび") ||
+    message.content.includes("ぽんぽこぽん太")
+  ) {
+    if (
+      message.content.includes("永遠の旅人") ||
+      message.content.includes("LATA") ||
+      message.content.includes("星屑")
+    ) {
+      genshinuid = "888225425";
+      starrailuid = "825896857";
+      genshincookie = process.env.eiennnotabibito_Genshin;
+      starrailcookie = process.env.eiennnotabibito_StarRail;
+      discorduser = "<@691324906729898024>";
+    } else if (
+      message.content.includes("さと") ||
+      message.content.includes("さね")
+    ) {
+      genshinuid = "884676994";
+      starrailuid = "830395371";
+      genshincookie = process.env.sato_Genshin;
+      starrailcookie = process.env.sato_StarRail;
+      discorduser = "<@673139867445755904>";
+    } else if (
+      message.content.includes("あまえび") ||
+      message.content.includes("ぽんぽこぽん太")
+    ) {
+      genshinuid = "884717522";
+      starrailuid = "830832720";
+      genshincookie = process.env.amaebi_Genshin;
+      starrailcookie = process.env.amaebi_StarRail;
+      discorduser = "<@615742894564966410>";
+    } else {
+      return; // 対象外のメッセージは処理しない
+    }
+
+    if (message.content.includes("原神データ")) {
+      if (!message.content.includes("【定期】")) {
+        message.delete();
+      }
+      color = "#808080";
+      await GenshinData(genshinuid, genshincookie, discorduser, message);
+    } else if (message.content.includes("原神探索データ")) {
+      if (!message.content.includes("【定期】")) {
+        message.delete();
+      }
+
+      await GenshinstrongboxData(
+        genshinuid,
+        genshincookie,
+        discorduser,
+        message
+      );
+    } else if (message.content.includes("スタレデータ")) {
+      if (!message.content.includes("【定期】")) {
+        message.delete();
+      }
+      color = "#808080";
+      await StarRailData(starrailuid, starrailcookie, discorduser, message);
+    } else if (message.content.includes("ログボ")) {
+      if(message.channelId != "1227314085259902976" && message.channelId != "1227314353603219456") return;
+      await loginBonus(
+        genshinuid,
+        starrailuid,
+        genshincookie,
+        starrailcookie,
+        discorduser,
+        message
+      );
+    } else if (message.content.includes("原神記録")) {
+      if (!message.content.includes("【定期】")) {
+        message.delete();
+      }
+      await fetchData(genshinuid, discorduser, genshincookie, message).then(
+        ({ todayTotal, thisMonthTotal }) => {
+          const formatter = new Intl.NumberFormat("ja-JP");
+          const formattedTodayTotalGem = formatter.format(todayTotalGem);
+          const formattedThisMonthTotalGem =
+            formatter.format(thisMonthTotalGem);
+          const formattedTodayTotalMora = formatter.format(todayTotalMora);
+          const formattedThisMonthTotalMora =
+            formatter.format(thisMonthTotalMora);
+          const embed = new MessageEmbed()
+            .setColor("#00FF00")
+            .setTitle("原石・モラ 簿帳")
+            .setDescription(discorduser)
+            .addField(
+              "<:Primo_Gem:1227232277734490175>本日獲得の原石",
+              formattedTodayTotalGem
+            )
+            .addField(
+              "<:Primo_Gem:1227232277734490175>今月獲得の原石",
+              formattedThisMonthTotalGem
+            )
+            .addField(
+              "<:mora:1227234829762826361>本日獲得のモラ",
+              formattedTodayTotalMora
+            )
+            .addField(
+              "<:mora:1227234829762826361>今月獲得のモラ",
+              formattedThisMonthTotalMora
+            );
+          message.channel.send({ embeds: [embed] });
+        }
+      );
+      setTimeout(function () {
+        console.log("2 seconds have passed!");
+        process.exit();
+      }, 2000);
+    } else if (message.content.includes("スタレ記録")) {
+      if (!message.content.includes("【定期】")) {
+        message.delete();
+      }
+      await starrailtravelData(starrailuid, starrailcookie, discorduser, message).then(
+        ({ todayTotal, thisMonthTotal }) => {
+          const formatter = new Intl.NumberFormat("ja-JP");
+          const formattedTodayTotalhcoin = formatter.format(todayTotalhcoin);
+          const formattedThisMonthTotalhcoin =
+            formatter.format(thisMonthTotalhcoin);
+          const formattedTodayTotalrails_pass = formatter.format(todayTotalrails_pass);
+          const formattedThisMonthTotalrails_pass =
+            formatter.format(thisMonthTotalrails_pass);
+          const embed = new MessageEmbed()
+            .setColor("#00FF00")
+            .setTitle("星玉・チケット 簿帳")
+            .setDescription(discorduser)
+            .addField(
+              "<:star:1230850949568921620>本日獲得の星玉",
+              formattedTodayTotalhcoin
+            )
+            .addField(
+              "<:star:1230850949568921620>今月獲得の星玉",
+              formattedThisMonthTotalhcoin
+            )
+            .addField(
+              "<:Ticket:1246354064996827137>本日獲得のチケット",
+              formattedTodayTotalrails_pass
+            )
+            .addField(
+              "<:Ticket:1246354064996827137>今月獲得のチケット",
+              formattedThisMonthTotalrails_pass
+            );
+          message.channel.send({ embeds: [embed] });
+        }
+      );
+      setTimeout(function () {
+        console.log("2 seconds have passed!");
+        process.exit();
+      }, 2000);
+    } else {
+      const lines = message.content.split("\n");
+      let code = lines[1];
+      console.log(code);
+      await ExchangeCode(
+        genshinuid,
+        starrailuid,
+        genshincookie,
+        starrailcookie,
+        discorduser,
+        message,
+        code
+      );
+    }
+  } else if (
+    message.content.includes("原神データ") ||
+    message.content.includes("原神探索データ") ||
+    message.content.includes("スタレデータ") ||
+    message.content.includes("ログボ") ||
+    message.content.includes("原神記録") ||
+    message.content.includes("スタレ記録")
+  ) {
+    console.log(message.author.id);
+    if (message.author.id == "691324906729898024") {
+      genshinuid = "888225425";
+      starrailuid = "825896857";
+      genshincookie = process.env.eiennnotabibito_Genshin;
+      starrailcookie = process.env.eiennnotabibito_StarRail;
+      discorduser = "<@691324906729898024>";
+    } else if (message.author.id == "673139867445755904") {
+      genshinuid = "884676994";
+      starrailuid = "830395371";
+      genshincookie = process.env.sato_Genshin;
+      starrailcookie = process.env.sato_StarRail;
+      discorduser = "<@673139867445755904>";
+    } else if (message.author.id == "615742894564966410") {
+      genshinuid = "884717522";
+      starrailuid = "830832720";
+      genshincookie = process.env.amaebi_Genshin;
+      starrailcookie = process.env.amaebi_StarRail;
+      discorduser = "<@615742894564966410>";
+    } else {
+      return; // 対象外のメッセージは処理しない
+    }
+
+    if (message.content.includes("原神データ")) {
+      if (!message.content.includes("【定期】")) {
+        message.delete();
+      }
+      color = "#808080";
+      await GenshinData(genshinuid, genshincookie, discorduser, message);
+    } else if (message.content.includes("原神探索データ")) {
+      if (!message.content.includes("【定期】")) {
+        message.delete();
+      }
+      await GenshinstrongboxData(
+        genshinuid,
+        genshincookie,
+        discorduser,
+        message
+      );
+    } else if (message.content.includes("スタレデータ")) {
+      if (!message.content.includes("【定期】")) {
+        message.delete();
+      }
+      color = "#808080";
+      await StarRailData(starrailuid, starrailcookie, discorduser, message);
+    } else if (message.content.includes("ログボ")) {
+      if(message.channelId != "1227314085259902976" && message.channelId != "1227314353603219456") return;
+      await loginBonus(
+        genshinuid,
+        starrailuid,
+        genshincookie,
+        starrailcookie,
+        discorduser,
+        message
+      );
+    } else if (message.content.includes("原神記録")) {
+      await fetchData(genshinuid, discorduser, genshincookie, message).then(
+        ({ todayTotal, thisMonthTotal }) => {
+          const formatter = new Intl.NumberFormat("ja-JP");
+          const formattedTodayTotalGem = formatter.format(todayTotalGem);
+          const formattedThisMonthTotalGem =
+            formatter.format(thisMonthTotalGem);
+          const formattedTodayTotalMora = formatter.format(todayTotalMora);
+          const formattedThisMonthTotalMora =
+            formatter.format(thisMonthTotalMora);
+          const embed = new MessageEmbed()
+            .setColor("#00FF00")
+            .setTitle("原石・モラ 簿帳")
+            .setDescription(discorduser)
+            .addField(
+              "<:Primo_Gem:1227232277734490175>本日獲得の原石",
+              formattedTodayTotalGem
+            )
+            .addField(
+              "<:Primo_Gem:1227232277734490175>今月獲得の原石",
+              formattedThisMonthTotalGem
+            )
+            .addField(
+              "<:mora:1227234829762826361>本日獲得のモラ",
+              formattedTodayTotalMora
+            )
+            .addField(
+              "<:mora:1227234829762826361>今月獲得のモラ",
+              formattedThisMonthTotalMora
+            );
+          message.channel.send({ embeds: [embed] });
+        }
+      );
+      setTimeout(function () {
+        console.log("2 seconds have passed!");
+        process.exit();
+      }, 2000);
+    } else if (message.content.includes("スタレ記録")) {
+      if (!message.content.includes("【定期】")) {
+        message.delete();
+      }
+      await starrailtravelData(starrailuid, starrailcookie, discorduser, message).then(
+        ({ todayTotal, thisMonthTotal }) => {
+          const formatter = new Intl.NumberFormat("ja-JP");
+          const formattedTodayTotalhcoin = formatter.format(todayTotalhcoin);
+          const formattedThisMonthTotalhcoin =
+            formatter.format(thisMonthTotalhcoin);
+          const formattedTodayTotalrails_pass = formatter.format(todayTotalrails_pass);
+          const formattedThisMonthTotalrails_pass =
+            formatter.format(thisMonthTotalrails_pass);
+          const embed = new MessageEmbed()
+            .setColor("#00FF00")
+            .setTitle("星玉・チケット 簿帳")
+            .setDescription(discorduser)
+            .addField(
+              "<:star:1230850949568921620>本日獲得の星玉",
+              formattedTodayTotalhcoin
+            )
+            .addField(
+              "<:star:1230850949568921620>今月獲得の星玉",
+              formattedThisMonthTotalhcoin
+            )
+            .addField(
+              "<:Ticket:1246354064996827137>本日獲得のチケット",
+              formattedTodayTotalrails_pass
+            )
+            .addField(
+              "<:Ticket:1246354064996827137>今月獲得のチケット",
+              formattedThisMonthTotalrails_pass
+            );
+          message.channel.send({ embeds: [embed] });
+        }
+      );
+      setTimeout(function () {
+        console.log("2 seconds have passed!");
+        process.exit();
+      }, 2000);
+    }
+  }else{
+    if (message.author.bot) return;
+    if ((message.channel.id == "1241234556846346292")||(message.channel.id == "1241235243802034217")) {
+      gamename = "原神";
+      await chatGPT(message, gamename);
+    }else if ((message.channel.id == "1241363534881886218")||(message.channel.id == "1241367444581519432")) {
+      gamename = "スタレ";
+      await chatGPT(message, gamename);
+    }else {
+      return;
+    }
   }
 });
 

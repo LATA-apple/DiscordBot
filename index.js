@@ -174,25 +174,24 @@ client.on("messageCreate", async (message) => {
     message.channel.id == "1224315125385793588"
   ) {
     if (message.author.bot) return;
-    
-    message.channel.send('【永遠の旅人】\n' + message.content);
-    
-    setTimeout(function() {
-      console.log("10 seconds have passed!");
-      
-      message.channel.send('【さね】\n' + message.content);
-      
-      setTimeout(function() {
-        console.log("10 seconds have passed!");
-        
-        message.channel.send('【あまえび】\n' + message.content);
-        
-      }, 10000);
-      
-    }, 10000);
+    const num = 10000;
+
+    message.channel.send("【永遠の旅人】\n" + message.content);
+
+    setTimeout(function () {
+      console.log(num / 1000 + " seconds have passed!");
+
+      message.channel.send("【さね】\n" + message.content);
+
+      setTimeout(function () {
+        console.log(num / 1000 + " seconds have passed!");
+
+        message.channel.send("【あまえび】\n" + message.content);
+      }, num);
+    }, num);
   }
 
-  //**********キャラ情報Notion自動読み込み**********
+  //**********原神キャラ情報Notion自動読み込み**********
   if (
     message.channel.id == "1220800594369970266" ||
     message.channel.id == "1197742966777839718"
@@ -611,7 +610,7 @@ client.on("messageCreate", async (message) => {
       .catch((error) => console.error("Error:", error));
   }
 
-  //**********天賦本Notion自動読み込み**********
+  //**********原神天賦本Notion自動読み込み**********
   if (
     message.channel.id == "1220800306829463643" ||
     message.channel.id == "1196351988967936111"
@@ -697,7 +696,7 @@ client.on("messageCreate", async (message) => {
       .catch((error) => console.error("Error:", error));
   }
 
-  //武器突破素材Notion自動読み込み
+  //**********原神武器突破素材Notion自動読み込み**********
   if (
     message.channel.id == "1220800335543533708" ||
     message.channel.id == "1197527073951072318"
@@ -804,8 +803,8 @@ client.on("messageCreate", async (message) => {
           .then((response) => response.json())
           .then((data) => {
             let nickname = message.content;
-            if (message.content == 'トパーズ'){
-              nickname = 'トパーズ&カブ';
+            if (message.content == "トパーズ") {
+              nickname = "トパーズ&カブ";
             }
             const characters = data.characters;
             let characterKey = null;
@@ -833,62 +832,111 @@ client.on("messageCreate", async (message) => {
                 `攻撃力固定値: ${scoreData[characterKey].main.hand.AttackDelta}`,
                 true
               );
+              function sortValues(obj) {
+                return Object.entries(obj)
+                  .map(([key, value]) => ({ key, value }))
+                  .sort((a, b) => b.value - a.value)
+                  .map((item) => {
+                    let icon = "✅";
+                    if (item.value === 1) {
+                      icon = "👑";
+                    } else if (item.value === 0) {
+                      icon = "❌";
+                    }
+                    return `${icon} ${item.key}: ${item.value}`;
+                  })
+                  .join("\n");
+              }
+
               embed.addField(
                 "- 胴部 -",
-                `HP％: ${scoreData[characterKey].main.body.HPAddedRatio}` +
-                  `\n攻撃力％: ${scoreData[characterKey].main.body.AttackAddedRatio}` +
-                  `\n防御力％: ${scoreData[characterKey].main.body.DefenceAddedRatio}` +
-                  `\n会心率: ${scoreData[characterKey].main.body.CriticalChanceBase}` +
-                  `\n会心ダメージ: ${scoreData[characterKey].main.body.CriticalDamageBase}` +
-                  `\n治癒量: ${scoreData[characterKey].main.body.HealRatioBase}` +
-                  `\n効果命中: ${scoreData[characterKey].main.body.StatusProbabilityBase}`,
+                sortValues({
+                  "HP％": scoreData[characterKey].main.body.HPAddedRatio,
+                  "攻撃力％":
+                    scoreData[characterKey].main.body.AttackAddedRatio,
+                  "防御力％":
+                    scoreData[characterKey].main.body.DefenceAddedRatio,
+                  会心率: scoreData[characterKey].main.body.CriticalChanceBase,
+                  会心ダメージ:
+                    scoreData[characterKey].main.body.CriticalDamageBase,
+                  治癒量: scoreData[characterKey].main.body.HealRatioBase,
+                  効果命中:
+                    scoreData[characterKey].main.body.StatusProbabilityBase,
+                }),
                 true
               );
+
               embed.addField(
                 "- 脚部 -",
-                `HP％: ${scoreData[characterKey].main.feet.HPAddedRatio}` +
-                  `\n攻撃力％: ${scoreData[characterKey].main.feet.AttackAddedRatio}` +
-                  `\n防御力％: ${scoreData[characterKey].main.feet.DefenceAddedRatio}` +
-                  `\n速度: ${scoreData[characterKey].main.feet.SpeedDelta}`,
+                sortValues({
+                  "HP％": scoreData[characterKey].main.feet.HPAddedRatio,
+                  "攻撃力％":
+                    scoreData[characterKey].main.feet.AttackAddedRatio,
+                  "防御力％":
+                    scoreData[characterKey].main.feet.DefenceAddedRatio,
+                  速度: scoreData[characterKey].main.feet.SpeedDelta,
+                }),
                 true
               );
+
               embed.addField(
                 "- 次元界オーブ -",
-                `HP％: ${scoreData[characterKey].main.sphere.HPAddedRatio}` +
-                  `\n攻撃力％: ${scoreData[characterKey].main.sphere.AttackAddedRatio}` +
-                  `\n防御力％: ${scoreData[characterKey].main.sphere.DefenceAddedRatio}` +
-                  `\n物理与ダメージ: ${scoreData[characterKey].main.sphere.PhysicalAddedRatio}` +
-                  `\n炎属性与ダメージ: ${scoreData[characterKey].main.sphere.FireAddedRatio}` +
-                  `\n氷属性与ダメージ: ${scoreData[characterKey].main.sphere.IceAddedRatio}` +
-                  `\n雷属性与ダメージ: ${scoreData[characterKey].main.sphere.ThunderAddedRatio}` +
-                  `\n風属性与ダメージ: ${scoreData[characterKey].main.sphere.WindAddedRatio}` +
-                  `\n量子属性与ダメージ: ${scoreData[characterKey].main.sphere.QuantumAddedRatio}` +
-                  `\n虚数属性与ダメージ: ${scoreData[characterKey].main.sphere.ImaginaryAddedRatio}`,
+                sortValues({
+                  "HP％": scoreData[characterKey].main.sphere.HPAddedRatio,
+                  "攻撃力％":
+                    scoreData[characterKey].main.sphere.AttackAddedRatio,
+                  "防御力％":
+                    scoreData[characterKey].main.sphere.DefenceAddedRatio,
+                  物理与ダメージ:
+                    scoreData[characterKey].main.sphere.PhysicalAddedRatio,
+                  炎属性与ダメージ:
+                    scoreData[characterKey].main.sphere.FireAddedRatio,
+                  氷属性与ダメージ:
+                    scoreData[characterKey].main.sphere.IceAddedRatio,
+                  雷属性与ダメージ:
+                    scoreData[characterKey].main.sphere.ThunderAddedRatio,
+                  風属性与ダメージ:
+                    scoreData[characterKey].main.sphere.WindAddedRatio,
+                  量子属性与ダメージ:
+                    scoreData[characterKey].main.sphere.QuantumAddedRatio,
+                  虚数属性与ダメージ:
+                    scoreData[characterKey].main.sphere.ImaginaryAddedRatio,
+                }),
                 true
               );
+
               embed.addField(
                 "- 連結縄 -",
-                `HP％: ${scoreData[characterKey].main.rope.HPAddedRatio}` +
-                  `\n攻撃力％: ${scoreData[characterKey].main.rope.AttackAddedRatio}` +
-                  `\n防御力％: ${scoreData[characterKey].main.rope.DefenceAddedRatio}` +
-                  `\n撃破特効: ${scoreData[characterKey].main.rope.BreakDamageAddedRatioBase}` +
-                  `\nEP回復効率: ${scoreData[characterKey].main.rope.SPRatioBase}`,
+                sortValues({
+                  "HP％": scoreData[characterKey].main.rope.HPAddedRatio,
+                  "攻撃力％":
+                    scoreData[characterKey].main.rope.AttackAddedRatio,
+                  "防御力％":
+                    scoreData[characterKey].main.rope.DefenceAddedRatio,
+                  撃破特効:
+                    scoreData[characterKey].main.rope.BreakDamageAddedRatioBase,
+                  EP回復効率: scoreData[characterKey].main.rope.SPRatioBase,
+                }),
                 true
               );
+
               embed.addField(
                 "- サブオプション -",
-                `HP固定値: ${scoreData[characterKey].sub.HPDelta}` +
-                  `\nHP%: ${scoreData[characterKey].sub.HPAddedRatio}` +
-                  `\n攻撃力固定値: ${scoreData[characterKey].sub.AttackAddedRatio}` +
-                  `\n攻撃力％: ${scoreData[characterKey].sub.AttackDelta}` +
-                  `\n防御力固定値: ${scoreData[characterKey].sub.DefenceDelta}` +
-                  `\n防御力％: ${scoreData[characterKey].sub.DefenceAddedRatio}` +
-                  `\n速度: ${scoreData[characterKey].sub.SpeedDelta}` +
-                  `\n会心率: ${scoreData[characterKey].sub.CriticalChanceBase}` +
-                  `\n会心ダメージ: ${scoreData[characterKey].sub.CriticalDamageBase}` +
-                  `\n効果命中: ${scoreData[characterKey].sub.StatusProbabilityBase}` +
-                  `\n効果抵抗: ${scoreData[characterKey].sub.StatusResistanceBase}` +
-                  `\n撃破特効: ${scoreData[characterKey].sub.BreakDamageAddedRatioBase}`,
+                sortValues({
+                  HP固定値: scoreData[characterKey].sub.HPDelta,
+                  "HP%": scoreData[characterKey].sub.HPAddedRatio,
+                  攻撃力固定値: scoreData[characterKey].sub.AttackAddedRatio,
+                  "攻撃力％": scoreData[characterKey].sub.AttackDelta,
+                  防御力固定値: scoreData[characterKey].sub.DefenceDelta,
+                  "防御力％": scoreData[characterKey].sub.DefenceAddedRatio,
+                  速度: scoreData[characterKey].sub.SpeedDelta,
+                  会心率: scoreData[characterKey].sub.CriticalChanceBase,
+                  会心ダメージ: scoreData[characterKey].sub.CriticalDamageBase,
+                  効果命中: scoreData[characterKey].sub.StatusProbabilityBase,
+                  効果抵抗: scoreData[characterKey].sub.StatusResistanceBase,
+                  撃破特効:
+                    scoreData[characterKey].sub.BreakDamageAddedRatioBase,
+                }),
                 true
               );
               embed.setDescription("<@" + message.author + ">");
@@ -1865,7 +1913,7 @@ client.on("messageCreate", async (message) => {
               //値調整用ここから
               if (critical == 1.3) {
                 critical = 11.3;
-              }　else if (critical == 1.7) {
+              } else if (critical == 1.7) {
                 critical = 11.7;
               } else if (critical_hurt == 1.7) {
                 critical_hurt = 11.7;
@@ -2918,7 +2966,7 @@ client.on("messageCreate", async (message) => {
                   );
                 });
                 let option = "";
-                if ((few_count == 4 && many_count == 4)||(many_count == 4)) {
+                if ((few_count == 4 && many_count == 4) || many_count == 4) {
                   growth_rate1 = all_percent / 8; //3
                   option = "3オプ";
                 } else if (few_count == 4 && many_count >= 5) {
@@ -3043,15 +3091,30 @@ client.on("messageCreate", async (message) => {
               .setThumbnail(url);
 
             let type_of_relics = "";
-            if ((message.content.includes("生の花"))||(message.content.includes("花"))) {
+            if (
+              message.content.includes("生の花") ||
+              message.content.includes("花")
+            ) {
               type_of_relics = "生の花";
-            } else if ((message.content.includes("死の羽"))||(message.content.includes("羽"))) {
+            } else if (
+              message.content.includes("死の羽") ||
+              message.content.includes("羽")
+            ) {
               type_of_relics = "死の羽";
-            } else if ((message.content.includes("時の砂"))||(message.content.includes("時計"))) {
+            } else if (
+              message.content.includes("時の砂") ||
+              message.content.includes("時計")
+            ) {
               type_of_relics = "時の砂";
-            } else if ((message.content.includes("空の杯"))||(message.content.includes("杯"))) {
+            } else if (
+              message.content.includes("空の杯") ||
+              message.content.includes("杯")
+            ) {
               type_of_relics = "空の杯";
-            } else if ((message.content.includes("理の冠"))||(message.content.includes("冠"))) {
+            } else if (
+              message.content.includes("理の冠") ||
+              message.content.includes("冠")
+            ) {
               type_of_relics = "理の冠";
             }
 
@@ -4147,7 +4210,7 @@ client.on("messageCreate", async (message) => {
                 );
               });
               let option = "";
-              if ((few_count == 4 && many_count == 4)||(many_count == 4)) {
+              if ((few_count == 4 && many_count == 4) || many_count == 4) {
                 growth_rate1 = all_percent / 8; //3
                 option = "3オプ";
               } else if (few_count == 4 && many_count >= 5) {
@@ -4264,17 +4327,32 @@ client.on("messageCreate", async (message) => {
       //.setThumbnail(url);
 
       let type_of_relics = "";
-      if ((message.content.includes("生の花"))||(message.content.includes("花"))) {
-              type_of_relics = "生の花";
-            } else if ((message.content.includes("死の羽"))||(message.content.includes("羽"))) {
-              type_of_relics = "死の羽";
-            } else if ((message.content.includes("時の砂"))||(message.content.includes("時計"))) {
-              type_of_relics = "時の砂";
-            } else if ((message.content.includes("空の杯"))||(message.content.includes("杯"))) {
-              type_of_relics = "空の杯";
-            } else if ((message.content.includes("理の冠"))||(message.content.includes("冠"))) {
-              type_of_relics = "理の冠";
-            }
+      if (
+        message.content.includes("生の花") ||
+        message.content.includes("花")
+      ) {
+        type_of_relics = "生の花";
+      } else if (
+        message.content.includes("死の羽") ||
+        message.content.includes("羽")
+      ) {
+        type_of_relics = "死の羽";
+      } else if (
+        message.content.includes("時の砂") ||
+        message.content.includes("時計")
+      ) {
+        type_of_relics = "時の砂";
+      } else if (
+        message.content.includes("空の杯") ||
+        message.content.includes("杯")
+      ) {
+        type_of_relics = "空の杯";
+      } else if (
+        message.content.includes("理の冠") ||
+        message.content.includes("冠")
+      ) {
+        type_of_relics = "理の冠";
+      }
 
       let critical = 0;
       let critical_hurt = 0;

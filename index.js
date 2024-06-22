@@ -10,15 +10,89 @@ const client = new Client({
     Intents.FLAGS.GUILD_PRESENCES,
   ],
 });
+
+let sign = false;
+
 //オンライン時
 client.on("ready", () => {
   console.log(`==== Logged in: ${client.user.tag} ====`);
-  client.user.setPresence({
-    activity: {
-      name: client.channels.cache.size + "サーバーに導入中",
-    }, //status: dnd→取り込み中、idle→退席中、online→オンライン
-    status: "online",
-  });
+  
+  const channelId = '1209947489243893874'; // メッセージを送信するチャンネルのID
+  const userIds = {
+  '691324906729898024': '永遠の旅人',
+  '673139867445755904': 'さね',
+  '615742894564966410': 'あまえび'
+};
+  const genshinrequesturl = "https://discord.com/api/webhooks/1253745227059957871/KE1gZKlYSg0kQBy32MWGoHWMZAHfHWa-WnJO61Mdy4QzcqA75elQ6NY1aG7t5WSpm55W?wait=true";
+  const requestmethod = "POST";
+  
+  const checkMuteStatus = async () => {
+    if (sign) {
+      console.log('Sign is true, stopping the process.');
+      return; // signがtrueの場合は処理を終了
+    }
+
+    const channel = client.channels.cache.get(channelId);
+    const guild = channel.guild;
+
+    Object.keys(userIds).forEach(userId => {
+      const member = guild.members.cache.get(userId);
+      let mutecount = 0;
+      const embed = new MessageEmbed()
+        .setTitle("ミュート警告")
+        .setColor("#FF0000")
+        .setFooter(`"OK"と送信することでミュート警告をオフにできます。`)
+      
+      const userName = userIds[userId];
+      const message = `${userName}　ミュート警告\n"OK"と送信することでミュート警告をオフにできます。`
+
+      if (member && member.voice.channel) {
+        if (member.voice.selfMute) {
+          mutecount = mutecount + 1;
+          embed.setDescription(`[確認]${userName}　<@${userId}>がミュート中`);
+        } else {
+          console.log(`User　${userName} is not muted`);
+        }
+      } else {
+        console.log(`User ${userName} is not in a voice channel`);
+      }
+      
+      if(mutecount != 0){
+        channel.send({ embeds: [embed] });
+        /*
+        fetch(genshinrequesturl, {
+            method: requestmethod,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ embeds: [embed] }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then((text) => {
+                  throw new Error(
+                    `Error: ${response.status} ${response.statusText}`
+                  );
+                });
+              }
+              return response.json();
+            })
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));*/
+      }
+      mutecount = 0;
+    });
+  };
+
+  setInterval(() => {
+    checkMuteStatus(); // 非同期関数を直接呼び出す
+  }, 180000); // １８0000ミリ秒 = 3分
+
+  setInterval(() => {
+    sign = false; // 30分経過したらsignをfalseに戻す
+    console.log('Sign has been reset to false.');
+  }, 1800000); // 1800000ミリ秒 = 30分
+  
   console.log("Bot is ready!");
 });
 
@@ -96,6 +170,17 @@ client.on("messageCreate", async (message) => {
   console.log(message.author.username);
   console.log(message.channel.id);
   console.log(message.content);
+  
+  // **********VC ミュート警告**********
+  if(((message.content == "OK")||(message.content == "ミュート警告解除")) && message.channel.id == "1209947489243893874"){
+    sign = true;
+    message.delete();
+    const embed = new MessageEmbed()
+      .setTitle("ミュート警告")
+      .setColor("#0000FF")
+      .setDescription("ミュート警告をオフにしました。")
+    message.channel.send({ embeds: [embed] });
+  }
 
   // **********どこでも許可**********
   if (message.content == "壺助力" || message.content == "調度品助力") {
@@ -5534,22 +5619,22 @@ client.on("presenceUpdate", (oldPresence, newPresence) => {
   console.log(newPresence.guild.id);
   if (newPresence.guild.id != "1195754332939894934") return;
   const channel = client.channels.cache.get("1207204533005189131");
-  const user = newPresence.member.user;
-  const oldstatus = oldPresence.status;
-  const newstatus = newPresence.status;
-  console.log(user.username + oldstatus + "→" + newstatus);
-  let status = "";
-  if (newPresence.status == "online") {
-    status = "オンライン";
-  } else if (newPresence.status == "offline") {
-    status = "オフライン";
-  } else if (newPresence.status == "idle") {
-    status = "退席中";
-  } else if (newPresence.status == "dnd") {
-    status = "取り込み中";
-  }
+  const user = !newPresence.member.user;
   if (!user.bot) {
-    console.log(newPresence.member);
+    const oldstatus = !oldPresence.status;
+    const newstatus = !newPresence.status;
+    console.log(user.username + oldstatus + "→" + newstatus);
+    let status = "";
+    if (newPresence.status == "online") {
+      status = "オンライン";
+    } else if (newPresence.status == "offline") {
+      status = "オフライン";
+    } else if (newPresence.status == "idle") {
+      status = "退席中";
+    } else if (newPresence.status == "dnd") {
+      status = "取り込み中";
+    }
+    //console.log(newPresence.member);
     console.log(
       `${newPresence.member.nickname}(${newPresence.member.user.username})が${status}になりました`
     );
@@ -5594,7 +5679,7 @@ client.on("voiceStateUpdate", (oldState, newState) => {
   console.log("statusChk:" + statusChk);
   console.log("oldState.serverDeaf:" + oldState.serverDeaf);
   console.log("newState.channel:" + newState.channel);
-  console.log(newState);
+  //console.log(newState);
 
   if ((statusChk == true || oldState.serverDeaf == null) && newState.channel) {
     //チャンネルに入ってきたときの処理

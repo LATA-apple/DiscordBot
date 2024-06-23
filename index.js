@@ -91,7 +91,7 @@ client.on("ready", () => {
   setInterval(() => {
     sign = false; // 30分経過したらsignをfalseに戻す
     console.log('Sign has been reset to false.');
-  }, 1800000); // 1800000ミリ秒 = 30分
+  }, 3600000); // 1800000ミリ秒 = 30分
   
   console.log("Bot is ready!");
 });
@@ -5612,35 +5612,6 @@ client.on("messageCreate", async (message) => {
       message.reply({ embeds: [embed] });
     }
     //kokoniidou
-  }
-});
-
-client.on("presenceUpdate", (oldPresence, newPresence) => {
-  console.log(newPresence.guild.id);
-  if (newPresence.guild.id != "1195754332939894934") return;
-  const channel = client.channels.cache.get("1207204533005189131");
-  const user = !newPresence.member.user;
-  if (!user.bot) {
-    const oldstatus = !oldPresence.status;
-    const newstatus = !newPresence.status;
-    console.log(user.username + oldstatus + "→" + newstatus);
-    let status = "";
-    if (newPresence.status == "online") {
-      status = "オンライン";
-    } else if (newPresence.status == "offline") {
-      status = "オフライン";
-    } else if (newPresence.status == "idle") {
-      status = "退席中";
-    } else if (newPresence.status == "dnd") {
-      status = "取り込み中";
-    }
-    //console.log(newPresence.member);
-    console.log(
-      `${newPresence.member.nickname}(${newPresence.member.user.username})が${status}になりました`
-    );
-    channel.send(
-      `${newPresence.member.nickname}(${newPresence.member.user.username})が${status}になりました`
-    );
   }
 });
 
